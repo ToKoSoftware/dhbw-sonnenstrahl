@@ -1,5 +1,5 @@
 {
-  "name": "sonnenschein-frontend",
+  "name": "sonnenstrahl-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -23,7 +23,6 @@
     "@types/is-blank": "^2.1.0",
     "angular-feather": "^6.0.10",
     "browser-cookies": "^1.2.0",
-    "csvtojson": "^2.0.10",
     "is-blank": "^2.1.0",
     "mapbox-gl": "^1.12.0",
     "rxjs": "~6.6.0",

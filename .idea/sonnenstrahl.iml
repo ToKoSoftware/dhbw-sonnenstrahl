@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../sonnenstrahl">
+      <excludeFolder url="file://$MODULE_DIR$/../sonnenstrahl/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/../sonnenstrahl/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../sonnenstrahl/server/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/../sonnenstrahl/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/../sonnenstrahl/tmp" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="mapbox-gl" level="application" />
+  </component>
+</module>
