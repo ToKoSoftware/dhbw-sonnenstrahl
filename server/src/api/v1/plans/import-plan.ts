@@ -1,12 +1,12 @@
-import {IncomingPlan, InternalPlan} from '../../interfaces/plan.interface';
+import {IncomingPlan, InternalPlan} from '../../../interfaces/plan.interface';
 import {Request, Response} from 'express';
-import {wrapResponse} from '../../functions/response-wrapper';
+import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
-import {mapPlans} from '../../functions/map-plans.func';
+import {mapPlans} from '../../../functions/map-plans.func';
 import {UploadedFile} from 'express-fileupload';
-import {Plan} from "../../models/plan.model";
+import {Plan} from "../../../models/plan.model";
 
-export async function importData(req: Request, res: Response) {
+export async function importPlan(req: Request, res: Response) {
     try {
         if (isBlank(req.files) || req.files === undefined || req.files.file == null) {
             throw 'No file uploaded';
