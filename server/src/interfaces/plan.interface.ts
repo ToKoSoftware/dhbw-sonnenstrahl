@@ -1,5 +1,5 @@
-export interface Plan {
-    id: string;
+export interface InternalPlan {
+    id?: string;
     postcode: string;
     plan: string;
     usage_min: number;

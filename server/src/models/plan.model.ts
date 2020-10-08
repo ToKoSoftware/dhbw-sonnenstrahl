@@ -1,10 +1,12 @@
-import {Table, Column, Model, HasMany} from 'sequelize-typescript';
+import {Table, Column, Model, HasMany, BeforeCreate} from 'sequelize-typescript';
+import { v4 as uuidv4 } from 'uuid';
 
 @Table
 export class Plan extends Model<Plan> {
-
-    @Column
-    id: string;
+    @BeforeCreate
+    static addUuid(instance: Plan) {
+        return instance.id = uuidv4();
+    }
 
     @Column
     postcode: string;

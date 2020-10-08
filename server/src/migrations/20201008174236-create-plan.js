@@ -3,10 +3,9 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Plans', {
       id: {
-        allowNull: false,
         primaryKey: true,
+        allowNull: false,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
       },
       postcode: {
         type: Sequelize.STRING
@@ -36,7 +35,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       is_active: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
       },
       createdAt: {
         allowNull: false,

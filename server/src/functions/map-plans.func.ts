@@ -1,9 +1,8 @@
-import {IncomingPlan, Plan} from '../interfaces/plan.interface';
+import {IncomingPlan, InternalPlan} from '../interfaces/plan.interface';
 import {v4 as uuidv4} from 'uuid';
 
-export function mapPlans(incomingPlan: IncomingPlan): Plan {
+export function mapPlans(incomingPlan: IncomingPlan): InternalPlan {
     return {
-        id: uuidv4(),
         plan: incomingPlan.plan,
         postcode: incomingPlan.postcode,
         cost_fix: incomingPlan.cost_fix,

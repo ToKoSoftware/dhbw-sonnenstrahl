@@ -1,6 +1,7 @@
 import {Sequelize} from 'sequelize-typescript';
 import {Vars} from "../vars";
 import {User} from "../models/user.model";
+import {Plan} from "../models/plan.model";
 
 
 export function connectToDatabase() {
@@ -12,7 +13,7 @@ export function connectToDatabase() {
             () => Vars.loggy.info('Connection has been established successfully.')
         );
         // todo
-        sequelize.addModels([User]);
+        sequelize.addModels([User, Plan]);
         Vars.db = sequelize;
     } catch (error) {
         Vars.loggy.error('Unable to connect to the database:', error);
