@@ -4,7 +4,8 @@ import {Vars} from './vars';
 import {wrapResponse} from './functions/response-wrapper';
 import fileUpload from 'express-fileupload';
 import tempDirectory from 'temp-dir';
-import {importData} from './api/v1/import-data';
+import {importPlan} from './api/v1/plans/import-plan';
+import {getPlan, getPlans} from "./api/v1/plans/get-plans";
 
 export default function startServer() {
 
@@ -34,14 +35,14 @@ export default function startServer() {
 
 
     app.get('/api/v1/plans', (req, res) => {
-
+        getPlans(req, res);
     });
 
     app.get('/api/v1/plan/:id', (req, res) => {
-
+        getPlan(req,res);
     });
 
-    app.put('/api/v1/plans', (req, res) => importData(req, res));
+    app.put('/api/v1/plans', (req, res) => importPlan(req, res));
 
 
     app.post('/api/v1/order-plan', (req, res) => {
