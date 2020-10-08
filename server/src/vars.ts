@@ -1,9 +1,11 @@
 import Loggy from './functions/loggy.func';
 import {Configuration} from "./interfaces/configutation.interface";
+import {Sequelize} from "sequelize-typescript";
 
 export abstract class Vars {
     public static loggy: Loggy;
     public static config: Configuration;
+    public static db: Sequelize;
 }
 
 export var apiDefaults = {
