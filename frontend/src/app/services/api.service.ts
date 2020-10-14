@@ -4,6 +4,7 @@ import {Observable, Subject} from 'rxjs';
 import cookies from 'browser-cookies';
 import {filter, map, tap} from 'rxjs/operators';
 import isBlank from 'is-blank';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class ApiService {
       });
 
     const jwt = this.getJwt();
-    return this.http.get(`${this.getApiBaseUrl()}${path}`, {
+    return this.http.get(`${ApiService.getApiBaseUrl()}${path}`, {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -45,7 +46,7 @@ export class ApiService {
     });
     const jwt = this.getJwt();
 
-    return this.http.post(`${this.getApiBaseUrl()}${path}`, httpParams, {
+    return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, httpParams, {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -63,7 +64,7 @@ export class ApiService {
     });
     const jwt = this.getJwt();
 
-    return this.http.put(`${this.getApiBaseUrl()}${path}`, httpParams, {
+    return this.http.put(`${ApiService.getApiBaseUrl()}${path}`, httpParams, {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -82,7 +83,7 @@ export class ApiService {
       });
 
     const jwt = this.getJwt();
-    return this.http.delete(`${this.getApiBaseUrl()}${path}`, {
+    return this.http.delete(`${ApiService.getApiBaseUrl()}${path}`, {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -112,7 +113,7 @@ export class ApiService {
 
     const jwt = this.getJwt();
     const progress$ = new Subject<number>();
-    const request$ = handler(`${this.getApiBaseUrl()}${path}`, data, {
+    const request$ = handler(`${ApiService.getApiBaseUrl()}${path}`, data, {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
       },
@@ -146,9 +147,8 @@ export class ApiService {
     };
   }
 
-  private getApiBaseUrl(): string {
-    // todo
-    return 'http://localhost:5000/api/v1';
+  private static getApiBaseUrl(): string {
+    return environment.apiUrl;
   }
 
   private getJwt(): string | null {

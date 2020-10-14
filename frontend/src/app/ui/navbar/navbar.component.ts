@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
 
   public toggleUserMenu(): void {
     if (this.profileMenu.nativeElement.classList.contains('opacity-0')) {
+      this.profileMenu.nativeElement.classList.remove(['hidden']);
       this.profileMenu.nativeElement.classList.remove(['opacity-0']);
       this.profileMenu.nativeElement.classList.remove('scale-95');
       this.profileMenu.nativeElement.classList.add('opacity-100');
@@ -27,10 +28,11 @@ export class NavbarComponent implements OnInit {
       this.profileMenu.nativeElement.classList.remove('scale-100');
       this.profileMenu.nativeElement.classList.add('opacity-0');
       this.profileMenu.nativeElement.classList.add('scale-95');
+      this.profileMenu.nativeElement.classList.add(['hidden']);
     }
   }
 
   public search(): void {
-    this.router.navigate(['/search'], { queryParams: { q: this.searchQuery } });
+    this.router.navigate(['/search', this.searchQuery]);
   }
 }

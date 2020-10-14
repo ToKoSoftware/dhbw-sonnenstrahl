@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UiButtonGroup} from '../ui.interface';
+import {UiBreadcrumb, UiButtonGroup} from '../ui.interface';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +9,7 @@ import {UiButtonGroup} from '../ui.interface';
 export class HeaderComponent implements OnInit {
   @Input('title') title = '';
   @Input('buttons') buttons: UiButtonGroup | null = null;
+  @Input('buttons') breadcrumbs: UiBreadcrumb[] | null = null;
 
   constructor() {
   }

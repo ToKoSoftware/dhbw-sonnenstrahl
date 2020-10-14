@@ -13,6 +13,7 @@ import {HeaderComponent} from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { StepsComponent } from './steps/steps.component';
 import {FormsModule} from '@angular/forms';
+import { NavSpacerComponent } from './nav-spacer/nav-spacer.component';
 
 
 @NgModule({
@@ -26,16 +27,18 @@ import {FormsModule} from '@angular/forms';
     SidebarComponent,
     HeaderComponent,
     ContainerComponent,
-    StepsComponent
+    StepsComponent,
+    NavSpacerComponent
   ],
-  exports: [
-    NavbarComponent,
-    DropdownButtonComponent,
-    SidebarComponent,
-    HeaderComponent,
-    ContainerComponent,
-    ButtonComponent
-  ],
+    exports: [
+        NavbarComponent,
+        DropdownButtonComponent,
+        SidebarComponent,
+        HeaderComponent,
+        ContainerComponent,
+        ButtonComponent,
+        NavSpacerComponent
+    ],
   imports: [
     CommonModule,
     IconsModule,

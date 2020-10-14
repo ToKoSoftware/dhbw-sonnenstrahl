@@ -7,3 +7,9 @@ export interface UiButton {
 export interface UiButtonGroup {
   buttons: UiButton[];
 }
+
+export interface UiBreadcrumb {
+  chevron: boolean;
+  title: string;
+  routerLink: string;
+}
