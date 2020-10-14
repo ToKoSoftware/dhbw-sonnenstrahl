@@ -29,29 +29,24 @@ export default function startServer() {
     /**
      * Routes
      */
-    app.get('/api/v1', (req, res) => {
-        res.send(wrapResponse(true));
-    });
+    app.get('/api/v1', (req, res) => res.send(wrapResponse(true)));
 
-
-    app.get('/api/v1/plans', (req, res) => {
-        getPlans(req, res);
-    });
-
-    app.get('/api/v1/plan/:id', (req, res) => {
-        getPlan(req,res);
-    });
-
+    /**
+     * Plans
+     */
+    app.get('/api/v1/plans', (req, res) => getPlans(req, res));
     app.put('/api/v1/plans', (req, res) => importPlan(req, res));
+    app.get('/api/v1/plan/:id', (req, res) => getPlan(req,res));
 
 
-    app.post('/api/v1/order-plan', (req, res) => {
+
+    /**
+     * Order
+     */
+    app.post('/api/v1/plan/:id/order', (req, res) => {
 
     });
 
-    app.post('/api/v1/update-plans', (req, res) => {
-
-    });
 
     app.use((req, res, next) => {
         res.status(404).send(wrapResponse(false, {

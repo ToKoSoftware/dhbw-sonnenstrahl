@@ -1,12 +1,13 @@
 import {Request} from "express";
 import isBlank from "is-blank";
-import {Op} from "sequelize";
+import Sequelize, {Op} from "sequelize";
 
 export function buildQuery(config: QueryBuilderConfig, req: Request): QueryBuilderData {
     if (config.allowLimitAndOffset) {
         config.query = buildLimitAndOffset(config.query, req);
     }
     if (config.allowedSearchFields && config.searchString) {
+        console.log(2)
         config.query = buildOrLikeSearchQuery(config.query, config.searchString, config.allowedSearchFields);
     }
     if (config.allowedFilterFields && config.customFilterResolver) {
@@ -57,12 +58,14 @@ export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders:
 }
 
 export function buildOrLikeSearchQuery(query: QueryBuilderData, needle: string, allowedFields: string[] = []) {
+    let lenght = 0;
     let search = {
-        [Op.or]: allowedFields.map(field => {
+        [Sequelize.Op.or]: allowedFields.map(field => {
                 let a: { [name: string]: unknown } = {};
                 a[field] = {
-                    [Op.iLike]: '%' + needle + '%'
+                    [Sequelize.Op.iLike]: '%' + needle + '%'
                 }
+                lenght++;
                 return a;
             }
         )
@@ -72,7 +75,8 @@ export function buildOrLikeSearchQuery(query: QueryBuilderData, needle: string, 
             ...query,
             ...search
         }
-    } else if (Object.keys(search).length != 0) {
+    } else if (lenght != 0) {
+        // !Object.keys(search).length is not working here, don't know why
         query.where = search;
     }
     return query;
