@@ -47,11 +47,6 @@ function createPlanEntry(data: InternalPlan) {
         plan: data.plan,
         postcode: data.postcode,
         cost_fix: data.cost_fix,
-        cost_var: Math.floor(data.cost_var * 10000),
-        cost_n_var: Math.floor(data.cost_n_var * 10000),
-        usage_max: data.usage_max,
-        usage_min: data.usage_min,
-        usage_n_max: data.usage_n_max,
-        usage_n_min: data.usage_n_min,
+        cost_var: data.cost_var
     })
 }

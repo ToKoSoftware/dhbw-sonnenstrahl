@@ -3,14 +3,9 @@ import {v4 as uuidv4} from 'uuid';
 
 export function mapPlans(incomingPlan: IncomingPlan): InternalPlan {
     return {
-        plan: incomingPlan.plan,
-        postcode: incomingPlan.postcode,
-        cost_fix: incomingPlan.cost_fix,
-        cost_var: incomingPlan.cost_var,
-        cost_n_var: incomingPlan.cost_n_var,
-        usage_max: incomingPlan.usage_max,
-        usage_min: incomingPlan.usage_min,
-        usage_n_max: incomingPlan.usage_n_max,
-        usage_n_min: incomingPlan.usage_n_min,
+        plan: incomingPlan.Tarifname,
+        postcode: incomingPlan.PLZ,
+        cost_fix: Math.floor(incomingPlan.Fixkosten * 10000),
+        cost_var: Math.floor(incomingPlan.VariableKosten * 10000),
     };
 }

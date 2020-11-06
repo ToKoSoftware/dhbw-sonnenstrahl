@@ -13,22 +13,7 @@ module.exports = {
       plan: {
         type: Sequelize.STRING
       },
-      usage_min: {
-        type: Sequelize.INTEGER
-      },
-      usage_max: {
-        type: Sequelize.INTEGER
-      },
-      usage_n_min: {
-        type: Sequelize.INTEGER
-      },
-      usage_n_max: {
-        type: Sequelize.INTEGER
-      },
       cost_var: {
-        type: Sequelize.INTEGER
-      },
-      cost_n_var: {
         type: Sequelize.INTEGER
       },
       cost_fix: {
