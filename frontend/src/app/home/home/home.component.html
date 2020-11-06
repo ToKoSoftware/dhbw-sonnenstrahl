@@ -20,6 +20,8 @@
               class="mt-1 rounded-md shadow-sm">
               <div>
                 <input aria-label="Postleitzahl"
+                       (keyup.enter)="search()"
+                       [(ngModel)]="searchQuery"
                        type="number"
                        class="h-16 text-1xl text-center form-input relative block w-full rounded-none rounded-t-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:leading-5"
                        placeholder="Postleitzahl">

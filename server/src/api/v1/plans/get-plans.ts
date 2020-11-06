@@ -31,7 +31,6 @@ export async function getPlans(req: Request, res: Response) {
         allowedOrderFields: allowedOrderFields
     }
     query = buildQuery(queryConfig, req);
-
     let data: unknown = [];
     await Plan.findAll(query).then(d => {
         data = d;

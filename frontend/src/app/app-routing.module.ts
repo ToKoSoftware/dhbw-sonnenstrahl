@@ -6,8 +6,7 @@ import {CommonModule} from '@angular/common';
 const routes: Routes = [
   {path: '', pathMatch: 'full', loadChildren: './home/home.module#HomeModule'},
   {path: 'search', loadChildren: './search/search.module#SearchModule'},
-  {path: 'plans', loadChildren: './home/home.module#HomeModule'},
-  {path: 'plan', loadChildren: './home/home.module#HomeModule'},
+  {path: 'plans', loadChildren: './plans/plans.module#PlansModule'},
   {path: '**', component: Error404Component},
 ];
 

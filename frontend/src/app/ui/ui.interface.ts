@@ -9,7 +9,6 @@ export interface UiButtonGroup {
 }
 
 export interface UiBreadcrumb {
-  chevron: boolean;
   title: string;
   routerLink: string;
 }

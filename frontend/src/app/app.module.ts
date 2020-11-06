@@ -11,6 +11,7 @@ import {CommonModule} from '@angular/common';
 import {ErrorModule} from './error/error.module';
 import {HomeModule} from './home/home.module';
 import {SearchModule} from './search/search.module';
+import {PlansModule} from './plans/plans.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {SearchModule} from './search/search.module';
     IconsModule,
     UiModule,
     HomeModule,
+    PlansModule,
     SearchModule,
     ErrorModule,
   ],
