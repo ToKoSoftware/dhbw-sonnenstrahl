@@ -2,7 +2,7 @@ import {Sequelize} from 'sequelize-typescript';
 import {Vars} from "../vars";
 import {User} from "../models/user.model";
 import {Plan} from "../models/plan.model";
-
+import {Op} from 'sequelize';
 
 export function connectToDatabase() {
     const sequelize = new Sequelize(
@@ -15,6 +15,7 @@ export function connectToDatabase() {
         // todo
         sequelize.addModels([User, Plan]);
         Vars.db = sequelize;
+        Vars.op = Op;
     } catch (error) {
         Vars.loggy.error('Unable to connect to the database:', error);
     }

@@ -4,7 +4,7 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
 import {mapPlans} from '../../../functions/map-plans.func';
 import {UploadedFile} from 'express-fileupload';
-import {Plan} from "../../../models/plan.model";
+import {Plan} from '../../../models/plan.model';
 
 export async function importPlan(req: Request, res: Response) {
     try {
@@ -26,7 +26,14 @@ export async function importPlan(req: Request, res: Response) {
 
 async function loadCSV(file: UploadedFile): Promise<IncomingPlan[]> {
     const csv = require('csvtojson');
-    return csv({delimiter: ";"}).fromFile(file.tempFilePath);
+    return csv({
+            delimiter: ';',
+            colParser: {
+                Fixkosten: transformEuroToCents,
+                VariableKosten: transformEuroToCents
+            }
+        }
+    ).fromFile(file.tempFilePath);
 }
 
 function deactivatePlans(): Promise<any> {
@@ -48,5 +55,9 @@ function createPlanEntry(data: InternalPlan) {
         postcode: data.postcode,
         cost_fix: data.cost_fix,
         cost_var: data.cost_var
-    })
+    });
+}
+
+function transformEuroToCents(eur: string): number {
+    return Math.floor(Number(eur.replace(",", ".")) * 10000);
 }
