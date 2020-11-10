@@ -36,7 +36,7 @@ export default function startServer() {
      */
     app.get('/api/v1/plans', (req, res) => getPlans(req, res));
     app.put('/api/v1/plans', (req, res) => importPlan(req, res));
-    app.get('/api/v1/plan/:id', (req, res) => getPlan(req,res));
+    app.get('/api/v1/plans/:id', (req, res) => getPlan(req,res));
 
 
 
