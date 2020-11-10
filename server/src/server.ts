@@ -6,6 +6,9 @@ import fileUpload from 'express-fileupload';
 import tempDirectory from 'temp-dir';
 import {importPlan} from './api/v1/plans/import-plan';
 import {getPlan, getPlans} from "./api/v1/plans/get-plans";
+import {getOrder, getOrders} from './api/v1/orders/get-orders';
+import bodyParser from 'body-parser';
+import {createOrder} from './api/v1/orders/create-order';
 
 export default function startServer() {
 
@@ -14,6 +17,7 @@ export default function startServer() {
      */
     const app = express();
     app.use(cors());
+    app.use(bodyParser.json());
     const PORT: string | number = process.env.PORT || 5000;
     const router = express.Router();
     app.use(router);
@@ -43,9 +47,9 @@ export default function startServer() {
     /**
      * Order
      */
-    app.post('/api/v1/plan/:id/order', (req, res) => {
-
-    });
+    app.get('/api/v1/orders', (req, res) => getOrders(req, res));
+    app.get('/api/v1/orders/:id', (req, res) => getOrder(req, res));
+    app.post('/api/v1/orders', (req, res) => createOrder(req, res));
 
 
     app.use((req, res, next) => {

@@ -13,14 +13,13 @@ export async function getPlans(req: Request, res: Response) {
     };
     // todo move this to the model
     const allowedSearchFields = ['plan', 'postcode'];
-    const allowedOrderFields = ['postcode', 'plan', 'usage_max', 'usage_min', 'cost_var', 'cost_n_var', 'cost_fix'];
+    const allowedOrderFields = ['postcode', 'plan', 'cost_var', 'cost_fix'];
     const allowedFilterFields = ['id', 'postcode', 'plan', 'is_active'];
 
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
-    console.log(req.query.search);
     const queryConfig: QueryBuilderConfig = {
         query: query,
         searchString: req.query.search as string || '',

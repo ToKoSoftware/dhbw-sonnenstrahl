@@ -2,7 +2,7 @@ import {IncomingPlan, InternalPlan} from '../../../interfaces/plan.interface';
 import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
-import {mapPlans} from '../../../functions/map-plans.func';
+import {mapPlan} from '../../../functions/map-plan.func';
 import {UploadedFile} from 'express-fileupload';
 import {Plan} from '../../../models/plan.model';
 
@@ -14,7 +14,7 @@ export async function importPlan(req: Request, res: Response) {
         // flatten
         const file = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file;
         const incomingData = await loadCSV(file);
-        const targetData: InternalPlan[] = incomingData.map(mapPlans);
+        const targetData: InternalPlan[] = incomingData.map(mapPlan);
         await deactivatePlans();
         targetData.forEach(createPlanEntry);
         res.send(wrapResponse(true, targetData));
