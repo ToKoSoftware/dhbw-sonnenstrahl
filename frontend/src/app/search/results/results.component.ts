@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {ApiService} from '../../services/api.service';
 import {PlanData} from '../../interfaces/plan.interface';
+import {UiBreadcrumb} from '../../ui/ui.interface';
 
 @Component({
   selector: 'app-results',
@@ -14,6 +15,17 @@ export class ResultsComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   public results: PlanData[] = [];
   public loading = false;
+  public breadcrumbs: UiBreadcrumb[] = [
+    {
+      chevron: false,
+      routerLink: '/',
+      title: 'Start'
+    }, {
+      chevron: true,
+      routerLink: '/',
+      title: 'Tarif Suchen'
+    }
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +42,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   private queryApi(query: string): void {
     this.loading = true;
     this.api.get<PlanData[]>('/plans', {
-      search: query
+      postcode: query
     }).subscribe(
       data => {
         this.loading = false;
@@ -39,7 +51,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
+  }
+
+  public replaceText(plan: PlanData): string {
+    return JSON.stringify(plan);
   }
 }
