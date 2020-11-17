@@ -9,6 +9,7 @@ import {getPlan, getPlans} from "./api/v1/plans/get-plans";
 import {getOrder, getOrders} from './api/v1/orders/get-orders';
 import bodyParser from 'body-parser';
 import {createOrder} from './api/v1/orders/create-order';
+import {updateOrder} from './api/v1/orders/update-order';
 
 export default function startServer() {
 
@@ -51,6 +52,8 @@ export default function startServer() {
     app.get('/api/v1/orders/:id', (req, res) => getOrder(req, res));
     app.post('/api/v1/orders', (req, res) => createOrder(req, res));
     app.post('/orders', (req, res) => createOrder(req, res));
+    app.put('/api/v1/order/:id', (req, res) => updateOrder(req, res));  //TODO Unsicher ob order oder orders
+
 
 
     app.use((req, res, next) => {
