@@ -17,11 +17,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
   public loading = false;
   public breadcrumbs: UiBreadcrumb[] = [
     {
-      chevron: false,
       routerLink: '/',
       title: 'Start'
     }, {
-      chevron: true,
       routerLink: '/',
       title: 'Tarif Suchen'
     }
