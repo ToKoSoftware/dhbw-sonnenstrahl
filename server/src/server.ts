@@ -50,6 +50,7 @@ export default function startServer() {
     app.get('/api/v1/orders', (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', (req, res) => getOrder(req, res));
     app.post('/api/v1/orders', (req, res) => createOrder(req, res));
+    app.post('/orders', (req, res) => createOrder(req, res));
 
 
     app.use((req, res, next) => {
