@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import isBlank from "is-blank";
+import { checkRequestKeysAreNotEmpty } from "../../../functions/checkInputs.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { Order } from "../../../models/order.model";
 
@@ -25,7 +26,7 @@ export async function updateOrder(req: Request, res: Response) {
     }
 
     //Order Objekt from database must not be null, to change it.
-    if (data !== null && req.body.id === null) {
+    if (data !== null && req.body.id === null && checkRequestKeysAreNotEmpty(req)) {
         await Order.update(
             req.body, 
             {
@@ -38,6 +39,9 @@ export async function updateOrder(req: Request, res: Response) {
                 success = false;
                 return res.send(wrapResponse(success, { error: "Update failed." }));
             });
+    } else if(checkRequestKeysAreNotEmpty(req) === false) {
+        success = false;
+        return res.send(wrapResponse(success, { error: "Fields must not be empty" }));
     } else if(req.body.id != null) {
         success = false;
         return res.send(wrapResponse(success, { error: "ID must not be changed" }));
