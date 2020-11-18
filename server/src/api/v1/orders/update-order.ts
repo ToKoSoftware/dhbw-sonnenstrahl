@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import isBlank from "is-blank";
-import { mapPlan } from "../../../functions/map-plan.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { InternalOrder } from "../../../interfaces/orders.interface";
-import { InternalPlan } from "../../../interfaces/plan.interface";
 import { Order } from "../../../models/order.model";
 
 export async function updateOrder(req: Request, res: Response) {
@@ -24,13 +21,25 @@ export async function updateOrder(req: Request, res: Response) {
             .catch(error => {
                 success = false;
                 data = null;
-            }
-            );
+            });
     }
 
     //Order Objekt from database must not be null, to change it.
     if (data !== null) {
-        //TODO: params finden, die gesetzt sind, params neu setzen, neuen Datensatz zurückgeben.
+        await Order.update(
+            { 
+                req.body //TODO: Wie is hier die richtige syntax? Laut Bespiel isses genau so machbar mit .update().
+            }, 
+            {
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then((updatedOrder) => data = updatedOrder)
+            .catch(error => {
+                success = false;
+                return res.send(wrapResponse(success, { error: "Update failed." }));
+            });
     } else {
         success = false;
         return res.send(wrapResponse(success, { error: "No order with given id found" }));
