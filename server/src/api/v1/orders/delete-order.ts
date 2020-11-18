@@ -4,7 +4,8 @@ import { Order } from "../../../models/order.model";
 
 export async function deleteOrder(req: Request, res: Response) {
     await Order.destroy(
-        {where: {
+        {
+       		where: {
             id: req.params.id
         }}
     ).
