@@ -1,6 +1,5 @@
 import { Request } from 'express';
 import isBlank from 'is-blank';
-import { any } from 'sequelize/types/lib/operators';
 
 export function keyIsSetAndNotEmpty<T extends object, U extends keyof T>(obj: T, key: U): boolean {
     if (key in obj) {
