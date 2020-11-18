@@ -25,11 +25,9 @@ export async function updateOrder(req: Request, res: Response) {
     }
 
     //Order Objekt from database must not be null, to change it.
-    if (data !== null) {
+    if (data !== null && req.body.id === null) {
         await Order.update(
-            { 
-                req.body //TODO: Wie is hier die richtige syntax? Laut Bespiel isses genau so machbar mit .update().
-            }, 
+            req.body, 
             {
                 where: {
                     id: req.params.id
@@ -40,6 +38,9 @@ export async function updateOrder(req: Request, res: Response) {
                 success = false;
                 return res.send(wrapResponse(success, { error: "Update failed." }));
             });
+    } else if(req.body.id != null) {
+        success = false;
+        return res.send(wrapResponse(success, { error: "ID must not be changed" }));
     } else {
         success = false;
         return res.send(wrapResponse(success, { error: "No order with given id found" }));
