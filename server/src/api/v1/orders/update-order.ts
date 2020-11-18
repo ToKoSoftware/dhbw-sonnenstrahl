@@ -9,10 +9,11 @@ import { Order } from "../../../models/order.model";
 export async function updateOrder(req: Request, res: Response) {
     let success = true;
     let data;
-    try {
-        if (isBlank(req.body) || req.params.id === null) {
-            throw 'No body or valid param set.';
-        }
+
+    if (isBlank(req.body) || req.params.id === null) {
+        return res.send(wrapResponse(success, { error: "No body or valid param set." }));
+
+    } else {
         await Order.findOne(
             {
                 where: {
@@ -21,20 +22,19 @@ export async function updateOrder(req: Request, res: Response) {
             })
             .then((foundOrder) => data = foundOrder)
             .catch(error => {
-                    success = false;
-                    data = null;
-                }
+                success = false;
+                data = null;
+            }
             );
-    } catch (e) {
-        res.send(wrapResponse(success, {error: e}));
-        return;
-    }
-    //Order Objekt from database must not be null, to change it.
-    if(data !== null){
-        //TODO: params finden, die gesetzt sind, params neu setzen, neuen Datensatz zurückgeben.
-    }else{
-        success = false;
     }
 
-    return res.send(wrapResponse(success, {data: data}));
+    //Order Objekt from database must not be null, to change it.
+    if (data !== null) {
+        //TODO: params finden, die gesetzt sind, params neu setzen, neuen Datensatz zurückgeben.
+    } else {
+        success = false;
+        return res.send(wrapResponse(success, { error: "No order with given id found" }));
+    }
+
+    return res.send(wrapResponse(success, { data: data }));
 }
