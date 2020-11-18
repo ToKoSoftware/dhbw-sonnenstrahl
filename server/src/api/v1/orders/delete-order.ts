@@ -9,7 +9,6 @@ export async function deleteOrder(req: Request, res: Response) {
             id: req.params.id
         }}
     ).
-    then((res) => res).
     catch(error => {
         return res.send(wrapResponse(false, {error: 'Could not delete Order with id ' + req.params.id}));
     });
