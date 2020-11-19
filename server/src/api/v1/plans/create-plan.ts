@@ -16,7 +16,11 @@ export async function createPlan(req: Request, res: Response) {
     }
 
     const mappedIncommingData: InternalPlan = mapPlan(incomingData);
-    let data = await Plan.create(mappedIncommingData).then((res) => res).catch(error => { return res.send(wrapResponse(false, {error: 'Could not create Plan'}));});
+    let data = await Plan.create(mappedIncommingData)
+    .then((res) => res)
+    .catch(error => { 
+        return res.send(wrapResponse(false, {error: 'Could not create Plan'}));
+    });
 
     return res.send(wrapResponse(true, data));
 }
