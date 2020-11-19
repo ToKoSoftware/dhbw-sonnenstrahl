@@ -9,13 +9,13 @@ import {Vars} from '../../../vars';
 
 export async function createOrder(req: Request, res: Response) {
     const incomingData: IncomingOrder = req.body;
-
+    const mappedIncomingData: InternalOrder = mapOrder(incomingData);
+    
     let requiredFields = Order.requiredFields();
-    if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
+    if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
         res.send(wrapResponse(false, {error: 'Not all required fields have been set'}));
         return;
     }
-    const mappedIncomingData: InternalOrder = mapOrder(incomingData);
     let plan: Plan | null = await Plan.findOne(
         {
             where: {
