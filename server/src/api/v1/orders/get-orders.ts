@@ -6,7 +6,6 @@ import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../.
 
 export async function getOrder(req: Request, res: Response) {
     let data;
-    let success = true;
     await Order.findOne(
         {
             where: {
@@ -15,12 +14,11 @@ export async function getOrder(req: Request, res: Response) {
         })
         .then((order) => data = order)
         .catch(error => {
-                success = false;
-                data = [];
+                data = null;
             }
         );
-
-    return res.send(wrapResponse(success, data));
+    // todo trow 404
+    return res.send(wrapResponse(data != null, data));
 }
 
 export async function getOrders(req: Request, res: Response) {
