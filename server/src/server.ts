@@ -9,6 +9,8 @@ import {getPlan, getPlans} from "./api/v1/plans/get-plans";
 import {getOrder, getOrders} from './api/v1/orders/get-orders';
 import bodyParser from 'body-parser';
 import {createOrder} from './api/v1/orders/create-order';
+import { createTypeLiteralNode } from 'typescript';
+import { createPlan } from './api/v1/plans/create-plan';
 
 export default function startServer() {
 
@@ -41,7 +43,7 @@ export default function startServer() {
     app.get('/api/v1/plans', (req, res) => getPlans(req, res));
     app.put('/api/v1/plans', (req, res) => importPlan(req, res));
     app.get('/api/v1/plans/:id', (req, res) => getPlan(req,res));
-
+    app.post('api/v1/plan', (req, res) => createPlan(req, res));
 
 
     /**

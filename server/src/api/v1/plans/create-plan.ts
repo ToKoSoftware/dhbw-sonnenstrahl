@@ -1,0 +1,22 @@
+import { Request, Response } from "express";
+import { objectHasRequiredAndNotEmptyKeys } from "../../../functions/checkInputs.func";
+import { wrapResponse } from "../../../functions/response-wrapper";
+import { IncomingPlan, InternalPlan } from "../../../interfaces/plan.interface";
+import { Plan } from "../../../models/plan.model";
+import { mapPlan } from '../../../functions/map-plan.func';
+
+export async function createPlan(req: Request, res: Response) {
+    const incomingData: IncomingPlan = req.body;
+
+    const requiredFields = Plan.requiredFields();
+    if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
+        return res.send(wrapResponse(false, {
+            error: 'Not all required fields have been set'
+        }))
+    }
+
+    const mappedIncommingData: InternalPlan = mapPlan(incomingData);
+    let data = await Plan.create(mappedIncommingData).then((res) => res).catch(error => { return res.send(wrapResponse(false, {error: 'Could not create Plan'}));});
+
+    return res.send(wrapResponse(true, data));
+}
