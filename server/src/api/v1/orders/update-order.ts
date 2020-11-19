@@ -1,13 +1,18 @@
 import { Request, Response } from "express";
 import isBlank from "is-blank";
 import { checkRequestKeysAreNotEmpty } from "../../../functions/checkInputs.func";
+import { mapOrder } from "../../../functions/map-order.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
+import { IncomingOrder, InternalOrder } from "../../../interfaces/orders.interface";
 import { Order } from "../../../models/order.model";
-import { Vars } from "../../../vars";
 
 export async function updateOrder(req: Request, res: Response) {
     let success = true;
     let d;
+    const incomingData: IncomingOrder = req.body;
+    const mappedIncomingData: InternalOrder = mapOrder(incomingData);
+    
+    let requiredFields = Order.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.send(wrapResponse(success, { error: "No body or valid param set." }));
@@ -26,7 +31,7 @@ export async function updateOrder(req: Request, res: Response) {
     }
 
     //Order Objekt from database must not be null, to change it.
-    if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkRequestKeysAreNotEmpty(req)) {
+    if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) &&  checkRequestKeysAreNotEmpty(mappedIncomingData, requiredFields) !== false){
         d = await Order.update(
             req.body, 
             {
@@ -43,7 +48,7 @@ export async function updateOrder(req: Request, res: Response) {
         success = false;
         return res.send(wrapResponse(success, { error: "No order with given id found" }));
 
-    } else if(checkRequestKeysAreNotEmpty(req) === false) {
+    } else if(checkRequestKeysAreNotEmpty(mappedIncomingData, requiredFields) === false) { //TODO NOT WORKING!
         success = false;
         return res.send(wrapResponse(success, { error: "Fields must not be empty" }));
 

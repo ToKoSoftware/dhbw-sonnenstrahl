@@ -1,6 +1,4 @@
-import { Request } from 'express';
 import isBlank from 'is-blank';
-import { any } from 'sequelize/types/lib/operators';
 
 export function keyIsSetAndNotEmpty<T extends object, U extends keyof T>(obj: T, key: U): boolean {
     if (key in obj) {
@@ -17,12 +15,15 @@ export function objectHasRequiredAndNotEmptyKeys<T extends object, U extends key
     return d == undefined;
 }
 
-export function checkRequestKeysAreNotEmpty(req: Request): boolean{
-    let allKeysNotEmpty = true;
-    /* TODO!!! Funktioniert nicht!
-    req.body.forEach(el => {
-        allKeysNotEmpty = allKeysNotEmpty && (el != null);
-    });
-    */
-    return allKeysNotEmpty;
+export function keyIsNotSet<T extends object, U extends keyof T>(obj: T, key: U): boolean {
+    if (!(key in obj)) {
+        return true;
+    }
+    return false;
+}
+
+export function checkRequestKeysAreNotEmpty<T extends object, U extends keyof T>(obj: T, keys: U[]): boolean{
+    let notEmptyOrSetArray: boolean[] = keys.map((el) => keyIsSetAndNotEmpty(obj, el) || keyIsNotSet(obj, el));
+    let d = notEmptyOrSetArray.find(el => !el);
+    return d == undefined;
 }
