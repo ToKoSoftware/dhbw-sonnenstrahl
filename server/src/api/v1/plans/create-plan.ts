@@ -7,16 +7,16 @@ import { mapPlan } from '../../../functions/map-plan.func';
 
 export async function createPlan(req: Request, res: Response) {
     const incomingData: IncomingPlan = req.body;
-
+    const mappedIncomingData: InternalPlan = mapPlan(incomingData);
+    
     const requiredFields = Plan.requiredFields();
-    if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
+    if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
         return res.send(wrapResponse(false, {
             error: 'Not all required fields have been set'
         }))
     }
 
-    const mappedIncommingData: InternalPlan = mapPlan(incomingData);
-    let data = await Plan.create(mappedIncommingData)
+    let data = await Plan.create(mappedIncomingData)
     .then((res) => res)
     .catch(error => null);
     if (data === null) {

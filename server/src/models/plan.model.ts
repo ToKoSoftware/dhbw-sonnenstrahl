@@ -1,16 +1,16 @@
 import {Table, Column, Model, HasMany, BeforeCreate} from 'sequelize-typescript';
 import { v4 as uuidv4 } from 'uuid';
-import { IncomingPlan } from '../interfaces/plan.interface';
+import { IncomingPlan, InternalPlan } from '../interfaces/plan.interface';
 
 @Table
 export class Plan extends Model<Plan> {
 
-    public static requiredFields(): Array<keyof IncomingPlan> {
+    public static requiredFields(): Array<keyof InternalPlan> {
         return [
-            'PLZ',
-            'Tarifname',
-            'VariableKosten',
-            'Fixkosten'
+            'postcode',
+            'plan',
+            'cost_var',
+            'cost_fix'
         ];
     }
 
