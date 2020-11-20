@@ -12,6 +12,7 @@ import {ErrorModule} from './error/error.module';
 import {HomeModule} from './home/home.module';
 import {SearchModule} from './search/search.module';
 import {PlansModule} from './plans/plans.module';
+import {EstimatedUsageService} from './services/estimated-usage.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {PlansModule} from './plans/plans.module';
     ErrorModule,
   ],
   providers: [
-    ApiService
+    ApiService,
+    EstimatedUsageService
   ],
   bootstrap: [AppComponent]
 })

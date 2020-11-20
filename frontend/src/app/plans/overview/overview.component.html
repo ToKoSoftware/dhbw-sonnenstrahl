@@ -4,12 +4,18 @@
     <app-header [breadcrumbs]="breadcrumbs" [title]="title"></app-header>
     <div class="my-3">
       <div>
-        <label for="account_number" class="block text-sm font-medium leading-5 text-gray-700">Jährlichen Verbrauch angeben:</label>
-        <div class="mt-1 relative rounded-md shadow-sm">
-          <input id="account_number" class="form-input block w-full pr-10 sm:text-sm sm:leading-5" placeholder="1000" value="1000" [(ngModel)]="guessedUsage">
-          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            kWh
+        <label for="account_number" class="block text-sm font-medium leading-5 text-gray-700">
+          Jährlichen Verbrauch angeben:
+        </label>
+        <div class="flex items-stretch">
+          <div class="mt-1 flex-1 relative rounded-md shadow-sm">
+            <input id="account_number" class="form-input block w-full pr-10 sm:text-sm sm:leading-5" placeholder="1000"
+                   value="1000" [(ngModel)]="currentEstimatedUsage">
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              kWh
+            </div>
           </div>
+          <app-button-group class="mt-1 pl-2" [buttons]="plusMinusButtons"></app-button-group>
         </div>
       </div>
     </div>
@@ -51,7 +57,8 @@
             </dl>
           </div>
         </div>
-        <div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12" style="min-width: 300px">
+        <div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12"
+             style="min-width: 300px">
           <small>Anhand Ihrer Angaben kalkulierte jährliche Kosten:</small>
           <div class="my-4 flex items-center justify-center text-3xl leading-none font-extrabold text-blue-900">
             <span>{{ calculateCostExample(result.cost_var, result.cost_fix) }}</span>
