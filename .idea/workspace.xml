@@ -53,6 +53,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1hb3hNUnOOOA8NlZ7fR3NkZ6DHP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -233,6 +234,7 @@
       <item itemvalue="npm.dev" />
       <item itemvalue="npm.start" />
       <item itemvalue="npm.db:migrate" />
+      <item itemvalue="npm.start (1)" />
       <item itemvalue="Protractor.E2E Tests (dlrg-zwrdk)" />
       <item itemvalue="npm.start (1)" />
     </list>
@@ -271,7 +273,10 @@
       <workItem from="1602751629348" duration="447000" />
       <workItem from="1602861494834" duration="411000" />
       <workItem from="1603957769714" duration="112000" />
-      <workItem from="1605606415967" duration="7396000" />
+      <workItem from="1605606415967" duration="7721000" />
+      <workItem from="1605621665574" duration="298000" />
+      <workItem from="1605640206341" duration="2848000" />
+      <workItem from="1605817833388" duration="500000" />
     </task>
     <task id="LOCAL-00001" summary="* Fix syntax of webpack.config.js">
       <created>1600600111367</created>
@@ -343,7 +348,21 @@
       <option name="project" value="LOCAL" />
       <updated>1605614934486</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="* Implement order creation&#10;* Implement input empty check function">
+      <created>1605620820708</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1605620820708</updated>
+    </task>
+    <task id="LOCAL-00012" summary="* Fix imports">
+      <created>1605817867605</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1605817867605</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +395,9 @@
     <MESSAGE value="* Finally get docker-compose to work&#10;* Try to fix query builder" />
     <MESSAGE value="* Resolve conflict" />
     <MESSAGE value="* Fix breadcrumbs" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Fix breadcrumbs" />
+    <MESSAGE value="* Implement order creation&#10;* Implement input empty check function" />
+    <MESSAGE value="* Fix imports" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Fix imports" />
   </component>
   <component name="WindowStateProjectService">
     <state x="553" y="356" key="#Notifications" timestamp="1602001438730">
@@ -387,12 +408,13 @@
       <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
     <state x="-1339" y="361" key="#TSLint/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600632701832" />
-    <state x="169" y="144" width="1071" height="697" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602861581684">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="2729" y="144" width="1071" height="697" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605622524198">
+      <screen x="2560" y="25" width="1680" height="1025" />
     </state>
     <state x="169" y="144" width="1071" height="697" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1602861581684" />
     <state x="-1453" y="306" width="857" height="632" key="#com.intellij.execution.impl.EditConfigurationsDialog/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600605543084" />
     <state x="3304" y="382" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1600268569135" />
+    <state x="2729" y="144" key="#com.intellij.execution.impl.EditConfigurationsDialog/2560.25.1680.1025/56.0.2504.1440@56.0.2504.1440" timestamp="1605622524198" />
     <state x="608" y="351" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602709810031">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -413,7 +435,7 @@
     <state x="158" y="94" key="DiffContextDialog" timestamp="1602713543413">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="158" y="94" key="DiffContextDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1602713543413" />
+    <state x="158" y="94" key="DiffContextDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1605817859475" />
     <state x="729" y="301" key="EnvironmentVariablesDialog" timestamp="1602711575319">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -536,6 +558,10 @@
     <state width="1638" height="364" key="GridCell.Tab.3.right/0.0.1680.1050@0.0.1680.1050" timestamp="1605865272201" />
     <state width="1638" height="364" key="GridCell.Tab.3.right/50.23.1630.1027@50.23.1630.1027" timestamp="1602078939966" />
     <state width="1638" height="364" key="GridCell.Tab.3.right/56.25.1624.1025@56.25.1624.1025" timestamp="1605618781199" />
+    <state x="168" y="91" key="MergeDialog" timestamp="1605817970216">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="168" y="91" key="MergeDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1605817970216" />
     <state x="518" y="262" key="SettingsEditor" timestamp="1602673469573">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -547,9 +573,10 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="688" y="436" key="VCS.ChangelistChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1602680707572" />
-    <state x="624" y="316" key="Vcs.Push.Dialog.v2" timestamp="1600600114554">
-      <screen x="0" y="0" width="2048" height="1152" />
+    <state x="512" y="288" key="Vcs.Push.Dialog.v2" timestamp="1605620823304">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state x="512" y="288" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1605620823304" />
     <state x="624" y="316" key="Vcs.Push.Dialog.v2/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1600600114554" />
     <state x="-1294" y="270" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1600614525645">
       <screen x="-1994" y="0" width="1994" height="1152" />
@@ -561,9 +588,10 @@
       <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
     <state x="-1221" y="317" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600605387462" />
-    <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600702333088">
-      <screen x="-2048" y="0" width="2048" height="1152" />
+    <state x="680" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605817897948">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
+    <state x="680" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1605817897948" />
     <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600702333088" />
     <state x="648" y="346" width="716" height="490" key="find.popup" timestamp="1605877792862">
       <screen x="0" y="0" width="1680" height="1050" />
@@ -572,6 +600,10 @@
     <state x="-1258" y="380" width="556" height="490" key="find.popup/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600701275265" />
     <state x="-1225" y="395" width="556" height="490" key="find.popup/2048.83.1440.877/0.23.2048.1129/-1994.23.1994.1129@-1994.23.1994.1129" timestamp="1600700015898" />
     <state x="3547" y="475" width="586" height="490" key="find.popup/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1600267628285" />
+    <state x="592" y="243" key="git4idea.branch.GitSmartOperationDialog" timestamp="1605817957253">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="592" y="243" key="git4idea.branch.GitSmartOperationDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1605817957253" />
     <state x="-1240" y="357" key="refactoring.ChangeSignatureDialog" timestamp="1600614378275">
       <screen x="-1994" y="0" width="1994" height="1152" />
     </state>

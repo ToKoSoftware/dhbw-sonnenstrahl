@@ -17,7 +17,6 @@ export async function createPlan(req: Request, res: Response) {
     }
 
     let data = await Plan.create(mappedIncomingData)
-    .then((res) => res)
     .catch(error => null);
     if (data === null) {
         return res.send(wrapResponse(false, {error: 'Could not create Plan'}));

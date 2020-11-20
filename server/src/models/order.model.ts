@@ -1,19 +1,19 @@
 import {Table, Column, Model, HasMany, BeforeCreate} from 'sequelize-typescript';
 import { v4 as uuidv4 } from 'uuid';
-import {IncomingOrder} from '../interfaces/orders.interface';
+import {IncomingOrder, InternalOrder} from '../interfaces/orders.interface';
 
 @Table
 export class Order extends Model<Order> {
 
-    public static requiredFields(): Array<keyof IncomingOrder> {
+    public static requiredFields(): Array<keyof InternalOrder> {
         return [
             'city',
             'consumption',
             'firstName',
             'lastName',
-            'rateId',
-            'zipCode',
-            'agent',
+            'planId',
+            'postcode',
+            'referrer',
             'street',
             'streetNumber'
         ];
