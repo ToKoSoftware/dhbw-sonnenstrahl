@@ -11,9 +11,10 @@ export async function createUser(req: Request, res: Response) {
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
         res.send(wrapResponse(false, {error: 'Not all required fields have been set'}));
         return;
+    }
     let data = await User.create(incomingData).then((res) => res).catch(error => null);
     if (data === null) {
         return res.send(wrapResponse(false, {error: 'Could not create User'}));
         }
     return res.send(wrapResponse(true, data));
-    }}
+    }

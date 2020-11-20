@@ -55,6 +55,13 @@ export default function startServer() {
     app.post('/orders', (req, res) => createOrder(req, res));
     app.delete('/api/v1/orders/:id', (req, res) => deleteOrder(req, res));
 
+     /**
+     * User
+     */
+    app.post('/api/v1/users', (req, res) => createUser(req, res));
+    app.post('/users', (req, res) => createUser(req, res));
+
+
     app.use((req, res, next) => {
         res.status(404).send(wrapResponse(false, {
             error: 'Unable to find the requested resource!'
@@ -71,12 +78,7 @@ export default function startServer() {
         });
     });
 
-    /**
-     * User
-     */
-    app.post('/api/v1/users', (req, res) => createUser(req, res));
-    app.post('/users', (req, res) => createUser(req, res));
-
+   
     /**
      * Server
      */
