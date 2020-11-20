@@ -9,7 +9,8 @@ export class User extends Model<User> {
         return [
             'firstName',
             'lastName',
-            'email'
+            'email',
+            'password'
         ];
     }
 
@@ -25,5 +26,11 @@ export class User extends Model<User> {
     lastName: string;
 
     @Column
-    email: string
+    email: string;
+
+    @Column
+    password: string;
+
+    @Column
+    is_admin: boolean;
 }
