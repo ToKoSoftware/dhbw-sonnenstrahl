@@ -1,8 +1,19 @@
 import {Table, Column, Model, HasMany, BeforeCreate} from 'sequelize-typescript';
 import { v4 as uuidv4 } from 'uuid';
+import { InternalPlan } from '../interfaces/plan.interface';
 
 @Table
 export class Plan extends Model<Plan> {
+
+    public static requiredFields(): Array<keyof InternalPlan> {
+        return [
+            'postcode',
+            'plan',
+            'cost_var',
+            'cost_fix'
+        ];
+    }
+
     @BeforeCreate
     static addUuid(instance: Plan) {
         return instance.id = uuidv4();
