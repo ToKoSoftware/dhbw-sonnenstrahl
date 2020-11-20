@@ -9,8 +9,9 @@ import {getPlan, getPlans} from "./api/v1/plans/get-plans";
 import {getOrder, getOrders} from './api/v1/orders/get-orders';
 import bodyParser from 'body-parser';
 import {createOrder} from './api/v1/orders/create-order';
-import {createUser} from './api/v1/users/create-user';
 import { deleteOrder } from './api/v1/orders/delete-order';
+import { getUser, getUsers } from './api/v1/users/get-users';
+import {createUser} from './api/v1/users/create-user';
 
 export default function startServer() {
 
@@ -58,6 +59,8 @@ export default function startServer() {
      /**
      * User
      */
+    app.get('/api/v1/users', (req, res) => getUsers(req, res));
+    app.get('/api/v1/users/:id', (req, res) => getUser(req, res));
     app.post('/api/v1/users', (req, res) => createUser(req, res));
     app.post('/users', (req, res) => createUser(req, res));
 
