@@ -14,6 +14,7 @@ import { ContainerComponent } from './container/container.component';
 import { StepsComponent } from './steps/steps.component';
 import {FormsModule} from '@angular/forms';
 import { NavSpacerComponent } from './nav-spacer/nav-spacer.component';
+import { ButtonGroupButtonComponent } from './button-group-button/button-group-button.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { NavSpacerComponent } from './nav-spacer/nav-spacer.component';
     HeaderComponent,
     ContainerComponent,
     StepsComponent,
-    NavSpacerComponent
+    NavSpacerComponent,
+    ButtonGroupButtonComponent
   ],
     exports: [
         NavbarComponent,
@@ -37,7 +39,8 @@ import { NavSpacerComponent } from './nav-spacer/nav-spacer.component';
         HeaderComponent,
         ContainerComponent,
         ButtonComponent,
-        NavSpacerComponent
+        NavSpacerComponent,
+        ButtonGroupComponent
     ],
   imports: [
     CommonModule,

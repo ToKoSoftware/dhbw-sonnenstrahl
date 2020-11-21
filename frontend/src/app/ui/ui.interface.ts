@@ -1,7 +1,13 @@
 export interface UiButton {
   title: string;
-  url: string | null;
-  function: CallableFunction | null;
+  url?: string;
+  function?: () => void;
+  type?: UiButtonType;
+}
+
+export enum UiButtonType {
+  noAction,
+  disabled,
 }
 
 export interface UiButtonGroup {
