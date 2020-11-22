@@ -13,10 +13,11 @@ import {HomeModule} from './home/home.module';
 import {SearchModule} from './search/search.module';
 import {PlansModule} from './plans/plans.module';
 import {EstimatedUsageService} from './services/estimated-usage.service';
+import {LoginRegisterModule} from './login-register/login-register.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +30,7 @@ import {EstimatedUsageService} from './services/estimated-usage.service';
     PlansModule,
     SearchModule,
     ErrorModule,
+    LoginRegisterModule
   ],
   providers: [
     ApiService,
