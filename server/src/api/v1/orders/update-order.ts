@@ -45,7 +45,7 @@ export async function updateOrder(req: Request, res: Response) {
                 return res.send(wrapResponse(success, { error: "Update failed." }));
             });
 
-    }else if (d === null){
+    } else if (d === null) {
         success = false;
         return res.send(wrapResponse(success, { error: "No order with given id found" }));
 
