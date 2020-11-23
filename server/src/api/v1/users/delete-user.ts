@@ -8,8 +8,7 @@ export async function deleteUser(req: Request, res: Response) {
        		where: {
             id: req.params.id
         }}
-    ).
-    catch(error => {
+    ).catch(error => {
         return res.status(404).send(wrapResponse(false, {error: 'Could not delete User with id ' + req.params.id}));
     });
     return res.send(wrapResponse(true));
