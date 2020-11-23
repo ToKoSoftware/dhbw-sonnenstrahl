@@ -3,8 +3,7 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {IncomingUser, InternalUser} from '../../../interfaces/users.interface';
 import {User} from '../../../models/user.model';
 import {mapUser} from '../../../functions/map-users.func';
-import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/checkInputs.func';
-import { Vars } from '../../../vars';
+import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
 import * as EmailValidator from 'email-validator';
 
 export async function createUser(req: Request, res: Response) {
@@ -19,7 +18,7 @@ export async function createUser(req: Request, res: Response) {
     let validEmail = EmailValidator.validate(mappedIncomingData.email);
 
     if (validEmail === false) {
-        return res.send(wrapResponse(false, {error: 'E-mail is not valid'}));
+        return res.status(400).send(wrapResponse(false, {error: 'E-mail is not valid'}));
     } else {
         let user = await User.findOne(
             {
@@ -34,11 +33,11 @@ export async function createUser(req: Request, res: Response) {
         if (user === null){
             let data = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
             if (data === null) {
-                return res.send(wrapResponse(false, {error: 'Could not create User'}));
+                return res.status(500).send(wrapResponse(false, {error: 'Could not create User'}));
             }
             return res.send(wrapResponse(true, data));
         } else {
-            return res.send(wrapResponse(false, {error: 'E-mail is already in use'}));
+            return res.status(400).send(wrapResponse(false, {error: 'E-mail is already in use'}));
         }
     }
 }
