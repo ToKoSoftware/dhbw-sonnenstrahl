@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {adminPages} from '../admin.routes';
+import {UiBreadcrumb, UiButtonGroup} from '../../ui/ui.interface';
 
 @Component({
   selector: 'app-admin-layout',
@@ -7,6 +8,12 @@ import {adminPages} from '../admin.routes';
 })
 export class LayoutComponent implements OnInit {
   public p = adminPages;
+  @Input('buttons') buttons: UiButtonGroup | null = null;
+  @Input('breadcrumbs') breadcrumbs: UiBreadcrumb[] | null = [
+    {routerLink: '/', title: 'Home'},
+    {routerLink: '/admin', title: 'Admin'},
+  ];
+
   constructor() {
   }
 

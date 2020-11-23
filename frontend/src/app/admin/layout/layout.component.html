@@ -1,6 +1,10 @@
 <app-nav-spacer></app-nav-spacer>
 <app-container [large]="true">
-  <app-header title="Admin"></app-header>
+  <app-header
+    [breadcrumbs]="breadcrumbs"
+    [buttons]="buttons"
+    title="Admin">
+  </app-header>
   <div class="md:flex">
     <div class="" style="min-width: 300px">
       <app-sidebar [pageGroups]="p"></app-sidebar>

@@ -1,9 +1,8 @@
-<div class="my-6">
+<div class="my-10">
   <div>
-    <nav class="hidden sm:flex items-center text-sm leading-5 font-medium">
-      <ng-container *ngFor="let b of breadcrumbs; let index">
-        <!-- Heroicon name: chevron-right -->
-        <svg *ngIf="b.chevron" class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+    <nav class="hidden sm:flex items-center text-sm leading-5 font-medium" *ngIf="breadcrumbs != null">
+      <ng-container *ngFor="let b of breadcrumbs; let i = index">
+        <svg *ngIf="breadcrumbs.length !== i && i !== 0" class="flex-shrink-0 mx-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 20 20"
              fill="currentColor">
           <path fill-rule="evenodd"
@@ -21,8 +20,8 @@
         {{title}}
       </h2>
     </div>
-    <div class="mt-4 flex-shrink-0 flex md:mt-0 md:ml-4">
-      <app-button-group></app-button-group>
+    <div class="mt-4 flex-shrink-0 flex md:mt-0 md:ml-4" *ngIf="buttons != null">
+      <app-button-group [buttons]="buttons"></app-button-group>
     </div>
   </div>
 </div>
