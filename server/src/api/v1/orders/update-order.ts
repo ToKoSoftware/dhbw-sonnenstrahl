@@ -54,8 +54,7 @@ export async function updateOrder(req: Request, res: Response) {
     } else if(req.body.id !== undefined || req.params.id !== req.body.id) {
         return res.send(wrapResponse(false, { error: "ID must not be changed" }));
     } else {
-        success = false;
-        return res.send(wrapResponse(success));
+        return res.send(wrapResponse(false));
     }
 
     d = await Order.findOne(
