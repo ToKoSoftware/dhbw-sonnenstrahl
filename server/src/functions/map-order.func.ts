@@ -1,16 +1,11 @@
 import {IncomingOrder, InternalOrder} from '../interfaces/orders.interface';
 
-export function mapOrder(incomingData: IncomingOrder): InternalOrder {
+export function mapOrder(incomingData: IncomingOrder, custId: string): InternalOrder {
     return {
-        city: incomingData.city,
+        customerId: custId,
         consumption: incomingData.consumption,
-        firstName: incomingData.firstName,
         is_active: true,
-        lastName: incomingData.lastName,
         planId: incomingData.rateId,
-        postcode: incomingData.zipCode,
-        referrer: incomingData.agent,
-        street: incomingData.street,
-        streetNumber: incomingData.streetNumber
+        referrer: incomingData.agent
     }
 }

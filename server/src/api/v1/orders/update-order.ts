@@ -11,7 +11,8 @@ export async function updateOrder(req: Request, res: Response) {
     let success = true;
     let d;
     const incomingData: IncomingOrder = req.body;
-    const mappedIncomingData: InternalOrder = mapOrder(incomingData);
+    let customerId = ""; //TODO
+    const mappedIncomingData: InternalOrder = mapOrder(incomingData, customerId);
     
     let requiredFields = Order.requiredFields();
 
@@ -33,6 +34,7 @@ export async function updateOrder(req: Request, res: Response) {
 
     //Order Objekt from database must not be null, to change it.
     if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) &&  checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false){
+        // TODO Check, ob der zipCode in der IncomingOrder überhaupt der, des entsprechenden Plans ist
         d = await Order.update(
             req.body, 
             {
