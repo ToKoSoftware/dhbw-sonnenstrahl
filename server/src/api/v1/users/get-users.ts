@@ -27,7 +27,7 @@ export async function getUsers(req: Request, res: Response) {
     };
     const allowedSearchFields = ['lastName', 'email'];
     const allowedFilterFields = ['firstName', 'lastName', 'email'];
-    const allowedOrderFields = ['firstName', 'lastName', 'email'];
+    const allowedOrderFields = ['firstName', 'lastName'];
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;

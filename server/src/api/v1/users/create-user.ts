@@ -28,7 +28,7 @@ export async function createUser(req: Request, res: Response) {
         let data = await User.create(incomingData).then((res) => res).catch(error => null);
         if (data === null) {
             return res.send(wrapResponse(false, {error: 'Could not create User'}));
-            }
+        }
         return res.send(wrapResponse(true, data));
     }else {
         return res.send(wrapResponse(false, {error: 'E-mail is already in use'}));
