@@ -13,7 +13,7 @@ export async function createOrder(req: Request, res: Response) {
     
     let requiredFields = Order.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
-        res.send(wrapResponse(false, {error: 'Not all required fields have been set'}));
+        res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
         return;
     }
     let plan: Plan | null = await Plan.findOne(
@@ -28,13 +28,13 @@ export async function createOrder(req: Request, res: Response) {
         return null;
     });
     if (plan === null) {
-        res.send(wrapResponse(false, {error: 'Plan cannot be found2'}));
+        res.status(404).send(wrapResponse(false, {error: 'Plan cannot be found'}));
         return;
     }
 
     let data = await Order.create(mappedIncomingData).then((res) => res).catch(error => null);
     if (data === null) {
-        return res.send(wrapResponse(false, {error: 'Could not create Order'}));
+        return res.status(500).send(wrapResponse(false, {error: 'Could not create Order'}));
     }
     return res.send(wrapResponse(true, data));
 }

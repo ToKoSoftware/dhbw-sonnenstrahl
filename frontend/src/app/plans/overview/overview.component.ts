@@ -3,7 +3,8 @@ import {Subscription} from 'rxjs';
 import {PlanData} from '../../interfaces/plan.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api.service';
-import {UiBreadcrumb} from '../../ui/ui.interface';
+import {UiBreadcrumb, UiButtonGroup, UiButtonType} from '../../ui/ui.interface';
+import {EstimatedUsageService} from '../../services/estimated-usage.service';
 
 @Component({
   selector: 'app-overview',
@@ -19,12 +20,36 @@ export class OverviewComponent implements OnInit, OnDestroy {
     {routerLink: '', title: 'Laden...'},
   ];
   public title = 'Suchergebnisse';
-  public guessedUsage = 1000;
+  public currentEstimatedUsage = 1000;
+  public currentEstimatedUsageCount = 1;
+  public plusMinusButtons: UiButtonGroup = {
+    buttons: [
+      {
+        title: '-',
+        function: () => {
+          console.log('Minus');
+          this.changeEstimatedUsagePersonCount(this.currentEstimatedUsageCount - 1);
+        },
+        type: UiButtonType.disabled
+      },
+      {
+        title: `${this.currentEstimatedUsageCount} Personen`,
+        type: UiButtonType.noAction,
+      },
+      {
+        title: '+',
+        function: () => {
+          this.changeEstimatedUsagePersonCount(this.currentEstimatedUsageCount + 1);
+        }
+      }
+    ]
+  };
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService) {
+    private api: ApiService,
+    private estimatedUsageService: EstimatedUsageService) {
   }
 
   ngOnInit(): void {
@@ -55,11 +80,19 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   public calculateCostExample(costVar: number, costFix: number): string {
-    const cost = Math.floor(costVar / 10000 * this.guessedUsage) + (costFix / 10000);
+    const cost = Math.floor(costVar / 10000 * this.currentEstimatedUsage) + (costFix / 10000);
     return this.roundToTwoDigits(cost);
   }
 
   public roundToTwoDigits(n: number): string {
     return (Math.round((n + Number.EPSILON) * 100) / 100).toString().replace('.', ',');
+  }
+
+  private changeEstimatedUsagePersonCount(count: number): void {
+    this.currentEstimatedUsageCount = count;
+    this.plusMinusButtons.buttons[1].title = `${this.currentEstimatedUsageCount} Personen`;
+    const newEstimatedUsage = this.estimatedUsageService.getEstimatedUsage(count);
+    this.currentEstimatedUsage = newEstimatedUsage || this.currentEstimatedUsage;
+    this.plusMinusButtons.buttons[0].type = count - 1 === 0 ? UiButtonType.disabled : undefined;
   }
 }
