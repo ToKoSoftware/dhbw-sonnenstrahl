@@ -3,7 +3,7 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {IncomingOrder, InternalOrder} from '../../../interfaces/orders.interface';
 import {Order} from '../../../models/order.model';
 import {mapOrder} from '../../../functions/map-order.func';
-import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/checkInputs.func';
+import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
 import {Plan} from '../../../models/plan.model';
 import {Vars} from '../../../vars';
 

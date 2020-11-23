@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { objectHasRequiredAndNotEmptyKeys } from "../../../functions/checkInputs.func";
+import { objectHasRequiredAndNotEmptyKeys } from "../../../functions/check-inputs.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingPlan, InternalPlan } from "../../../interfaces/plan.interface";
 import { Plan } from "../../../models/plan.model";
