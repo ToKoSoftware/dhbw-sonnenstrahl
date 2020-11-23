@@ -1,11 +1,11 @@
 import {Table, Column, Model, HasMany, BeforeCreate} from 'sequelize-typescript';
 import {v4 as uuidv4} from "uuid";
-import {IncomingUser} from '../interfaces/users.interface';
+import {InternalUser} from '../interfaces/users.interface';
 
 @Table
 export class User extends Model<User> {
 
-    public static requiredFields(): Array<keyof IncomingUser> {
+    public static requiredFields(): Array<keyof InternalUser> {
         return [
             'firstName',
             'lastName',
