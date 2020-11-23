@@ -16,6 +16,7 @@ import {FormsModule} from '@angular/forms';
 import { NavSpacerComponent } from './nav-spacer/nav-spacer.component';
 import { ButtonGroupButtonComponent } from './button-group-button/button-group-button.component';
 import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -32,18 +33,20 @@ import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
     StepsComponent,
     NavSpacerComponent,
     ButtonGroupButtonComponent,
-    SidebarItemComponent
+    SidebarItemComponent,
+    LoadingComponent
   ],
-    exports: [
-        NavbarComponent,
-        DropdownButtonComponent,
-        SidebarComponent,
-        HeaderComponent,
-        ContainerComponent,
-        ButtonComponent,
-        NavSpacerComponent,
-        ButtonGroupComponent
-    ],
+  exports: [
+    NavbarComponent,
+    DropdownButtonComponent,
+    SidebarComponent,
+    HeaderComponent,
+    ContainerComponent,
+    ButtonComponent,
+    NavSpacerComponent,
+    ButtonGroupComponent,
+    LoadingComponent
+  ],
   imports: [
     CommonModule,
     IconsModule,

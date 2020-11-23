@@ -1,5 +1,5 @@
-<nav>
-  <div class="mb-8" *ngFor="let group of pageGroups">
+<nav class="bg-white rounded border-1 border-black p-4">
+  <div *ngFor="let group of pageGroups">
     <h3 class="px-3 text-xs leading-4 font-semibold text-gray-500 uppercase tracking-wider" *ngIf="group.title != ''">
           {{ group.title }}
     </h3>
