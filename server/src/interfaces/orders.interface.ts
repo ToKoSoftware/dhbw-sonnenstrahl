@@ -17,4 +17,5 @@ export interface InternalOrder {
     referrer: string;
     consumption: number;
     is_active: boolean;
+    terminatedAt: Date|null;
 }

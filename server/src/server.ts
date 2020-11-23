@@ -15,6 +15,7 @@ import { deleteOrder } from './api/v1/orders/delete-order';
 import { getUser, getUsers } from './api/v1/users/get-users';
 import {createUser} from './api/v1/users/create-user';
 import {deleteUser} from './api/v1/users/delete-user';
+import { terminateOrder } from './api/v1/orders/terminate-order';
 
 export default function startServer() {
 
@@ -58,6 +59,7 @@ export default function startServer() {
     app.post('/api/v1/orders', (req, res) => createOrder(req, res));
     app.post('/orders', (req, res) => createOrder(req, res));
     app.put('/api/v1/orders/:id', (req, res) => updateOrder(req, res));
+    app.put('/api/v1/orders/:id/terminate', (req, res) => terminateOrder(req, res));
     app.delete('/api/v1/orders/:id', (req, res) => deleteOrder(req, res));
 
      /**

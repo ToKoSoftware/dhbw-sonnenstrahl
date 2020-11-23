@@ -6,6 +6,7 @@ export function mapOrder(incomingData: IncomingOrder, custId: string): InternalO
         consumption: incomingData.consumption,
         is_active: true,
         planId: incomingData.rateId,
-        referrer: incomingData.agent
+        referrer: incomingData.agent,
+        terminatedAt: null
     }
 }

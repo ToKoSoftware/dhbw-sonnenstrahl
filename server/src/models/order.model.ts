@@ -33,4 +33,7 @@ export class Order extends Model<Order> {
 
     @Column
     is_active: boolean;
+
+    @Column
+    terminatedAt: Date|null;
 }
