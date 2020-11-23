@@ -12,7 +12,6 @@ export async function updateOrder(req: Request, res: Response) {
     let d;
     const incomingData: IncomingOrder = req.body;
     const mappedIncomingData: InternalOrder = mapOrder(incomingData);
-    Vars.loggy.log(mappedIncomingData);
     
     let requiredFields = Order.requiredFields();
 
