@@ -38,7 +38,7 @@ export async function getPlans(req: Request, res: Response) {
 }
 
 export async function getPlan(req: Request, res: Response) {
-    let data;
+    let data = null;
     await Plan.findOne({
         where: {
             id: req.params.id
@@ -48,7 +48,11 @@ export async function getPlan(req: Request, res: Response) {
         d => {
             data = d;
         }
-    )
+    );
+
+    if (data === null) {
+        return res.status(404).send(wrapResponse(true));
+    }
 
     return res.send(wrapResponse(true, data));
 }

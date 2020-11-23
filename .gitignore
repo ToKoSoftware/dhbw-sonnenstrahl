@@ -4,3 +4,4 @@
 /build-migrations/
 /pgdata/
 .env
+/.idea/
