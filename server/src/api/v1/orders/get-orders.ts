@@ -5,7 +5,7 @@ import {FindOptions} from 'sequelize';
 import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
 
 export async function getOrder(req: Request, res: Response) {
-    let data;
+    let data = null;
     await Order.findOne(
         {
             where: {
@@ -17,8 +17,10 @@ export async function getOrder(req: Request, res: Response) {
                 data = null;
             }
         );
-    // todo trow 404
-    return res.send(wrapResponse(data != null, data));
+    if (data === null) {
+        return res.status(404).send(wrapResponse(false));
+    }
+    return res.send(wrapResponse(true, data));
 }
 
 export async function getOrders(req: Request, res: Response) {
@@ -26,8 +28,8 @@ export async function getOrders(req: Request, res: Response) {
         raw: true,
     };
     const allowedSearchFields = ['lastName', 'street', 'city'];
-    const allowedFilterFields = ['firstName', 'lastName', 'street', 'streetNumber','postcode', 'city', 'planId', 'referrer', 'consumption'];
-    const allowedOrderFields = ['firstName', 'lastName', 'street', 'streetNumber','postcode', 'city', 'planId', 'referrer', 'consumption'];
+    const allowedFilterFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
+    const allowedOrderFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
@@ -52,6 +54,8 @@ export async function getOrders(req: Request, res: Response) {
                 data = [];
             }
         );
-
+    if (!success) {
+        res.status(500);
+    }
     return res.send(wrapResponse(success, data));
 }
