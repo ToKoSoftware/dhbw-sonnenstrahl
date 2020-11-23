@@ -3,11 +3,12 @@ import {OverviewComponent} from './overview/overview.component';
 import {OrdersComponent} from './orders/orders.component';
 import {PlansComponent} from './plans/plans.component';
 import {SidebarPageGroup} from '../ui/sidebar/sidebar.component';
+import {UsersComponent} from './users/users.component';
 
 export const adminRoutes = RouterModule.forChild([
   {path: '', pathMatch: 'full', component: OverviewComponent},
   {path: 'orders', component: OrdersComponent},
-  {path: 'users', component: OrdersComponent},
+  {path: 'users', component: UsersComponent},
   {path: 'plans', component: PlansComponent},
 ]);
 
@@ -25,6 +26,11 @@ export const adminPages: SidebarPageGroup[] = [
         title: 'Benutzer und Kunden',
         icon: 'user',
         url: '/admin/users',
+      },
+      {
+        title: 'Tarife',
+        icon: 'map',
+        url: '/admin/plans',
       },
       {
         title: 'Bestellungen',
