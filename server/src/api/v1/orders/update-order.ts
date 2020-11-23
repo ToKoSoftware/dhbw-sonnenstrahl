@@ -46,8 +46,7 @@ export async function updateOrder(req: Request, res: Response) {
             });
 
     } else if (d === null) {
-        success = false;
-        return res.send(wrapResponse(success, { error: "No order with given id found" }));
+        return res.send(wrapResponse(false, { error: "No order with given id found" }));
 
     } else if(checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
         return res.send(wrapResponse(false, { error: "Fields must not be empty" }));
