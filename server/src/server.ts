@@ -13,6 +13,7 @@ import { createPlan } from './api/v1/plans/create-plan';
 import { deleteOrder } from './api/v1/orders/delete-order';
 import { getUser, getUsers } from './api/v1/users/get-users';
 import {createUser} from './api/v1/users/create-user';
+import {deleteUser} from './api/v1/users/delete-user';
 
 export default function startServer() {
 
@@ -64,7 +65,7 @@ export default function startServer() {
     app.get('/api/v1/users/:id', (req, res) => getUser(req, res));
     app.post('/api/v1/users', (req, res) => createUser(req, res));
     app.post('/users', (req, res) => createUser(req, res));
-
+    app.delete('/api/v1/users/:id', (req, res) => deleteUser(req, res));
 
     app.use((req, res, next) => {
         res.status(404).send(wrapResponse(false, {
