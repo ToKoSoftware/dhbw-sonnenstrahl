@@ -1,0 +1,12 @@
+<app-nav-spacer></app-nav-spacer>
+<app-container [large]="true">
+  <app-header title="Admin"></app-header>
+  <div class="md:flex">
+    <div class="bg-white rounded border-1 border-black p-4" style="min-width: 300px">
+      <app-sidebar [pageGroups]="p"></app-sidebar>
+    </div>
+    <div class="flex-1 p-4">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</app-container>
