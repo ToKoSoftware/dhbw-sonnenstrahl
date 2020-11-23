@@ -14,3 +14,19 @@ export function objectHasRequiredAndNotEmptyKeys<T extends object, U extends key
     let d = notEmptyOrUnsetArray.find(el => !el);
     return d == undefined;
 }
+
+export function checkKeysAreNotEmptyOrNotSet<T extends object>(obj: T, allowedKeys: String[]): boolean{
+    let notEmptyOrNotSet = Object.keys(obj).map(el => {
+        if(allowedKeys.includes(el)){
+            const value = obj[el as keyof object];
+            if(value != ""){
+                return true; // key set and value not empty
+            } 
+            return false; // key set and value empty
+        }
+        return true; // key not set
+    });
+
+    const d = notEmptyOrNotSet.find(el => !el);
+    return d == undefined;
+}
