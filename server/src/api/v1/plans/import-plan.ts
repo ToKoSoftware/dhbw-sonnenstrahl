@@ -19,7 +19,7 @@ export async function importPlan(req: Request, res: Response) {
         targetData.forEach(createPlanEntry);
         res.send(wrapResponse(true, targetData));
     } catch (e) {
-        res.send(wrapResponse(false, {error: e}));
+        res.status(400).send(wrapResponse(false, {error: e}));
         return;
     }
 }

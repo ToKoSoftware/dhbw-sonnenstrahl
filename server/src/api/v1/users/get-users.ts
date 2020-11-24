@@ -1,35 +1,33 @@
 import {Request, Response} from 'express';
-import {Order} from '../../../models/order.model';
+import {User} from '../../../models/user.model';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {FindOptions} from 'sequelize';
 import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
 
-export async function getOrder(req: Request, res: Response) {
-    let data = null;
-    await Order.findOne(
+export async function getUser(req: Request, res: Response) {
+    let data;
+    await User.findOne(
         {
             where: {
                 id: req.params.id
             }
         })
-        .then((order) => data = order)
+        .then((user) => data = user)
         .catch(error => {
                 data = null;
             }
         );
-    if (data === null) {
-        return res.status(404).send(wrapResponse(false));
-    }
-    return res.send(wrapResponse(true, data));
+    // todo trow 404
+    return res.send(wrapResponse(data != null, data));
 }
 
-export async function getOrders(req: Request, res: Response) {
+export async function getUsers(req: Request, res: Response) {
     let query: FindOptions = {
         raw: true,
     };
-    const allowedSearchFields = ['lastName', 'street', 'city'];
-    const allowedFilterFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
-    const allowedOrderFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
+    const allowedSearchFields = ['lastName', 'email'];
+    const allowedFilterFields = ['firstName', 'lastName', 'email'];
+    const allowedOrderFields = ['firstName', 'lastName'];
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
@@ -47,15 +45,13 @@ export async function getOrders(req: Request, res: Response) {
 
     let data;
     let success = true;
-    await Order.findAll(query)
-        .then((order) => data = order)
+    await User.findAll(query)
+        .then((user) => data = user)
         .catch(error => {
                 success = false;
                 data = [];
             }
         );
-    if (!success) {
-        res.status(500);
-    }
+
     return res.send(wrapResponse(success, data));
 }
