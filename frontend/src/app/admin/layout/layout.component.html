@@ -1,15 +1,17 @@
 <app-nav-spacer></app-nav-spacer>
-<app-container [large]="true">
   <app-header
+    [large]="true"
+    [whiteBg]="true"
     [breadcrumbs]="breadcrumbs"
     [buttons]="buttons"
     title="Admin">
   </app-header>
+<app-container [large]="true">
   <div class="md:flex">
-    <div class="" style="min-width: 300px">
+    <div class="mb-3 md:mr-2" style="min-width: 300px">
       <app-sidebar [pageGroups]="p"></app-sidebar>
     </div>
-    <div class="flex-1 p-4">
+    <div class="flex-1 md:ml-2">
       <ng-content></ng-content>
     </div>
   </div>

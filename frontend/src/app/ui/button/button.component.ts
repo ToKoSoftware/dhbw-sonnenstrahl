@@ -6,8 +6,9 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
-  @Input('label') label: string;
-  @Input('route') route: string | null;
+  @Input() label: string;
+  @Input() route: string | null;
+  @Input() type: ButtonType = 'info';
 
   constructor() {
   }
@@ -16,3 +17,5 @@ export class ButtonComponent implements OnInit {
   }
 
 }
+
+export type ButtonType = 'info' | 'danger';
