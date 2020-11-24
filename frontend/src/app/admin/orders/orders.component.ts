@@ -14,13 +14,13 @@ export class OrdersComponent implements OnInit {
   public buttonGroup: UiButtonGroup = {
     buttons: [
       {
-        title: 'Tarife importieren',
+        title: 'Provisionsberechnung',
         function: () => {
         },
-        icon: 'upload-cloud'
+        icon: 'bar-chart-2'
       },
       {
-        title: 'Tarife Exportieren',
+        title: 'Bestellungen Exportieren',
         function: () => {
         },
         icon: 'download-cloud'
@@ -33,7 +33,9 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.api.get<OrderData[]>('/plans').subscribe(
+    this.api.get<OrderData[]>('/orders', {
+      order: '-consumption'
+    }).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;
