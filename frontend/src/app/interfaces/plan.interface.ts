@@ -4,4 +4,6 @@ export interface PlanData {
   plan: string;
   cost_var: number;
   cost_fix: number;
+  createdAt: string;
+  updatedAt: string;
 }

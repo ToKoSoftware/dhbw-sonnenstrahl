@@ -10,4 +10,6 @@ export interface OrderData {
   planId: string;
   consumption: number;
   is_active: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
