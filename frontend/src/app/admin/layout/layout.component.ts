@@ -8,8 +8,9 @@ import {UiBreadcrumb, UiButtonGroup} from '../../ui/ui.interface';
 })
 export class LayoutComponent implements OnInit {
   public p = adminPages;
-  @Input('buttons') buttons: UiButtonGroup | null = null;
-  @Input('breadcrumbs') breadcrumbs: UiBreadcrumb[] | null = [
+  @Input() title = 'Admin';
+  @Input() buttons: UiButtonGroup | null = null;
+  @Input() breadcrumbs: UiBreadcrumb[] | null = [
     {routerLink: '/', title: 'Home'},
     {routerLink: '/admin', title: 'Admin'},
   ];

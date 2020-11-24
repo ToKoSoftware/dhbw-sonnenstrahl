@@ -14,7 +14,7 @@ export const adminRoutes = RouterModule.forChild([
 
 export const adminPages: SidebarPageGroup[] = [
   {
-    title: 'Admin',
+    title: 'Systemverwaltung',
     pages: [
       {
         title: 'Statistiken',
@@ -24,7 +24,7 @@ export const adminPages: SidebarPageGroup[] = [
       },
       {
         title: 'Benutzer und Kunden',
-        icon: 'user',
+        icon: 'users',
         url: '/admin/users',
       },
       {
@@ -37,6 +37,17 @@ export const adminPages: SidebarPageGroup[] = [
         icon: 'shopping-cart',
         url: '/admin/orders',
       }
+    ]
+  },
+  {
+    title: 'Weitere Funktionen',
+    pages: [
+      {
+        title: 'Profil bearbeiten',
+        icon: 'user',
+        url: '/profile/',
+        matchFull: true
+      },
     ]
   }
 ];

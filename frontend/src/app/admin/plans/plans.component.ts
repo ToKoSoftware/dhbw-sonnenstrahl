@@ -9,20 +9,21 @@ import {UiButtonGroup} from '../../ui/ui.interface';
   styleUrls: ['./plans.component.scss']
 })
 export class PlansComponent implements OnInit {
-
   public results: PlanData[] = [];
   public loading = false;
   public buttonGroup: UiButtonGroup = {
     buttons: [
       {
-        title: 'Daten Import',
+        title: 'Tarife importieren',
         function: () => {
         },
+        icon: 'upload-cloud'
       },
       {
-        title: 'Daten Export',
+        title: 'Tarife Exportieren',
         function: () => {
         },
+        icon: 'download-cloud'
       }
     ]
   };
