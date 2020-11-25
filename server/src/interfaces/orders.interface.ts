@@ -10,6 +10,14 @@ export interface IncomingOrder {
     agent: string;
 }
 
+// Interface for Updating Order
+export interface IncomingUpdateOrder{
+    customerId: string;
+    rateId: string;
+    consumption: number;
+    agent: string;
+}
+
 export interface InternalOrder {
     id?: string;
     customerId: string;

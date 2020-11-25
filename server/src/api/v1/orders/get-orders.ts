@@ -27,9 +27,9 @@ export async function getOrders(req: Request, res: Response) {
     let query: FindOptions = {
         raw: true,
     };
-    const allowedSearchFields = ['lastName', 'street', 'city'];
-    const allowedFilterFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
-    const allowedOrderFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
+    const allowedSearchFields = ['customerId'];
+    const allowedFilterFields = ['customerId', 'planId', 'referrer', 'consumption'];
+    const allowedOrderFields = ['customerId', 'planId', 'referrer', 'consumption'];
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
@@ -45,17 +45,19 @@ export async function getOrders(req: Request, res: Response) {
     }
     query = buildQuery(queryConfig, req);
 
-    let data;
+    let orderdata;
     let success = true;
     await Order.findAll(query)
-        .then((order) => data = order)
+        .then((order) => orderdata = order)
         .catch(error => {
                 success = false;
-                data = [];
+                orderdata = [];
             }
         );
     if (!success) {
         res.status(500);
     }
-    return res.send(wrapResponse(success, data));
+
+    //TODO: Fraglich, ob customerId ausgeben oder Customer Infos mit ausgeben
+    return res.send(wrapResponse(success, orderdata));
 }

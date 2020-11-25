@@ -1,23 +1,20 @@
 import { Request, Response } from "express";
 import isBlank from "is-blank";
 import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
-import { mapOrder } from "../../../functions/map-order.func";
+import { mapUpdateOrder } from "../../../functions/map-order.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingOrder, InternalOrder } from "../../../interfaces/orders.interface";
+import { IncomingUpdateOrder, InternalOrder } from "../../../interfaces/orders.interface";
 import { Order } from "../../../models/order.model";
-import { Vars } from "../../../vars";
 
 export async function updateOrder(req: Request, res: Response) {
-    let success = true;
     let d;
-    const incomingData: IncomingOrder = req.body;
-    let customerId = ""; //TODO
-    const mappedIncomingData: InternalOrder = mapOrder(incomingData, customerId);
+    const incomingData: IncomingUpdateOrder = req.body;
+    const mappedIncomingData: InternalOrder = mapUpdateOrder(incomingData);
     
     let requiredFields = Order.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
-        return res.send(wrapResponse(success, { error: "No body or valid param set." }));
+        return res.send(wrapResponse(false, { error: "No body or valid param set." }));
 
     } else {
         d = await Order.findOne(
@@ -27,7 +24,6 @@ export async function updateOrder(req: Request, res: Response) {
                 }
             })
             .catch(error => {
-                success = false;
                 d = null;
             });
     }
@@ -43,8 +39,7 @@ export async function updateOrder(req: Request, res: Response) {
                 }
             })
             .catch(error => {
-                success = false;
-                return res.send(wrapResponse(success, { error: "Update failed." }));
+                return res.send(wrapResponse(false, { error: "Update failed." }));
             });
 
     } else if (d === null) {
@@ -59,6 +54,7 @@ export async function updateOrder(req: Request, res: Response) {
         return res.send(wrapResponse(false));
     }
 
+    let success = true;
     d = await Order.findOne(
         {
             where: {
