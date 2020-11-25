@@ -9,11 +9,11 @@ module.exports = {
         type: Sequelize.UUID,
       },
       customerId: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         allowNull: false
       },
       planId: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         allowNull: false
       },
       referrer: {
@@ -49,7 +49,7 @@ module.exports = {
           type: Sequelize.UUID,
         },
         customerId: {
-          type: Sequelize.STRING,
+          type: Sequelize.UUID,
         },
         email: {
           type: Sequelize.STRING,

@@ -7,7 +7,12 @@ export class Customer extends Model<Customer> {
 
     public static requiredFields(): Array<keyof InternalCustomer> {
         return [
-
+            'firstName',
+            'lastName',
+            'street',
+            'streetNumber',
+            'postcode',
+            'city'
         ];
     }
 

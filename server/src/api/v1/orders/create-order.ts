@@ -47,12 +47,14 @@ export async function createOrder(req: Request, res: Response) {
 
     const mappedIncomingData = mapOrder(incomingData, customer.id);
         
-    
+    // Check, if all required fields have been set
     let requiredFields = Order.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
         res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
         return;
     }
+
+    // Try to find Plan with given planId
     let plan: Plan | null = await Plan.findOne(
         {
             where: {
@@ -69,7 +71,12 @@ export async function createOrder(req: Request, res: Response) {
         return;
     }
 
-    // TODO Check, ob der zipCode in der IncomingOrder überhaupt der, des entsprechenden Plans ist
+    // Postcode of plan and order must match
+    if(plan.postcode != customer.postcode){
+        return res.status(400).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
+    }
+
+    // Create order
     let data = await Order.create(mappedIncomingData).then((res) => res).catch(error => null);
     if (data === null) {
         return res.status(500).send(wrapResponse(false, {error: 'Could not create Order'}));
