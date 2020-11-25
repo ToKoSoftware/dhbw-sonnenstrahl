@@ -5,6 +5,7 @@ export interface InternalCustomer {
     streetNumber: string;
     postcode: string;
     city: string;
+    is_active: boolean
 }
 
 export interface IncomingCustomer {

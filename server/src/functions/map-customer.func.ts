@@ -7,6 +7,7 @@ export function mapCustomer(incomingData: IncomingCustomer): InternalCustomer {
         street: incomingData.street,
         streetNumber: incomingData.streetNumber,
         postcode: incomingData.zipCode,
-        city: incomingData.city
+        city: incomingData.city,
+        is_active: true
     }
 }

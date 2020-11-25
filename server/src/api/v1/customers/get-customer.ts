@@ -34,9 +34,9 @@ export async function getCustomers(req: Request, res: Response){
         raw: true,
     };
     // todo move this to the model
-    const allowedSearchFields = ['firstnName', 'lastName', 'postcode'];
-    const allowedOrderFields = ['firstnName', 'lastName', 'postcode'];
-    const allowedFilterFields = ['firstnName', 'lastName', 'postcode'];
+    const allowedSearchFields = ['firstName', 'lastName', 'postcode'];
+    const allowedOrderFields = ['firstName', 'lastName', 'postcode'];
+    const allowedFilterFields = ['firstName', 'lastName', 'postcode'];
 
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {

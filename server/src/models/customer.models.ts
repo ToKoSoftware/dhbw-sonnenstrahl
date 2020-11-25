@@ -12,7 +12,8 @@ export class Customer extends Model<Customer> {
             'street',
             'streetNumber',
             'postcode',
-            'city'
+            'city',
+            'is_active'
         ];
     }
 
@@ -38,4 +39,7 @@ export class Customer extends Model<Customer> {
 
     @Column
     city: number;
+
+    @Column
+    is_active: boolean;
 }
