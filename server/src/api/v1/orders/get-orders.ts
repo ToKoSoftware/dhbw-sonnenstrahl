@@ -6,6 +6,7 @@ import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../.
 
 export async function getOrder(req: Request, res: Response) {
     let data = null;
+    let success: boolean = true;
     await Order.findOne(
         {
             where: {
@@ -14,9 +15,13 @@ export async function getOrder(req: Request, res: Response) {
         })
         .then((order) => data = order)
         .catch(error => {
-                data = null;
+                success = false;
             }
         );
+
+    if(!success){
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    }    
     if (data === null) {
         return res.status(404).send(wrapResponse(false));
     }
