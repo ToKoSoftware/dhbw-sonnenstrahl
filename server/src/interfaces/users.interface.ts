@@ -1,4 +1,5 @@
 export interface IncomingUser {
+    customerId: string|null;
     firstName: string;
     lastName: string;
     email: string;
@@ -7,6 +8,7 @@ export interface IncomingUser {
 }
 
 export interface InternalUser {
+    customerId: string|null;
     firstName: string;
     lastName: string;
     email: string;

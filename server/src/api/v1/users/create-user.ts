@@ -31,10 +31,17 @@ export async function createUser(req: Request, res: Response) {
         });
 
         if (user === null){
-            let data = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
-            if (data === null) {
+            let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
+            if (createdData === null) {
                 return res.status(500).send(wrapResponse(false, {error: 'Could not create User'}));
             }
+            //return everything beside password
+            let data = await User.findAll({
+                attributes: {exclude: ['password']},
+                where: {
+                    id: createdData.id
+                }
+            });
             return res.send(wrapResponse(true, data));
         } else {
             return res.status(400).send(wrapResponse(false, {error: 'E-mail is already in use'}));
