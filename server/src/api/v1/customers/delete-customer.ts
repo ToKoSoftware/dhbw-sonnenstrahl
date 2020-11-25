@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { Op } from "sequelize/types";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { Customer } from "../../../models/customer.models";
 import { Order } from "../../../models/order.model";
+import { Op } from "sequelize"
+
 
 export async function deleteCustomer(req: Request, res: Response) {
     // Can only set Customer to inactive, if none of his orders is active/not terminated
