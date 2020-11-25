@@ -21,8 +21,8 @@ export async function terminateOrder(req: Request, res: Response) {
        		where: {
             id: req.params.id
         }}
-    ).
-    catch(error => {
+    )
+    .catch(error => {
         return res.status(400).send(wrapResponse(false, {error: 'Could not terminate Order with id ' + req.params.id}));
     });
     return res.send(wrapResponse(true));
