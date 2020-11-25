@@ -32,7 +32,7 @@ export async function getOrders(req: Request, res: Response) {
     let query: FindOptions = {
         raw: true,
     };
-    const allowedSearchFields = ['customerId'];
+    const allowedSearchFields = ['referrer'];
     const allowedFilterFields = ['customerId', 'planId', 'referrer', 'consumption'];
     const allowedOrderFields = ['customerId', 'planId', 'referrer', 'consumption'];
     let customResolver = new Map<string, customFilterValueResolver>();
