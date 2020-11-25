@@ -7,7 +7,6 @@ export class User extends Model<User> {
 
     public static requiredFields(): Array<keyof InternalUser> {
         return [
-            'customerId',
             'email',
             'password'
         ];
