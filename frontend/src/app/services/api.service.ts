@@ -4,7 +4,7 @@ import {Observable, Subject} from 'rxjs';
 import cookies from 'browser-cookies';
 import {filter, map, tap} from 'rxjs/operators';
 import isBlank from 'is-blank';
-import {environment} from "../../environments/environment";
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

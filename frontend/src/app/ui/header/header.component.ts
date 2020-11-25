@@ -7,9 +7,11 @@ import {UiBreadcrumb, UiButtonGroup} from '../ui.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input('title') title = '';
-  @Input('buttons') buttons: UiButtonGroup | null = null;
-  @Input('breadcrumbs') breadcrumbs: UiBreadcrumb[] | null = null;
+  @Input() title = '';
+  @Input() whiteBg = false;
+  @Input() large = false;
+  @Input() buttons: UiButtonGroup | null = null;
+  @Input() breadcrumbs: UiBreadcrumb[] | null = null;
 
   constructor() {
   }
