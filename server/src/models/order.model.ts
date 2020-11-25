@@ -35,5 +35,5 @@ export class Order extends Model<Order> {
     is_active: boolean;
 
     @Column
-    terminatedAt: Date|null;
+    terminatedAt: Date;
 }

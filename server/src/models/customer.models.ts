@@ -34,7 +34,7 @@ export class Customer extends Model<Customer> {
     streetNumber: number;
 
     @Column
-    postcode: number;
+    postcode: string;
 
     @Column
     city: number;
