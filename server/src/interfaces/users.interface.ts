@@ -1,12 +1,12 @@
 export interface IncomingUser {
-    customerId: string|null;
+    customerId: string
     email: string;
     password: string;
     
 }
 
 export interface InternalUser {
-    customerId: string|null;
+    customerId: string;
     email: string;
     password: string;
     is_admin: boolean;

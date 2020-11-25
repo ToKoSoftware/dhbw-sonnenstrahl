@@ -19,7 +19,7 @@ export class User extends Model<User> {
     }
 
     @Column
-    customerId: string|null;
+    customerId?: string;
 
     @Column
     email: string;
