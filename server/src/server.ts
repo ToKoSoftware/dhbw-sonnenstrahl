@@ -16,6 +16,10 @@ import { getUser, getUsers } from './api/v1/users/get-users';
 import {createUser} from './api/v1/users/create-user';
 import {deleteUser} from './api/v1/users/delete-user';
 import { terminateOrder } from './api/v1/orders/terminate-order';
+import { createCustomer } from './api/v1/customers/create-customer';
+import { getCustomer, getCustomers } from './api/v1/customers/get-customer';
+import { updateCustomer } from './api/v1/customers/update-customer';
+import { deleteCustomer } from './api/v1/customers/delete-customer';
 
 export default function startServer() {
 
@@ -71,6 +75,15 @@ export default function startServer() {
     app.post('/api/v1/users', (req, res) => createUser(req, res));
     app.post('/users', (req, res) => createUser(req, res));
     app.delete('/api/v1/users/:id', (req, res) => deleteUser(req, res));
+
+    /**
+     * Customer
+     */
+    app.get('/api/v1/customers', (req, res) => getCustomers(req, res));
+    app.get('/api/v1/customers/:id', (req, res) => getCustomer(req, res));
+    app.post('/api/v1/customers', (req, res) => createCustomer(req, res));
+    app.put('/api/v1/customers/:id', (req, res) => updateCustomer(req, res));
+    app.delete('/api/v1/customers/:id', (req, res) => deleteCustomer(req, res));
 
     app.use((req, res, next) => {
         res.status(404).send(wrapResponse(false, {
