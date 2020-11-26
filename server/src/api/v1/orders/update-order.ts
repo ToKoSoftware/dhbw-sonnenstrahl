@@ -11,7 +11,7 @@ export async function updateOrder(req: Request, res: Response) {
     let d;
     const incomingData: IncomingUpdateOrder = req.body;
     const mappedIncomingData: InternalOrder = mapUpdateOrder(incomingData);
-    
+
     let requiredFields = Order.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
@@ -30,8 +30,8 @@ export async function updateOrder(req: Request, res: Response) {
     }
 
     //Order Objekt from database must not be null, to change it.
-    if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) &&  checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false){
-       
+    if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
+
         let plan: Plan | null = await Plan.findOne(
             {
                 where: {
@@ -43,10 +43,10 @@ export async function updateOrder(req: Request, res: Response) {
             return null;
         });
         if (plan === null) {
-            return res.status(400).send(wrapResponse(false, {error: 'Plan cannot be changed to given planId'}));
+            return res.status(400).send(wrapResponse(false, { error: 'Plan cannot be changed to given planId' }));
         }
         d = await Order.update(
-            mappedIncomingData, 
+            mappedIncomingData,
             {
                 where: {
                     id: req.params.id
@@ -59,10 +59,10 @@ export async function updateOrder(req: Request, res: Response) {
     } else if (d === null) {
         return res.status(400).send(wrapResponse(false, { error: "No order with given id found" }));
 
-    } else if(checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
+    } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
-    } else if(req.body.id !== undefined || req.params.id !== req.body.id) {
+    } else if (req.body.id !== undefined || req.params.id !== req.body.id) {
         return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
     } else {
         return res.status(400).send(wrapResponse(false));

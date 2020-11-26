@@ -30,26 +30,26 @@ export async function updateCustomer(req: Request, res: Response) {
     }
 
     //Customer Objekt from database must not be null, to change it.
-    if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) &&  checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false){
-        
+    if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
+
         d = await Customer.update(
-            req.body, 
+            req.body,
             {
                 where: {
                     id: req.params.id
                 }
             }
-       ).catch(error => {
-                return res.send(wrapResponse(false, { error: "Update failed." }));
-            });
+        ).catch(error => {
+            return res.send(wrapResponse(false, { error: "Update failed." }));
+        });
 
     } else if (d === null) {
         return res.send(wrapResponse(false, { error: "No order with given id found" }));
 
-    } else if(checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
+    } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
         return res.send(wrapResponse(false, { error: "Fields must not be empty" }));
 
-    } else if(req.body.id !== undefined || req.params.id !== req.body.id) {
+    } else if (req.body.id !== undefined || req.params.id !== req.body.id) {
         return res.send(wrapResponse(false, { error: "ID must not be changed" }));
     } else {
         return res.send(wrapResponse(false));
@@ -57,15 +57,15 @@ export async function updateCustomer(req: Request, res: Response) {
 
     let success = true;
     d = await Customer.findOne({
-            where: {
-                id: req.params.id
-            }
-        })
+        where: {
+            id: req.params.id
+        }
+    })
         .catch(error => {
             success = false;
             d = null;
         });
 
     return res.send(wrapResponse(success, { data: d }));
-    
+
 }

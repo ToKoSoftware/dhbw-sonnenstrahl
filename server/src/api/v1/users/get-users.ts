@@ -1,8 +1,8 @@
-import {Request, Response} from 'express';
-import {User} from '../../../models/user.model';
-import {wrapResponse} from '../../../functions/response-wrapper';
-import {FindOptions} from 'sequelize';
-import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
+import { Request, Response } from 'express';
+import { User } from '../../../models/user.model';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { FindOptions } from 'sequelize';
+import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
 
 export async function getUser(req: Request, res: Response) {
     let data;
@@ -13,11 +13,8 @@ export async function getUser(req: Request, res: Response) {
             }
         })
         .then((user) => data = user)
-        .catch(error => {
-                data = null;
-            }
-        );
-    // todo trow 404
+        .catch(error => { data = null });
+    // TODO throw 500 in catch case and 404 in case nothing was found
     return res.send(wrapResponse(data != null, data));
 }
 
@@ -42,10 +39,9 @@ export async function getUsers(req: Request, res: Response) {
     await User.findAll(query)
         .then((user) => data = user)
         .catch(error => {
-                success = false;
-                data = [];
-            }
-        );
+            success = false;
+            data = [];
+        });
 
     return res.send(wrapResponse(success, data));
 }
