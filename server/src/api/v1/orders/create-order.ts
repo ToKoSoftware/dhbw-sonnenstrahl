@@ -31,10 +31,14 @@ export async function createOrder(req: Request, res: Response) {
                 id: incomingData.rateId,
                 is_active: true
             }
-        }
-    ).catch((error) => {
-        return null;
-    });
+        })
+        .catch((error) => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
     if (plan === null) {
         return res.status(400).send(wrapResponse(false, { error: 'Given rateId does not match a plan' }));
     }
@@ -54,8 +58,7 @@ export async function createOrder(req: Request, res: Response) {
                 postcode: req.body.zipCode,
                 city: req.body.city
             }
-        }
-    )
+        })
         .catch((error) => {
             success = false;
             return null;
