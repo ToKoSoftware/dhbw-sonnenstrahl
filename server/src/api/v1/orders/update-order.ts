@@ -39,19 +39,19 @@ export async function updateOrder(req: Request, res: Response) {
                 }
             })
             .catch(error => {
-                return res.send(wrapResponse(false, { error: "Update failed." }));
+                return res.status(500).send(wrapResponse(false, { error: "Update failed." }));
             });
 
     } else if (d === null) {
-        return res.send(wrapResponse(false, { error: "No order with given id found" }));
+        return res.status(400).send(wrapResponse(false, { error: "No order with given id found" }));
 
     } else if(checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
-        return res.send(wrapResponse(false, { error: "Fields must not be empty" }));
+        return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
     } else if(req.body.id !== undefined || req.params.id !== req.body.id) {
-        return res.send(wrapResponse(false, { error: "ID must not be changed" }));
+        return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
     } else {
-        return res.send(wrapResponse(false));
+        return res.status(400).send(wrapResponse(false));
     }
 
     let success = true;
