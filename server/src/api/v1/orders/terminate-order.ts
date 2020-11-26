@@ -20,16 +20,25 @@ export async function terminateOrder(req: Request, res: Response) {
     if (order === null) {
         return res.status(400).send(wrapResponse(false, { error: 'Count not find Order with id: ' + req.params.id }))
     } else if (order.terminatedAt !== null) {
-        return res.status(404).send(wrapResponse(false, { error: 'Order already terminated' }));
+        return res.status(400).send(wrapResponse(false, { error: 'Order already terminated' }));
     }
     let updatedOrder = await Order.update({ terminatedAt: Date.now() },
         {
             where: {
                 id: req.params.id
-            }
+            },
+            returning: true,
         })
         .catch(error => {
-            return res.status(400).send(wrapResponse(false, { error: 'Could not terminate Order with id ' + req.params.id }));
+            success = false;
+            return null;
         });
-    return res.send(wrapResponse(true, updatedOrder));
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (updatedOrder === null || updatedOrder[0] == 0) {
+        return res.status(404).send(wrapResponse(false, { error: 'Could not terminate Order with id ' + req.params.id }));
+    }
+
+    return res.send(wrapResponse(true, updatedOrder[1]));
 }
