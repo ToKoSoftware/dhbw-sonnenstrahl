@@ -20,6 +20,7 @@ export async function createUser(req: Request, res: Response) {
     if (validEmail === false) {
         return res.status(400).send(wrapResponse(false, { error: 'E-mail is not valid' }));
     } else {
+        let success = true;
         let user = await User.findOne(
             {
                 where: {
@@ -27,9 +28,13 @@ export async function createUser(req: Request, res: Response) {
                 }
             })
             .catch((error) => {
+                success = false;
                 return null;
             });
-        let success = true;
+        if (!success) {
+            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        }
+        
         if (user === null) {
             let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
             if (createdData === null) {
@@ -42,7 +47,10 @@ export async function createUser(req: Request, res: Response) {
                     id: createdData.id
                 }
             })
-                .catch((error) => success = false);
+                .catch((error) => {
+                    success = false;
+                    return null;
+                });
             if (!success) {
                 return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
             }

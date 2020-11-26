@@ -40,32 +40,36 @@ export async function updateCustomer(req: Request, res: Response) {
                 }
             }
         ).catch(error => {
-            return res.send(wrapResponse(false, { error: "Update failed." }));
+            return res.status(500).send(wrapResponse(false, { error: "Update failed." }));
         });
 
     } else if (d === null) {
-        return res.send(wrapResponse(false, { error: "No order with given id found" }));
+        return res.status(404).send(wrapResponse(false, { error: "No order with given id found" }));
 
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
-        return res.send(wrapResponse(false, { error: "Fields must not be empty" }));
+        return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
     } else if (req.body.id !== undefined || req.params.id !== req.body.id) {
-        return res.send(wrapResponse(false, { error: "ID must not be changed" }));
+        return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
     } else {
-        return res.send(wrapResponse(false));
+        return res.status(400).send(wrapResponse(false));
     }
 
     let success = true;
-    d = await Customer.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
+    d = await Customer.findOne(
+        {
+            where: {
+                id: req.params.id
+            }
+        })
         .catch(error => {
             success = false;
             d = null;
         });
+    if (success = false) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
 
-    return res.send(wrapResponse(success, { data: d }));
+    return res.send(wrapResponse(true, { data: d }));
 
 }

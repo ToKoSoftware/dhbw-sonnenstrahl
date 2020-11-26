@@ -22,7 +22,7 @@ export async function createOrder(req: Request, res: Response) {
 
     //Check, if Customer with given params already exists. If not create one.
     let customerId = "";
-    let err = false;
+    let success = true;
 
     // Try to find Plan with given planId
     let plan: Plan | null = await Plan.findOne(
@@ -36,7 +36,7 @@ export async function createOrder(req: Request, res: Response) {
         return null;
     });
     if (plan === null) {
-        return res.status(404).send(wrapResponse(false, { error: 'Plan cannot be found' }));
+        return res.status(400).send(wrapResponse(false, { error: 'Given rateId does not match a plan' }));
     }
 
 
@@ -57,26 +57,34 @@ export async function createOrder(req: Request, res: Response) {
         }
     )
         .catch((error) => {
-            err = true;
+            success = false;
             return null;
         });
-    if (err) {
+    if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
     if (customer === null) {
         // Customer not found. Create new!
-        customer = await Customer.create(mappedCustomerData).catch((error) => { err = true; return null; });
+        customer = await Customer.create(mappedCustomerData).catch((error) => null);
     }
-    if (err || customer === null) {
+    if (customer === null) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
     const mappedIncomingData = mapOrder(incomingData, customer.id);
 
     // Create order
-    let data = await Order.create(mappedIncomingData).then((res) => res).catch(error => null);
+    let data = await Order.create(mappedIncomingData)
+        .then((res) => res)
+        .catch(error => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
     if (data === null) {
-        return res.status(500).send(wrapResponse(false, { error: 'Could not create Order' }));
+        return res.status(400).send(wrapResponse(false, { error: 'Could not create Order' }));
     }
     return res.send(wrapResponse(true, data));
 }

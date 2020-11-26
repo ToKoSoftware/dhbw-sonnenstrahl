@@ -8,6 +8,7 @@ import { Order } from "../../../models/order.model";
 import { Plan } from "../../../models/plan.model";
 
 export async function updateOrder(req: Request, res: Response) {
+    let success = true;
     let d;
     const incomingData: IncomingUpdateOrder = req.body;
     const mappedIncomingData: InternalOrder = mapUpdateOrder(incomingData);
@@ -25,10 +26,13 @@ export async function updateOrder(req: Request, res: Response) {
                 }
             })
             .catch(error => {
-                d = null;
+                success = false;
+                return d = null;
             });
     }
-
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
     //Order Objekt from database must not be null, to change it.
     if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
 
@@ -53,8 +57,12 @@ export async function updateOrder(req: Request, res: Response) {
                 }
             })
             .catch(error => {
-                return res.status(500).send(wrapResponse(false, { error: "Update failed." }));
+                success = false;
+                return null;
             });
+        if (!success) {
+            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        }
 
     } else if (d === null) {
         return res.status(400).send(wrapResponse(false, { error: "No order with given id found" }));
@@ -68,7 +76,6 @@ export async function updateOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false));
     }
 
-    let success = true;
     d = await Order.findOne(
         {
             where: {
@@ -77,8 +84,11 @@ export async function updateOrder(req: Request, res: Response) {
         })
         .catch(error => {
             success = false;
-            d = null;
+            return null;
         });
 
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
     return res.send(wrapResponse(success, { data: d }));
 }

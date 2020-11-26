@@ -3,14 +3,22 @@ import { wrapResponse } from "../../../functions/response-wrapper";
 import { User } from "../../../models/user.model";
 
 export async function deleteUser(req: Request, res: Response) {
-    await User.destroy(
+    let success = true;
+    let destroyedRows = await User.destroy(
         {
             where: {
                 id: req.params.id
             }
         })
         .catch(error => {
-            return res.status(404).send(wrapResponse(false, { error: 'Could not delete User with id ' + req.params.id }));
+            success = false;
+            return null;
         });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (destroyedRows == 0) {
+        return res.status(400).send(wrapResponse(false, { error: 'There is no user to delete with this id' }));
+    }
     return res.send(wrapResponse(true));
 }
