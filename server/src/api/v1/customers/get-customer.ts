@@ -6,7 +6,7 @@ import { Customer } from "../../../models/customer.models";
 
 export async function getCustomer(req: Request, res: Response) {
     let data = null;
-    let success: boolean = true;
+    let success = true;
     await Customer.findOne(
         {
             where: {
@@ -16,7 +16,7 @@ export async function getCustomer(req: Request, res: Response) {
     )
     .then((customer) => data = customer)
     .catch(error => {
-        success = false;
+        	success = false;
         }
     );
     if(!success){
@@ -34,9 +34,7 @@ export async function getCustomers(req: Request, res: Response){
         raw: true,
     };
     // todo move this to the model
-    const allowedSearchFields = ['firstName', 'lastName', 'postcode'];
-    const allowedOrderFields = ['firstName', 'lastName', 'postcode'];
-    const allowedFilterFields = ['firstName', 'lastName', 'postcode'];
+    const allowedSearchFilterAndOrderFields = ['firstName', 'lastName', 'postcode'];
 
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
@@ -47,9 +45,9 @@ export async function getCustomers(req: Request, res: Response){
         searchString: req.query.search as string || '',
         customFilterResolver: customResolver,
         allowLimitAndOffset: true,
-        allowedFilterFields: allowedFilterFields,
-        allowedSearchFields: allowedSearchFields,
-        allowedOrderFields: allowedOrderFields
+        allowedFilterFields: allowedSearchFilterAndOrderFields,
+        allowedSearchFields: allowedSearchFilterAndOrderFields,
+        allowedOrderFields: allowedSearchFilterAndOrderFields
     }
     query = buildQuery(queryConfig, req);
     let data: unknown = [];

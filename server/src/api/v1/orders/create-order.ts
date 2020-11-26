@@ -13,7 +13,7 @@ export async function createOrder(req: Request, res: Response) {
     const incomingData: IncomingOrder = req.body;
     //Check, if Customer with given params already exists. If not create one.
     let customerId = "";
-    let err: boolean = false;
+    let err = false;
     let customer: Customer | null = await Customer.findOne(
         {
             where: {
@@ -27,13 +27,11 @@ export async function createOrder(req: Request, res: Response) {
         }
     )
     .catch((error) => {
-        Vars.loggy.warn("An Error occured:", error);
         err = true;
         return null;
     });
     if(err){
-        res.status(500).send(wrapResponse(false, {error: 'Database error'}));
-        return;
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if(customer === null){
         // Customer not found. Create new!
@@ -41,8 +39,7 @@ export async function createOrder(req: Request, res: Response) {
         customer = await Customer.create(mappedCustomerData).catch((error) => {err = true; return null;});
     }
     if(err || customer === null){
-        res.status(500).send(wrapResponse(false, {error: 'Database error'}));
-        return;
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     const mappedIncomingData = mapOrder(incomingData, customer.id);
@@ -50,8 +47,7 @@ export async function createOrder(req: Request, res: Response) {
     // Check, if all required fields have been set
     let requiredFields = Order.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
-        res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
-        return;
+        return res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
     }
 
     // Try to find Plan with given planId

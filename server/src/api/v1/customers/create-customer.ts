@@ -13,11 +13,10 @@ export async function createCustomer(req: Request, res: Response) {
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
         return res.status(400).send(wrapResponse(false, {
             error: 'Not all required fields have been set'
-        }))
+        }));
     }
 
-    let data = await Customer.create(mappedIncomingData)
-    .catch(error => null);
+    let data = await Customer.create(mappedIncomingData).catch(error => null);
     if (data === null) {
         return res.status(500).send(wrapResponse(false, {error: 'Could not create Customer'}));
     }

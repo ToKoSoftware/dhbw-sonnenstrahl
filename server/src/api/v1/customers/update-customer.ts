@@ -38,8 +38,8 @@ export async function updateCustomer(req: Request, res: Response) {
                 where: {
                     id: req.params.id
                 }
-            })
-            .catch(error => {
+            }
+       ).catch(error => {
                 return res.send(wrapResponse(false, { error: "Update failed." }));
             });
 
@@ -56,8 +56,7 @@ export async function updateCustomer(req: Request, res: Response) {
     }
 
     let success = true;
-    d = await Customer.findOne(
-        {
+    d = await Customer.findOne({
             where: {
                 id: req.params.id
             }
