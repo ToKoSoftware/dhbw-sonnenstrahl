@@ -75,7 +75,6 @@ export async function createOrder(req: Request, res: Response) {
 
     // Create order
     let data = await Order.create(mappedIncomingData)
-        .then((res) => res)
         .catch(error => {
             success = false;
             return null;
