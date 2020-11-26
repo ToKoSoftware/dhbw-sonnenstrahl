@@ -39,6 +39,7 @@ export async function getPlans(req: Request, res: Response) {
 
 export async function getPlan(req: Request, res: Response) {
     let data = null;
+    let success: boolean = true;
     await Plan.findOne({
         where: {
             id: req.params.id
@@ -48,7 +49,14 @@ export async function getPlan(req: Request, res: Response) {
         d => {
             data = d;
         }
+    )
+    .catch(error => {
+        success = false;
+        }
     );
+    if(!success){
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    };
 
     if (data === null) {
         return res.status(404).send(wrapResponse(true));

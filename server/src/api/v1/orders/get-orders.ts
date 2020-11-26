@@ -6,6 +6,7 @@ import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../.
 
 export async function getOrder(req: Request, res: Response) {
     let data = null;
+    let success: boolean = true;
     await Order.findOne(
         {
             where: {
@@ -14,9 +15,13 @@ export async function getOrder(req: Request, res: Response) {
         })
         .then((order) => data = order)
         .catch(error => {
-                data = null;
+                success = false;
             }
         );
+
+    if(!success){
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    }    
     if (data === null) {
         return res.status(404).send(wrapResponse(false));
     }
@@ -27,9 +32,9 @@ export async function getOrders(req: Request, res: Response) {
     let query: FindOptions = {
         raw: true,
     };
-    const allowedSearchFields = ['lastName', 'street', 'city'];
-    const allowedFilterFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
-    const allowedOrderFields = ['firstName', 'lastName', 'street', 'streetNumber', 'postcode', 'city', 'planId', 'referrer', 'consumption'];
+    const allowedSearchFields = ['referrer'];
+    const allowedFilterFields = ['customerId', 'planId', 'referrer', 'consumption'];
+    const allowedOrderFields = ['customerId', 'planId', 'referrer', 'consumption'];
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
@@ -45,17 +50,19 @@ export async function getOrders(req: Request, res: Response) {
     }
     query = buildQuery(queryConfig, req);
 
-    let data;
+    let orderdata;
     let success = true;
     await Order.findAll(query)
-        .then((order) => data = order)
+        .then((order) => orderdata = order)
         .catch(error => {
                 success = false;
-                data = [];
+                orderdata = [];
             }
         );
     if (!success) {
         res.status(500);
     }
-    return res.send(wrapResponse(success, data));
+
+    //TODO: Fraglich, ob customerId ausgeben oder Customer Infos mit ausgeben
+    return res.send(wrapResponse(success, orderdata));
 }

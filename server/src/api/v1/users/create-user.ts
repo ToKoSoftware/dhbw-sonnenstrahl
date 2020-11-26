@@ -29,11 +29,22 @@ export async function createUser(req: Request, res: Response) {
         ).catch((error) => {
             return null;
         });
-
+        let success = true;
         if (user === null){
-            let data = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
-            if (data === null) {
+            let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
+            if (createdData === null) {
                 return res.status(500).send(wrapResponse(false, {error: 'Could not create User'}));
+            }
+            //return everything beside password
+            let data = await User.findAll({
+                attributes: {exclude: ['password']},
+                where: {
+                    id: createdData.id
+                }
+            })
+            .catch((error) => success = false);
+            if(!success){
+                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
             }
             return res.send(wrapResponse(true, data));
         } else {

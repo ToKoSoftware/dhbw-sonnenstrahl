@@ -7,8 +7,6 @@ export class User extends Model<User> {
 
     public static requiredFields(): Array<keyof InternalUser> {
         return [
-            'firstName',
-            'lastName',
             'email',
             'password'
         ];
@@ -20,10 +18,7 @@ export class User extends Model<User> {
     }
 
     @Column
-    firstName: string;
-
-    @Column
-    lastName: string;
+    customerId?: string;
 
     @Column
     email: string;
