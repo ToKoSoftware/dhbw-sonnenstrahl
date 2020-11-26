@@ -36,6 +36,10 @@ export async function createOrder(req: Request, res: Response) {
     if(customer === null){
         // Customer not found. Create new!
         let mappedCustomerData = mapCustomer(incomingData);
+        let requiredFields = Customer.requiredFields();
+        if (!objectHasRequiredAndNotEmptyKeys(mappedCustomerData, requiredFields)) {
+            return res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
+        }
         customer = await Customer.create(mappedCustomerData).catch((error) => {err = true; return null;});
     }
     if(err || customer === null){
