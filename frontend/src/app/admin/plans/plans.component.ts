@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from '../../services/api.service';
+import {ApiService} from '../../services/api/api.service';
 import {PlanData} from '../../interfaces/plan.interface';
 import {UiButtonGroup} from '../../ui/ui.interface';
 

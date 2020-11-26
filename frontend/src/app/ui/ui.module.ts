@@ -36,17 +36,18 @@ import { LoadingComponent } from './loading/loading.component';
     SidebarItemComponent,
     LoadingComponent
   ],
-  exports: [
-    NavbarComponent,
-    DropdownButtonComponent,
-    SidebarComponent,
-    HeaderComponent,
-    ContainerComponent,
-    ButtonComponent,
-    NavSpacerComponent,
-    ButtonGroupComponent,
-    LoadingComponent
-  ],
+    exports: [
+        NavbarComponent,
+        DropdownButtonComponent,
+        SidebarComponent,
+        HeaderComponent,
+        ContainerComponent,
+        ButtonComponent,
+        NavSpacerComponent,
+        ButtonGroupComponent,
+        LoadingComponent,
+        ModalComponent
+    ],
   imports: [
     CommonModule,
     IconsModule,
