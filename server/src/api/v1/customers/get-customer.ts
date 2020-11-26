@@ -30,6 +30,7 @@ export async function getCustomer(req: Request, res: Response) {
 
 
 export async function getCustomers(req: Request, res: Response){
+    let success = true;
     let query: FindOptions = {
         raw: true,
     };
@@ -51,8 +52,12 @@ export async function getCustomers(req: Request, res: Response){
     }
     query = buildQuery(queryConfig, req);
     let data: unknown = [];
-    await Customer.findAll(query).then(d => {
-        data = d;
-    });
+    await Customer.findAll(query)
+    .then(d => data = d)
+    .catch(error => success = false);
+    
+    if(!success){
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    }
     return res.send(wrapResponse(true, data));
 }

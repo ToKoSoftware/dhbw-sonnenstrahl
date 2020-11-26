@@ -29,7 +29,7 @@ export async function createUser(req: Request, res: Response) {
         ).catch((error) => {
             return null;
         });
-
+        let success = true;
         if (user === null){
             let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
             if (createdData === null) {
@@ -41,7 +41,11 @@ export async function createUser(req: Request, res: Response) {
                 where: {
                     id: createdData.id
                 }
-            });
+            })
+            .catch((error) => success = false);
+            if(!success){
+                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+            }
             return res.send(wrapResponse(true, data));
         } else {
             return res.status(400).send(wrapResponse(false, {error: 'E-mail is already in use'}));

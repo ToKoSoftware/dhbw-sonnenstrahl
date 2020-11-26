@@ -25,17 +25,15 @@ export async function getUsers(req: Request, res: Response) {
     let query: FindOptions = {
         raw: true,
     };
-    const allowedSearchFields = ['email'];
-    const allowedFilterFields = ['email'];
-    const allowedOrderFields = ['email'];
+    const allowedSearchFilterAndOrderFields = ['email'];
     let customResolver = new Map<string, customFilterValueResolver>();
     const queryConfig: QueryBuilderConfig = {
         query: query,
         searchString: req.query.search as string || '',
         allowLimitAndOffset: true,
-        allowedFilterFields: allowedFilterFields,
-        allowedSearchFields: allowedSearchFields,
-        allowedOrderFields: allowedOrderFields
+        allowedFilterFields: allowedSearchFilterAndOrderFields,
+        allowedSearchFields: allowedSearchFilterAndOrderFields,
+        allowedOrderFields: allowedSearchFilterAndOrderFields
     }
     query = buildQuery(queryConfig, req);
 

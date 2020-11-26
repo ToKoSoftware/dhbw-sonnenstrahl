@@ -59,12 +59,10 @@ export async function createOrder(req: Request, res: Response) {
             }
         }
     ).catch((error) => {
-        Vars.loggy.warn("An Error occured:", error);
         return null;
     });
     if (plan === null) {
-        res.status(404).send(wrapResponse(false, {error: 'Plan cannot be found'}));
-        return;
+        return res.status(404).send(wrapResponse(false, {error: 'Plan cannot be found'}));
     }
 
     // Postcode of plan and order must match
