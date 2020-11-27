@@ -21,7 +21,6 @@ export async function createOrder(req: Request, res: Response) {
     }
 
     //Check, if Customer with given params already exists. If not create one.
-    let customerId = "";
     let success = true;
 
     // Try to find Plan with given planId
@@ -51,12 +50,13 @@ export async function createOrder(req: Request, res: Response) {
     let customer: Customer | null = await Customer.findOne(
         {
             where: {
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                street: req.body.street,
-                streetNumber: req.body.streetNumber,
-                postcode: req.body.zipCode,
-                city: req.body.city
+                firstName: mappedCustomerData.firstName,
+                lastName: mappedCustomerData.lastName,
+                street: mappedCustomerData.street,
+                streetNumber: mappedCustomerData.streetNumber,
+                postcode: mappedCustomerData.postcode,
+                city: mappedCustomerData.city,
+                is_active: mappedCustomerData.is_active
             }
         })
         .catch((error) => {
