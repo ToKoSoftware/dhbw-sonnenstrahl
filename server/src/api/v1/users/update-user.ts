@@ -39,7 +39,7 @@ export async function updateUser(req: Request, res: Response) {
     }
   
     //Customer Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
-    if (user !== null && (req.body.id === undefined || req.params.id === req.body.id) && (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) && validEmail !== false ) {
+    if (user !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false && validEmail !== false ) {
 
         updateResult = await User.update(
             req.body,
@@ -66,11 +66,12 @@ export async function updateUser(req: Request, res: Response) {
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
-    } else if (req.body.id !== undefined || req.params.id !== req.body.id) {
+    } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {
         return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
         
     } else if (validEmail === false) {
         return res.status(400).send(wrapResponse(false, {error: 'E-mail is not valid'}));
+        
     }else {
         return res.status(400).send(wrapResponse(false));
     }
