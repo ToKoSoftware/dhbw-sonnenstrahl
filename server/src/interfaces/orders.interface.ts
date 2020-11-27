@@ -11,7 +11,7 @@ export interface IncomingOrder {
 }
 
 // Interface for Updating Order
-export interface IncomingUpdateOrder{
+export interface IncomingUpdateOrder {
     customerId: string;
     rateId: string;
     consumption: number;
@@ -25,5 +25,5 @@ export interface InternalOrder {
     referrer: string;
     consumption: number;
     is_active: boolean;
-    terminatedAt: Date|null;
+    terminatedAt: Date | null;
 }

@@ -1,4 +1,4 @@
-import {Table, Column, Model, BeforeCreate} from 'sequelize-typescript';
+import { Table, Column, Model, BeforeCreate } from 'sequelize-typescript';
 import { v4 as uuidv4 } from 'uuid';
 import { InternalCustomer } from '../interfaces/customers.interface';
 

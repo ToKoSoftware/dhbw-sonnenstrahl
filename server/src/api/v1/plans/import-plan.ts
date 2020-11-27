@@ -1,10 +1,10 @@
-import {IncomingPlan, InternalPlan} from '../../../interfaces/plan.interface';
-import {Request, Response} from 'express';
-import {wrapResponse} from '../../../functions/response-wrapper';
+import { IncomingPlan, InternalPlan } from '../../../interfaces/plan.interface';
+import { Request, Response } from 'express';
+import { wrapResponse } from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
-import {mapPlan} from '../../../functions/map-plan.func';
-import {UploadedFile} from 'express-fileupload';
-import {Plan} from '../../../models/plan.model';
+import { mapPlan } from '../../../functions/map-plan.func';
+import { UploadedFile } from 'express-fileupload';
+import { Plan } from '../../../models/plan.model';
 
 export async function importPlan(req: Request, res: Response) {
     try {
@@ -19,7 +19,7 @@ export async function importPlan(req: Request, res: Response) {
         targetData.forEach(createPlanEntry);
         res.send(wrapResponse(true, targetData));
     } catch (e) {
-        res.status(400).send(wrapResponse(false, {error: e}));
+        res.status(400).send(wrapResponse(false, { error: e }));
         return;
     }
 }
@@ -27,12 +27,12 @@ export async function importPlan(req: Request, res: Response) {
 async function loadCSV(file: UploadedFile): Promise<IncomingPlan[]> {
     const csv = require('csvtojson');
     return csv({
-            delimiter: ';',
-            colParser: {
-                Fixkosten: transformEuroToCents,
-                VariableKosten: transformEuroToCents
-            }
+        delimiter: ';',
+        colParser: {
+            Fixkosten: transformEuroToCents,
+            VariableKosten: transformEuroToCents
         }
+    }
     ).fromFile(file.tempFilePath);
 }
 

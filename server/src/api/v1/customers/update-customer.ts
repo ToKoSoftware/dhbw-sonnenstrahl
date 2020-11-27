@@ -7,8 +7,9 @@ import { IncomingCustomer, InternalCustomer } from "../../../interfaces/customer
 import { Customer } from "../../../models/customer.models";
 
 export async function updateCustomer(req: Request, res: Response) {
-
-    let d;
+    let success = true;
+    let customer: Customer | null;
+    let updateResult;
     const incomingData: IncomingCustomer = req.body;
     const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);
 
@@ -18,54 +19,56 @@ export async function updateCustomer(req: Request, res: Response) {
         return res.send(wrapResponse(false, { error: "No body or valid param set." }));
 
     } else {
-        d = await Customer.findOne(
+        customer = await Customer.findOne(
             {
                 where: {
                     id: req.params.id
                 }
             })
             .catch(error => {
-                d = null;
+                success = false;
+                return null;
             });
     }
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    //Customer Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
+    if (customer !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
 
-    //Customer Objekt from database must not be null, to change it.
-    if (d !== null && (req.body.id === undefined || req.params.id === req.body.id) &&  checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false){
-        
-        d = await Customer.update(
-            req.body, 
+        updateResult = await Customer.update(
+            req.body,
             {
                 where: {
                     id: req.params.id
-                }
-            }
-       ).catch(error => {
-                return res.send(wrapResponse(false, { error: "Update failed." }));
+                },
+                returning: true,
+            })
+            .catch(error => {
+                success = false;
+                return null;
             });
+        if (!success) {
+            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        }
+        if (updateResult === null || updateResult[0] == 0) {
+            return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
+        }
 
-    } else if (d === null) {
-        return res.send(wrapResponse(false, { error: "No order with given id found" }));
+    } else if (customer === null) {
+        return res.status(404).send(wrapResponse(false, { error: "No order with given id found" }));
 
-    } else if(checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
-        return res.send(wrapResponse(false, { error: "Fields must not be empty" }));
+    } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
+        return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
-    } else if(req.body.id !== undefined || req.params.id !== req.body.id) {
-        return res.send(wrapResponse(false, { error: "ID must not be changed" }));
+    } else if (req.body.id !== undefined || req.params.id !== req.body.id) {
+        return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
     } else {
-        return res.send(wrapResponse(false));
+        return res.status(400).send(wrapResponse(false));
     }
 
-    let success = true;
-    d = await Customer.findOne({
-            where: {
-                id: req.params.id
-            }
-        })
-        .catch(error => {
-            success = false;
-            d = null;
-        });
 
-    return res.send(wrapResponse(success, { data: d }));
-    
+
+    return res.send(wrapResponse(true, updateResult[1]));
+
 }

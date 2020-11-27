@@ -1,11 +1,10 @@
-import {Request, Response} from 'express';
-import {wrapResponse} from '../../../functions/response-wrapper';
-import {IncomingOrder, InternalOrder} from '../../../interfaces/orders.interface';
-import {Order} from '../../../models/order.model';
-import {mapOrder} from '../../../functions/map-order.func';
-import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
-import {Plan} from '../../../models/plan.model';
-import {Vars} from '../../../vars';
+import { Request, Response } from 'express';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { IncomingOrder } from '../../../interfaces/orders.interface';
+import { Order } from '../../../models/order.model';
+import { mapOrder } from '../../../functions/map-order.func';
+import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
+import { Plan } from '../../../models/plan.model';
 import { Customer } from '../../../models/customer.models';
 import { mapCustomer } from '../../../functions/map-customer.func';
 
@@ -13,17 +12,16 @@ export async function createOrder(req: Request, res: Response) {
     const incomingData: IncomingOrder = req.body;
     const mappedCustomerData = mapCustomer(incomingData);
 
-    
+
     // Check, if all required fields have been set
     let requiredIncomingOrderFields = requiredIncomingFields();
 
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredIncomingOrderFields)) {
-        return res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
+        return res.status(400).send(wrapResponse(false, { error: 'Not all required fields have been set' }));
     }
-    
+
     //Check, if Customer with given params already exists. If not create one.
-    let customerId = "";
-    let err = false;
+    let success = true;
 
     // Try to find Plan with given planId
     let plan: Plan | null = await Plan.findOne(
@@ -32,52 +30,63 @@ export async function createOrder(req: Request, res: Response) {
                 id: incomingData.rateId,
                 is_active: true
             }
-        }
-    ).catch((error) => {
-        return null;
-    });
+        })
+        .catch((error) => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
     if (plan === null) {
-        return res.status(404).send(wrapResponse(false, {error: 'Plan cannot be found'}));
+        return res.status(400).send(wrapResponse(false, { error: 'Given rateId does not match a plan' }));
     }
 
 
     // Postcode of plan and order must match
-    if(plan.postcode != mappedCustomerData.postcode){
-        return res.status(400).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
+    if (plan.postcode != mappedCustomerData.postcode) {
+        return res.status(400).send(wrapResponse(false, { error: 'Postcode of plan and order do not match!' }));
     }
     let customer: Customer | null = await Customer.findOne(
         {
             where: {
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                street: req.body.street,
-                streetNumber: req.body.streetNumber,
-                postcode: req.body.zipCode,
-                city: req.body.city
+                firstName: mappedCustomerData.firstName,
+                lastName: mappedCustomerData.lastName,
+                street: mappedCustomerData.street,
+                streetNumber: mappedCustomerData.streetNumber,
+                postcode: mappedCustomerData.postcode,
+                city: mappedCustomerData.city,
+                is_active: mappedCustomerData.is_active
             }
-        }
-    )
-    .catch((error) => {
-        err = true;
-        return null;
-    });
-    if(err){
-        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+        })
+        .catch((error) => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    if(customer === null){
+    if (customer === null) {
         // Customer not found. Create new!
-        customer = await Customer.create(mappedCustomerData).catch((error) => {err = true; return null;});
+        customer = await Customer.create(mappedCustomerData).catch((error) => null);
     }
-    if(err || customer === null){
-        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    if (customer === null) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-        
+
     const mappedIncomingData = mapOrder(incomingData, customer.id);
 
     // Create order
-    let data = await Order.create(mappedIncomingData).then((res) => res).catch(error => null);
+    let data = await Order.create(mappedIncomingData)
+        .catch(error => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
     if (data === null) {
-        return res.status(500).send(wrapResponse(false, {error: 'Could not create Order'}));
+        return res.status(400).send(wrapResponse(false, { error: 'Could not create Order' }));
     }
     return res.send(wrapResponse(true, data));
 }
