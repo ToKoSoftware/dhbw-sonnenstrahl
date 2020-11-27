@@ -4,6 +4,7 @@ import {User} from "../models/user.model";
 import {Plan} from "../models/plan.model";
 import {Op} from 'sequelize';
 import {Order} from '../models/order.model';
+import { Customer } from '../models/customer.models';
 
 export function connectToDatabase() {
     const sequelize = new Sequelize(
@@ -14,7 +15,7 @@ export function connectToDatabase() {
             () => Vars.loggy.info('Connection has been established successfully.')
         );
         // todo
-        sequelize.addModels([User, Plan, Order]);
+        sequelize.addModels([User, Plan, Order, Customer]);
         Vars.db = sequelize;
         Vars.op = Op;
     } catch (error) {

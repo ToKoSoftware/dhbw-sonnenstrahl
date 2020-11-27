@@ -1,26 +1,25 @@
 import { Request, Response } from "express";
 import isBlank from "is-blank";
 import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
-import { mapUpdateOrder } from "../../../functions/map-order.func";
+import { mapCustomer } from "../../../functions/map-customer.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingUpdateOrder, InternalOrder } from "../../../interfaces/orders.interface";
-import { Order } from "../../../models/order.model";
-import { Plan } from "../../../models/plan.model";
+import { IncomingCustomer, InternalCustomer } from "../../../interfaces/customers.interface";
+import { Customer } from "../../../models/customer.models";
 
-export async function updateOrder(req: Request, res: Response) {
+export async function updateCustomer(req: Request, res: Response) {
     let success = true;
-    let order: Order | null;
+    let customer: Customer | null;
     let updateResult;
-    const incomingData: IncomingUpdateOrder = req.body;
-    const mappedIncomingData: InternalOrder = mapUpdateOrder(incomingData);
+    const incomingData: IncomingCustomer = req.body;
+    const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);
 
-    let requiredFields = Order.requiredFields();
+    let requiredFields = Customer.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.send(wrapResponse(false, { error: "No body or valid param set." }));
 
     } else {
-        order = await Order.findOne(
+        customer = await Customer.findOne(
             {
                 where: {
                     id: req.params.id
@@ -34,24 +33,11 @@ export async function updateOrder(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    //Order Objekt from database must not be null, to change it.
-    if (order !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
+    //Customer Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
+    if (customer !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
 
-        let plan: Plan | null = await Plan.findOne(
-            {
-                where: {
-                    id: mappedIncomingData.planId,
-                    is_active: true
-                }
-            }
-        ).catch((error) => {
-            return null;
-        });
-        if (plan === null) {
-            return res.status(400).send(wrapResponse(false, { error: 'Plan cannot be changed to given planId' }));
-        }
-        updateResult = await Order.update(
-            mappedIncomingData,
+        updateResult = await Customer.update(
+            req.body,
             {
                 where: {
                     id: req.params.id
@@ -65,12 +51,12 @@ export async function updateOrder(req: Request, res: Response) {
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        if (updateResult === null || updateResult[0] == 0){
+        if (updateResult === null || updateResult[0] == 0) {
             return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
         }
 
-    } else if (order === null) {
-        return res.status(400).send(wrapResponse(false, { error: "No order with given id found" }));
+    } else if (customer === null) {
+        return res.status(404).send(wrapResponse(false, { error: "No order with given id found" }));
 
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
@@ -81,8 +67,8 @@ export async function updateOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false));
     }
 
-    if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
-    }
+
+
     return res.send(wrapResponse(true, updateResult[1]));
+
 }
