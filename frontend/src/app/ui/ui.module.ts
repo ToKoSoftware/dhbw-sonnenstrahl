@@ -10,13 +10,14 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {IconsModule} from '../icons/icons.module';
 import {RouterModule} from '@angular/router';
 import {HeaderComponent} from './header/header.component';
-import { ContainerComponent } from './container/container.component';
-import { StepsComponent } from './steps/steps.component';
+import {ContainerComponent} from './container/container.component';
+import {StepsComponent} from './steps/steps.component';
 import {FormsModule} from '@angular/forms';
-import { NavSpacerComponent } from './nav-spacer/nav-spacer.component';
-import { ButtonGroupButtonComponent } from './button-group-button/button-group-button.component';
-import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
-import { LoadingComponent } from './loading/loading.component';
+import {NavSpacerComponent} from './nav-spacer/nav-spacer.component';
+import {ButtonGroupButtonComponent} from './button-group-button/button-group-button.component';
+import {SidebarItemComponent} from './sidebar-item/sidebar-item.component';
+import {LoadingComponent} from './loading/loading.component';
+import {ConfirmModalComponent} from './confirm-modal/confirm-modal.component';
 
 
 @NgModule({
@@ -34,20 +35,22 @@ import { LoadingComponent } from './loading/loading.component';
     NavSpacerComponent,
     ButtonGroupButtonComponent,
     SidebarItemComponent,
-    LoadingComponent
+    LoadingComponent,
+    ConfirmModalComponent
   ],
-    exports: [
-        NavbarComponent,
-        DropdownButtonComponent,
-        SidebarComponent,
-        HeaderComponent,
-        ContainerComponent,
-        ButtonComponent,
-        NavSpacerComponent,
-        ButtonGroupComponent,
-        LoadingComponent,
-        ModalComponent
-    ],
+  exports: [
+    NavbarComponent,
+    DropdownButtonComponent,
+    SidebarComponent,
+    HeaderComponent,
+    ContainerComponent,
+    ButtonComponent,
+    NavSpacerComponent,
+    ButtonGroupComponent,
+    LoadingComponent,
+    ModalComponent,
+    ConfirmModalComponent
+  ],
   imports: [
     CommonModule,
     IconsModule,

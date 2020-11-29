@@ -20,7 +20,7 @@
         <td class="grid">
           <div class="justify-self-end my-3">
             <app-button class="pr-2" label="Bearbeiten"></app-button>
-            <app-button class="" label="Löschen" type="danger"></app-button>
+            <app-button class="" (click)="showDeleteModalForPlan(plan)" label="Löschen" type="danger"></app-button>
           </div>
         </td>
       </tr>
@@ -28,3 +28,8 @@
     </table>
   </div>
 </app-admin-layout>
+
+<app-confirm-modal
+  title="Löschen?"
+  description="Dies kann nicht Rückgängig gemacht werden.">
+</app-confirm-modal>
