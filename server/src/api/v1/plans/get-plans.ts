@@ -14,8 +14,13 @@ export async function getPlans(req: Request, res: Response) {
     const allowedFilterFields = ['id', 'postcode', 'plan', 'is_active'];
 
     let customResolver = new Map<string, customFilterValueResolver>();
-    customResolver.set('is_active', (field: string, req: Request, value: string) => {
-        return true;
+    customResolver.set('is_active', (field: string, requ: Request, value: string) => {
+        if (req.query.is_active == null){
+            return true;
+        } else {
+            console.log(requ.query);
+            return req.query.is_active === 'all'? '' : (req.query.is_active === 'true');
+        }
     });
     const queryConfig: QueryBuilderConfig = {
         query: query,
