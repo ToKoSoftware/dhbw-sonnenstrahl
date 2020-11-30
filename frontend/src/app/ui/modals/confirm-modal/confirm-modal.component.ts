@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {UiButton, UiButtonGroup} from '../ui.interface';
+import {UiButton, UiButtonGroup} from '../../ui.interface';
 import {Subject, Subscription} from 'rxjs';
-import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
+import {ConfirmModalService} from '../../../services/confirm-modal/confirm-modal.service';
 
 @Component({
   selector: 'app-confirm-modal',

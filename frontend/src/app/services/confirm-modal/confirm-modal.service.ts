@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {ReplaySubject, Subject} from 'rxjs';
-import {ConfirmModalConfig} from '../../ui/confirm-modal/confirm-modal.component';
+import {ConfirmModalConfig} from '../../ui/modals/confirm-modal/confirm-modal.component';
 import {take} from 'rxjs/operators';
 
 @Injectable({

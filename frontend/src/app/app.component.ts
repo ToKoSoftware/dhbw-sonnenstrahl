@@ -6,17 +6,8 @@ import {ModalService} from './services/modal/modal.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  @ViewChild(ElementRef) private modalTarget: ElementRef;
+export class AppComponent {
 
-  constructor(
-    private readonly modalService: ModalService,
-  ) {
-  }
-
-  ngOnInit(): void {
-    this.modalService.elementRef = this.modalTarget;
-  }
-
+  constructor() { }
 
 }

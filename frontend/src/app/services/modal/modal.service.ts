@@ -1,23 +1,28 @@
-import {ElementRef, Injectable, OnDestroy} from '@angular/core';
-import {fromEvent, Subscription} from 'rxjs';
-import {filter, mergeMap, take} from 'rxjs/operators';
+import {ElementRef, Injectable, OnDestroy, TemplateRef} from '@angular/core';
+import {fromEvent, ReplaySubject, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
+import {filter} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService implements OnDestroy {
-  public elementRef: ElementRef | null = null;
+  public modalContentElementRef: TemplateRef<any>;
+  public showModal$: ReplaySubject<boolean> = new ReplaySubject();
   private escPressSubscription: Subscription | null = null;
   private routerSubscription: Subscription | null = null;
 
   constructor(private router: Router) {
+    this.showModal$.next(true);
     this.routerSubscription = this.router.events.subscribe(val => {
       this.close();
     });
     this.escPressSubscription = fromEvent(document.body, 'keyup').pipe(
       filter((event: KeyboardEvent) => event.key === 'Escape' || event.key === 'Esc'),
-    ).subscribe(() => this.close());
+    ).subscribe((event) => {
+      event.preventDefault();
+      this.close();
+    });
   }
 
   public ngOnDestroy(): void {
@@ -26,7 +31,16 @@ export class ModalService implements OnDestroy {
     this.escPressSubscription?.unsubscribe();
   }
 
-  public close(): void {
+  public showModal(elementRefName: TemplateRef<any>): void {
+    this.showModal$.next(true);
+    this.modalContentElementRef = elementRefName;
+  }
 
+  public open(): void {
+    this.showModal$.next(true);
+  }
+
+  public close(): void {
+    this.showModal$.next(false);
   }
 }
