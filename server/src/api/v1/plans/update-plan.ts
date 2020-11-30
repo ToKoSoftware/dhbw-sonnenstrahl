@@ -17,7 +17,7 @@ export async function updatePlan(req: Request, res: Response) {
     let requiredFields = Plan.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
-        return res.send(wrapResponse(false, { error: "No body or valid param set." }));
+        return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
 
     } else {
         // Check if a plan exists with given id
@@ -84,7 +84,7 @@ export async function updatePlan(req: Request, res: Response) {
         } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
             return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
-        } else if (!(req.body.id !== undefined || req.params.id !== req.body.id)) {
+        } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {
             return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
         } else {
             return res.status(400).send(wrapResponse(false));
