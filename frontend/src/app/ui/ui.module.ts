@@ -18,6 +18,7 @@ import {ButtonGroupButtonComponent} from './button-group-button/button-group-but
 import {SidebarItemComponent} from './sidebar-item/sidebar-item.component';
 import {LoadingComponent} from './loading/loading.component';
 import {ConfirmModalComponent} from './confirm-modal/confirm-modal.component';
+import { LoadingModalComponent } from './loading-modal/loading-modal.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {ConfirmModalComponent} from './confirm-modal/confirm-modal.component';
     ButtonGroupButtonComponent,
     SidebarItemComponent,
     LoadingComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    LoadingModalComponent
   ],
   exports: [
     NavbarComponent,
@@ -49,7 +51,8 @@ import {ConfirmModalComponent} from './confirm-modal/confirm-modal.component';
     ButtonGroupComponent,
     LoadingComponent,
     ModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    LoadingModalComponent
   ],
   imports: [
     CommonModule,
