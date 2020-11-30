@@ -7,6 +7,7 @@ import {filter} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ModalService implements OnDestroy {
+  public title: string;
   public modalContentElementRef: TemplateRef<any>;
   public showModal$: ReplaySubject<boolean> = new ReplaySubject();
   private escPressSubscription: Subscription | null = null;
@@ -31,7 +32,8 @@ export class ModalService implements OnDestroy {
     this.escPressSubscription?.unsubscribe();
   }
 
-  public showModal(elementRefName: TemplateRef<any>): void {
+  public showModal(title: string, elementRefName: TemplateRef<any>): void {
+    this.title = title;
     this.showModal$.next(true);
     this.modalContentElementRef = elementRefName;
   }

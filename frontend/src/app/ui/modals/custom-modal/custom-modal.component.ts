@@ -7,7 +7,6 @@ import {ModalService} from '../../../services/modal/modal.service';
   styleUrls: ['./custom-modal.component.scss']
 })
 export class CustomModalComponent {
-
   constructor(public readonly modalService: ModalService) {
   }
 

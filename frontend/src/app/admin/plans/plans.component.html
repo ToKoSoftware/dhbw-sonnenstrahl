@@ -29,18 +29,23 @@
   </div>
 </app-admin-layout>
 <ng-template #editModal>
-  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel" [(ngModel)]="currentEditPlan.id"
+  <label class="block mt-6 leading-3 text-lg">Identifier</label>
+  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text" [(ngModel)]="currentEditPlan.id"
          readonly>
+  <label class="block mt-6 leading-3 text-lg">Titel</label>
   <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel" [(ngModel)]="currentEditPlan.plan">
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel"
+  <label class="block mt-6 leading-3 text-lg">Postleitzahl</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Postleitzahl"
          [(ngModel)]="currentEditPlan.postcode">
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel"
+  <label class="block mt-6 leading-3 text-lg">Variable Kosten</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Variable Kosten"
          [(ngModel)]="currentEditPlan.cost_var">
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel"
+  <label class="block mt-6 leading-3 text-lg">Fixe Kosten</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Fixe Kosten"
          [(ngModel)]="currentEditPlan.cost_fix">
 
   <div class="flex justify-end w-full mt-7">
-    <div class="">
+    <div>
       <app-button
         (click)="closeEditModal()"
         type="blank"

@@ -59,8 +59,8 @@ export class PlansComponent implements OnInit {
   }
 
   public showEditModalForPlan(plan: PlanData): void {
-    this.currentEditPlan = plan;
-    this.modalService.showModal(this.editModal);
+    this.currentEditPlan = {...plan};
+    this.modalService.showModal(`"${plan.plan} (${plan.postcode})" bearbeiten`, this.editModal);
   }
 
   public closeEditModal(): void {
