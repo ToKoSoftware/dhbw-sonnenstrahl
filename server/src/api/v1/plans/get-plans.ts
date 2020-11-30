@@ -18,7 +18,7 @@ export async function getPlans(req: Request, res: Response) {
         if (req.query.is_active == null){
             return true;
         } else {
-            console.log(requ.query);
+            // todo check if user is admin -> if not, return true
             return req.query.is_active === 'all'? '' : (req.query.is_active === 'true');
         }
     });
