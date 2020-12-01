@@ -23,8 +23,6 @@ export async function terminateOrder(req: Request, res: Response) {
     }
     if (order === null) {
         return res.status(400).send(wrapResponse(false, { error: 'Count not find Order with id: ' + req.params.id }))
-    } else if (order.terminatedAt !== null) {
-        return res.status(400).send(wrapResponse(false, { error: 'Order already terminated' }));
     }
 
     let user: User | null = await User.findOne(
@@ -46,6 +44,9 @@ export async function terminateOrder(req: Request, res: Response) {
         }
     } else if (!Vars.currentUser.is_admin) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+    }
+    if (order.terminatedAt !== null) {
+        return res.status(400).send(wrapResponse(false, { error: 'Order already terminated' }));
     }
 
     let updatedOrder = await Order.update({ terminatedAt: Date.now() },
