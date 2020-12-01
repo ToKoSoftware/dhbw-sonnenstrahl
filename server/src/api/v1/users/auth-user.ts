@@ -7,8 +7,12 @@ import jwt from "jsonwebtoken";
 export async function loginUser(req: Request, res: Response) {
     const incomingData: IncomingUser = req.body
     let success = true;
+    let d = new Date();
+    let calculatedExpiresIn = ((d.getTime()) + (24* 60 * 60)) - d.getTime(); //expiration after 24h
+
     const user = await User.findOne(
         {
+            attributes: ['id', 'email'],
             where: {
                 email: incomingData.email,
                 password: incomingData.password
@@ -19,13 +23,16 @@ export async function loginUser(req: Request, res: Response) {
             return null;
         });
 
+
     if (!success) {
         res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
     if (user === null) {
         res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+    } else {
+        const token = jwt.sign({ id: user.id, email: user.email }, "unserKey", { expiresIn: calculatedExpiresIn });
+        return res.send(wrapResponse(true, token));
     }
-    const token = jwt.sign(incomingData, "unserKey");
-    return res.send(wrapResponse(true, token));
+
 }
