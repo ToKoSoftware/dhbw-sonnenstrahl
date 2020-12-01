@@ -26,7 +26,7 @@ export async function updateOrder(req: Request, res: Response) {
     let user: User | null = await User.findOne(
         {
             where: {
-                customerId: req.params.id
+                customerId: mappedIncomingData.customerId
             }
         }).catch(error => {
             success = false;
