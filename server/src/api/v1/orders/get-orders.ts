@@ -4,6 +4,9 @@ import { wrapResponse } from '../../../functions/response-wrapper';
 import { FindOptions } from 'sequelize';
 import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
 import { Customer } from '../../../models/customer.models';
+import { User } from '../../../models/user.model';
+import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
+import { Vars } from '../../../vars';
 
 export async function getOrder(req: Request, res: Response) {
     let success = true;
@@ -39,7 +42,27 @@ export async function getOrder(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    // TODO formatting: How to return this nicely in one object?
+    let user: User | null = await User.findOne(
+        {
+            where: {
+                customerId: orderData.customerId
+            }
+        }).catch(error => {
+            success = false;
+            return null;
+        });
+
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (user !== null) {
+        if (!currentUserIsAdminOrMatchesId(user.id)) {
+            return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        }
+    } else if (!Vars.currentUser.is_admin) {
+        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+    }
+
     return res.send(wrapResponse(true, { orderData, customerData }));
 }
 
