@@ -3,11 +3,12 @@ import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingUser } from "../../../interfaces/users.interface";
 import { User } from "../../../models/user.model";
 import jwt from "jsonwebtoken";
+import { Vars } from "../../../vars";
 
 export async function loginUser(req: Request, res: Response) {
     const incomingData: IncomingUser = req.body
     let success = true;
-    let calculatedExpiresIn = 24* 60 * 60; //expiration after 24h
+    let calculatedExpiresIn =  60*60; //expiration after 1h
 
     const user = await User.findOne(
         {

@@ -13,8 +13,8 @@ import { updateOrder } from './api/v1/orders/update-order';
 import { createPlan } from './api/v1/plans/create-plan';
 import { deleteOrder } from './api/v1/orders/delete-order';
 import { getUser, getUsers } from './api/v1/users/get-users';
-import {createUser} from './api/v1/users/create-user';
-import {deleteUser} from './api/v1/users/delete-user';
+import { createUser } from './api/v1/users/create-user';
+import { deleteUser } from './api/v1/users/delete-user';
 import { updateUser } from './api/v1/users/update-user';
 import { terminateOrder } from './api/v1/orders/terminate-order';
 import { createCustomer } from './api/v1/customers/create-customer';
@@ -24,6 +24,8 @@ import { deleteCustomer } from './api/v1/customers/delete-customer';
 import { loginUser } from './api/v1/users/auth-user';
 import { updatePlan } from './api/v1/plans/update-plan';
 import { deletePlan } from './api/v1/plans/delete-plan';
+import { userIsAuthorized } from './middleware/user-is-authorized.middleware';
+import { userIsAdmin } from './middleware/user-is-admin.middleware';
 
 export default function startServer() {
 
@@ -58,11 +60,11 @@ export default function startServer() {
     /**
      * Plans
      */
-    app.get('/api/v1/plans', (req, res) => getPlans(req, res));
+    app.get('/api/v1/plans', userIsAuthorized, userIsAdmin, (req, res) => getPlans(req, res));
     app.put('/api/v1/plans', (req, res) => importPlan(req, res));
     app.get('/api/v1/plans/:id', (req, res) => getPlan(req, res));
     app.post('/api/v1/plans', (req, res) => createPlan(req, res));
-    app.put('/api/v1/plans/:id', (req, res) => updatePlan(req, res));
+    app.put('/api/v1/plans/:id', userIsAuthorized, (req, res) => updatePlan(req, res));
     app.delete('/api/v1/plans/:id', (req, res) => deletePlan(req, res));
 
     /**
