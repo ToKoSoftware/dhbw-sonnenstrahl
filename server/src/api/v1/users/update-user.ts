@@ -11,7 +11,7 @@ import * as EmailValidator from 'email-validator';
 export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
-    let customer: Customer | null = null;
+    let customer: Customer | null;
     let updateResult;
     const incomingData: IncomingUser = req.body;
     const mappedIncomingData: InternalUser = mapUser(incomingData);
