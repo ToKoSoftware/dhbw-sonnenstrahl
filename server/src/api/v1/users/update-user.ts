@@ -38,7 +38,7 @@ export async function updateUser(req: Request, res: Response) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
   
-    //Customer Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
+    //User Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
     if (user !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false && validEmail !== false ) {
 
         updateResult = await User.update(
