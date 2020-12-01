@@ -20,6 +20,7 @@ import { createCustomer } from './api/v1/customers/create-customer';
 import { getCustomer, getCustomers } from './api/v1/customers/get-customer';
 import { updateCustomer } from './api/v1/customers/update-customer';
 import { deleteCustomer } from './api/v1/customers/delete-customer';
+import { loginUser } from './api/v1/users/auth-user';
 
 export default function startServer() {
 
@@ -45,6 +46,11 @@ export default function startServer() {
      * Routes
      */
     app.get('/api/v1', (req, res) => res.send(wrapResponse(true)));
+
+    /**
+     * Authing
+     */
+    app.post('/api/v1/login', (req, res) => loginUser(req, res));
 
     /**
      * Plans
