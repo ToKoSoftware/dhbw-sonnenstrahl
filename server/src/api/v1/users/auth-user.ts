@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingUser } from "../../../interfaces/users.interface";
 import { User } from "../../../models/user.model";
-const jwt = require("jsonwebtoken"); //TODO make import statement
+import jwt from "jsonwebtoken";
 
 export async function loginUser(req: Request, res: Response) {
     const incomingData: IncomingUser = req.body
