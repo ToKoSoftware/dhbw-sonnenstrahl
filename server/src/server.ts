@@ -13,8 +13,9 @@ import { updateOrder } from './api/v1/orders/update-order';
 import { createPlan } from './api/v1/plans/create-plan';
 import { deleteOrder } from './api/v1/orders/delete-order';
 import { getUser, getUsers } from './api/v1/users/get-users';
-import { createUser } from './api/v1/users/create-user';
-import { deleteUser } from './api/v1/users/delete-user';
+import {createUser} from './api/v1/users/create-user';
+import {deleteUser} from './api/v1/users/delete-user';
+import { updateUser } from './api/v1/users/update-user';
 import { terminateOrder } from './api/v1/orders/terminate-order';
 import { createCustomer } from './api/v1/customers/create-customer';
 import { getCustomer, getCustomers } from './api/v1/customers/get-customer';
@@ -76,7 +77,7 @@ export default function startServer() {
     app.get('/api/v1/users', (req, res) => getUsers(req, res));
     app.get('/api/v1/users/:id', (req, res) => getUser(req, res));
     app.post('/api/v1/users', (req, res) => createUser(req, res));
-    app.post('/users', (req, res) => createUser(req, res));
+    app.put('/api/v1/users/:id', (req, res) => updateUser(req, res));
     app.delete('/api/v1/users/:id', (req, res) => deleteUser(req, res));
 
     /**
