@@ -7,7 +7,6 @@ import { IncomingUser, InternalUser } from "../../../interfaces/users.interface"
 import { User } from "../../../models/user.model";
 import { Customer } from "../../../models/customer.models";
 import * as EmailValidator from 'email-validator';
-import { Vars } from "../../../vars";
 
 export async function updateUser(req: Request, res: Response) {
     let success = true;
