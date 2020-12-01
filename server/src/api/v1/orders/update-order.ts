@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
 import isBlank from "is-blank";
 import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
+import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
 import { mapUpdateOrder } from "../../../functions/map-order.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingUpdateOrder, InternalOrder } from "../../../interfaces/orders.interface";
 import { Order } from "../../../models/order.model";
 import { Plan } from "../../../models/plan.model";
+import { User } from "../../../models/user.model";
+import { Vars } from "../../../vars";
 
 export async function updateOrder(req: Request, res: Response) {
     let success = true;
@@ -18,22 +21,44 @@ export async function updateOrder(req: Request, res: Response) {
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.send(wrapResponse(false, { error: "No body or valid param set." }));
-
-    } else {
-        order = await Order.findOne(
-            {
-                where: {
-                    id: req.params.id
-                }
-            })
-            .catch(error => {
-                success = false;
-                return null;
-            });
     }
+
+    let user: User | null = await User.findOne(
+        {
+            where: {
+                customerId: req.params.id
+            }
+        }).catch(error => {
+            success = false;
+            return null;
+        });
+
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
+    if (user !== null) {
+        if (!currentUserIsAdminOrMatchesId(user.id)) {
+            return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        }
+    } else if (!Vars.currentUser.is_admin) {
+        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+    }
+
+    order = await Order.findOne(
+        {
+            where: {
+                id: req.params.id
+            }
+        })
+        .catch(error => {
+            success = false;
+            return null;
+        });
+
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    
     //Order Objekt from database must not be null, to change it.
     if (order !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
 
@@ -65,7 +90,7 @@ export async function updateOrder(req: Request, res: Response) {
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        if (updateResult === null || updateResult[0] == 0){
+        if (updateResult === null || updateResult[0] == 0) {
             return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
         }
 
@@ -75,9 +100,9 @@ export async function updateOrder(req: Request, res: Response) {
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
-    } else if(!(req.body.id === undefined || req.params.id === req.body.id)) {
+    } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {
         return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
-      
+
     } else {
         return res.status(400).send(wrapResponse(false));
     }
