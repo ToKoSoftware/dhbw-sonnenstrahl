@@ -1,4 +1,4 @@
-import {IncomingOrder, IncomingUpdateOrder, InternalOrder} from '../interfaces/orders.interface';
+import { IncomingOrder, IncomingUpdateOrder, InternalOrder } from '../interfaces/orders.interface';
 
 export function mapOrder(incomingData: IncomingOrder, custId: string): InternalOrder {
     return {
@@ -11,13 +11,13 @@ export function mapOrder(incomingData: IncomingOrder, custId: string): InternalO
     }
 }
 
-export function mapUpdateOrder(incomingData: IncomingUpdateOrder): InternalOrder{
+export function mapUpdateOrder(incomingData: IncomingUpdateOrder): InternalOrder {
     return {
         customerId: incomingData.customerId,
         planId: incomingData.rateId,
         referrer: incomingData.agent,
         consumption: incomingData.consumption,
-        is_active: true, 
+        is_active: true,
         terminatedAt: null
     }
 }

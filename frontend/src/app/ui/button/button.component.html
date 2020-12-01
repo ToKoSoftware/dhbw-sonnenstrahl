@@ -1,17 +1,20 @@
-<span class="inline-flex rounded-md shadow-sm">
-  <button type="button" class="inline-flex items-center px-2.5 py-1.5
+<button type="button" class="rounded-md shadow-sm inline-flex items-center px-2.5 py-1.5
    border border-transparent text-xs leading-4 font-medium rounded
    text-white focus:outline-none focus:shadow-outline-blue transition
-   ease-in-out duration-150"
-          [class.focus:border-blue-700]="type === 'info'"
-          [class.bg-blue-600]="type === 'info'"
-          [class.hover:bg-blue-500]="type === 'info'"
-          [class.active:bg-blue-700]="type === 'info'"
-          [class.focus:border-red-700]="type === 'danger'"
-          [class.bg-red-600]="type === 'danger'"
-          [class.hover:bg-red-500]="type === 'danger'"
-          [class.active:bg-red-700]="type === 'danger'"
-  >
-    {{label}}
-  </button>
-</span>
+   ease-in-out duration-150 mx-2"
+        [class.focus:border-blue-700]="type === 'info'"
+        [class.bg-blue-600]="type === 'info'"
+        [class.hover:bg-blue-500]="type === 'info'"
+        [class.active:bg-blue-700]="type === 'info'"
+        [class.focus:border-red-700]="type === 'danger'"
+        [class.bg-red-600]="type === 'danger'"
+        [class.hover:bg-red-500]="type === 'danger'"
+        [class.active:bg-red-700]="type === 'danger'"
+        [class.text-black]="type === 'blank'"
+        [class.border-black]="type === 'blank'"
+>
+  <i class="-ml-1 -mt-3 mr-6 h-1 w-1 text-sm" *ngIf="icon !== null">
+    <i-feather [name]="icon"></i-feather>
+  </i>
+  {{label}}
+</button>

@@ -7,12 +7,14 @@ import {adminRoutes} from './admin.routes';
 import {UiModule} from '../ui/ui.module';
 import { LayoutComponent } from './layout/layout.component';
 import { UsersComponent } from './users/users.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [OverviewComponent, PlansComponent, OrdersComponent, LayoutComponent, UsersComponent],
   imports: [
     adminRoutes,
     CommonModule,
+    FormsModule,
     UiModule
   ]
 })

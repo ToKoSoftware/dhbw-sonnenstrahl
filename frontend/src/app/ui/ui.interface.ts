@@ -3,7 +3,7 @@ export interface UiButton {
   url?: string;
   function?: () => void;
   type?: UiButtonType;
-  icon?: string;
+  icon?: string | null;
 }
 
 export enum UiButtonType {

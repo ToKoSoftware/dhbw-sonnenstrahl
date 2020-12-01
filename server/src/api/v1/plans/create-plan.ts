@@ -8,7 +8,7 @@ import { mapPlan } from '../../../functions/map-plan.func';
 export async function createPlan(req: Request, res: Response) {
     const incomingData: IncomingPlan = req.body;
     const mappedIncomingData: InternalPlan = mapPlan(incomingData);
-    
+
     const requiredFields = Plan.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
         return res.status(400).send(wrapResponse(false, {
@@ -17,9 +17,9 @@ export async function createPlan(req: Request, res: Response) {
     }
 
     let data = await Plan.create(mappedIncomingData)
-    .catch(error => null);
+        .catch(error => null);
     if (data === null) {
-        return res.status(500).send(wrapResponse(false, {error: 'Could not create Plan'}));
+        return res.status(500).send(wrapResponse(false, { error: 'Could not create Plan' }));
     }
 
     return res.send(wrapResponse(true, data));
