@@ -5,25 +5,26 @@ import { User } from "../../../models/user.model";
 const jwt = require("jsonwebtoken"); //TODO make import statement
 
 export async function loginUser(req: Request, res: Response) {
-    const incomingData:IncomingUser = req.body
+    const incomingData: IncomingUser = req.body
     let success = true;
-    const user = await User.findOne({
-        where: {
-            email: incomingData.email,
-            password: incomingData.password
-        }  
-    })
-    .catch( error => {
-        success = false;
-        return null;
-    });
+    const user = await User.findOne(
+        {
+            where: {
+                email: incomingData.email,
+                password: incomingData.password
+            }
+        })
+        .catch(error => {
+            success = false;
+            return null;
+        });
 
-    if( !success){
-        res.status(500).send(wrapResponse(false, {error : 'Database error'}));
+    if (!success) {
+        res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
-    if (user === null){
-        res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
+    if (user === null) {
+        res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
     const token = jwt.sign(incomingData, "unserKey");
     return res.send(wrapResponse(true, token));
