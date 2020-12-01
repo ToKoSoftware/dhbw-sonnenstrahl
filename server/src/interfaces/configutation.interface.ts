@@ -9,4 +9,5 @@ export interface DatabaseCredentials {
     dbname: string;
     password: string;
     port: string;
+    jwtSalt: string;
 }
