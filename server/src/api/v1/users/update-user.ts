@@ -58,7 +58,7 @@ export async function updateUser(req: Request, res: Response) {
     };
 
 
-    //User Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
+    //User object from database must not be null, id must not be changed and all set keys mut not be empty.
     if (
         user !== null
         && (req.body.id === undefined || req.params.id === req.body.id)
