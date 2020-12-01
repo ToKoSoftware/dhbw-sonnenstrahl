@@ -1,28 +1,51 @@
 import { Request, Response } from "express";
 import { FindOptions } from "sequelize";
+import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
 import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from "../../../functions/query-builder.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { Customer } from "../../../models/customer.models";
+import { User } from "../../../models/user.model";
+import { Vars } from "../../../vars";
 
 export async function getCustomer(req: Request, res: Response) {
-    let data = null;
     let success = true;
-    await Customer.findOne(
+    let customer:Customer|null = await Customer.findOne(
         {
             where: {
                 id: req.params.id
             }
-        }
-    )
-        .then((customer) => data = customer)
-        .catch(error => success = false);
+        })
+        .catch(error => {
+            success = false;
+            return null
+        });
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    if (data === null) {
+    if (customer === null) {
         return res.status(404).send(wrapResponse(false));
     }
-    return res.send(wrapResponse(true, data));
+    let user: User | null = await User.findOne(
+        {
+            where: {
+                customerId: customer.id
+            }
+        }).catch(error => {
+            success = false;
+            return null;
+        });
+
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (user !== null) {
+        if (!currentUserIsAdminOrMatchesId(user.id)) {
+            return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        }
+    } else if (!Vars.currentUser.is_admin) {
+        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+    }
+    return res.send(wrapResponse(true, customer));
 }
 
 
