@@ -12,8 +12,7 @@ import { Vars } from "../../../vars";
 export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
-    let customer: Customer | null | 1;
-    customer = 1;
+    let customer: Customer | null = null;
     let updateResult;
     const incomingData: IncomingUser = req.body;
     const mappedIncomingData: InternalUser = mapUser(incomingData);
@@ -22,45 +21,69 @@ export async function updateUser(req: Request, res: Response) {
 
     let validEmail = EmailValidator.validate(mappedIncomingData.email) || isBlank(mappedIncomingData.email);
 
-    
-
-
     if (isBlank(req.body) || req.params.id === null) {
-        return res.send(wrapResponse(false, { error: "No body or valid param set." }));
+        return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
+    }
+    user = await User.findOne(
+        {
+            where: {
+                id: req.params.id
+            }
+        })
+        .catch(error => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
 
-    } else {
-        user = await User.findOne(
+    if (req.body.customerId !== undefined && req.body.customerId !== null) {
+        customer = await Customer.findOne(
             {
                 where: {
-                    id: req.params.id
-                
+                    id: req.body.customerId,
+                    is_active: true
                 }
             })
             .catch(error => {
                 success = false;
                 return null;
             });
-           
-        if (req.body.customerId !== undefined || req.body.customerId !== null ) {
-            customer =  await Customer.findOne(
-                {
-                    where: {
-                        id: req.body.customerId
-                    }
-                })
-                .catch(error => {
-                    success = false;
-                    return null;
-                });
-            };
-    
-    }
-    if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
-    }
-  
+        if (!success) {
+            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        }
+        if (customer === null) {
+            return res.status(404).send(wrapResponse(false, { error: "No customer with given id found" }));
+        }
+    };
+
+
     //User Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
-    if (user !== null && (customer !== null || customer === 1) && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false && validEmail !== false && (req.body.is_admin === undefined) ) {
+    if (
+        user !== null
+        && (req.body.id === undefined || req.params.id === req.body.id)
+        && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false
+        && validEmail !== false
+        && (req.body.is_admin === undefined)
+    ) {
+
+        let differentUser = await User.findOne(
+            {
+                where: {
+                    email: mappedIncomingData.email
+                }
+            })
+            .catch(error => {
+                success = false;
+                return null;
+            });
+        if (!success) {
+            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        }
+        if (differentUser !== null) {
+            return res.status(400).send(wrapResponse(false, { error: 'Email already in use' }));
+        }
 
         updateResult = await User.update(
             req.body,
@@ -84,22 +107,19 @@ export async function updateUser(req: Request, res: Response) {
     } else if (user === null) {
         return res.status(404).send(wrapResponse(false, { error: "No user with given id found" }));
 
-    } else if (customer === null) {
-        return res.status(404).send(wrapResponse(false, { error: "No customer with given id found" }));
-
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
     } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {
         return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
-        
+
     } else if (validEmail === false) {
-        return res.status(400).send(wrapResponse(false, {error: 'E-mail is not valid'}));
+        return res.status(400).send(wrapResponse(false, { error: 'E-mail is not valid' }));
 
     } else if (req.body.is_admin !== undefined) {
-        return res.status(400).send(wrapResponse(false, {error: 'is_admin can not be changed'}));    
-        
-    }else {
+        return res.status(400).send(wrapResponse(false, { error: 'is_admin can not be changed' }));
+
+    } else {
         return res.status(400).send(wrapResponse(false));
     }
 
