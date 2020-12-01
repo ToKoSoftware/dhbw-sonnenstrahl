@@ -55,17 +55,10 @@ export async function updateCustomer(req: Request, res: Response) {
             return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
         }
 
-<<<<<<< HEAD
-    } else if (d === null) {
-        return res.status(400).send(wrapResponse(false, { error: "No customer with given id found" }));
-
-    } else if(checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
-=======
     } else if (customer === null) {
-        return res.status(404).send(wrapResponse(false, { error: "No order with given id found" }));
+        return res.status(404).send(wrapResponse(false, { error: "No customer with given id found" }));
 
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
->>>>>>> 8df1bade9fbd7f0cafae79beabb789c38b57ec1b
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
     } else if(!(req.body.id === undefined || req.params.id === req.body.id)) {

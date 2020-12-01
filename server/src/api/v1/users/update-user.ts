@@ -12,7 +12,8 @@ import { Vars } from "../../../vars";
 export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
-    let customer: Customer | null;
+    let customer: Customer | null | 1;
+    customer = 1;
     let updateResult;
     const incomingData: IncomingUser = req.body;
     const mappedIncomingData: InternalUser = mapUser(incomingData);
@@ -31,7 +32,7 @@ export async function updateUser(req: Request, res: Response) {
         user = await User.findOne(
             {
                 where: {
-                    id: req.params.id,
+                    id: req.params.id
                 
                 }
             })
@@ -39,7 +40,7 @@ export async function updateUser(req: Request, res: Response) {
                 success = false;
                 return null;
             });
-
+           
         if (req.body.customerId !== undefined || req.body.customerId !== null ) {
             customer =  await Customer.findOne(
                 {
@@ -51,7 +52,7 @@ export async function updateUser(req: Request, res: Response) {
                     success = false;
                     return null;
                 });
-        };
+            };
     
     }
     if (!success) {
@@ -59,7 +60,7 @@ export async function updateUser(req: Request, res: Response) {
     }
   
     //User Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
-    if (user !== null && (customer !== null) && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false && validEmail !== false && (req.body.is_admin === undefined) ) {
+    if (user !== null && (customer !== null || customer === 1) && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false && validEmail !== false && (req.body.is_admin === undefined) ) {
 
         updateResult = await User.update(
             req.body,
@@ -101,9 +102,6 @@ export async function updateUser(req: Request, res: Response) {
     }else {
         return res.status(400).send(wrapResponse(false));
     }
-
-
-    
 
     return res.send(wrapResponse(true, updateResult[1]));
 
