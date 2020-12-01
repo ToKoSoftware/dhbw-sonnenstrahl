@@ -12,7 +12,7 @@ export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
     let customer: Customer | null;
-    let updateResult;
+    let updateResult: [number, User[]] | null;
     const incomingData: IncomingUser = req.body;
     const mappedIncomingData: InternalUser = mapUser(incomingData);
 
