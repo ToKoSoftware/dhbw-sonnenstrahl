@@ -7,7 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ButtonComponent implements OnInit {
   @Input() label: string;
-  @Input() route: string | null;
+  @Input() route: string | null = null;
+  @Input() icon: string | null = null;
   @Input() type: ButtonType = 'info';
 
   constructor() {
@@ -18,4 +19,4 @@ export class ButtonComponent implements OnInit {
 
 }
 
-export type ButtonType = 'info' | 'danger';
+export type ButtonType = 'blank' | 'info' | 'danger';
