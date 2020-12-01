@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { Vars } from "../vars";
 import { User } from "../models/user.model";
 
-export async function userIsAuthorized(req: Request, res: Response, next: any) {
+export async function userIsAuthorized(req: Request, res: Response, next: any):Promise<void> {
     const header = req.headers['authorization'];
     if (header !== undefined) {
         const [bearer, token] = header.split(' ');
@@ -16,7 +16,8 @@ export async function userIsAuthorized(req: Request, res: Response, next: any) {
                 const userData: string | { [key: string]: any; } | null = jwt.decode(token);
                 Vars.loggy.log(userData);
                 if (!(userData instanceof Object) || userData === null) {
-                    return res.status(403).send(wrapResponse(false, { error: 'Error occured during authorization!' }));
+                    res.status(403).send(wrapResponse(false, { error: 'Error occured during authorization!' }));
+                    return;
                 }
                 const user = await User.findOne({
                     where: {
@@ -25,7 +26,8 @@ export async function userIsAuthorized(req: Request, res: Response, next: any) {
                 });
 
                 if (user === null) {
-                    return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+                    res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+                    return;
                 }
                 Vars.currentUser = user;
                 next();

@@ -40,7 +40,7 @@ export async function updatePlan(req: Request, res: Response) {
         return res.status(404).send(wrapResponse(false, { error: 'No plan with given id found' }));
     } else {
         // check if the postcode should be changed. If it should, ther must not be an active order with the given planId
-        if (plan.postcode !== mappedIncomingData.postcode) {
+        if (!(plan.postcode === mappedIncomingData.postcode || mappedIncomingData.postcode === undefined)) {
             let activeOrders: Order[] | null = await Order.findAll(
                 {
                     where: {
@@ -78,7 +78,7 @@ export async function updatePlan(req: Request, res: Response) {
                 return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
             }
             if (updateResult === null || updateResult[0] == 0) {
-                return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
+                return res.status(404).send(wrapResponse(false, { error: 'No plan updated' }));
             }
 
         } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
