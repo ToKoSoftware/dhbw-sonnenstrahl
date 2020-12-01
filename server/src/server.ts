@@ -92,9 +92,9 @@ export default function startServer() {
      * Customer
      */
     app.get('/api/v1/customers', userIsAuthorized, userIsAdmin, (req, res) => getCustomers(req, res));
-    app.get('/api/v1/customers/:id', userIsAuthorized, (req, res) => getCustomer(req, res)); //TODO
+    app.get('/api/v1/customers/:id', userIsAuthorized, (req, res) => getCustomer(req, res));
     app.post('/api/v1/customers', (req, res) => createCustomer(req, res));
-    app.put('/api/v1/customers/:id', userIsAuthorized, (req, res) => updateCustomer(req, res)); //TODO
+    app.put('/api/v1/customers/:id', userIsAuthorized, (req, res) => updateCustomer(req, res));
     app.delete('/api/v1/customers/:id', userIsAuthorized, userIsAdmin, (req, res) => deleteCustomer(req, res));
 
     app.use((req, res, next) => {
