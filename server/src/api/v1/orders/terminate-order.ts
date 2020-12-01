@@ -8,27 +8,6 @@ import { Vars } from "../../../vars";
 export async function terminateOrder(req: Request, res: Response) {
     let success = true;
 
-    let user: User | null = await User.findOne(
-        {
-            where: {
-                customerId: req.params.id
-            }
-        }).catch(error => {
-            success = false;
-            return null;
-        });
-
-    if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
-    }
-    if (user !== null) {
-        if (!currentUserIsAdminOrMatchesId(user.id)) {
-            return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
-        }
-    } else if (!Vars.currentUser.is_admin) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
-    }
-
     let order: Order | null = await Order.findOne(
         {
             where: {
@@ -47,6 +26,28 @@ export async function terminateOrder(req: Request, res: Response) {
     } else if (order.terminatedAt !== null) {
         return res.status(400).send(wrapResponse(false, { error: 'Order already terminated' }));
     }
+
+    let user: User | null = await User.findOne(
+        {
+            where: {
+                customerId: order.customerId
+            }
+        }).catch(error => {
+            success = false;
+            return null;
+        });
+
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (user !== null) {
+        if (!currentUserIsAdminOrMatchesId(user.id)) {
+            return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        }
+    } else if (!Vars.currentUser.is_admin) {
+        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+    }
+
     let updatedOrder = await Order.update({ terminatedAt: Date.now() },
         {
             where: {
