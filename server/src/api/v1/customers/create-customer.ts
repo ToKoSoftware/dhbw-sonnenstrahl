@@ -18,7 +18,7 @@ export async function createCustomer(req: Request, res: Response) {
 
     let data = await Customer.create(mappedIncomingData).catch(error => null);
     if (data === null) {
-        return res.status(500).send(wrapResponse(false, {error: 'Could not create Customer'}));
+        return res.status(500).send(wrapResponse(false, { error: 'Could not create Customer' }));
     }
 
     return res.send(wrapResponse(true, data));

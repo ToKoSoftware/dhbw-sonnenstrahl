@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PlanData} from '../../interfaces/plan.interface';
 import {UiButtonGroup} from '../../ui/ui.interface';
-import {ApiService} from '../../services/api.service';
+import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
 
 @Component({

@@ -16,21 +16,20 @@ export async function deleteCustomer(req: Request, res: Response) {
             }
         }
     });
-    if (count >0){
-        return res.status(400).send(wrapResponse(false, {error: 'You can not delete a customer with active orders'}));
+    if (count > 0) {
+        return res.status(400).send(wrapResponse(false, { error: 'You can not delete a customer with active orders' }));
     }
     await Customer.update(
         {
-            is_active: false, 
+            is_active: false,
         },
         {
-       		where: {
-            	id: req.params.id
-        	}
-        }
-    )
-    .catch(error => {
-        return res.status(400).send(wrapResponse(false, {error: 'Could not delete Order with id ' + req.params.id}));
-    });
+            where: {
+                id: req.params.id
+            }
+        })
+        .catch(error => {
+            return res.status(500).send(wrapResponse(false, { error: 'Could not delete Order with id ' + req.params.id }));
+        });
     return res.send(wrapResponse(true));
 }

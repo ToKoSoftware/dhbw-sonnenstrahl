@@ -1,4 +1,4 @@
-import {IncomingUser, InternalUser} from '../interfaces/users.interface';
+import { IncomingUser, InternalUser } from '../interfaces/users.interface';
 
 export function mapUser(incomingData: IncomingUser): InternalUser {
     return {

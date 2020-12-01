@@ -1,23 +1,27 @@
-import {Request, Response} from 'express';
-import {User} from '../../../models/user.model';
-import {wrapResponse} from '../../../functions/response-wrapper';
-import {FindOptions} from 'sequelize';
-import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
+import { Request, Response } from 'express';
+import { User } from '../../../models/user.model';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { FindOptions } from 'sequelize';
+import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
 
 export async function getUser(req: Request, res: Response) {
-    let data;
-    await User.findOne(
+    let success = true;
+    let data = await User.findOne(
         {
             where: {
                 id: req.params.id
             }
         })
-        .then((user) => data = user)
         .catch(error => {
-                data = null;
-            }
-        );
-    // todo trow 404
+            success = false;
+            return null
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (data === null) {
+        return res.status(404).send(wrapResponse(false));
+    }
     return res.send(wrapResponse(data != null, data));
 }
 
@@ -37,15 +41,13 @@ export async function getUsers(req: Request, res: Response) {
     }
     query = buildQuery(queryConfig, req);
 
-    let data;
+
     let success = true;
-    await User.findAll(query)
-        .then((user) => data = user)
+    let data = await User.findAll(query)
         .catch(error => {
-                success = false;
-                data = [];
-            }
-        );
+            success = false;
+            return null
+        });
 
     return res.send(wrapResponse(success, data));
 }

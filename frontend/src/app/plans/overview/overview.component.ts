@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {PlanData} from '../../interfaces/plan.interface';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ApiService} from '../../services/api.service';
+import {ApiService} from '../../services/api/api.service';
 import {UiBreadcrumb, UiButtonGroup, UiButtonType} from '../../ui/ui.interface';
-import {EstimatedUsageService} from '../../services/estimated-usage.service';
+import {EstimatedUsageService} from '../../services/estimated-usage/estimated-usage.service';
 
 @Component({
   selector: 'app-overview',

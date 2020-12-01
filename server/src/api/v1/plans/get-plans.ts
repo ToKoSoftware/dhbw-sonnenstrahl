@@ -1,11 +1,8 @@
-import {Plan} from "../../../models/plan.model";
-import {Request, Response} from "express";
-import {FindOptions, Op} from "sequelize";
-import {wrapResponse} from "../../../functions/response-wrapper";
-import {
-    buildQuery,
-    customFilterValueResolver, QueryBuilderConfig
-} from "../../../functions/query-builder.func";
+import { Plan } from "../../../models/plan.model";
+import { Request, Response } from "express";
+import { FindOptions, Op } from "sequelize";
+import { wrapResponse } from "../../../functions/response-wrapper";
+import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from "../../../functions/query-builder.func";
 
 export async function getPlans(req: Request, res: Response) {
     let query: FindOptions = {
@@ -17,8 +14,13 @@ export async function getPlans(req: Request, res: Response) {
     const allowedFilterFields = ['id', 'postcode', 'plan', 'is_active'];
 
     let customResolver = new Map<string, customFilterValueResolver>();
-    customResolver.set('is_active', (field: string, req: Request, value: string) => {
-        return true;
+    customResolver.set('is_active', (field: string, requ: Request, value: string) => {
+        if (req.query.is_active == null){
+            return true;
+        } else {
+            // todo check if user is admin -> if not, return true
+            return req.query.is_active === 'all'? '' : (req.query.is_active === 'true');
+        }
     });
     const queryConfig: QueryBuilderConfig = {
         query: query,
@@ -40,26 +42,28 @@ export async function getPlans(req: Request, res: Response) {
 export async function getPlan(req: Request, res: Response) {
     let data = null;
     let success: boolean = true;
-    await Plan.findOne({
-        where: {
-            id: req.params.id
-        },
-        raw: true
-    }).then(
-        d => {
-            data = d;
-        }
-    )
-    .catch(error => {
-        success = false;
-        }
-    );
-    if(!success){
-        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    await Plan.findOne(
+        {
+            where: {
+                id: req.params.id
+            },
+            raw: true
+        })
+        .then(
+            d => {
+                data = d;
+            }
+        )
+        .catch(error => {
+            success = false;
+            return null
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     };
 
     if (data === null) {
-        return res.status(404).send(wrapResponse(true));
+        return res.status(404).send(wrapResponse(false));
     }
 
     return res.send(wrapResponse(true, data));

@@ -1,6 +1,6 @@
-import {Table, Column, Model, BeforeCreate} from 'sequelize-typescript';
+import { Table, Column, Model, BeforeCreate } from 'sequelize-typescript';
 import { v4 as uuidv4 } from 'uuid';
-import {InternalOrder} from '../interfaces/orders.interface';
+import { InternalOrder } from '../interfaces/orders.interface';
 
 @Table
 export class Order extends Model<Order> {

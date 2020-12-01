@@ -1,5 +1,4 @@
-import {IncomingPlan, InternalPlan} from '../interfaces/plan.interface';
-import {v4 as uuidv4} from 'uuid';
+import { IncomingPlan, InternalPlan } from '../interfaces/plan.interface';
 
 export function mapPlan(incomingPlan: IncomingPlan): InternalPlan {
     return {

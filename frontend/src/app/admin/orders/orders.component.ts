@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UiButtonGroup} from '../../ui/ui.interface';
-import {ApiService} from '../../services/api.service';
+import {ApiService} from '../../services/api/api.service';
 import {OrderData} from '../../interfaces/order.interface';
 
 @Component({
