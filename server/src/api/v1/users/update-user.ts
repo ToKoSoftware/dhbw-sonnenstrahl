@@ -5,13 +5,11 @@ import { mapUser } from "../../../functions/map-users.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingUser, InternalUser } from "../../../interfaces/users.interface";
 import { User } from "../../../models/user.model";
-import { Customer } from "../../../models/customer.models";
 import * as EmailValidator from 'email-validator';
 
 export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
-    let customer: Customer | null;
     let updateResult: [number, User[]] | null;
     const incomingData: IncomingUser = req.body;
     const mappedIncomingData: InternalUser = mapUser(incomingData);
@@ -36,27 +34,6 @@ export async function updateUser(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-
-    if (req.body.customerId !== undefined && req.body.customerId !== null) {
-        customer = await Customer.findOne(
-            {
-                where: {
-                    id: req.body.customerId,
-                    is_active: true
-                }
-            })
-            .catch(error => {
-                success = false;
-                return null;
-            });
-        if (!success) {
-            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
-        }
-        if (customer === null) {
-            return res.status(404).send(wrapResponse(false, { error: "No customer with given id found" }));
-        }
-    };
-
 
     //User object from database must not be null, id must not be changed and all set keys mut not be empty.
     if (
