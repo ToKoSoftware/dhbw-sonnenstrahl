@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ModalService} from '../../services/modal/modal.service';
 import isBlank from 'is-blank';
 import {UiBreadcrumb} from '../../ui/ui.interface';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -24,8 +25,11 @@ export class FormComponent implements OnInit, OnDestroy {
     {routerLink: '', title: 'Laden...'},
     {routerLink: '', title: 'Laden...'},
   ];
+  public customInputForm: FormGroup;
+  public currentStep = 1;
 
   constructor(
+    private formBuilder: FormBuilder,
     private readonly loadingModalService: LoadingModalService,
     private readonly modalService: ModalService,
     private apiService: ApiService,
@@ -33,6 +37,24 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.customInputForm = this.formBuilder.group(
+      {
+        email: [''],
+        firstName: [''],
+        lastName: [''],
+        street: [''],
+        streetNumber: [''],
+        zipCode: [''],
+        city: [''],
+        rateId: [''],
+        consumption: [''],
+        agent: [''],
+        phone: [{
+          value: '0497 88 88 88',
+          disabled: true
+        }]
+      }
+    );
     this.routeSubscription = this.route.paramMap.subscribe(params => {
       this.loadingModalService.showLoading();
       this.loading = true;
@@ -63,6 +85,16 @@ export class FormComponent implements OnInit, OnDestroy {
           this.showErrorModal();
         }
       );
+  }
+
+  public showNextStep(): void {
+    if (this.currentStep === 3) return;
+    this.currentStep = this.currentStep + 1;
+  }
+
+  public showPreviousStep(): void {
+    if (this.currentStep === 1) return;
+    this.currentStep = this.currentStep - 1;
   }
 
   public ngOnDestroy(): void {

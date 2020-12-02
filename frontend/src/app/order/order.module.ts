@@ -4,7 +4,7 @@ import { FormComponent } from './form/form.component';
 import { SuccessComponent } from './success/success.component';
 import {orderRoutes} from './order.routes';
 import {UiModule} from '../ui/ui.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
   imports: [
     orderRoutes,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     UiModule
   ]
