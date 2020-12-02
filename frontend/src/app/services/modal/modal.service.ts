@@ -32,7 +32,7 @@ export class ModalService implements OnDestroy {
     this.escPressSubscription?.unsubscribe();
   }
 
-  public showModal(title: string, elementRefName: TemplateRef<any>): void {
+  public showModal(title: string, elementRefName: TemplateRef<unknown>): void {
     this.title = title;
     this.showModal$.next(true);
     this.modalContentElementRef = elementRefName;

@@ -1,1 +1,50 @@
-<p>form works!</p>
+<app-nav-spacer></app-nav-spacer>
+<app-header
+  title="Tarif bestellen"
+  [breadcrumbs]="breadcrumbs"
+  [whiteBg]="true">
+</app-header>
+<app-container>
+  <div *ngIf="!loading">
+    <h3 class="text-2xl text-gray-600 py-5">Schritt 1:</h3>
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
+      <h1 class="text-2xl">Ihre persönlichen Daten</h1>
+      <label class="block mt-6 leading-3 text-lg">Identifier</label>
+      <input class="mt-4 bg-gray-200 form-input block w-full rounded-md sm:leading-5" type="text"
+             [(ngModel)]="plan.plan"
+             readonly>
+      <label class="block mt-6 leading-3 text-lg">Titel</label>
+      <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel">
+      <label class="block mt-6 leading-3 text-lg">Postleitzahl</label>
+      <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Postleitzahl">
+    </div>
+    <h3 class="text-2xl text-gray-600 py-5">Schritt 2:</h3>
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
+      <h1 class="text-2xl">Ihre persönlichen Daten</h1>
+      <label class="block mt-6 leading-3 text-lg">Identifier</label>
+      <input class="mt-4 bg-gray-200 form-input block w-full rounded-md sm:leading-5" type="text"
+             [(ngModel)]="plan.plan"
+             readonly>
+      <label class="block mt-6 leading-3 text-lg">Titel</label>
+      <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel">
+      <label class="block mt-6 leading-3 text-lg">Postleitzahl</label>
+      <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Postleitzahl">
+    </div>
+    <h3 class="text-2xl text-gray-600 py-5">Schritt 3:</h3>
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
+      <h1 class="text-2xl">Ihre persönlichen Daten</h1>
+      <label class="block mt-6 leading-3 text-lg">Identifier</label>
+      <input class="mt-4 bg-gray-200 form-input block w-full rounded-md sm:leading-5" type="text"
+             [(ngModel)]="plan.plan"
+             readonly>
+      <label class="block mt-6 leading-3 text-lg">Titel</label>
+      <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel">
+      <label class="block mt-6 leading-3 text-lg">Postleitzahl</label>
+      <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Postleitzahl">
+    </div>
+  </div>
+</app-container>
+<ng-template #errorModal>
+  <h1>Ein Fehler ist aufgetreten!</h1>
+  Kehren Sie zur <a class="text-blue-600" routerLink="/">Startseite</a> zurück.
+</ng-template>

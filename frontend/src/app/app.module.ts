@@ -14,6 +14,7 @@ import {SearchModule} from './search/search.module';
 import {PlansModule} from './plans/plans.module';
 import {EstimatedUsageService} from './services/estimated-usage/estimated-usage.service';
 import {AdminModule} from './admin/admin.module';
+import {OrderModule} from './order/order.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {AdminModule} from './admin/admin.module';
     IconsModule,
     UiModule,
     HomeModule,
+    OrderModule,
     PlansModule,
     SearchModule,
     ErrorModule,
