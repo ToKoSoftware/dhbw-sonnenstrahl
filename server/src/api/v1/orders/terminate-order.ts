@@ -22,7 +22,10 @@ export async function terminateOrder(req: Request, res: Response) {
     } else if (order.terminatedAt !== null) {
         return res.status(400).send(wrapResponse(false, { error: 'Order already terminated' }));
     }
-    let updatedOrder = await Order.update({ terminatedAt: Date.now() },
+    let updatedOrder = await Order.update({ 
+            terminatedAt: Date.now(),
+            is_active: false
+         },
         {
             where: {
                 id: req.params.id
