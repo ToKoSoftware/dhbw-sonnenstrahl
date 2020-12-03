@@ -14,7 +14,6 @@ export async function userIsAuthorized(req: Request, res: Response, next: any):P
             } else {
                 Vars.currentJWT = token;
                 const userData: string | { [key: string]: any; } | null = jwt.decode(token);
-                Vars.loggy.log(userData);
                 if (!(userData instanceof Object) || userData === null) {
                     res.status(403).send(wrapResponse(false, { error: 'Error occured during authorization!' }));
                     return;
