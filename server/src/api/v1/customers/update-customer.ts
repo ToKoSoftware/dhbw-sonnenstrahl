@@ -59,7 +59,7 @@ export async function updateCustomer(req: Request, res: Response) {
        
     };
 
-    //Customer Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
+    //Customer object from database must not be null, id must not be changed and all set keys mut not be empty.
     if (
         customer !== null 
         && (req.body.id === undefined || req.params.id === req.body.id) 
