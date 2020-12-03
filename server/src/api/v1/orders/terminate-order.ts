@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
+import { Customer } from "../../../models/customer.models";
 import { Order } from "../../../models/order.model";
-import { User } from "../../../models/user.model";
 import { Vars } from "../../../vars";
 
 export async function terminateOrder(req: Request, res: Response) {
@@ -25,12 +25,13 @@ export async function terminateOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: 'Count not find Order with id: ' + req.params.id }))
     }
 
-    let user: User | null = await User.findOne(
+    let customerData = await Customer.findOne(
         {
             where: {
-                customerId: order.customerId
+                id: order.customerId
             }
-        }).catch(error => {
+        })
+        .catch(error => {
             success = false;
             return null;
         });
@@ -38,12 +39,15 @@ export async function terminateOrder(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    if (user !== null) {
-        if (!currentUserIsAdminOrMatchesId(user.id)) {
+    //authorisation check
+    if (customerData !== null) {
+        if (customerData.userId !== undefined) {
+            if (!currentUserIsAdminOrMatchesId(customerData.userId)) {
+                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+            }
+        } else if (!Vars.currentUser.is_admin) {
             return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
         }
-    } else if (!Vars.currentUser.is_admin) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
     if (order.terminatedAt !== null) {
         return res.status(400).send(wrapResponse(false, { error: 'Order already terminated' }));

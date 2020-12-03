@@ -42,25 +42,14 @@ export async function getOrder(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    let user: User | null = await User.findOne(
-        {
-            where: {
-                customerId: orderData.customerId
+    if (customerData !== null) {
+        if (customerData.userId !== undefined) {
+            if (!currentUserIsAdminOrMatchesId(customerData.userId)) {
+                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
             }
-        }).catch(error => {
-            success = false;
-            return null;
-        });
-
-    if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
-    }
-    if (user !== null) {
-        if (!currentUserIsAdminOrMatchesId(user.id)) {
+        } else if (!Vars.currentUser.is_admin) {
             return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
         }
-    } else if (!Vars.currentUser.is_admin) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
     return res.send(wrapResponse(true, { orderData, customerData }));

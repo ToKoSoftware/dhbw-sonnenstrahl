@@ -7,6 +7,7 @@ import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingCustomer, InternalCustomer } from "../../../interfaces/customers.interface";
 import { Customer } from "../../../models/customer.models";
 import { User } from "../../../models/user.model";
+import { Vars } from "../../../vars";
 
 export async function updateCustomer(req: Request, res: Response) {
     let success = true;
@@ -36,6 +37,18 @@ export async function updateCustomer(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
+    //authorisation check
+    if (customer !== null) {
+        if (customer.userId !== undefined) {
+            if (!currentUserIsAdminOrMatchesId(customer.userId)) {
+                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+            } else if (!Vars.currentUser.is_admin) {
+                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+            }
+        }
+    } else {
+        return res.status(400).send(wrapResponse(false, { error: "No customer with given id found!" }));
+    }
 
     if (req.body.userId !== undefined && req.body.userId !== null) {
         user = await User.findOne(
@@ -48,24 +61,22 @@ export async function updateCustomer(req: Request, res: Response) {
                 success = false;
                 return null;
             });
-        
+
         if (!success) {
-                return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        
+
         if (user === null) {
             return res.status(404).send(wrapResponse(false, { error: "No user with given id found" }));
         }
 
-       
+
     };
 
-    //Customer object from database must not be null, id must not be changed and all set keys mut not be empty.
-    if (
-        customer !== null 
-        && (req.body.id === undefined || req.params.id === req.body.id) 
+    //id must not be changed and all set keys mut not be empty.
+    if ((req.body.id === undefined || req.params.id === req.body.id)
         && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false
-     ) {
+    ) {
 
         updateResult = await Customer.update(
             req.body,

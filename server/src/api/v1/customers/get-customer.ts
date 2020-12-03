@@ -25,21 +25,9 @@ export async function getCustomer(req: Request, res: Response) {
     if (customer === null) {
         return res.status(404).send(wrapResponse(false));
     }
-    let user: User | null = await User.findOne(
-        {
-            where: {
-                customerId: customer.id
-            }
-        }).catch(error => {
-            success = false;
-            return null;
-        });
-
-    if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
-    }
-    if (user !== null) {
-        if (!currentUserIsAdminOrMatchesId(user.id)) {
+    //authorisation check
+    if(customer.userId !== undefined){
+        if (!currentUserIsAdminOrMatchesId(customer.userId)) {
             return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
         }
     } else if (!Vars.currentUser.is_admin) {
