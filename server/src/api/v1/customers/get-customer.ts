@@ -4,7 +4,6 @@ import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-i
 import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from "../../../functions/query-builder.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { Customer } from "../../../models/customer.models";
-import { User } from "../../../models/user.model";
 import { Vars } from "../../../vars";
 
 export async function getCustomer(req: Request, res: Response) {

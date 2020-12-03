@@ -8,7 +8,6 @@ import { IncomingUpdateOrder, InternalOrder } from "../../../interfaces/orders.i
 import { Customer } from "../../../models/customer.models";
 import { Order } from "../../../models/order.model";
 import { Plan } from "../../../models/plan.model";
-import { User } from "../../../models/user.model";
 import { Vars } from "../../../vars";
 
 export async function updateOrder(req: Request, res: Response) {

@@ -4,7 +4,6 @@ import { wrapResponse } from '../../../functions/response-wrapper';
 import { FindOptions } from 'sequelize';
 import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
 import { Customer } from '../../../models/customer.models';
-import { User } from '../../../models/user.model';
 import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
 import { Vars } from '../../../vars';
 
