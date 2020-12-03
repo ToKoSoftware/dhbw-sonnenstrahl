@@ -1,4 +1,5 @@
 export interface IncomingOrder {
+    userId: string;
     firstName: string;
     lastName: string;
     street: string;

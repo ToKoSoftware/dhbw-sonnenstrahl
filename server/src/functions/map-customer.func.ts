@@ -2,6 +2,7 @@ import { IncomingCustomer, InternalCustomer } from "../interfaces/customers.inte
 
 export function mapCustomer(incomingData: IncomingCustomer): InternalCustomer {
     return {
+        userId: incomingData.userId,
         firstName: incomingData.firstName,
         lastName: incomingData.lastName,
         street: incomingData.street,
