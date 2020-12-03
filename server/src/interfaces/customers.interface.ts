@@ -1,4 +1,5 @@
 export interface InternalCustomer {
+    userId: string;
     firstName: string;
     lastName: string;
     street: string;
@@ -9,6 +10,7 @@ export interface InternalCustomer {
 }
 
 export interface IncomingCustomer {
+    userId: string;
     firstName: string;
     lastName: string;
     street: string;

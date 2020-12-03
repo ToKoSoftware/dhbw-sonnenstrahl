@@ -23,6 +23,9 @@ export class Customer extends Model<Customer> {
     }
 
     @Column
+    userId?: string;
+
+    @Column
     firstName: string;
 
     @Column
