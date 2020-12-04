@@ -41,7 +41,7 @@ export async function updatePlan(req: Request, res: Response) {
     } else {
         // check if the postcode should be changed. If it should, ther must not be an active order with the given planId
         if (plan.postcode !== mappedIncomingData.postcode) {
-            let activeOrders: Order[] | null = await Order.findAll(
+            let activeOrders: Order | null = await Order.findOne(
                 {
                     where: {
                         planId: req.params.id,
