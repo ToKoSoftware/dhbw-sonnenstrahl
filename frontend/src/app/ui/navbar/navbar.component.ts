@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import {LoginService} from '../../services/login/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,9 @@ export class NavbarComponent implements OnInit {
   @ViewChild('profileMenu') profileMenu: ElementRef<any>;
   public searchQuery = '';
 
-  constructor(private router: Router) {
+  constructor(
+    public login: LoginService,
+    private router: Router) {
   }
 
   ngOnInit(): void {

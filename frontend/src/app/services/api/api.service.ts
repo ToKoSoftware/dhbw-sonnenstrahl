@@ -5,6 +5,7 @@ import cookies from 'browser-cookies';
 import {filter, map, tap} from 'rxjs/operators';
 import isBlank from 'is-blank';
 import {environment} from '../../../environments/environment';
+import {LoginService} from "../login/login.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class ApiService {
 
   constructor(
     private readonly http: HttpClient,
+    private readonly login: LoginService
   ) {
   }
 
@@ -40,16 +42,12 @@ export class ApiService {
     path: string,
     body?: { [key: string]: string | string[] | undefined },
   ): Observable<ApiResponse<Data>> {
-    const httpParams = body === undefined ? undefined : new HttpParams({
-      encoder: new CustomQueryEncoderHelper(),
-      fromObject: removeBlank(body) as { [key: string]: string | string[] }
-    });
     const jwt = this.getJwt();
 
-    return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, httpParams, {
+    return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, JSON.stringify(body), {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
     }) as Observable<ApiResponse<Data>>;
   }
@@ -62,7 +60,7 @@ export class ApiService {
       encoder: new CustomQueryEncoderHelper(),
       fromObject: removeBlank(body) as { [key: string]: string | string[] }
     });
-    const jwt = this.getJwt();
+    const jwt = this.login.jwt$._getNow();
 
     return this.http.put(`${ApiService.getApiBaseUrl()}${path}`, httpParams, {
       headers: {

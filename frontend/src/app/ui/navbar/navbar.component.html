@@ -51,10 +51,10 @@
       <div class="hidden lg:block lg:w-80">
         <div class="flex items-center justify-end">
           <div class="flex">
-            <a routerLink="/login" class="px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-600 hover:text-white focus:outline-none focus:text-white focus:bg-indigo-600 transition duration-150 ease-in-out">Login</a>
+            <a *ngIf="!(login.isLoggedIn$ | async)" routerLink="/login" class="px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-600 hover:text-white focus:outline-none focus:text-white focus:bg-indigo-600 transition duration-150 ease-in-out">Login</a>
           </div>
           <!-- Profile dropdown -->
-          <div class="ml-4 relative flex-shrink-0">
+          <div class="ml-4 relative flex-shrink-0" *ngIf="login.isLoggedIn$ | async">
             <div>
               <button (click)="toggleUserMenu()" class="flex text-sm rounded-full text-white focus:outline-none focus:shadow-solid transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
                 <img class="h-8 w-8 rounded-full" src="/assets/sun.jpg" alt="">
@@ -64,7 +64,7 @@
               <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                 <a routerLink="/profile" (click)="toggleUserMenu()" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Profil bearbeiten</a>
                 <a routerLink="/admin" (click)="toggleUserMenu()" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Admin</a>
-                <a routerLink="/logout" (click)="toggleUserMenu()" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Abmelden</a>
+                <a routerLink="/login/logout" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Abmelden</a>
               </div>
             </div>
           </div>

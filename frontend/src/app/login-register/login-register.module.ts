@@ -4,12 +4,15 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import {loginRegisterRoutes} from './login-register.routes';
 import {UiModule} from '../ui/ui.module';
+import {FormsModule} from "@angular/forms";
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [RegisterComponent, LoginComponent, LogoutComponent],
   imports: [
     loginRegisterRoutes,
     CommonModule,
+    FormsModule,
     UiModule
   ]
 })

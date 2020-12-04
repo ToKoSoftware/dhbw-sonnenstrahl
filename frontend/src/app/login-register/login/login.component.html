@@ -13,6 +13,7 @@
           <span class="text-yellow-300">Noch kein Konto? <a routerLink="/login/register"> Jetzt erstellen!</a></span>
         </p>
         <div class="mt-10">
+          <p *ngIf="error" class="text-red-700">Username oder Passwort falsch!</p>
           <fieldset>
             <div
               style="background: rgba(255, 255, 255, 0.8)"
@@ -20,14 +21,17 @@
               <div>
                 <input aria-label="Postleitzahl"
                        type="email"
+                       [(ngModel)]="email"
                        class="h-16 text-1xl text-center form-input relative block w-full rounded-none rounded-t-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:leading-5"
                        placeholder="E-Mail"/>
                 <input aria-label="Postleitzahl"
                        type="password"
+                       [(ngModel)]="password"
                        class="h-16 text-1xl text-center form-input relative block w-full rounded-none rounded-b-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:leading-5"
                        placeholder="Passwort"/>
               </div>
             </div>
+            <app-button (click)="login()" label="Login"></app-button>
           </fieldset>
         </div>
       </div>
