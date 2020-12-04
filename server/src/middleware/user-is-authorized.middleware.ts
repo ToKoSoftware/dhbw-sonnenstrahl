@@ -5,7 +5,7 @@ import { Vars } from "../vars";
 import { User } from "../models/user.model";
 
 export async function userIsAuthorized(req: Request, res: Response, next: any):Promise<void> {
-    const header = req.headers['authorization'];
+    const header = req.headers.authorization;
     if (header !== undefined) {
         const [bearer, token] = header.split(' ');
         jwt.verify(token, Vars.config.database.jwtSalt, async (err: unknown) => {
