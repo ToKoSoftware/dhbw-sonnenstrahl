@@ -8,7 +8,7 @@ import { Vars } from "../../../vars";
 
 export async function getCustomer(req: Request, res: Response) {
     let success = true;
-    let customer:Customer|null = await Customer.findOne(
+    let customer: Customer | null = await Customer.findOne(
         {
             where: {
                 id: req.params.id
