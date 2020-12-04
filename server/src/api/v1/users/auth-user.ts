@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { Vars } from "../../../vars";
 
 export async function loginUser(req: Request, res: Response) {
-    const incomingData: IncomingUser = req.body
+    const incomingData: IncomingUser = req.body;
     let success = true;
     let calculatedExpiresIn =  60*60; //expiration after 1h
 
