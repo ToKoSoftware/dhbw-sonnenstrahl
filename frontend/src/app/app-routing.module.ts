@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: 'search', loadChildren: './search/search.module#SearchModule'},
   {path: 'plans', loadChildren: './plans/plans.module#PlansModule'},
   {path: 'login', loadChildren: './login-register/login-register.module#LoginRegisterModule'},
+  {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
   {path: '**', component: Error404Component},
 ];
 

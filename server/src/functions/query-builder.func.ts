@@ -43,8 +43,11 @@ export function buildLimitAndOffset(query: QueryBuilderData, req: Request) {
 export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders: string[] = []) {
     if (req.query.order && !isBlank(req.query.order) || req.query.sort && !isBlank(req.query.sort)) {
         let o = req.query.order as string || req.query.sort as string;
-        const direction = o.charAt(0) == "-" ? "ASC" : "DESC";
-        o = o.substring(1);
+        let direction = "DESC";
+        if (o.charAt(0) === "-" ) {
+            direction = "ASC";
+            o = o.substring(1);
+        }
         if (allowedOrders.includes(o)) {
             return {
                 ...query,

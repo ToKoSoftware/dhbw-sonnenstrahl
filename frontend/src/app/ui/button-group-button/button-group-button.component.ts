@@ -37,7 +37,8 @@ export class ButtonGroupButtonComponent implements OnInit {
     }
     if (this.buttonPosition === 0) {
       classList.push('rounded-l-md');
-    } else if (this.buttonPosition + 1 === this.length) {
+    }
+    if (this.buttonPosition + 1 === this.length) {
       classList.push('rounded-r-md');
     }
     if (this.button.type === undefined) {

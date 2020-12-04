@@ -1,0 +1,60 @@
+<app-admin-layout [buttons]="buttonGroup" title="Tarife bearbeiten">
+  <div class="bg-white rounded border-1 border-black p-4">
+    <app-loading *ngIf="loading"></app-loading>
+    <table class="table-fixed w-full" *ngIf="!loading">
+      <thead>
+      <tr class="border-gray-200 border-b-2">
+        <th class="pl-2 w-1/4 text-left">Titel</th>
+        <th class="truncate text-left">Postleitzahl</th>
+        <th class="truncate text-right hidden md:table-cell">Fixe Kosten</th>
+        <th class="truncate text-right hidden md:table-cell">Var. Kosten</th>
+        <th class="w-1/3 truncate text-left"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let plan of results" class="even-odd-row">
+        <td class="truncate pl-2 leading-normal">{{ plan.plan }}</td>
+        <td>{{ plan.postcode }}</td>
+        <td class="hidden md:table-cell text-right">{{ plan.cost_fix }}</td>
+        <td class="hidden md:table-cell text-right">{{ plan.cost_var }}</td>
+        <td class="grid">
+          <div class="justify-self-end my-3">
+            <app-button class="pr-2" (click)="showEditModalForPlan(plan)" label="Bearbeiten"></app-button>
+            <app-button class="" (click)="showDeleteModalForPlan(plan)" label="Entfernen" type="danger"></app-button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</app-admin-layout>
+<ng-template #editModal>
+  <label class="block mt-6 leading-3 text-lg">Identifier</label>
+  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text" [(ngModel)]="currentEditPlan.id"
+         readonly>
+  <label class="block mt-6 leading-3 text-lg">Titel</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Titel" [(ngModel)]="currentEditPlan.plan">
+  <label class="block mt-6 leading-3 text-lg">Postleitzahl</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Postleitzahl"
+         [(ngModel)]="currentEditPlan.postcode">
+  <label class="block mt-6 leading-3 text-lg">Variable Kosten</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Variable Kosten"
+         [(ngModel)]="currentEditPlan.cost_var">
+  <label class="block mt-6 leading-3 text-lg">Fixe Kosten</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Fixe Kosten"
+         [(ngModel)]="currentEditPlan.cost_fix">
+
+  <div class="flex justify-end w-full mt-7">
+    <div>
+      <app-button
+        (click)="closeEditModal()"
+        type="blank"
+        label="Abbrechen"
+        [icon]="null"></app-button>
+      <app-button
+        (click)="saveEditedPlan()"
+        type="info"
+        label="Speichern"></app-button>
+    </div>
+  </div>
+</ng-template>

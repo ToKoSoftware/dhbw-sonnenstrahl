@@ -10,16 +10,20 @@ export interface IncomingOrder {
     agent: string;
 }
 
+// Interface for Updating Order
+export interface IncomingUpdateOrder {
+    customerId: string;
+    rateId: string;
+    consumption: number;
+    agent: string;
+}
+
 export interface InternalOrder {
     id?: string;
-    firstName: string;
-    lastName: string;
-    street: string;
-    streetNumber: string;
-    postcode: string;
-    city: string;
-    referrer: string;
+    customerId: string;
     planId: string;
+    referrer: string;
     consumption: number;
     is_active: boolean;
+    terminatedAt: Date | null;
 }
