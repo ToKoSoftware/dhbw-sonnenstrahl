@@ -5,10 +5,12 @@ import { mapCustomer } from "../../../functions/map-customer.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingCustomer, InternalCustomer } from "../../../interfaces/customers.interface";
 import { Customer } from "../../../models/customer.models";
+import { User } from "../../../models/user.model";
 
 export async function updateCustomer(req: Request, res: Response) {
     let success = true;
     let customer: Customer | null;
+    let user: User | null;
     let updateResult;
     const incomingData: IncomingCustomer = req.body;
     const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);
@@ -33,8 +35,36 @@ export async function updateCustomer(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    //Customer Objekt from database must not be null, id must not be changed and all set keys mut not be empty.
-    if (customer !== null && (req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
+
+    if (req.body.userId !== undefined && req.body.userId !== null) {
+        user = await User.findOne(
+            {
+                where: {
+                    id: req.body.userId
+                }
+            })
+            .catch(error => {
+                success = false;
+                return null;
+            });
+        
+        if (!success) {
+                return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        }
+        
+        if (user === null) {
+            return res.status(404).send(wrapResponse(false, { error: "No user with given id found" }));
+        }
+
+       
+    };
+
+    //Customer object from database must not be null, id must not be changed and all set keys mut not be empty.
+    if (
+        customer !== null 
+        && (req.body.id === undefined || req.params.id === req.body.id) 
+        && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false
+     ) {
 
         updateResult = await Customer.update(
             req.body,

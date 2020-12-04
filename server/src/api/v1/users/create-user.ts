@@ -41,7 +41,7 @@ export async function createUser(req: Request, res: Response) {
                 return res.status(500).send(wrapResponse(false, { error: 'Could not create User' }));
             }
             //return everything beside password
-            let data = await User.findAll({
+            let data = await User.findOne({
                 attributes: { exclude: ['password'] },
                 where: {
                     id: createdData.id
