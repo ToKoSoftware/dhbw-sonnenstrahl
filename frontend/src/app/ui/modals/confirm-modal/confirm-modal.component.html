@@ -5,6 +5,7 @@
   <div class="flex justify-end w-full">
     <div class="">
       <app-button
+                  *ngIf="!config?.showCancelButton || config?.showCancelButton === false"
                   (click)="runCancelAction()"
                   type="blank"
                   [label]="config.cancelText"

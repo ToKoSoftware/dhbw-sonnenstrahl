@@ -56,6 +56,7 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
 
 export interface ConfirmModalConfig {
   title: string;
+  showCancelButton?: boolean;
   description?: string;
   confirmText?: string;
   cancelText?: string;
