@@ -1,7 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {UiButton, UiButtonGroup} from '../../ui.interface';
+import {UiButton, UiButtonGroup, UiButtonType} from '../../ui.interface';
 import {Subject, Subscription} from 'rxjs';
 import {ConfirmModalService} from '../../../services/confirm-modal/confirm-modal.service';
+import {ButtonType} from '../../button/button.component';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -49,6 +50,8 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
       description: '',
       confirmText: 'Bestätigen',
       cancelText: 'Abbrechen',
+      confirmButtonType: 'danger',
+      showCancelButton: true
     };
   }
 
@@ -60,4 +63,5 @@ export interface ConfirmModalConfig {
   description?: string;
   confirmText?: string;
   cancelText?: string;
+  confirmButtonType?: ButtonType;
 }

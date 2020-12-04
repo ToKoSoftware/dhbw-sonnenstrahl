@@ -59,6 +59,8 @@ export class PlansComponent implements OnInit {
           this.loadingService.hideLoading();
           this.confirmService.confirm({
             title: `Es ist ein Fehler beim Löschen aufgetreten.`,
+            confirmButtonType: 'info',
+            confirmText: 'Ok',
             description: 'Der Server gab folgenden Fehler an: ' + error.error.data.error,
             showCancelButton: false
           });
@@ -80,17 +82,31 @@ export class PlansComponent implements OnInit {
     this.modalService.close();
     this.loadingService.showLoading();
     this.api.put(`/plans/${this.currentEditPlan.id}`, {
-      plan: this.currentEditPlan.plan,
-      cost_fix: this.currentEditPlan.cost_fix.toString(),
-      // postcode: this.currentEditPlan.postcode,
-      cost_var: this.currentEditPlan.cost_var.toString(),
-    }).subscribe();
+      Tarifname: this.currentEditPlan.plan,
+      Fixkosten: this.currentEditPlan.cost_fix.toString(),
+      PLZ: this.currentEditPlan.postcode,
+      VariableKosten: this.currentEditPlan.cost_var.toString(),
+    }).subscribe(
+      data => {
+        this.loadingService.hideLoading();
+        this.loadData();
+      }, error => {
+        this.loadingService.hideLoading();
+        this.confirmService.confirm({
+          title: `Es ist ein Fehler beim Ändern aufgetreten.`,
+          confirmButtonType: 'info',
+          confirmText: 'Ok',
+          description: 'Der Server gab folgenden Fehler an: ' + error.error.data.error,
+          showCancelButton: false
+        });
+      }
+    );
   }
 
   private loadData(): void {
     this.loading = true;
     this.api.get<PlanData[]>('/plans', {
-      order: '-cost_fix',
+      order: '-postcode',
       is_active: 'true',
     }).subscribe(
       data => {
