@@ -30,6 +30,11 @@ export function loadConfig(): Configuration {
             mappingName: 'port',
             defaultValue: '5432',
             required: false
+        }, {
+            name: 'JWT_HASH',
+            mappingName: 'jwtSalt',
+            defaultValue: '',
+            required: true
         },
     ];
 
@@ -38,7 +43,8 @@ export function loadConfig(): Configuration {
         password: '',
         username: '',
         url: '',
-        port: ''
+        port: '',
+        jwtSalt: ''
     };
 
     databaseCredentialFields.forEach((field) => {
@@ -65,4 +71,4 @@ interface ConfigurationConfig {
     required: boolean;
 }
 
-export type allowedMappedValues = 'username' | 'url' | 'dbname' | 'port' | 'password';
+export type allowedMappedValues = keyof DatabaseCredentials;
