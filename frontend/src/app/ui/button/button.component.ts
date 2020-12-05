@@ -22,4 +22,4 @@ export class ButtonComponent implements OnInit {
 }
 
 export type ButtonType = 'blank' | 'info' | 'danger';
-export type ButtonSize = 'normal' | 'small';
+export type ButtonSize = 'normal' | 'small' | 'full';

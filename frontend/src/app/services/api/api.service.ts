@@ -41,9 +41,6 @@ export class ApiService {
     path: string,
     body?: { [key: string]: string | string[] | undefined },
   ): Observable<ApiResponse<Data>> {
-    const httpParams = body === undefined ? undefined : new HttpParams({
-      fromObject: removeBlank(body) as { [key: string]: string | string[] }
-    });
     const jwt = this.getJwt();
 
     return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, JSON.stringify(body), {
