@@ -26,6 +26,8 @@ import { updatePlan } from './api/v1/plans/update-plan';
 import { deletePlan } from './api/v1/plans/delete-plan';
 import { userIsAuthorized } from './middleware/user-is-authorized.middleware';
 import { userIsAdmin } from './middleware/user-is-admin.middleware';
+import { exportOrders } from './api/v1/export/export-order';
+import { userIsAuthorizedByParam } from './middleware/user-is-authorized-by-param.middleware';
 
 export default function startServer() {
 
@@ -96,6 +98,11 @@ export default function startServer() {
     app.post('/api/v1/customers', (req, res) => createCustomer(req, res));
     app.put('/api/v1/customers/:id', userIsAuthorized, (req, res) => updateCustomer(req, res));
     app.delete('/api/v1/customers/:id', userIsAuthorized, userIsAdmin, (req, res) => deleteCustomer(req, res));
+
+    /**
+     * Exports
+     */
+    app.get('/api/v1/export/orders', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportOrders(req, res));
 
     app.use((req, res, next) => {
         res.status(404).send(wrapResponse(false, {
