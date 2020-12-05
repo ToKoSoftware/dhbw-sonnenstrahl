@@ -15,6 +15,7 @@ import {PlansModule} from './plans/plans.module';
 import {LoginRegisterModule} from './login-register/login-register.module';
 import {EstimatedUsageService} from './services/estimated-usage/estimated-usage.service';
 import {AdminModule} from './admin/admin.module';
+import {ProfileModule} from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {AdminModule} from './admin/admin.module';
     PlansModule,
     SearchModule,
     ErrorModule,
+    ProfileModule,
     LoginRegisterModule,
     AdminModule
   ],
