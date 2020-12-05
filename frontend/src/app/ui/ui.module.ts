@@ -21,6 +21,8 @@ import {ConfirmModalComponent} from './modals/confirm-modal/confirm-modal.compon
 import {LoadingModalComponent} from './modals/loading-modal/loading-modal.component';
 import {CustomModalComponent} from './modals/custom-modal/custom-modal.component';
 import {LayoutComponent} from './layout/layout.component';
+import {InputComponent} from './input/input.component';
+import {LabeledValueComponent} from './labeled-value/labeled-value.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import {LayoutComponent} from './layout/layout.component';
     ConfirmModalComponent,
     LoadingModalComponent,
     CustomModalComponent,
-    LayoutComponent
+    LayoutComponent,
+    InputComponent,
+    LabeledValueComponent
   ],
   exports: [
     NavbarComponent,
@@ -58,7 +62,11 @@ import {LayoutComponent} from './layout/layout.component';
     ConfirmModalComponent,
     LoadingModalComponent,
     CustomModalComponent,
-    LayoutComponent
+    LayoutComponent,
+    TabsComponent,
+    StepsComponent,
+    InputComponent,
+    LabeledValueComponent
   ],
   imports: [
     CommonModule,

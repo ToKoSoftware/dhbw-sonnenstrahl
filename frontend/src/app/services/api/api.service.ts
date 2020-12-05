@@ -24,7 +24,6 @@ export class ApiService {
   ): Observable<ApiResponse<Data>> {
     const params = queryParams == null ?
       undefined : new HttpParams({
-        encoder: new CustomQueryEncoderHelper(),
         fromObject: removeBlank(queryParams) as { [key: string]: string | string[] }
       });
 
@@ -42,6 +41,9 @@ export class ApiService {
     path: string,
     body?: { [key: string]: string | string[] | undefined },
   ): Observable<ApiResponse<Data>> {
+    const httpParams = body === undefined ? undefined : new HttpParams({
+      fromObject: removeBlank(body) as { [key: string]: string | string[] }
+    });
     const jwt = this.getJwt();
 
     return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, JSON.stringify(body), {
@@ -56,16 +58,12 @@ export class ApiService {
     path: string,
     body?: { [key: string]: string | string[] | undefined },
   ): Observable<ApiResponse<Data>> {
-    const httpParams = body === undefined ? undefined : new HttpParams({
-      encoder: new CustomQueryEncoderHelper(),
-      fromObject: removeBlank(body) as { [key: string]: string | string[] }
-    });
-    const jwt = this.login.jwt$._getNow();
+    const jwt = this.getJwt();
 
-    return this.http.put(`${ApiService.getApiBaseUrl()}${path}`, httpParams, {
+    return this.http.put(`${ApiService.getApiBaseUrl()}${path}`, JSON.stringify(body), {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
     }) as Observable<ApiResponse<Data>>;
   }
@@ -76,7 +74,6 @@ export class ApiService {
   ): Observable<ApiResponse<Data>> {
     const params = queryParams == null ?
       undefined : new HttpParams({
-        encoder: new CustomQueryEncoderHelper(),
         fromObject: removeBlank(queryParams) as { [key: string]: string | string[] }
       });
 
@@ -170,24 +167,6 @@ function removeBlank(
     }
   }
   return result;
-}
-
-class CustomQueryEncoderHelper implements HttpParameterCodec {
-  encodeKey(k: string): string {
-    return encodeURIComponent(k);
-  }
-
-  encodeValue(v: string): string {
-    return encodeURIComponent(v);
-  }
-
-  decodeKey(k: string): string {
-    return decodeURIComponent(k);
-  }
-
-  decodeValue(v: string): string {
-    return decodeURIComponent(v);
-  }
 }
 
 export interface ApiResponse<Data> {

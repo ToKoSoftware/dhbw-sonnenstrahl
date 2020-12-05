@@ -6,7 +6,7 @@ import { Plan } from "../../../models/plan.model";
 export async function deletePlan(req: Request, res: Response) {
     let success = true;
 
-    let activeOrders: Order[] | null = await Order.findAll(
+    let activeOrders: Order | null = await Order.findOne(
         {
             where: {
                 planId: req.params.id,

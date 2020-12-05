@@ -25,7 +25,7 @@ export async function getCustomer(req: Request, res: Response) {
         return res.status(404).send(wrapResponse(false));
     }
     //authorisation check
-    if(customer.userId !== undefined){
+    if (customer.userId !== undefined) {
         if (!currentUserIsAdminOrMatchesId(customer.userId)) {
             return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
         }
@@ -42,20 +42,25 @@ export async function getCustomers(req: Request, res: Response) {
         raw: true,
     };
     // todo move this to the model
-    const allowedSearchFilterAndOrderFields = ['firstName', 'lastName', 'postcode'];
-
+    const allowedSearchAndOrderFields = ['firstName', 'lastName', 'postcode'];
+    const allowedFilterFields = ['userId'];
     let customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
+    if (!Vars.currentUser.is_admin) {
+        customResolver.set('userId', (field: string, req: Request, value: string) => {
+            return Vars.currentUser.id;
+        });
+    }
     const queryConfig: QueryBuilderConfig = {
         query: query,
         searchString: req.query.search as string || '',
         customFilterResolver: customResolver,
         allowLimitAndOffset: true,
-        allowedFilterFields: allowedSearchFilterAndOrderFields,
-        allowedSearchFields: allowedSearchFilterAndOrderFields,
-        allowedOrderFields: allowedSearchFilterAndOrderFields
+        allowedFilterFields: allowedFilterFields,
+        allowedSearchFields: allowedSearchAndOrderFields,
+        allowedOrderFields: allowedSearchAndOrderFields
     }
     query = buildQuery(queryConfig, req);
     let data: unknown = [];

@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: './profile/profile.module#ProfileModule'
   },
   {
+    path: 'order',
+      loadChildren: './order/order.module#OrderModule'
+  },
+  {
     path: 'login',
     loadChildren: './login-register/login-register.module#LoginRegisterModule'
   },

@@ -1,1 +1,105 @@
-<p>form works!</p>
+<app-nav-spacer></app-nav-spacer>
+<app-header
+  title="Tarif bestellen"
+  [breadcrumbs]="breadcrumbs"
+  [whiteBg]="true">
+</app-header>
+<app-container>
+  <div *ngIf="!loading">
+    <app-steps></app-steps>
+    <ng-container *ngIf="currentStep === 1">
+      <h3 class="text-2xl text-gray-600 py-5">Schritt 1:</h3>
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
+        <h1 class="text-2xl mb-4">Ihre persönlichen Daten</h1>
+        <form [formGroup]="customInputForm">
+          <div class="md:flex">
+            <app-input label="Vorname"
+                       class="flex-1 md:pr-2"
+                       placeholder="Max"
+                       formControlName="firstName">
+            </app-input>
+            <app-input label="Nachname"
+                       class="flex-1 md:pl-2"
+                       placeholder="Mustermann"
+                       formControlName="lastName">
+            </app-input>
+          </div>
+          <hr class="my-3">
+          <div class="md:flex">
+            <app-input label="Straße"
+                       class="flex-1 md:pr-2"
+                       placeholder="Bahnhofsstraße"
+                       formControlName="street">
+            </app-input>
+            <app-input label="Hausnummer"
+                       class="flex-1 md:pl-2"
+                       placeholder="42"
+                       formControlName="streetNumber">
+            </app-input>
+          </div>
+          <div class="md:flex">
+            <app-input label="Postleitzahl"
+                       class="flex-1 md:pr-2"
+                       placeholder="12345"
+                       formControlName="zipCode">
+            </app-input>
+            <app-input label="Stadt"
+                       class="flex-1 md:pl-2"
+                       placeholder="Musterstadt"
+                       formControlName="city">
+            </app-input>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 2">
+      <h3 class="text-2xl text-gray-600 py-5">Schritt 2:</h3>
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
+        <h1 class="text-2xl">Ihr gewählter Tarif</h1>
+        <form [formGroup]="customInputForm">
+          <div class="md:flex">
+            <app-labeled-value label="Tarif" [value]="plan.plan" class="flex-1 md:pr-2">
+            </app-labeled-value>
+            <app-labeled-value
+              label="Fixkosten"
+              [value]="plan.cost_fix"
+              class="flex-1 md:pl-2">
+            </app-labeled-value>
+          </div>
+          <app-input label="Verbrauch"
+                     placeholder="1000"
+                     formControlName="consumption">
+          </app-input>
+        </form>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 3">
+      <h3 class="text-2xl text-gray-600 py-5">Schritt 3:</h3>
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
+        <h1 class="text-2xl">Daten überprüfen</h1>
+        <form [formGroup]="customInputForm">
+          {{ customInputForm.value | json }}
+        </form>
+      </div>
+    </ng-container>
+
+    <div class="flex justify-end w-full">
+      <div>
+        <app-button
+          type="blank"
+          label="Zurück"
+          *ngIf="currentStep !== 1"
+          (click)="showPreviousStep()">
+        </app-button>
+        <app-button
+          label="Weiter"
+          (click)="showNextStep()">
+        </app-button>
+      </div>
+    </div>
+  </div>
+</app-container>
+<ng-template #errorModal>
+  <h1>Ein Fehler ist aufgetreten!</h1>
+  Kehren Sie zur <a class="text-blue-600" routerLink="/">Startseite</a> zurück.
+</ng-template>

@@ -1,7 +1,12 @@
 <app-nav-spacer></app-nav-spacer>
-<app-container>
-  <ng-container *ngIf="!loading">
-    <app-header [breadcrumbs]="breadcrumbs" [title]="title"></app-header>
+<ng-container *ngIf="!loading">
+  <app-header
+    [breadcrumbs]="breadcrumbs"
+    [title]="title"
+    [whiteBg]="true"
+  >
+  </app-header>
+  <app-container>
     <div class="my-3">
       <div>
         <label for="account_number" class="block text-sm font-medium leading-5 text-gray-700">
@@ -64,9 +69,11 @@
             <span>{{ calculateCostExample(result.cost_var, result.cost_fix) }}</span>
             <span class="ml-3 text-xl leading-7 font-medium text-gray-500">€</span>
           </div>
-          <app-button label="Jetzt bestellen"></app-button>
+          <a [routerLink]="'/order/' + result.id  + '/' + currentEstimatedUsage">
+            <app-button label="Jetzt bestellen"></app-button>
+          </a>
         </div>
       </div>
     </div>
-  </ng-container>
-</app-container>
+  </app-container>
+</ng-container>

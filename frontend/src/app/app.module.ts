@@ -16,6 +16,7 @@ import {LoginRegisterModule} from './login-register/login-register.module';
 import {EstimatedUsageService} from './services/estimated-usage/estimated-usage.service';
 import {AdminModule} from './admin/admin.module';
 import {ProfileModule} from './profile/profile.module';
+import {OrderModule} from './order/order.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {ProfileModule} from './profile/profile.module';
     IconsModule,
     UiModule,
     HomeModule,
+    OrderModule,
     PlansModule,
     SearchModule,
     ErrorModule,

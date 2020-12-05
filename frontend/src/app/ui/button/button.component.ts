@@ -10,13 +10,16 @@ export class ButtonComponent implements OnInit {
   @Input() route: string | null = null;
   @Input() icon: string | null = null;
   @Input() type: ButtonType = 'info';
+  @Input() size: ButtonSize = 'normal';
 
   constructor() {
   }
 
   ngOnInit(): void {
+    console.log(this.size);
   }
 
 }
 
 export type ButtonType = 'blank' | 'info' | 'danger';
+export type ButtonSize = 'normal' | 'small';
