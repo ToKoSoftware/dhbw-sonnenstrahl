@@ -1,0 +1,14 @@
+<div class="file-upload-container transition duration-300 ease-in-out" (click)="fileInput.click()" appDragDrop
+     (onFileDropped)="uploadFile($event)">
+  <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+  <div class="text-center pt-10 px-3">
+    <i-feather name="upload-cloud" style="width: 20%; height: 20%"></i-feather>
+    <p class="leading-relaxed">Ziehen Sie die Datei, welche Sie hochladen möchten, in dieses Feld.</p>
+  </div>
+</div>
+<div class="files-list" *ngFor="let file of files;let i= index">
+  <p> {{ file }} </p>
+  <button class="delete-file" (click)="deleteAttachment(i)">
+    <i-feather name="trash"></i-feather>
+  </button>
+</div>

@@ -18,7 +18,7 @@ export const adminPages: SidebarPageGroup[] = [
       {
         title: 'Kunden',
         icon: 'users',
-        url: '/admin/users',
+        url: '/admin/customers',
       },
       {
         title: 'Tarife',

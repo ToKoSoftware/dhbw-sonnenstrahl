@@ -8,9 +8,20 @@ import {UiModule} from '../ui/ui.module';
 import {UsersComponent} from './users/users.component';
 import {FormsModule} from '@angular/forms';
 import {IconsModule} from '../icons/icons.module';
+import { UploadCsvComponent } from './plans/upload-csv/upload-csv.component';
+import {DragDropDirective} from './plans/upload-csv/drag-and-drop.directive';
+import {CustomersComponent} from './customers/customers.component';
 
 @NgModule({
-  declarations: [OverviewComponent, PlansComponent, OrdersComponent, UsersComponent],
+  declarations: [
+    OverviewComponent,
+    PlansComponent,
+    OrdersComponent,
+    UsersComponent,
+    CustomersComponent,
+    UploadCsvComponent,
+    DragDropDirective
+  ],
     imports: [
         adminRoutes,
         CommonModule,

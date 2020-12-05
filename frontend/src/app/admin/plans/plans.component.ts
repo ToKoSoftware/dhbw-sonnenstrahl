@@ -15,6 +15,7 @@ import {adminPages} from '../admin.pages';
 export class PlansComponent implements OnInit {
   public sidebarPages = adminPages;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
+  @ViewChild('importPlansModal', {static: true}) importPlansModal: TemplateRef<unknown>;
   public results: PlanData[] = [];
   public loading = false;
   public buttonGroup: UiButtonGroup = {
@@ -22,6 +23,7 @@ export class PlansComponent implements OnInit {
       {
         title: 'Tarife importieren',
         function: () => {
+          this.showImportPlansModal();
         },
         icon: 'upload-cloud'
       },
@@ -116,5 +118,9 @@ export class PlansComponent implements OnInit {
         this.results = data.data;
       }
     );
+  }
+
+  public showImportPlansModal(): void {
+    this.modalService.showModal(`Tarife importieren`, this.importPlansModal);
   }
 }
