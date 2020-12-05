@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../services/api/api.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {LoginService} from '../../services/login/login.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',

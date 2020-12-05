@@ -10,7 +10,7 @@
         </h2>
         <p class="mt-3 text-base text-black sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
           Melden Sie sich jetzt mit ihrem Sonnenstrahl Energie Account an, um ihre aktuellen Tarife einzusehen.<br>
-          <span class="text-yellow-300">Noch kein Konto? <a routerLink="/login/register"> Jetzt erstellen!</a></span>
+          <span class="text-yellow-400">Noch kein Konto? <a [routerLink]="'/login/register'"> Jetzt erstellen!</a></span>
         </p>
         <div class="mt-10">
           <p *ngIf="error" class="text-red-700">Username oder Passwort falsch!</p>
