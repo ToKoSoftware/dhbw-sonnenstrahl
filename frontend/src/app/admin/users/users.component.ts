@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {PlanData} from '../../interfaces/plan.interface';
 import {UiButtonGroup} from '../../ui/ui.interface';
 import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
+import {adminPages} from '../admin.pages';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +10,7 @@ import {UserData} from '../../interfaces/user.interface';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
+  public sidebarPages = adminPages;
   public results: UserData[] = [];
   public loading = false;
   public buttonGroup: UiButtonGroup = {

@@ -20,6 +20,7 @@ import {LoadingComponent} from './loading/loading.component';
 import {ConfirmModalComponent} from './modals/confirm-modal/confirm-modal.component';
 import {LoadingModalComponent} from './modals/loading-modal/loading-modal.component';
 import {CustomModalComponent} from './modals/custom-modal/custom-modal.component';
+import {LayoutComponent} from './layout/layout.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {CustomModalComponent} from './modals/custom-modal/custom-modal.component
     LoadingComponent,
     ConfirmModalComponent,
     LoadingModalComponent,
-    CustomModalComponent
+    CustomModalComponent,
+    LayoutComponent
   ],
   exports: [
     NavbarComponent,
@@ -55,7 +57,8 @@ import {CustomModalComponent} from './modals/custom-modal/custom-modal.component
     ModalComponent,
     ConfirmModalComponent,
     LoadingModalComponent,
-    CustomModalComponent
+    CustomModalComponent,
+    LayoutComponent
   ],
   imports: [
     CommonModule,

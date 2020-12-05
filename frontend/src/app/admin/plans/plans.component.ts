@@ -5,6 +5,7 @@ import {UiButtonGroup} from '../../ui/ui.interface';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
+import {adminPages} from '../admin.pages';
 
 @Component({
   selector: 'app-plans',
@@ -12,6 +13,7 @@ import {ModalService} from '../../services/modal/modal.service';
   styleUrls: ['./plans.component.scss']
 })
 export class PlansComponent implements OnInit {
+  public sidebarPages = adminPages;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
   public results: PlanData[] = [];
   public loading = false;
