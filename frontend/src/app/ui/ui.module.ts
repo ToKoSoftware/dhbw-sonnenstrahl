@@ -20,6 +20,8 @@ import {LoadingComponent} from './loading/loading.component';
 import {ConfirmModalComponent} from './modals/confirm-modal/confirm-modal.component';
 import {LoadingModalComponent} from './modals/loading-modal/loading-modal.component';
 import {CustomModalComponent} from './modals/custom-modal/custom-modal.component';
+import { InputComponent } from './input/input.component';
+import {LabeledValueComponent} from './labeled-value/labeled-value.component';
 
 
 @NgModule({
@@ -40,7 +42,10 @@ import {CustomModalComponent} from './modals/custom-modal/custom-modal.component
     LoadingComponent,
     ConfirmModalComponent,
     LoadingModalComponent,
-    CustomModalComponent
+    CustomModalComponent,
+    InputComponent,
+    InputComponent,
+    LabeledValueComponent
   ],
   exports: [
     NavbarComponent,
@@ -55,7 +60,11 @@ import {CustomModalComponent} from './modals/custom-modal/custom-modal.component
     ModalComponent,
     ConfirmModalComponent,
     LoadingModalComponent,
-    CustomModalComponent
+    CustomModalComponent,
+    TabsComponent,
+    StepsComponent,
+    InputComponent,
+    LabeledValueComponent
   ],
   imports: [
     CommonModule,

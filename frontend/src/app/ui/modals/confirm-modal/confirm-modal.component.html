@@ -5,13 +5,14 @@
   <div class="flex justify-end w-full">
     <div class="">
       <app-button
+                  *ngIf="config?.showCancelButton === true"
                   (click)="runCancelAction()"
                   type="blank"
                   [label]="config.cancelText"
                   [icon]="null"></app-button>
       <app-button
                   (click)="runConfirmAction()"
-                  type="danger"
+                  [type]="config.confirmButtonType"
                   [label]="config.confirmText"></app-button>
     </div>
   </div>
