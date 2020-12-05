@@ -6,6 +6,7 @@ import { wrapResponse } from "../../../functions/response-wrapper";
 import { IncomingUser, InternalUser } from "../../../interfaces/users.interface";
 import { User } from "../../../models/user.model";
 import * as EmailValidator from 'email-validator';
+import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
 
 export async function updateUser(req: Request, res: Response) {
     let success = true;
@@ -21,6 +22,11 @@ export async function updateUser(req: Request, res: Response) {
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
     }
+
+    if (!currentUserIsAdminOrMatchesId(req.params.id)) {
+        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+    }
+
     user = await User.findOne(
         {
             where: {
