@@ -1,18 +1,18 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {adminPages} from '../admin.routes';
-import {UiBreadcrumb, UiButtonGroup} from '../../ui/ui.interface';
+import {UiBreadcrumb, UiButtonGroup} from '../ui.interface';
+import {SidebarPageGroup} from '../sidebar/sidebar.component';
 
 @Component({
-  selector: 'app-admin-layout',
+  selector: 'app-layout',
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit {
-  public p = adminPages;
-  @Input() title = 'Admin';
+  @Input() sidebarPages: SidebarPageGroup[] = [];
+  @Input() title = 'Title';
   @Input() buttons: UiButtonGroup | null = null;
   @Input() breadcrumbs: UiBreadcrumb[] | null = [
     {routerLink: '/', title: 'Home'},
-    {routerLink: '/admin', title: 'Admin'},
+    {routerLink: '/', title: 'Seite 2'},
   ];
 
   constructor() {

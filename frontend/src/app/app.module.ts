@@ -12,13 +12,15 @@ import {ErrorModule} from './error/error.module';
 import {HomeModule} from './home/home.module';
 import {SearchModule} from './search/search.module';
 import {PlansModule} from './plans/plans.module';
+import {LoginRegisterModule} from './login-register/login-register.module';
 import {EstimatedUsageService} from './services/estimated-usage/estimated-usage.service';
 import {AdminModule} from './admin/admin.module';
+import {ProfileModule} from './profile/profile.module';
 import {OrderModule} from './order/order.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,8 @@ import {OrderModule} from './order/order.module';
     PlansModule,
     SearchModule,
     ErrorModule,
+    ProfileModule,
+    LoginRegisterModule,
     AdminModule
   ],
   providers: [

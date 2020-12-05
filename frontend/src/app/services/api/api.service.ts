@@ -5,6 +5,7 @@ import cookies from 'browser-cookies';
 import {filter, map, tap} from 'rxjs/operators';
 import isBlank from 'is-blank';
 import {environment} from '../../../environments/environment';
+import {LoginService} from "../login/login.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class ApiService {
 
   constructor(
     private readonly http: HttpClient,
+    private readonly login: LoginService
   ) {
   }
 
@@ -44,10 +46,10 @@ export class ApiService {
     });
     const jwt = this.getJwt();
 
-    return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, httpParams, {
+    return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, JSON.stringify(body), {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
     }) as Observable<ApiResponse<Data>>;
   }

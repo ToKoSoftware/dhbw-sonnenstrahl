@@ -20,7 +20,8 @@ import {LoadingComponent} from './loading/loading.component';
 import {ConfirmModalComponent} from './modals/confirm-modal/confirm-modal.component';
 import {LoadingModalComponent} from './modals/loading-modal/loading-modal.component';
 import {CustomModalComponent} from './modals/custom-modal/custom-modal.component';
-import { InputComponent } from './input/input.component';
+import {LayoutComponent} from './layout/layout.component';
+import {InputComponent} from './input/input.component';
 import {LabeledValueComponent} from './labeled-value/labeled-value.component';
 
 
@@ -43,7 +44,7 @@ import {LabeledValueComponent} from './labeled-value/labeled-value.component';
     ConfirmModalComponent,
     LoadingModalComponent,
     CustomModalComponent,
-    InputComponent,
+    LayoutComponent,
     InputComponent,
     LabeledValueComponent
   ],
@@ -61,6 +62,7 @@ import {LabeledValueComponent} from './labeled-value/labeled-value.component';
     ConfirmModalComponent,
     LoadingModalComponent,
     CustomModalComponent,
+    LayoutComponent,
     TabsComponent,
     StepsComponent,
     InputComponent,
