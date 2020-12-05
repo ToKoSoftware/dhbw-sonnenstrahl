@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ReplaySubject} from 'rxjs';
+import {BehaviorSubject, ReplaySubject} from 'rxjs';
 import jwt_decode from 'jwt-decode';
 import {ApiService} from '../api/api.service';
 import {UserData} from '../../interfaces/user.interface';
@@ -8,8 +8,8 @@ import {UserData} from '../../interfaces/user.interface';
   providedIn: 'root'
 })
 export class LoginService {
-  public isLoggedIn$: ReplaySubject<boolean> = new ReplaySubject();
-  public isAdmin$: ReplaySubject<boolean> = new ReplaySubject();
+  public isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public currentUser$: ReplaySubject<UserData | null> = new ReplaySubject();
   public jwt$: ReplaySubject<string> = new ReplaySubject();
 
