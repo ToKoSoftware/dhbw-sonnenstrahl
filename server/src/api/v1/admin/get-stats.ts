@@ -7,7 +7,7 @@ import { User } from "../../../models/user.model";
 import { Vars } from "../../../vars";
 
 export async function getStats(req: Request, res: Response) {
-    const usersCount = await countEntities(User, true);
+    const usersCount = await countEntities(User);
 
     const activePlansCount = await countEntities(Plan, true);
 
@@ -22,7 +22,7 @@ export async function getStats(req: Request, res: Response) {
     const inactiveOrdersCount = await countEntities(Order, false);
 
 
-    const data = await {
+    const data = {
         "users": usersCount,
         "activePlans": activePlansCount,
         "inactivePlans": inactivePlansCount,
@@ -35,7 +35,7 @@ export async function getStats(req: Request, res: Response) {
     return res.send(wrapResponse(true, data))
 }
 
-async function countEntities(model: typeof User | typeof Customer | typeof Plan | typeof Order, is_active: boolean): Promise<number> {
+async function countEntities(model: typeof User | typeof Customer | typeof Plan | typeof Order, is_active: boolean = true): Promise<number> {
     let success = true;
     let count;
     if (model !== User) {

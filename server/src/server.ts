@@ -105,7 +105,7 @@ export default function startServer() {
      * Admin
      */
     app.get('/api/v1/admin/stats', userIsAuthorized, userIsAdmin, (req, res) => getStats(req, res));
-    //only via frontend functionable with download
+    //following two routes only via frontend functionable with download
     app.get('/api/v1/admin/export/orders', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportOrders(req, res));
     app.get('/api/v1/admin/export/users', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportUsers(req, res));
     
