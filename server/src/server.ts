@@ -29,6 +29,7 @@ import { userIsAdmin } from './middleware/user-is-admin.middleware';
 import { exportOrders } from './api/v1/admin/export-order';
 import { userIsAuthorizedByParam } from './middleware/user-is-authorized-by-param.middleware';
 import { exportUsers } from './api/v1/admin/export-users';
+import { getStats } from './api/v1/admin/get-stats';
 
 export default function startServer() {
 
@@ -103,9 +104,11 @@ export default function startServer() {
     /**
      * Admin
      */
+    app.get('/api/v1/admin/stats', userIsAuthorized, userIsAdmin, (req, res) => getStats(req, res));
     //only via frontend functionable with download
     app.get('/api/v1/admin/export/orders', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportOrders(req, res));
     app.get('/api/v1/admin/export/users', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportUsers(req, res));
+    
 
     app.use((req, res, next) => {
         res.status(404).send(wrapResponse(false, {
