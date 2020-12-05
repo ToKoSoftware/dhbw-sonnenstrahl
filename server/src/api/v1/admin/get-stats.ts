@@ -4,7 +4,6 @@ import { Customer } from "../../../models/customer.models";
 import { Order } from "../../../models/order.model";
 import { Plan } from "../../../models/plan.model";
 import { User } from "../../../models/user.model";
-import { Vars } from "../../../vars";
 
 export async function getStats(req: Request, res: Response) {
     const usersCount = await countTotalEntities(User);
