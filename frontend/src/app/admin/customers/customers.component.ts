@@ -29,7 +29,7 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.api.get<UserData[]>('/users', {
+    this.api.get<UserData[]>('/customers', {
     }).subscribe(
       data => {
         this.loading = false;

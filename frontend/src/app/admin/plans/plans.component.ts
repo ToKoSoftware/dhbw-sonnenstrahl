@@ -49,7 +49,7 @@ export class PlansComponent implements OnInit {
 
   public async showDeleteModalForPlan(plan: PlanData): Promise<void> {
     const confirmed = await this.confirmService.confirm({
-      title: `Sicher, dass sie den Tarif "${plan.plan} (${plan.postcode})" entfernen möchten?`,
+      title: `Sicher, dass Sie den Tarif "${plan.plan} (${plan.postcode})" entfernen möchten?`,
       description: 'Der Tarif wird dabei lediglich auf "inaktiv" gesetzt.'
     });
     if (confirmed) {
