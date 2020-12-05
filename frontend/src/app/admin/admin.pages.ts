@@ -11,7 +11,12 @@ export const adminPages: SidebarPageGroup[] = [
         matchFull: true
       },
       {
-        title: 'Benutzer und Kunden',
+        title: 'System-Benutzer',
+        icon: 'mouse-pointer',
+        url: '/admin/users',
+      },
+      {
+        title: 'Kunden',
         icon: 'users',
         url: '/admin/users',
       },

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {adminPages} from '../admin.pages';
 
 @Component({
   selector: 'app-overview',
@@ -6,6 +7,24 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
+  public sidebarPages = adminPages;
+  public tiles: StatisticTile[] = [{
+    title: 'Benutzer',
+    count: 300,
+    icon: 'mouse-pointer'
+  }, {
+    title: 'Kunden',
+    count: 300,
+    icon: 'user'
+  }, {
+    title: 'Bestellungen',
+    count: 300,
+    icon: 'shopping-cart'
+  }, {
+    title: 'Tarife',
+    count: 300,
+    icon: 'map'
+  }];
 
   constructor() {
   }
@@ -14,4 +33,10 @@ export class OverviewComponent implements OnInit {
 
   }
 
+}
+
+interface StatisticTile {
+  title: string;
+  icon: string;
+  count: number;
 }

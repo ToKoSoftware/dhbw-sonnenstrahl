@@ -7,15 +7,17 @@ import {adminRoutes} from './admin.routes';
 import {UiModule} from '../ui/ui.module';
 import {UsersComponent} from './users/users.component';
 import {FormsModule} from '@angular/forms';
+import {IconsModule} from '../icons/icons.module';
 
 @NgModule({
   declarations: [OverviewComponent, PlansComponent, OrdersComponent, UsersComponent],
-  imports: [
-    adminRoutes,
-    CommonModule,
-    FormsModule,
-    UiModule
-  ]
+    imports: [
+        adminRoutes,
+        CommonModule,
+        FormsModule,
+        UiModule,
+        IconsModule
+    ]
 })
 export class AdminModule {
 }

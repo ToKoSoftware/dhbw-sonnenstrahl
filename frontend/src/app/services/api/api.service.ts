@@ -1,20 +1,24 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEventType, HttpHeaders, HttpParameterCodec, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
-import cookies from 'browser-cookies';
-import {filter, map, tap} from 'rxjs/operators';
 import isBlank from 'is-blank';
 import {environment} from '../../../environments/environment';
-import {LoginService} from "../login/login.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
+  private static getApiBaseUrl(): string {
+    return environment.apiUrl;
+  }
+
+  private static getJwt(): string | null {
+    return localStorage.getItem('jwt');
+  }
+
   constructor(
     private readonly http: HttpClient,
-    private readonly login: LoginService
   ) {
   }
 
@@ -27,7 +31,7 @@ export class ApiService {
         fromObject: removeBlank(queryParams) as { [key: string]: string | string[] }
       });
 
-    const jwt = this.getJwt();
+    const jwt = ApiService.getJwt();
     return this.http.get(`${ApiService.getApiBaseUrl()}${path}`, {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
@@ -41,7 +45,7 @@ export class ApiService {
     path: string,
     body?: { [key: string]: string | string[] | undefined },
   ): Observable<ApiResponse<Data>> {
-    const jwt = this.getJwt();
+    const jwt = ApiService.getJwt();
 
     return this.http.post(`${ApiService.getApiBaseUrl()}${path}`, JSON.stringify(body), {
       headers: {
@@ -55,7 +59,7 @@ export class ApiService {
     path: string,
     body?: { [key: string]: string | string[] | undefined },
   ): Observable<ApiResponse<Data>> {
-    const jwt = this.getJwt();
+    const jwt = ApiService.getJwt();
 
     return this.http.put(`${ApiService.getApiBaseUrl()}${path}`, JSON.stringify(body), {
       headers: {
@@ -74,7 +78,7 @@ export class ApiService {
         fromObject: removeBlank(queryParams) as { [key: string]: string | string[] }
       });
 
-    const jwt = this.getJwt();
+    const jwt = ApiService.getJwt();
     return this.http.delete(`${ApiService.getApiBaseUrl()}${path}`, {
       headers: {
         Authorization: jwt == null ? '' : `Bearer ${jwt}`,
@@ -84,68 +88,6 @@ export class ApiService {
     }) as Observable<ApiResponse<Data>>;
   }
 
-  public upload<Data>(
-    path: string,
-    data: FormData,
-    method: 'post' | 'put' = 'post'
-  ): { progress$: Observable<number>, request$: Observable<ApiResponse<Data>> } {
-    const handler = (url: string, body: FormData, options: {
-      headers?: HttpHeaders | {
-        [header: string]: string | string[];
-      };
-      observe: 'events';
-      reportProgress: true;
-    }) => {
-      if (method === 'post') {
-        return this.http.post(url, body, options);
-      } else {
-        return this.http.put(url, body, options);
-      }
-    };
-
-    const jwt = this.getJwt();
-    const progress$ = new Subject<number>();
-    const request$ = handler(`${ApiService.getApiBaseUrl()}${path}`, data, {
-      headers: {
-        Authorization: jwt == null ? '' : `Bearer ${jwt}`,
-      },
-      reportProgress: true,
-      observe: 'events',
-    }).pipe(
-      map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            progress$.next(
-              event.total === undefined ? 0 : Math.floor(event.loaded / event.total * 100)
-            );
-            return undefined;
-
-          case HttpEventType.Response:
-            progress$.next(100);
-            progress$.complete();
-            return event.body as ApiResponse<Data>;
-
-          default:
-            return undefined;
-        }
-      }),
-      filter(data => data !== undefined),
-      tap({error: err => progress$.error(err)}),
-    );
-
-    return {
-      progress$: progress$.asObservable(),
-      request$: request$ as Observable<ApiResponse<Data>>,
-    };
-  }
-
-  private static getApiBaseUrl(): string {
-    return environment.apiUrl;
-  }
-
-  private getJwt(): string | null {
-    return cookies.get('jwt');
-  }
 }
 
 function removeBlank(
@@ -170,13 +112,10 @@ export interface ApiResponse<Data> {
   success: true;
   data: Data;
   totalCount?: number;
-  pageSize?: number;
 }
 
 export interface ApiError {
   success: false;
-  data: null;
-  errorMessage: string;
-  statusCode: number;
-  errorDetails?: unknown | unknown[];
+  error: string;
+  statusCode?: number;
 }
