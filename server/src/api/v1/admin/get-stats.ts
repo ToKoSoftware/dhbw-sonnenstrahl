@@ -36,7 +36,6 @@ export async function getStats(req: Request, res: Response) {
 }
 
 async function countTotalEntities(model: typeof User | typeof Customer | typeof Plan | typeof Order, is_active: boolean = true): Promise<number> {
-    let success = true;
     let count;
     if (model !== User) {
         count = await model.count(
@@ -46,13 +45,11 @@ async function countTotalEntities(model: typeof User | typeof Customer | typeof 
                 }
             })
             .catch(error => {
-                success = false;
                 return 0;
             });
     } else {
         count = await model.count()
             .catch(error => {
-                success = false;
                 return 0;
             });
 

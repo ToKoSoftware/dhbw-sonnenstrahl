@@ -22,13 +22,11 @@ export async function getMonthlyStats(req: Request, res: Response) {
 }
 
 async function countMonthlyEntities(model: typeof User | typeof Customer | typeof Plan | typeof Order) {
-    let success = true;
     let count = await model.count(
         {
             group: [Sequelize.fn('date_trunc', 'month', Sequelize.col('createdAt'))]
         })
         .catch(error => {
-            success = false;
             return 0;
         });
 
