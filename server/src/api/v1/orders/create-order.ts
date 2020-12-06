@@ -59,7 +59,7 @@ export async function createOrder(req: Request, res: Response) {
                 postcode: mappedCustomerData.postcode,
                 city: mappedCustomerData.city,
                 is_active: mappedCustomerData.is_active,
-                userId: Vars.currentUser.id
+                userId: mappedCustomerData.userId
             }
         })
         .catch((error) => {

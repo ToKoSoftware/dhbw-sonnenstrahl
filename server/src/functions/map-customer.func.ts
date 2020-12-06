@@ -3,7 +3,7 @@ import { Vars } from "../vars";
 
 export function mapCustomer(incomingData: IncomingCustomer): InternalCustomer {
     return {
-        userId: Vars.currentUser.id,
+        userId: Vars.currentUser !== undefined ? Vars.currentUser.id: incomingData.userId,
         firstName: incomingData.firstName,
         lastName: incomingData.lastName,
         street: incomingData.street,
