@@ -1,8 +1,9 @@
 import { IncomingCustomer, InternalCustomer } from "../interfaces/customers.interface";
+import { Vars } from "../vars";
 
 export function mapCustomer(incomingData: IncomingCustomer): InternalCustomer {
     return {
-        userId: incomingData.userId,
+        userId: Vars.currentUser.id,
         firstName: incomingData.firstName,
         lastName: incomingData.lastName,
         street: incomingData.street,
