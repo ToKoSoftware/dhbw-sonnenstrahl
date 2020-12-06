@@ -7,6 +7,7 @@ import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-input
 import { Plan } from '../../../models/plan.model';
 import { Customer } from '../../../models/customer.models';
 import { mapCustomer } from '../../../functions/map-customer.func';
+import { Vars } from '../../../vars';
 
 export async function createOrder(req: Request, res: Response) {
     const incomingData: IncomingOrder = req.body;
@@ -20,7 +21,6 @@ export async function createOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: 'Not all required fields have been set' }));
     }
 
-    //Check, if Customer with given params already exists. If not create one.
     let success = true;
 
     // Try to find Plan with given planId
@@ -47,6 +47,8 @@ export async function createOrder(req: Request, res: Response) {
     if (plan.postcode != mappedCustomerData.postcode) {
         return res.status(400).send(wrapResponse(false, { error: 'Postcode of plan and order do not match!' }));
     }
+
+    //Check, if Customer with given params already exists. If not create one.
     let customer: Customer | null = await Customer.findOne(
         {
             where: {
@@ -56,7 +58,8 @@ export async function createOrder(req: Request, res: Response) {
                 streetNumber: mappedCustomerData.streetNumber,
                 postcode: mappedCustomerData.postcode,
                 city: mappedCustomerData.city,
-                is_active: mappedCustomerData.is_active
+                is_active: mappedCustomerData.is_active,
+                userId: Vars.currentUser.id
             }
         })
         .catch((error) => {
