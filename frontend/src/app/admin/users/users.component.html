@@ -5,7 +5,7 @@
       <thead>
       <tr class="border-gray-200 border-b-2">
         <th class="pl-2 w-1/3 text-left truncate">E-Mail</th>
-        <th class="w-1/3 truncate text-left"></th>
+        <th class="w-2/3 truncate text-left"></th>
       </tr>
       </thead>
       <tbody>
@@ -16,6 +16,7 @@
         <td class="grid">
           <div class="justify-self-end my-3">
             <app-button (click)="showEditModalForUser(user)" class="pr-2" size="small" label="Bearbeiten"></app-button>
+            <app-button (click)="showRelatedCustomersModal(user)" class="pr-2" size="small" label="Kunden anzeigen"></app-button>
             <app-button (click)="showDeleteModalForUser(user)" class="" size="small" label="Löschen" type="danger"></app-button>
           </div>
         </td>
@@ -45,4 +46,8 @@
         label="Speichern"></app-button>
     </div>
   </div>
+</ng-template>
+
+<ng-template #relatedCustomersModal>
+  <app-related-customers [user]="currentEditUser"></app-related-customers>
 </ng-template>

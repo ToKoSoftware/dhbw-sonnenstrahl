@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit {
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
+  @ViewChild('relatedCustomersModal', {static: true}) relatedCustomersModal: TemplateRef<unknown>;
   public results: UserData[] = [];
   public loading = false;
   public currentEditUser: UserData;
@@ -80,6 +81,11 @@ export class UsersComponent implements OnInit {
   public showEditModalForUser(user: UserData): void {
     this.currentEditUser = {...user};
     this.modalService.showModal(`"${user.email} " bearbeiten`, this.editModal);
+  }
+
+  public showRelatedCustomersModal(user: UserData): void {
+    this.currentEditUser = {...user};
+    this.modalService.showModal(`Kunden zu "${user.email}"`, this.relatedCustomersModal);
   }
 
   public closeEditModal(): void {

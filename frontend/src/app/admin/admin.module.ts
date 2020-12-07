@@ -11,6 +11,7 @@ import {IconsModule} from '../icons/icons.module';
 import { UploadCsvComponent } from './plans/upload-csv/upload-csv.component';
 import {DragDropDirective} from './plans/upload-csv/drag-and-drop.directive';
 import {CustomersComponent} from './customers/customers.component';
+import { RelatedCustomersComponent } from './users/related-customers/related-customers.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {CustomersComponent} from './customers/customers.component';
     UsersComponent,
     CustomersComponent,
     UploadCsvComponent,
-    DragDropDirective
+    DragDropDirective,
+    RelatedCustomersComponent
   ],
     imports: [
         adminRoutes,
