@@ -32,7 +32,9 @@ export class LoginService {
     const jwt: string | null = localStorage.getItem('jwt');
     try {
       const decodedJWT = jwt_decode<JWT>(jwt || '');
-      this.isLoggedIn$.next(true);
+      const now = new Date();
+      const expiration = new Date(decodedJWT.exp * 1000);
+      this.isLoggedIn$.next(expiration > now);
       this.isAdmin$.next(decodedJWT.is_admin);
     } catch (error) {
       this.isLoggedIn$.next(false);
