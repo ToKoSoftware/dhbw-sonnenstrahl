@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UiButtonGroup} from '../../ui/ui.interface';
 import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
-import {adminPages} from '../admin.pages';
+import {adminBreadcrumb, adminPages} from '../admin.pages';
 
 @Component({
   selector: 'app-users',
@@ -11,6 +11,7 @@ import {adminPages} from '../admin.pages';
 })
 export class CustomersComponent implements OnInit {
   public sidebarPages = adminPages;
+  public breadcrumb = adminBreadcrumb;
   public results: UserData[] = [];
   public loading = false;
   public buttonGroup: UiButtonGroup = {

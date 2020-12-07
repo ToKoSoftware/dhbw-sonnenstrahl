@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {adminPages} from '../admin.pages';
+import {adminBreadcrumb, adminPages} from '../admin.pages';
 
 @Component({
   selector: 'app-overview',
@@ -8,6 +8,7 @@ import {adminPages} from '../admin.pages';
 })
 export class OverviewComponent implements OnInit {
   public sidebarPages = adminPages;
+  public breadcrumb = adminBreadcrumb;
   public tiles: StatisticTile[] = [{
     title: 'Benutzer',
     count: 300,

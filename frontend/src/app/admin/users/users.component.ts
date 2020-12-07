@@ -2,7 +2,7 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UiButtonGroup} from '../../ui/ui.interface';
 import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
-import {adminPages} from '../admin.pages';
+import {adminBreadcrumb, adminPages} from '../admin.pages';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
@@ -14,6 +14,7 @@ import {ModalService} from '../../services/modal/modal.service';
 })
 export class UsersComponent implements OnInit {
   public sidebarPages = adminPages;
+  public breadcrumb = adminBreadcrumb;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
   public results: UserData[] = [];
   public loading = false;
