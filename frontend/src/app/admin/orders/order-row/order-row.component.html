@@ -1,0 +1,39 @@
+<td class="pl-2 truncate">
+  <app-loading *ngIf="loadingCustomer"></app-loading>
+  <ng-container *ngIf="!loadingCustomer">{{ customerData.firstName }}</ng-container>
+</td>
+<td class="truncate">
+  <app-loading *ngIf="loadingPlan"></app-loading>
+  <ng-container *ngIf="!loadingPlan">{{ planData.plan }} ({{ planData.postcode }})</ng-container>
+</td>
+<td class="grid">
+  <div class="justify-self-end my-3">
+    <app-button (click)="showEditModalForOrder(order)" class="pr-2" size="small" label="Bearbeiten"></app-button>
+    <app-button (click)="showDeleteModalForOrder(order)" size="small" label="Löschen" type="danger"></app-button>
+  </div>
+</td>
+
+<ng-template #editModal>
+  <label class="block mt-6 leading-3 text-lg">Identifier</label>
+  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text" [(ngModel)]="currentEditOrder.id"
+         readonly>
+  <label class="block mt-6 leading-3 text-lg">Verbrauch</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="email" placeholder="Email" [(ngModel)]="currentEditOrder.consumption">
+
+  <label class="block mt-6 leading-3 text-lg">Referrer</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="email" placeholder="Email" [(ngModel)]="currentEditOrder.referrer">
+
+  <div class="flex justify-end w-full mt-7">
+    <div>
+      <app-button
+        (click)="closeEditModal()"
+        type="blank"
+        label="Abbrechen"
+        [icon]="null"></app-button>
+      <app-button
+        (click)="saveEditedOrder()"
+        type="info"
+        label="Speichern"></app-button>
+    </div>
+  </div>
+</ng-template>

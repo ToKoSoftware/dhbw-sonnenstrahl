@@ -12,6 +12,7 @@ import { UploadCsvComponent } from './plans/upload-csv/upload-csv.component';
 import {DragDropDirective} from './plans/upload-csv/drag-and-drop.directive';
 import {CustomersComponent} from './customers/customers.component';
 import { RelatedCustomersComponent } from './users/related-customers/related-customers.component';
+import { OrderRowComponent } from './orders/order-row/order-row.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RelatedCustomersComponent } from './users/related-customers/related-cus
     CustomersComponent,
     UploadCsvComponent,
     DragDropDirective,
-    RelatedCustomersComponent
+    RelatedCustomersComponent,
+    OrderRowComponent
   ],
     imports: [
         adminRoutes,
