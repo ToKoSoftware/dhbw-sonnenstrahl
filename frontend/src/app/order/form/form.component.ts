@@ -19,7 +19,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public plan: PlanData;
   public loading = false;
   private routeSubscription: Subscription;
-  private postcode: string;
+  public estimatedUsage: number;
   public breadcrumbs: UiBreadcrumb[] = [
     {routerLink: '/', title: 'Home'},
     {routerLink: '', title: 'Laden...'},
@@ -58,12 +58,12 @@ export class FormComponent implements OnInit, OnDestroy {
     this.routeSubscription = this.route.paramMap.subscribe(params => {
       this.loadingModalService.showLoading();
       this.loading = true;
-      if (isBlank(params.get('postcode')) || isBlank(params.get('id'))) {
-        this.loading = true;
+      if (isBlank(params.get('usage')) || isBlank(params.get('id'))) {
+        this.loading = false;
         this.showErrorModal();
         return;
       }
-      this.postcode = params.get('postcode') || '';
+      this.estimatedUsage = Number(params.get('usage')) || 0;
       this.getPlan(params.get('id') || '');
     });
   }

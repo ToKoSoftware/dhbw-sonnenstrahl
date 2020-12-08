@@ -5,9 +5,11 @@ import { DetailComponent } from './detail/detail.component';
 import {planRoutes} from './plans.routes';
 import {UiModule} from '../ui/ui.module';
 import {FormsModule} from '@angular/forms';
+import { UsagePeopleCounterComponent } from './usage-people-counter/usage-people-counter.component';
 
 @NgModule({
-  declarations: [OverviewComponent, DetailComponent],
+  declarations: [OverviewComponent, DetailComponent, UsagePeopleCounterComponent],
+  exports: [DetailComponent],
   imports: [
     planRoutes,
     CommonModule,

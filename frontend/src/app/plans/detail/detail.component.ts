@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {PlanData} from '../../interfaces/plan.interface';
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-plan-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
-export class DetailComponent implements OnInit {
-
+export class DetailComponent {
+  @Input() plan: PlanData;
+  @Input() estimatedUsage: number;
   constructor() { }
 
-  ngOnInit(): void {
+  public calculateCostExample(costVar: number, costFix: number): string {
+    const cost = Math.floor(costVar / 10000 * this.estimatedUsage) + (costFix / 10000);
+    return this.roundToTwoDigits(cost);
   }
+
+  public roundToTwoDigits(n: number): string {
+    return (Math.round((n + Number.EPSILON) * 100) / 100).toString().replace('.', ',');
+  }
+
 
 }
