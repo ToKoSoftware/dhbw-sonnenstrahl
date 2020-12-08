@@ -20,7 +20,7 @@ export async function exportUsers(req: Request, res: Response) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
     if (users === []) {
-        return res.status(404).send(wrapResponse(false, { error: 'No active order found' }));
+        return res.status(404).send(wrapResponse(false, { error: 'No user found' }));
     }
 
     let csvData = convertObjectArrayToCsv(users);

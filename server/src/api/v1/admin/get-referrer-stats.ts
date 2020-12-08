@@ -19,9 +19,6 @@ export async function getReferrerStats(req: Request, res: Response) {
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
-    if (result === []) {
-        return res.status(404).send(wrapResponse(false, { error: 'No refferrer found' }));
-    }
 
     res.send(wrapResponse(true, result));
 }
