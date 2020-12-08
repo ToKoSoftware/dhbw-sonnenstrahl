@@ -23,16 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d5647a1-a779-4199-8666-641bc6c3c9a0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/admin/orders/order-row/order-row.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/admin/orders/order-row/order-row.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/admin/orders/order-row/order-row.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/admin/orders/order-row/order-row.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/orders/orders.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/orders/orders.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/users/users.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/users/users.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/interfaces/order.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/interfaces/order.interface.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/ui/button/button.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/ui/button/button.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/customers/customers.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/customers/customers.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -757,9 +748,10 @@
       <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
     <state x="-1221" y="317" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600605387462" />
-    <state x="680" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607376644285">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607452265113">
+      <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
+    <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-2048.0.2048.1152" timestamp="1607452265113" />
     <state x="680" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1607376644285" />
     <state x="829" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2048.0.1680.1050/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1607170368860" />
     <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600702333088" />
@@ -784,9 +776,10 @@
     <state x="-1258" y="276" width="670" height="540" key="run.anything.popup/2048.83.1440.877/0.23.2048.1129/-1994.0.1994.1152@-1994.0.1994.1152" timestamp="1600614218963" />
     <state x="3505" y="345" width="670" height="675" key="run.anything.popup/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1600352827129" />
     <state x="3505" y="345" width="670" height="675" key="run.anything.popup/2560.23.2560.1417/50.23.2510.1417@2560.23.2560.1417" timestamp="1600352380042" />
-    <state x="620" y="242" width="670" height="494" key="search.everywhere.popup" timestamp="1607378454460">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="-1292" y="266" width="817" height="542" key="search.everywhere.popup" timestamp="1607452235968">
+      <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
+    <state x="-1292" y="266" width="817" height="542" key="search.everywhere.popup/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-2048.0.2048.1152" timestamp="1607452235968" />
     <state x="620" y="242" width="670" height="494" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607378454460" />
     <state x="756" y="266" width="817" height="542" key="search.everywhere.popup/2048.0.1680.1050/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1607197492905" />
     <state x="-1292" y="265" width="670" height="541" key="search.everywhere.popup/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600704288114" />
