@@ -1,0 +1,22 @@
+<app-loading *ngIf="loading"></app-loading>
+<div *ngIf="!loading">
+  <div *ngFor="let customer of results" class="pt-4">
+    <div class="py-4 border-b border-gray-300">
+      {{ customer.lastName }}, {{ customer.firstName }}<br>
+      {{ customer.id }}
+    </div>
+  </div>
+  <div class="my-6" *ngIf="results.length == 0">
+    Keine Kunden gefunden.
+  </div>
+</div>
+
+<div class="flex justify-end w-full mt-7">
+  <div>
+    <app-button
+      (click)="closeModal()"
+      type="blank"
+      label="Schließen"
+      [icon]="null"></app-button>
+  </div>
+</div>

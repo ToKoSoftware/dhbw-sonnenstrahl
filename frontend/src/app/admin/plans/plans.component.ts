@@ -5,7 +5,8 @@ import {UiButtonGroup} from '../../ui/ui.interface';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
-import {adminPages} from '../admin.pages';
+import {adminBreadcrumb, adminPages} from '../admin.pages';
+import {LoginService} from '../../services/login/login.service';
 
 @Component({
   selector: 'app-plans',
@@ -14,7 +15,9 @@ import {adminPages} from '../admin.pages';
 })
 export class PlansComponent implements OnInit {
   public sidebarPages = adminPages;
+  public breadcrumb = adminBreadcrumb;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
+  @ViewChild('importPlansModal', {static: true}) importPlansModal: TemplateRef<unknown>;
   public results: PlanData[] = [];
   public loading = false;
   public buttonGroup: UiButtonGroup = {
@@ -22,12 +25,15 @@ export class PlansComponent implements OnInit {
       {
         title: 'Tarife importieren',
         function: () => {
+          this.showImportPlansModal();
         },
         icon: 'upload-cloud'
       },
       {
-        title: 'Tarife Exportieren',
+        title: 'Tarife exportieren',
         function: () => {
+          const jwt = this.login.jwt$.value;
+          window.open(`/api/v1/export/orders?token=${jwt}`, '_blank');
         },
         icon: 'download-cloud'
       }
@@ -36,6 +42,7 @@ export class PlansComponent implements OnInit {
   public currentEditPlan: PlanData;
 
   constructor(private api: ApiService,
+              private login: LoginService,
               private confirmService: ConfirmModalService,
               private loadingService: LoadingModalService,
               private modalService: ModalService) {
@@ -47,7 +54,7 @@ export class PlansComponent implements OnInit {
 
   public async showDeleteModalForPlan(plan: PlanData): Promise<void> {
     const confirmed = await this.confirmService.confirm({
-      title: `Sicher, dass sie den Tarif "${plan.plan} (${plan.postcode})" entfernen möchten?`,
+      title: `Sicher, dass Sie den Tarif "${plan.plan} (${plan.postcode})" entfernen möchten?`,
       description: 'Der Tarif wird dabei lediglich auf "inaktiv" gesetzt.'
     });
     if (confirmed) {
@@ -116,5 +123,9 @@ export class PlansComponent implements OnInit {
         this.results = data.data;
       }
     );
+  }
+
+  public showImportPlansModal(): void {
+    this.modalService.showModal(`Tarife importieren`, this.importPlansModal);
   }
 }

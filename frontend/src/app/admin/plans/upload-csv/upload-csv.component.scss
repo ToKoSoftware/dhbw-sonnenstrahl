@@ -1,0 +1,32 @@
+.file-upload-container {
+  height: 200px;
+  margin: 20px auto;
+  border: 2px dashed #000;
+  border-radius: 10px;
+}
+
+.file-upload-container:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.files-list {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px auto;
+  background: #ffffff;
+  border: 1px dashed;
+  border-radius: 12px;
+  padding: 5px;
+  color: black;
+}
+
+.files-list .delete-file {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.files-list .delete-file img {
+  width: 30px;
+}

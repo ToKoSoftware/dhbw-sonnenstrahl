@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UiButtonGroup} from '../../ui/ui.interface';
 import {ApiService} from '../../services/api/api.service';
 import {OrderData} from '../../interfaces/order.interface';
-import {adminPages} from '../admin.pages';
+import {adminBreadcrumb, adminPages} from '../admin.pages';
 
 @Component({
   selector: 'app-orders',
@@ -11,6 +11,7 @@ import {adminPages} from '../admin.pages';
 })
 export class OrdersComponent implements OnInit {
   public sidebarPages = adminPages;
+  public breadcrumb = adminBreadcrumb;
   public results: OrderData[] = [];
   public loading = false;
   public buttonGroup: UiButtonGroup = {

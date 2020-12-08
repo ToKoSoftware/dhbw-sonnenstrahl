@@ -1,4 +1,5 @@
 import {SidebarPageGroup} from '../ui/sidebar/sidebar.component';
+import {UiBreadcrumb} from '../ui/ui.interface';
 
 export const adminPages: SidebarPageGroup[] = [
   {
@@ -11,9 +12,14 @@ export const adminPages: SidebarPageGroup[] = [
         matchFull: true
       },
       {
-        title: 'Benutzer und Kunden',
-        icon: 'users',
+        title: 'System-Benutzer',
+        icon: 'mouse-pointer',
         url: '/admin/users',
+      },
+      {
+        title: 'Kunden',
+        icon: 'users',
+        url: '/admin/customers',
       },
       {
         title: 'Tarife',
@@ -37,5 +43,15 @@ export const adminPages: SidebarPageGroup[] = [
         matchFull: true
       },
     ]
+  }
+];
+
+export const adminBreadcrumb: UiBreadcrumb[] = [
+  {
+    title: 'Home',
+    routerLink: '/'
+  }, {
+    title: 'Admin',
+    routerLink: '/admin'
   }
 ];

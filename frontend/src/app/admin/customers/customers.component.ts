@@ -1,25 +1,24 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UiButtonGroup} from '../../ui/ui.interface';
 import {ApiService} from '../../services/api/api.service';
-import {UserData} from '../../interfaces/user.interface';
 import {adminBreadcrumb, adminPages} from '../admin.pages';
+import {CustomerData} from '../../interfaces/customer.interface';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class CustomersComponent implements OnInit {
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
-  @ViewChild('relatedCustomersModal', {static: true}) relatedCustomersModal: TemplateRef<unknown>;
-  public results: UserData[] = [];
+  public results: CustomerData[] = [];
   public loading = false;
-  public currentEditUser: UserData;
+  public currentEditCustomer: CustomerData;
   public buttonGroup: UiButtonGroup = {
     buttons: [
       {
@@ -42,9 +41,20 @@ export class UsersComponent implements OnInit {
     this.loadData();
   }
 
+  showEditModalForCustomer(customer: CustomerData): void {
+    this.currentEditCustomer = {...customer};
+    this.modalService.showModal(`"${customer.lastName}, ${customer.firstName}" bearbeiten`, this.editModal);
+  }
+
+  public closeEditModal(): void {
+    this.modalService.close();
+  }
+
   private loadData(): void {
     this.loading = true;
-    this.api.get<UserData[]>('/users', {}).subscribe(
+    this.api.get<CustomerData[]>('/customers', {
+      sort: '-lastName',
+    }).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;
@@ -52,14 +62,14 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  public async showDeleteModalForUser(user: UserData): Promise<void> {
+  public async showDeleteModalForCustomer(customer: CustomerData): Promise<void> {
     const confirmed = await this.confirmService.confirm({
-      title: `Sicher, dass Sie den User mit der E-Mail "${user.email}" entfernen möchten?`,
+      title: `Sicher, dass Sie den Kunden ${customer.lastName}, ${customer.firstName} entfernen möchten?`,
       description: 'Dies kann nicht rückgängig gemacht werden.'
     });
     if (confirmed) {
       this.loadingService.showLoading();
-      this.api.delete<{ success: boolean } | { success: boolean, error: string }>(`/users/${user.id}`).subscribe(
+      this.api.delete<{ success: boolean } | { success: boolean, error: string }>(`/customers/${customer.id}`).subscribe(
         data => {
           this.loadData();
           this.loadingService.hideLoading();
@@ -78,26 +88,16 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  public showEditModalForUser(user: UserData): void {
-    this.currentEditUser = {...user};
-    this.modalService.showModal(`"${user.email} " bearbeiten`, this.editModal);
-  }
-
-  public showRelatedCustomersModal(user: UserData): void {
-    this.currentEditUser = {...user};
-    this.modalService.showModal(`Kunden zu "${user.email}"`, this.relatedCustomersModal);
-  }
-
-  public closeEditModal(): void {
-    this.modalService.close();
-  }
-
-
-  public saveEditedUser(): void {
+  public saveEditedCustomer(): void {
     this.modalService.close();
     this.loadingService.showLoading();
-    this.api.put(`/users/${this.currentEditUser.id}`, {
-      email: this.currentEditUser.email,
+    this.api.put(`/customers/${this.currentEditCustomer.id}`, {
+      firstName: this.currentEditCustomer.firstName,
+      lastName: this.currentEditCustomer.lastName,
+      street: this.currentEditCustomer.street,
+      streetNumber: this.currentEditCustomer.streetNumber,
+      postcode: this.currentEditCustomer.postcode,
+      city: this.currentEditCustomer.city,
     }).subscribe(
       data => {
         this.loadingService.hideLoading();
@@ -114,4 +114,5 @@ export class UsersComponent implements OnInit {
       }
     );
   }
+
 }

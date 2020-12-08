@@ -11,7 +11,7 @@ export class LoginService {
   public isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public currentUser$: ReplaySubject<UserData | null> = new ReplaySubject();
-  public jwt$: ReplaySubject<string> = new ReplaySubject();
+  public jwt$: BehaviorSubject<string |null> = new BehaviorSubject(null);
 
   constructor() {
     this.reloadJWT();
@@ -32,7 +32,10 @@ export class LoginService {
     const jwt: string | null = localStorage.getItem('jwt');
     try {
       const decodedJWT = jwt_decode<JWT>(jwt || '');
-      this.isLoggedIn$.next(true);
+      const now = new Date();
+      const expiration = new Date(decodedJWT.exp * 1000);
+      this.isLoggedIn$.next(expiration > now);
+      this.jwt$.next(jwt);
       this.isAdmin$.next(decodedJWT.is_admin);
     } catch (error) {
       this.isLoggedIn$.next(false);
