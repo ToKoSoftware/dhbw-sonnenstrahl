@@ -14,7 +14,8 @@ const icons = {
   DownloadCloud,
   Map,
   Trash,
-  Key, MousePointer
+  Key, 
+  MousePointer
 };
 
 @NgModule({
