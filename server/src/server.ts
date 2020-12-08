@@ -74,7 +74,7 @@ export default function startServer() {
      */
     app.get('/api/v1/orders', userIsAuthorized, userIsAdmin, (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', userIsAuthorized, (req, res) => getOrder(req, res));
-    app.post('/api/v1/orders', (req, res) => createOrder(req, res));
+    app.post('/api/v1/orders', userIsAuthorized, (req, res) => createOrder(req, res));
     app.post('/orders', (req, res) => createOrder(req, res));
     // following route just to update the order itself. not terminating it (is_active = false, set terminateAt)
     app.put('/api/v1/orders/:id', userIsAuthorized, (req, res) => updateOrder(req, res));
