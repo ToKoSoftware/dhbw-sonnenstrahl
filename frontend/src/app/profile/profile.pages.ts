@@ -6,6 +6,7 @@ export const profilePages: SidebarPageGroup[] = [
     pages: [
       {
         title: 'Bestellungen verwalten',
+        matchFull: true,
         icon: 'shopping-cart',
         url: '/profile/',
       },
@@ -23,7 +24,7 @@ export const profilePages: SidebarPageGroup[] = [
       {
         title: 'Zugangsdaten bearbeiten',
         icon: 'key',
-        url: '/profile/edit/credentials',
+        url: '/profile/credentials',
         matchFull: true
       },
     ]

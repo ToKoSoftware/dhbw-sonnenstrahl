@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {profilePages} from '../profile.pages';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
+import {ApiService} from '../../services/api/api.service';
 import {LoginService} from '../../services/login/login.service';
+import {profilePages} from '../profile.pages';
 
 @Component({
-  selector: 'app-credentials',
-  templateUrl: './credentials.component.html',
-  styleUrls: ['./credentials.component.scss']
+  selector: 'app-customers',
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.scss']
 })
-export class CredentialsComponent implements OnInit {
+export class CustomersComponent implements OnInit {
   public profilePages = profilePages;
   public editUserForm: FormGroup;
   public loading = true;
@@ -23,14 +23,13 @@ export class CredentialsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.loadUser();
+    this.loadCustomers();
   }
 
-  private loadUser(): void {
+  private loadCustomers(): void {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';
-    this.api.get<UserData>(`/users/${id}`).subscribe(
+    this.api.get<UserData>(`/customers/?userId=${id}`).subscribe(
       (data) => {
         this.loading = false;
         this.currentUser = data.data;
@@ -45,6 +44,6 @@ export class CredentialsComponent implements OnInit {
   }
 
   public updateUser(): void {
-    this.api.post(`/users/`);
+    this.api.post(`/users/`)
   }
 }

@@ -20,13 +20,11 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    canActivate: [IsLoggedInGuard],
-    canActivateChild: [IsLoggedInGuard],
     loadChildren: './profile/profile.module#ProfileModule'
   },
   {
     path: 'order',
-      loadChildren: './order/order.module#OrderModule'
+    loadChildren: './order/order.module#OrderModule'
   },
   {
     path: 'login',

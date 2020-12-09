@@ -1,5 +1,21 @@
 <app-layout
-  title="Profil"
+  title="Ihr Kundenprofil"
   [sidebarPages]="profilePages">
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3">
+    <app-loading *ngIf="loading"></app-loading>
+    <ng-container *ngIf="!loading">
+      <form [formGroup]="editUserForm">
+        <app-input label="E-Mail"
+                   placeholder="max@example.com"
+                   formControlName="email">
+        </app-input>
+        <app-input label="Passwort"
+                   type="password"
+                   placeholder="*****"
+                   formControlName="password">
+        </app-input>
+      </form>
+    </ng-container>
+  </div>
 
 </app-layout>
