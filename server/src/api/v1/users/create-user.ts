@@ -5,10 +5,19 @@ import { User } from '../../../models/user.model';
 import { mapUser } from '../../../functions/map-users.func';
 import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
 import * as EmailValidator from 'email-validator';
+import { Vars } from '../../../vars';
 
 export async function createUser(req: Request, res: Response) {
+  
+
+    const bcrypt = require ('bcryptjs');
+    const SALT_FACTOR = 10;
+    const hashedPassword = await bcrypt.hash(req.body.password, SALT_FACTOR);
+    req.body.password = hashedPassword;
+
     const incomingData: IncomingUser = req.body;
     const mappedIncomingData: InternalUser = mapUser(incomingData);
+    
 
     let requiredFields = User.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
@@ -36,6 +45,7 @@ export async function createUser(req: Request, res: Response) {
         }
         
         if (user === null) {
+            
             let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
             if (createdData === null) {
                 return res.status(500).send(wrapResponse(false, { error: 'Could not create User' }));
