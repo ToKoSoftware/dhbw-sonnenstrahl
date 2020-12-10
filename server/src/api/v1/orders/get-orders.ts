@@ -82,10 +82,8 @@ export async function getOrders(req: Request, res: Response) {
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        let customerIds: string[] = [];
-        result.forEach(el => {
-            customerIds.push(el.id);
-        });
+        Vars.loggy.log(result);
+        let customerIds = result.map(el => el.id);
         customResolver.set('customerId', (field: string, req: Request, value: string) => {
             return customerIds;
         });
