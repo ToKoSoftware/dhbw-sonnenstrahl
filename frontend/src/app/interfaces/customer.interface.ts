@@ -7,6 +7,7 @@ export interface CustomerData {
   postcode: string;
   city: string;
   is_active: string;
+  userId: string;
   createdAt: string;
   updatedAt: string;
 }

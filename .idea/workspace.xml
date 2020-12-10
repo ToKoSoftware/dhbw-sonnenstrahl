@@ -478,56 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607375285609</updated>
     </task>
-    <task id="LOCAL-00027" summary="* Edit orders">
-      <created>1607378764488</created>
+    <task id="LOCAL-00027" summary="* Fix wrong input field types and placeholders">
+      <created>1607452320258</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1607378764488</updated>
+      <updated>1607452320258</updated>
     </task>
-    <task id="LOCAL-00028" summary="* Try to fix broken frontend routing">
-      <created>1607534810482</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1607534810482</updated>
-    </task>
-    <task id="LOCAL-00029" summary="* Implemented frontend update of credentials">
-      <created>1607594296111</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1607594296111</updated>
-    </task>
-    <task id="LOCAL-00030" summary="* Implemented update customers&#10;* Implemented zero data component&#10;* Re-enabled access to profile edit pages only when signed in">
-      <created>1607596758643</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1607596758643</updated>
-    </task>
-    <task id="LOCAL-00031" summary="* Rename Profile to MyProfile&#10;* Move PlanDetailComponent to UiModule">
-      <created>1607606962231</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1607606962231</updated>
-    </task>
-    <task id="LOCAL-00032" summary="* Implemented order detail page&#10;* Added moment pipes">
-      <created>1607610790518</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1607610790518</updated>
-    </task>
-    <task id="LOCAL-00033" summary="* Implemented frontend for order termination">
-      <created>1607611632853</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1607611632853</updated>
-    </task>
-    <option name="localTasksCounter" value="34" />
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,6 +508,12 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/server" />
     </ignored-roots>
+    <MESSAGE value="* Add basic structure" />
+    <MESSAGE value="* Add api and filters" />
+    <MESSAGE value="* Create modules and components" />
+    <MESSAGE value="* Add map&#10;* Add nested route loading" />
+    <MESSAGE value="* Add search" />
+    <MESSAGE value="* Finally get docker-compose to work&#10;* Try to fix query builder" />
     <MESSAGE value="* Resolve conflict" />
     <MESSAGE value="* Fix breadcrumbs" />
     <MESSAGE value="* Implement login and logout" />
@@ -568,14 +532,8 @@
     <MESSAGE value="* Export plans&#10;* Add breadcrumb to admin pages" />
     <MESSAGE value="* Implemented editing of customers&#10;* Updated frontend interfaces" />
     <MESSAGE value="* Show related customers for user" />
-    <MESSAGE value="* Edit orders" />
-    <MESSAGE value="* Try to fix broken frontend routing" />
-    <MESSAGE value="* Implemented frontend update of credentials" />
-    <MESSAGE value="* Implemented update customers&#10;* Implemented zero data component&#10;* Re-enabled access to profile edit pages only when signed in" />
-    <MESSAGE value="* Rename Profile to MyProfile&#10;* Move PlanDetailComponent to UiModule" />
-    <MESSAGE value="* Implemented order detail page&#10;* Added moment pipes" />
-    <MESSAGE value="* Implemented frontend for order termination" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Implemented frontend for order termination" />
+    <MESSAGE value="* Fix wrong input field types and placeholders" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Fix wrong input field types and placeholders" />
   </component>
   <component name="WindowStateProjectService">
     <state x="553" y="356" key="#Notifications" timestamp="1602001438730">
@@ -607,10 +565,11 @@
       <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
     <state x="-1286" y="330" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600633643548" />
-    <state x="2527" y="122" key="CommitChangelistDialog2" timestamp="1607611632675">
-      <screen x="2048" y="0" width="2048" height="1152" />
+    <state x="-1569" y="122" key="CommitChangelistDialog2" timestamp="1607452320108">
+      <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
-    <state x="393" y="111" key="CommitChangelistDialog2/0.0.1680.1050@0.0.1680.1050" timestamp="1607534810290" />
+    <state x="-1569" y="122" key="CommitChangelistDialog2/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-2048.0.2048.1152" timestamp="1607452320108" />
+    <state x="393" y="111" key="CommitChangelistDialog2/0.0.1680.1050@0.0.1680.1050" timestamp="1607375285456" />
     <state x="479" y="122" key="CommitChangelistDialog2/2048.0.1680.1050/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1607193810721" />
     <state x="479" y="122" key="CommitChangelistDialog2/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@0.0.2048.1152" timestamp="1607596758431" />
     <state x="2527" y="122" key="CommitChangelistDialog2/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@2048.0.2048.1152" timestamp="1607611632674" />
@@ -852,20 +811,20 @@
       <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
     <state x="-1221" y="317" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600605387462" />
-    <state x="2877" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607608383308">
-      <screen x="2048" y="0" width="2048" height="1152" />
+    <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607452265113">
+      <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
+    <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-2048.0.2048.1152" timestamp="1607452265113" />
     <state x="680" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1607376644285" />
     <state x="829" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2048.0.1680.1050/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1607170368860" />
     <state x="829" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@0.0.2048.1152" timestamp="1607595192896" />
     <state x="2877" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@2048.0.2048.1152" timestamp="1607608383308" />
     <state x="-1219" y="497" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600702333088" />
-    <state x="2838" y="380" width="931" height="538" key="find.popup" timestamp="1607608524512">
-      <screen x="2048" y="0" width="2048" height="1152" />
+    <state x="-1258" y="380" width="873" height="538" key="find.popup" timestamp="1607452336598">
+      <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
-    <state x="-1258" y="380" width="874" height="538" key="find.popup/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-2048.0.2048.1152" timestamp="1607450951531" />
-    <state x="-3621" y="475" width="1092" height="672" key="find.popup/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-4608.0.2560.1440" timestamp="1607430776523" />
-    <state x="648" y="346" width="763" height="490" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607539548095" />
+    <state x="-1258" y="380" width="873" height="538" key="find.popup/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-2048.0.2048.1152" timestamp="1607452336598" />
+    <state x="648" y="346" width="716" height="490" key="find.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607378237729" />
     <state x="790" y="380" width="873" height="538" key="find.popup/2048.0.1680.1050/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1607182821419" />
     <state x="790" y="380" width="931" height="538" key="find.popup/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@0.0.2048.1152" timestamp="1607590985677" />
     <state x="2838" y="380" width="931" height="538" key="find.popup/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@2048.0.2048.1152" timestamp="1607608524512" />
@@ -885,11 +844,11 @@
     <state x="-1258" y="276" width="670" height="540" key="run.anything.popup/2048.83.1440.877/0.23.2048.1129/-1994.0.1994.1152@-1994.0.1994.1152" timestamp="1600614218963" />
     <state x="3505" y="345" width="670" height="675" key="run.anything.popup/2560.0.2560.1440/0.0.2560.1440@2560.0.2560.1440" timestamp="1600352827129" />
     <state x="3505" y="345" width="670" height="675" key="run.anything.popup/2560.23.2560.1417/50.23.2510.1417@2560.23.2560.1417" timestamp="1600352380042" />
-    <state x="2804" y="266" width="817" height="542" key="search.everywhere.popup" timestamp="1607610939717">
-      <screen x="2048" y="0" width="2048" height="1152" />
+    <state x="-1292" y="266" width="817" height="542" key="search.everywhere.popup" timestamp="1607452339162">
+      <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
-    <state x="-3663" y="332" width="1021" height="678" key="search.everywhere.popup/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-4608.0.2560.1440" timestamp="1607418405102" />
-    <state x="620" y="242" width="670" height="494" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607534750243" />
+    <state x="-1292" y="266" width="817" height="542" key="search.everywhere.popup/-4608.0.2560.1440/-2048.0.2048.1152/0.0.1680.1050@-2048.0.2048.1152" timestamp="1607452339162" />
+    <state x="620" y="242" width="670" height="494" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1607378454460" />
     <state x="756" y="266" width="817" height="542" key="search.everywhere.popup/2048.0.1680.1050/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1607197492905" />
     <state x="756" y="266" width="817" height="542" key="search.everywhere.popup/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@0.0.2048.1152" timestamp="1607593175408" />
     <state x="2804" y="266" width="817" height="542" key="search.everywhere.popup/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@2048.0.2048.1152" timestamp="1607610939717" />
