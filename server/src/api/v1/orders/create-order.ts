@@ -156,7 +156,7 @@ export async function createExternalOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: 'Could not create Order' }));
     }
 
-    const calculatedCosts = Math.round(plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000);
+    const calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON)*100) / 100;
 
     return res.send(wrapResponse(true, {costs: calculatedCosts+'€'}));
 }
