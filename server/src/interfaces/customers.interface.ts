@@ -1,5 +1,5 @@
 export interface InternalCustomer {
-    userId: string;
+    userId: string|null;
     firstName: string;
     lastName: string;
     street: string;

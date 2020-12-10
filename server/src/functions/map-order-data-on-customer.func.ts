@@ -1,9 +1,9 @@
 import { InternalCustomer } from "../interfaces/customers.interface";
-import { IncomingOrder } from "../interfaces/orders.interface";
+import { IncomingExternalOrder } from "../interfaces/orders.interface";
 
-export function mapOrderDataOnCustomer(incomingData: IncomingOrder): InternalCustomer {
+export function mapOrderDataOnCustomer(incomingData: IncomingExternalOrder): InternalCustomer {
     return {
-        userId: incomingData.userId,
+        userId: null,
         firstName: incomingData.firstName,
         lastName: incomingData.lastName,
         street: incomingData.street,

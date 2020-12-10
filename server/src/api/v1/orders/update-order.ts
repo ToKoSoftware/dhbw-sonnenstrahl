@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import isBlank from "is-blank";
 import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
 import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
-import { mapUpdateOrder } from "../../../functions/map-order.func";
+import { mapInternalOrder } from "../../../functions/map-order.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingUpdateOrder, InternalOrder } from "../../../interfaces/orders.interface";
+import { IncomingInternalOrder, InternalOrder } from "../../../interfaces/orders.interface";
 import { Customer } from "../../../models/customer.models";
 import { Order } from "../../../models/order.model";
 import { Plan } from "../../../models/plan.model";
@@ -14,8 +14,7 @@ export async function updateOrder(req: Request, res: Response) {
     let success = true;
     let order: Order | null;
     let updateResult;
-    const incomingData: IncomingUpdateOrder = req.body;
-    const mappedIncomingData: InternalOrder = mapUpdateOrder(incomingData);
+    const incomingData: IncomingInternalOrder = req.body;
 
     let requiredFields = Order.requiredFields();
 
@@ -67,12 +66,12 @@ export async function updateOrder(req: Request, res: Response) {
     }
 
     //id must not be changed and all set keys mut not be empty.
-    if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
+    if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
 
         let plan: Plan | null = await Plan.findOne(
             {
                 where: {
-                    id: mappedIncomingData.planId,
+                    id: incomingData.planId,
                     is_active: true
                 }
             }
@@ -83,7 +82,7 @@ export async function updateOrder(req: Request, res: Response) {
             return res.status(400).send(wrapResponse(false, { error: 'Plan cannot be changed to given planId' }));
         }
         updateResult = await Order.update(
-            mappedIncomingData,
+            incomingData,
             {
                 where: {
                     id: req.params.id
@@ -101,7 +100,7 @@ export async function updateOrder(req: Request, res: Response) {
             return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
         }
 
-    } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
+    } else if (checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) === false) {
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
     } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {

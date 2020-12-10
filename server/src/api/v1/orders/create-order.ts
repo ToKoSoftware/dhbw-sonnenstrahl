@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { wrapResponse } from '../../../functions/response-wrapper';
-import { IncomingOrder } from '../../../interfaces/orders.interface';
+import { IncomingExternalOrder, InternalOrder } from '../../../interfaces/orders.interface';
 import { Order } from '../../../models/order.model';
 import { mapOrder } from '../../../functions/map-order.func';
 import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
@@ -9,11 +9,76 @@ import { Customer } from '../../../models/customer.models';
 import { mapOrderDataOnCustomer } from '../../../functions/map-order-data-on-customer.func';
 
 export async function createInternalOrder(req: Request, res: Response) {
-    
+    let success = true;
+    const incomingData: InternalOrder = req.body;
+
+    // Check, if all required fields have been set
+    const requiredFields = Order.requiredFields();
+    if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
+        return res.status(400).send(wrapResponse(false, { error: 'Not all required fields have been set' }));
+    }
+
+    // Try to find Plan with given planId
+    let plan: Plan | null = await Plan.findOne(
+        {
+            where: {
+                id: incomingData.planId,
+                is_active: true
+            }
+        })
+        .catch((error) => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (plan === null) {
+        return res.status(400).send(wrapResponse(false, { error: 'Given planId does not match a plan' }));
+    }
+
+    //Try to find Customer with given customerId
+    // Try to find Plan with given planId
+    let customer: Customer | null = await Customer.findOne(
+        {
+            where: {
+                id: incomingData.customerId,
+                is_active: true
+            }
+        })
+        .catch((error) => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (customer === null) {
+        return res.status(400).send(wrapResponse(false, { error: 'Given customerId does not match a customer' }));
+    }
+
+    // Postcode of plan and customer must match
+    if (plan.postcode != customer.postcode) {
+        return res.status(400).send(wrapResponse(false, { error: 'Postcode of plan and order do not match!' }));
+    }
+
+    let data = await Order.create(incomingData)
+        .catch(error => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
+    if (data === null) {
+        return res.status(400).send(wrapResponse(false, { error: 'Could not create Order' }));
+    }
+    return res.send(wrapResponse(true, data));
 }
 
 export async function createExternalOrder(req: Request, res: Response) {
-    const incomingData: IncomingOrder = req.body;
+    let success = true;
+    const incomingData: IncomingExternalOrder = req.body;
     const mappedCustomerData = mapOrderDataOnCustomer(incomingData);
 
 
@@ -23,9 +88,6 @@ export async function createExternalOrder(req: Request, res: Response) {
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredIncomingOrderFields)) {
         return res.status(400).send(wrapResponse(false, { error: 'Not all required fields have been set' }));
     }
-
-    //Check, if Customer with given params already exists. If not create one.
-    let success = true;
 
     // Try to find Plan with given planId
     let plan: Plan | null = await Plan.findOne(
@@ -60,7 +122,8 @@ export async function createExternalOrder(req: Request, res: Response) {
                 streetNumber: mappedCustomerData.streetNumber,
                 postcode: mappedCustomerData.postcode,
                 city: mappedCustomerData.city,
-                is_active: mappedCustomerData.is_active
+                is_active: mappedCustomerData.is_active,
+                userId: mappedCustomerData.userId
             }
         })
         .catch((error) => {
@@ -95,7 +158,7 @@ export async function createExternalOrder(req: Request, res: Response) {
     return res.send(wrapResponse(true, data));
 }
 
-function requiredIncomingFields(): Array<keyof IncomingOrder> {
+function requiredIncomingFields(): Array<keyof IncomingExternalOrder> {
     return [
         'firstName',
         'lastName',
