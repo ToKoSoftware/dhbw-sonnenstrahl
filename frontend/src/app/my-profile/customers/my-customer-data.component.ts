@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserData} from '../../interfaces/user.interface';
 import {ApiService} from '../../services/api/api.service';
 import {LoginService} from '../../services/login/login.service';
-import {myProfilePages} from '../my-profile.pages';
+import {myProfileBreadcrumb, myProfilePages} from '../my-profile.pages';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
@@ -16,6 +16,7 @@ import {CustomerData} from '../../interfaces/customer.interface';
 })
 export class MyCustomerDataComponent implements OnInit {
   public profilePages = myProfilePages;
+  public breadcrumbs = myProfileBreadcrumb;
   public results: CustomerData[] = [];
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
   public loading = true;

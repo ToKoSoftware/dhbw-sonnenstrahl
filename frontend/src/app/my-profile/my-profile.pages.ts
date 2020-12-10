@@ -32,7 +32,7 @@ export const myProfilePages: SidebarPageGroup[] = [
   }
 ];
 
-export const adminBreadcrumb: UiBreadcrumb[] = [
+export const myProfileBreadcrumb: UiBreadcrumb[] = [
   {
     title: 'Home',
     routerLink: '/'

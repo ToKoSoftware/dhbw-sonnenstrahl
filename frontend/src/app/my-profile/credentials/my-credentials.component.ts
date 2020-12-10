@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {myProfilePages} from '../my-profile.pages';
+import {myProfileBreadcrumb, myProfilePages} from '../my-profile.pages';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
@@ -13,6 +13,7 @@ import {LoadingModalService} from '../../services/loading-modal/loading-modal.se
 })
 export class MyCredentialsComponent implements OnInit {
   public profilePages = myProfilePages;
+  public breadcrumbs = myProfileBreadcrumb;
   public editUserForm: FormGroup;
   public loading = true;
   public currentUser: UserData;

@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {myProfilePages} from '../my-profile.pages';
+import {myProfileBreadcrumb, myProfilePages} from '../my-profile.pages';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ApiService} from '../../services/api/api.service';
-import {UserData} from '../../interfaces/user.interface';
 import {LoginService} from '../../services/login/login.service';
 import {OrderData} from '../../interfaces/order.interface';
 import {PlanData} from '../../interfaces/plan.interface';
@@ -14,7 +13,7 @@ import {PlanData} from '../../interfaces/plan.interface';
 })
 export class MyOrdersComponent implements OnInit {
   public profilePages = myProfilePages;
-  public editUserForm: FormGroup;
+  public breadcrumbs = myProfileBreadcrumb;
   public loading = true;
   public orders: OrderData[];
 
