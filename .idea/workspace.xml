@@ -31,8 +31,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1d5647a1-a779-4199-8666-641bc6c3c9a0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-profile/my-orders/order-detail/order-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-profile/my-orders/order-detail/order-detail.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-profile/my-orders/order-detail/order-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-profile/my-orders/order-detail/order-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-profile/customers/my-customer-data.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-profile/customers/my-customer-data.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,7 +294,7 @@
       <workItem from="1607370356097" duration="8200000" />
       <workItem from="1607418332172" duration="5042000" />
       <workItem from="1607536308248" duration="2339000" />
-      <workItem from="1607589791490" duration="11615000" />
+      <workItem from="1607589791490" duration="11932000" />
     </task>
     <task id="LOCAL-00001" summary="* Fix syntax of webpack.config.js">
       <created>1600600111367</created>
@@ -521,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607610790518</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="* Implemented frontend for order termination">
+      <created>1607611632853</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1607611632853</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -544,7 +550,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/server" />
     </ignored-roots>
-    <MESSAGE value="* Finally get docker-compose to work&#10;* Try to fix query builder" />
     <MESSAGE value="* Resolve conflict" />
     <MESSAGE value="* Fix breadcrumbs" />
     <MESSAGE value="* Implement login and logout" />
@@ -569,7 +574,8 @@
     <MESSAGE value="* Implemented update customers&#10;* Implemented zero data component&#10;* Re-enabled access to profile edit pages only when signed in" />
     <MESSAGE value="* Rename Profile to MyProfile&#10;* Move PlanDetailComponent to UiModule" />
     <MESSAGE value="* Implemented order detail page&#10;* Added moment pipes" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Implemented order detail page&#10;* Added moment pipes" />
+    <MESSAGE value="* Implemented frontend for order termination" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Implemented frontend for order termination" />
   </component>
   <component name="WindowStateProjectService">
     <state x="553" y="356" key="#Notifications" timestamp="1602001438730">
@@ -601,13 +607,13 @@
       <screen x="-2048" y="0" width="2048" height="1152" />
     </state>
     <state x="-1286" y="330" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/2048.60.1440.900/0.0.2048.1152/-2048.0.2048.1152@-2048.0.2048.1152" timestamp="1600633643548" />
-    <state x="2527" y="122" key="CommitChangelistDialog2" timestamp="1607610790288">
+    <state x="2527" y="122" key="CommitChangelistDialog2" timestamp="1607611632675">
       <screen x="2048" y="0" width="2048" height="1152" />
     </state>
     <state x="393" y="111" key="CommitChangelistDialog2/0.0.1680.1050@0.0.1680.1050" timestamp="1607534810290" />
     <state x="479" y="122" key="CommitChangelistDialog2/2048.0.1680.1050/0.0.2048.1152/-2048.0.2048.1152@0.0.2048.1152" timestamp="1607193810721" />
     <state x="479" y="122" key="CommitChangelistDialog2/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@0.0.2048.1152" timestamp="1607596758431" />
-    <state x="2527" y="122" key="CommitChangelistDialog2/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@2048.0.2048.1152" timestamp="1607610790288" />
+    <state x="2527" y="122" key="CommitChangelistDialog2/2048.0.2048.1152/4096.0.1680.1050/0.0.2048.1152@2048.0.2048.1152" timestamp="1607611632674" />
     <state x="158" y="94" width="1344" height="840" key="DiffContextDialog" timestamp="1607539375377">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
