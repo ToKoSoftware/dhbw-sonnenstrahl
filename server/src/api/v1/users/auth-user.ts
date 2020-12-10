@@ -19,7 +19,7 @@ export async function loginUser(req: Request, res: Response) {
             attributes: ['id', 'email', 'is_admin'],
             where: {
                 email: incomingData.email,
-                //password: hashedPassword
+                password: incomingData.password
             }
         })
         .catch(error => {

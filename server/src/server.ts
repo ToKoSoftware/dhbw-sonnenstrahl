@@ -88,7 +88,7 @@ export default function startServer() {
     /**
     * User
     */
-    app.get('/api/v1/users',/* userIsAuthorized, userIsAdmin,*/(req, res) => getUsers(req, res));
+    app.get('/api/v1/users',userIsAuthorized, userIsAdmin, (req, res) => getUsers(req, res));
     app.get('/api/v1/users/:id', userIsAuthorized, (req, res) => getUser(req, res));
     app.post('/api/v1/users', (req, res) => createUser(req, res));
     app.put('/api/v1/users/:id', userIsAuthorized, (req, res) => updateUser(req, res));
