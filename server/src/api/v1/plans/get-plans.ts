@@ -39,6 +39,35 @@ export async function getPlans(req: Request, res: Response) {
     return res.send(wrapResponse(true, data));
 }
 
+export async function getPlansInExternalFormat(req: Request, res:Response) {
+    let query: FindOptions = {
+        raw: true,
+    };
+    // todo move this to the model
+    const allowedSearchFields = ['plan', 'postcode'];
+    const allowedOrderFields = ['postcode', 'plan', 'cost_var', 'cost_fix'];
+    const allowedFilterFields = ['id', 'postcode', 'plan', 'is_active'];
+
+    let customResolver = new Map<string, customFilterValueResolver>();
+    customResolver.set('is_active', (field: string, requ: Request, value: string) => {
+        return true;
+    });
+    const inputSearchString = req.query.search as string || ''
+    const queryConfig: QueryBuilderConfig = {
+        query: query,
+        searchString: inputSearchString.replace('zipCode', 'postcode'),
+        customFilterResolver: customResolver,
+        allowLimitAndOffset: true,
+        allowedFilterFields: allowedFilterFields,
+        allowedSearchFields: allowedSearchFields,
+        allowedOrderFields: allowedOrderFields
+    }
+    query = buildQuery(queryConfig, req);
+    let data: Plan[] =  await Plan.findAll(query);
+    //TODO formatting of output
+    return res.send(wrapResponse(true, data));
+}
+
 export async function getPlan(req: Request, res: Response) {
     let data = null;
     let success: boolean = true;

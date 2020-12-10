@@ -5,7 +5,7 @@ import { wrapResponse } from './functions/response-wrapper';
 import fileUpload from 'express-fileupload';
 import tempDirectory from 'temp-dir';
 import { importPlan } from './api/v1/plans/import-plan';
-import { getPlan, getPlans } from "./api/v1/plans/get-plans";
+import { getPlan, getPlans, getPlansInExternalFormat } from "./api/v1/plans/get-plans";
 import { getOrder, getOrders } from './api/v1/orders/get-orders';
 import bodyParser from 'body-parser';
 import { createExternalOrder, createInternalOrder} from './api/v1/orders/create-order';
@@ -69,7 +69,7 @@ export default function startServer() {
     app.get('/api/v1/plans', (req, res) => getPlans(req, res));
     app.get('/api/v1/plans/:id', (req, res) => getPlan(req, res));
     // get route for external usage
-    app.get('/rates', (req, res) => getPlans(req, res));
+    app.get('/rates', (req, res) => getPlansInExternalFormat(req, res));
     app.put('/api/v1/plans', userIsAuthorized, userIsAdmin, (req, res) => importPlan(req, res));
     app.post('/api/v1/plans', userIsAuthorized, userIsAdmin, (req, res) => createPlan(req, res));
     app.put('/api/v1/plans/:id', userIsAuthorized, userIsAdmin, (req, res) => updatePlan(req, res));
