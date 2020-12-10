@@ -26,8 +26,12 @@ import { updatePlan } from './api/v1/plans/update-plan';
 import { deletePlan } from './api/v1/plans/delete-plan';
 import { userIsAuthorized } from './middleware/user-is-authorized.middleware';
 import { userIsAdmin } from './middleware/user-is-admin.middleware';
-import { exportOrders } from './api/v1/export/export-order';
+import { exportOrders } from './api/v1/admin/export-order';
 import { userIsAuthorizedByParam } from './middleware/user-is-authorized-by-param.middleware';
+import { exportUsers } from './api/v1/admin/export-users';
+import { getStats } from './api/v1/admin/get-stats';
+import { getMonthlyStats } from './api/v1/admin/get-monthly-stats';
+import { getReferrerStats } from './api/v1/admin/get-referrer-stats';
 
 export default function startServer() {
 
@@ -72,7 +76,7 @@ export default function startServer() {
     /**
      * Order
      */
-    app.get('/api/v1/orders', userIsAuthorized, userIsAdmin, (req, res) => getOrders(req, res));
+    app.get('/api/v1/orders', userIsAuthorized, (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', userIsAuthorized, (req, res) => getOrder(req, res));
     app.post('/api/v1/orders', (req, res) => createOrder(req, res));
     app.post('/orders', (req, res) => createOrder(req, res));
@@ -100,9 +104,15 @@ export default function startServer() {
     app.delete('/api/v1/customers/:id', userIsAuthorized, userIsAdmin, (req, res) => deleteCustomer(req, res));
 
     /**
-     * Exports
+     * Admin
      */
-    app.get('/api/v1/export/orders', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportOrders(req, res));
+    app.get('/api/v1/admin/stats', userIsAuthorized, userIsAdmin, (req, res) => getStats(req, res));
+    app.get('/api/v1/admin/stats/monthly', userIsAuthorized, userIsAdmin, (req, res) => getMonthlyStats(req, res));
+    app.get('/api/v1/admin/stats/referrer', userIsAuthorized, userIsAdmin, (req, res) => getReferrerStats(req, res));
+    //following two routes only via frontend functionable with download
+    app.get('/api/v1/admin/export/orders', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportOrders(req, res));
+    app.get('/api/v1/admin/export/users', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportUsers(req, res));
+    
 
     app.use((req, res, next) => {
         res.status(404).send(wrapResponse(false, {

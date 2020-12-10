@@ -27,10 +27,10 @@ export async function getCustomer(req: Request, res: Response) {
     //authorisation check
     if (customer.userId !== undefined) {
         if (!currentUserIsAdminOrMatchesId(customer.userId)) {
-            return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+            if (!Vars.currentUser.is_admin) {
+                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+            }
         }
-    } else if (!Vars.currentUser.is_admin) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
     return res.send(wrapResponse(true, customer));
 }
