@@ -13,7 +13,7 @@
       </div>
     </div>
     <app-plan-detail [plan]="plan" [estimatedUsage]="order.consumption">
-      <app-button label="Kündigen" type="danger" size="small"></app-button>
+      <app-button (click)="cancelOrder()" label="Kündigen" type="danger" size="small"></app-button>
     </app-plan-detail>
   </ng-container>
   <ng-container *ngIf="!loadingCustomer">
