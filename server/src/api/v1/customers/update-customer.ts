@@ -2,9 +2,8 @@ import { Request, Response } from "express";
 import isBlank from "is-blank";
 import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
 import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
-import { mapCustomer } from "../../../functions/map-customer.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingCustomer, InternalCustomer } from "../../../interfaces/customers.interface";
+import { InternalCustomer } from "../../../interfaces/customers.interface";
 import { Customer } from "../../../models/customer.models";
 import { User } from "../../../models/user.model";
 import { Vars } from "../../../vars";
@@ -14,8 +13,7 @@ export async function updateCustomer(req: Request, res: Response) {
     let customer: Customer | null;
     let user: User | null;
     let updateResult;
-    const incomingData: IncomingCustomer = req.body;
-    const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);
+    const incomingData: InternalCustomer = req.body;
 
     let requiredFields = Customer.requiredFields();
 
@@ -75,7 +73,7 @@ export async function updateCustomer(req: Request, res: Response) {
 
     //id must not be changed and all set keys mut not be empty.
     if ((req.body.id === undefined || req.params.id === req.body.id)
-        && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false
+        && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false
     ) {
 
         updateResult = await Customer.update(
@@ -97,7 +95,7 @@ export async function updateCustomer(req: Request, res: Response) {
             return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
         }
 
-    } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
+    } else if (checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) === false) {
         return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
     } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {

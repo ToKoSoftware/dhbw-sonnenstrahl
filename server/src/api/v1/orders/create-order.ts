@@ -6,7 +6,7 @@ import { mapOrder } from '../../../functions/map-order.func';
 import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
 import { Plan } from '../../../models/plan.model';
 import { Customer } from '../../../models/customer.models';
-import { mapCustomer } from '../../../functions/map-customer.func';
+import { mapOrderDataOnCustomer } from '../../../functions/map-order-data-on-customer.func';
 
 export async function createInternalOrder(req: Request, res: Response) {
     
@@ -14,7 +14,7 @@ export async function createInternalOrder(req: Request, res: Response) {
 
 export async function createExternalOrder(req: Request, res: Response) {
     const incomingData: IncomingOrder = req.body;
-    const mappedCustomerData = mapCustomer(incomingData);
+    const mappedCustomerData = mapOrderDataOnCustomer(incomingData);
 
 
     // Check, if all required fields have been set
