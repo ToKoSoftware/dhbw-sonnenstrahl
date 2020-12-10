@@ -45,7 +45,7 @@ export async function updateUser(req: Request, res: Response) {
         user !== null
         && (req.body.id === undefined || req.params.id === req.body.id)
         && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false
-        && validEmail !== false
+        && validEmail
         && (req.body.is_admin === undefined)
     ) {
 
