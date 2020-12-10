@@ -8,7 +8,7 @@ import { importPlan } from './api/v1/plans/import-plan';
 import { getPlan, getPlans } from "./api/v1/plans/get-plans";
 import { getOrder, getOrders } from './api/v1/orders/get-orders';
 import bodyParser from 'body-parser';
-import { createOrder } from './api/v1/orders/create-order';
+import { createExternalOrder, createInternalOrder} from './api/v1/orders/create-order';
 import { updateOrder } from './api/v1/orders/update-order';
 import { createPlan } from './api/v1/plans/create-plan';
 import { deleteOrder } from './api/v1/orders/delete-order';
@@ -78,8 +78,8 @@ export default function startServer() {
      */
     app.get('/api/v1/orders', userIsAuthorized, (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', userIsAuthorized, (req, res) => getOrder(req, res));
-    app.post('/api/v1/orders', (req, res) => createOrder(req, res));
-    app.post('/orders', (req, res) => createOrder(req, res));
+    app.post('/api/v1/orders', (req, res) => createInternalOrder(req, res));
+    app.post('/orders', (req, res) => createExternalOrder(req, res));
     // following route just to update the order itself. not terminating it (is_active = false, set terminateAt)
     app.put('/api/v1/orders/:id', userIsAuthorized, (req, res) => updateOrder(req, res));
     app.put('/api/v1/orders/:id/terminate', userIsAuthorized, (req, res) => terminateOrder(req, res));

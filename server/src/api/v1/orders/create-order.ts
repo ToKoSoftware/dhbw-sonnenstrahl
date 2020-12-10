@@ -8,7 +8,11 @@ import { Plan } from '../../../models/plan.model';
 import { Customer } from '../../../models/customer.models';
 import { mapCustomer } from '../../../functions/map-customer.func';
 
-export async function createOrder(req: Request, res: Response) {
+export async function createInternalOrder(req: Request, res: Response) {
+    
+}
+
+export async function createExternalOrder(req: Request, res: Response) {
     const incomingData: IncomingOrder = req.body;
     const mappedCustomerData = mapCustomer(incomingData);
 

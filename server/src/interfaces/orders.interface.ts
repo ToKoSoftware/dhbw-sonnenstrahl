@@ -28,3 +28,17 @@ export interface InternalOrder {
     is_active: boolean;
     terminatedAt: Date | null;
 }
+
+export interface IncomingExternalOrder {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName_: string;
+    street: string;
+    streetNumber: string;
+    zipCode: string;
+    city: string;
+    rateId: string;
+    consumption: string;
+    agent: string;
+}
