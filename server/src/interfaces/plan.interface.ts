@@ -6,7 +6,7 @@ export interface InternalPlan {
     cost_fix: number;
 }
 
-export interface IncomingPlan {
+export interface PlanFromFileUpload {
     PLZ: string;
     Tarifname: string;
     VariableKosten: number;

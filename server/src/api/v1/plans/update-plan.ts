@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import isBlank from "is-blank";
 import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
-import { mapPlan } from "../../../functions/map-plan.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingPlan, InternalPlan } from "../../../interfaces/plan.interface";
+import { InternalPlan } from "../../../interfaces/plan.interface";
 import { Order } from "../../../models/order.model";
 import { Plan } from "../../../models/plan.model";
 
@@ -11,8 +10,7 @@ export async function updatePlan(req: Request, res: Response) {
     let success = true;
     let plan: Plan | null;
     let updateResult;
-    const incomingData: IncomingPlan = req.body;
-    const mappedIncomingData: InternalPlan = mapPlan(incomingData);
+    const incomingData: InternalPlan = req.body;
 
     let requiredFields = Plan.requiredFields();
 
@@ -40,7 +38,7 @@ export async function updatePlan(req: Request, res: Response) {
         return res.status(404).send(wrapResponse(false, { error: 'No plan with given id found' }));
     } else {
         // check if the postcode should be changed. If it should, ther must not be an active order with the given planId
-        if (!(plan.postcode === mappedIncomingData.postcode || mappedIncomingData.postcode === undefined)) {
+        if (!(plan.postcode === incomingData.postcode || incomingData.postcode === undefined)) {
             let activeOrders: Order | null = await Order.findOne(
                 {
                     where: {
@@ -60,10 +58,10 @@ export async function updatePlan(req: Request, res: Response) {
             }
         }
 
-        if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false) {
+        if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
 
             updateResult = await Plan.update(
-                mappedIncomingData,
+                incomingData,
                 {
                     where: {
                         id: req.params.id
@@ -81,7 +79,7 @@ export async function updatePlan(req: Request, res: Response) {
                 return res.status(404).send(wrapResponse(false, { error: 'No plan updated' }));
             }
 
-        } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
+        } else if (checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) === false) {
             return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
 
         } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {
