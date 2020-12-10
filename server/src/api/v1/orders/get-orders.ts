@@ -55,6 +55,7 @@ export async function getOrder(req: Request, res: Response) {
 }
 
 export async function getOrders(req: Request, res: Response) {
+    let success = true;
     let query: FindOptions = {
         raw: true,
     };
@@ -65,6 +66,30 @@ export async function getOrders(req: Request, res: Response) {
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
+    if (!Vars.currentUser.is_admin) {
+        let result: Customer[] = await Customer.findAll(
+            {
+                attributes: ['id'],
+                where: {
+                    userId: Vars.currentUser.id
+                },
+                raw: true
+            })
+            .catch(error => {
+                success = false;
+                return [];
+            });
+        if (!success) {
+            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        }
+        let customerIds: string[] = [];
+        result.forEach(el => {
+            customerIds.push(el.id);
+        });
+        customResolver.set('customerId', (field: string, req: Request, value: string) => {
+            return customerIds;
+        });
+    }
     const queryConfig: QueryBuilderConfig = {
         query: query,
         searchString: req.query.search as string || '',
@@ -77,7 +102,6 @@ export async function getOrders(req: Request, res: Response) {
     query = buildQuery(queryConfig, req);
 
     let orderdata;
-    let success = true;
     await Order.findAll(query)
         .then((order) => orderdata = order)
         .catch(error => {
