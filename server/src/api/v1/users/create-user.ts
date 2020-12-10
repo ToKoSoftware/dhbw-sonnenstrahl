@@ -6,17 +6,12 @@ import { mapUser } from '../../../functions/map-users.func';
 import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
 import * as EmailValidator from 'email-validator';
 import { Vars } from '../../../vars';
+import * as bcrypt from 'bcryptjs';
 
 export async function createUser(req: Request, res: Response) {
-  
-
-    const bcrypt = require ('bcryptjs');
-    const SALT_FACTOR = 10;
-    const hashedPassword = await bcrypt.hash(req.body.password, SALT_FACTOR);
-    req.body.password = hashedPassword;
 
     const incomingData: IncomingUser = req.body;
-    const mappedIncomingData: InternalUser = mapUser(incomingData);
+    const mappedIncomingData: InternalUser = await mapUser(incomingData);
     
 
     let requiredFields = User.requiredFields();

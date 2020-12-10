@@ -1,3 +1,5 @@
+import { Hash } from "crypto";
+
 export interface IncomingUser {
     email: string;
     password: string;

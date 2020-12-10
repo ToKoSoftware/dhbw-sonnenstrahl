@@ -13,7 +13,7 @@ export async function updateUser(req: Request, res: Response) {
     let user: User | null;
     let updateResult: [number, User[]] | null;
     const incomingData: IncomingUser = req.body;
-    const mappedIncomingData: InternalUser = mapUser(incomingData);
+    const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     let requiredFields = User.requiredFields();
 
