@@ -76,7 +76,7 @@ export default function startServer() {
     /**
      * Order
      */
-    app.get('/api/v1/orders', userIsAuthorized, userIsAdmin, (req, res) => getOrders(req, res));
+    app.get('/api/v1/orders', userIsAuthorized, (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', userIsAuthorized, (req, res) => getOrder(req, res));
     app.post('/api/v1/orders', (req, res) => createOrder(req, res));
     app.post('/orders', (req, res) => createOrder(req, res));
