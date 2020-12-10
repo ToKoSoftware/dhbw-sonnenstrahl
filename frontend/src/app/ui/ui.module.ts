@@ -23,6 +23,7 @@ import {CustomModalComponent} from './modals/custom-modal/custom-modal.component
 import {LayoutComponent} from './layout/layout.component';
 import {InputComponent} from './input/input.component';
 import {LabeledValueComponent} from './labeled-value/labeled-value.component';
+import { ZeroDataComponent } from './zero-data/zero-data.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import {LabeledValueComponent} from './labeled-value/labeled-value.component';
     CustomModalComponent,
     LayoutComponent,
     InputComponent,
-    LabeledValueComponent
+    LabeledValueComponent,
+    ZeroDataComponent
   ],
   exports: [
     NavbarComponent,
@@ -66,7 +68,8 @@ import {LabeledValueComponent} from './labeled-value/labeled-value.component';
     TabsComponent,
     StepsComponent,
     InputComponent,
-    LabeledValueComponent
+    LabeledValueComponent,
+    ZeroDataComponent
   ],
   imports: [
     CommonModule,
