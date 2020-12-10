@@ -155,7 +155,10 @@ export async function createExternalOrder(req: Request, res: Response) {
     if (data === null) {
         return res.status(400).send(wrapResponse(false, { error: 'Could not create Order' }));
     }
-    return res.send(wrapResponse(true, data));
+
+    const calculatedCosts = Math.round(plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000);
+
+    return res.send(wrapResponse(true, {costs: calculatedCosts+'€'}));
 }
 
 function requiredIncomingFields(): Array<keyof IncomingExternalOrder> {

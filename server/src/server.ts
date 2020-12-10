@@ -67,8 +67,10 @@ export default function startServer() {
      * Plans
      */
     app.get('/api/v1/plans', (req, res) => getPlans(req, res));
-    app.put('/api/v1/plans', userIsAuthorized, userIsAdmin, (req, res) => importPlan(req, res));
     app.get('/api/v1/plans/:id', (req, res) => getPlan(req, res));
+    // get route for external usage
+    app.get('/rates', (req, res) => getPlans(req, res));
+    app.put('/api/v1/plans', userIsAuthorized, userIsAdmin, (req, res) => importPlan(req, res));
     app.post('/api/v1/plans', userIsAuthorized, userIsAdmin, (req, res) => createPlan(req, res));
     app.put('/api/v1/plans/:id', userIsAuthorized, userIsAdmin, (req, res) => updatePlan(req, res));
     app.delete('/api/v1/plans/:id', userIsAuthorized, userIsAdmin, (req, res) => deletePlan(req, res));
@@ -79,8 +81,9 @@ export default function startServer() {
     app.get('/api/v1/orders', userIsAuthorized, (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', userIsAuthorized, (req, res) => getOrder(req, res));
     app.post('/api/v1/orders', (req, res) => createInternalOrder(req, res));
+    // route for external orders
     app.post('/orders', (req, res) => createExternalOrder(req, res));
-    // following route just to update the order itself. not terminating it (is_active = false, set terminateAt)
+    // following route just to update the order itself. not terminating it (to set is_active = false, use /api/v1/orders/:id/terminate)
     app.put('/api/v1/orders/:id', userIsAuthorized, (req, res) => updateOrder(req, res));
     app.put('/api/v1/orders/:id/terminate', userIsAuthorized, (req, res) => terminateOrder(req, res));
     app.delete('/api/v1/orders/:id', userIsAuthorized, userIsAdmin, (req, res) => deleteOrder(req, res));
