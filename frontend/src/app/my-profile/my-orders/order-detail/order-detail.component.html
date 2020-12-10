@@ -1,0 +1,31 @@
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3" *ngIf="!loadingPlan && !loadingCustomer">
+  <ng-container *ngIf="!loadingPlan">
+    <div class="my-3 rounded-md bg-yellow-300 p-4" *ngIf="order.terminatedAt != null">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <i-feather name="alert-circle" class="text-black" style="width: 20px; height: 20px"></i-feather>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-green-800">
+            Dieser Tarif wurde am {{ order.terminatedAt | amFromUtc | amDateFormat: 'DD.MM.YYYY' }} gekündigt
+          </p>
+        </div>
+      </div>
+    </div>
+    <app-plan-detail [plan]="plan" [estimatedUsage]="order.consumption">
+      <app-button label="Kündigen" type="danger" size="small"></app-button>
+    </app-plan-detail>
+  </ng-container>
+  <ng-container *ngIf="!loadingCustomer">
+    <div class="pb-4">
+      <p class="text-gray-500">Diese Bestellung wurde am {{ order.createdAt | amFromUtc | amDateFormat: 'DD.MM.YYYY' }} auf folgenden Kunden gebucht:</p>
+      <p class="text-md leading-9 font-medium text-gray-900">
+        {{ customer.firstName }} {{ customer.lastName }}
+        <span class="text-gray-500">{{ customer.street }} {{ customer.streetNumber }}, {{ customer.postcode }} {{ customer.city}}</span>
+      </p>
+    </div>
+  </ng-container>
+</div>
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3" *ngIf="loadingPlan">
+  <app-loading></app-loading>
+</div>

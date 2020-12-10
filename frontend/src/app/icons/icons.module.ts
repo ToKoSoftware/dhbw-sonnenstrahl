@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { FeatherModule } from 'angular-feather';
-import { User, ShoppingCart, BarChart2, Map, Users, UploadCloud, DownloadCloud, Trash, Key, MousePointer} from 'angular-feather/icons';
+import { User, ShoppingCart, BarChart2, Map, Users, UploadCloud, DownloadCloud, Trash, Key, MousePointer, AlertCircle} from 'angular-feather/icons';
 import {CommonModule} from '@angular/common';
 
 // Select some icons (use an object, not an array)
@@ -14,7 +14,9 @@ const icons = {
   DownloadCloud,
   Map,
   Trash,
-  Key, MousePointer
+  Key,
+  MousePointer,
+  AlertCircle
 };
 
 @NgModule({

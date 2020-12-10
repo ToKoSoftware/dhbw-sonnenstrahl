@@ -7,4 +7,5 @@ export interface OrderData {
   is_active: boolean;
   createdAt: string;
   updatedAt: string;
+  terminatedAt: string | null;
 }

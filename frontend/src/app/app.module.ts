@@ -17,6 +17,8 @@ import {EstimatedUsageService} from './services/estimated-usage/estimated-usage.
 import {AdminModule} from './admin/admin.module';
 import {MyProfileModule} from './my-profile/my-profile.module';
 import {OrderModule} from './order/order.module';
+import {MomentModule} from 'ngx-moment';
+import 'moment/locale/de';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,12 @@ import {OrderModule} from './order/order.module';
     ErrorModule,
     MyProfileModule,
     LoginRegisterModule,
-    AdminModule
+    AdminModule,
+    MomentModule.forRoot({
+      relativeTimeThresholdOptions: {
+        m: 59
+      }
+    })
   ],
   providers: [
     ApiService,

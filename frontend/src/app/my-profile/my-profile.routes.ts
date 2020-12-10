@@ -1,5 +1,5 @@
 import {RouterModule} from '@angular/router';
-import {MyOrdersComponent} from './edit/my-orders.component';
+import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {MyCredentialsComponent} from './credentials/my-credentials.component';
 import {MyCustomerDataComponent} from './customers/my-customer-data.component';
 
