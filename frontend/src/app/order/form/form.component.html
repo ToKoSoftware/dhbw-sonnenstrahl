@@ -6,12 +6,13 @@
 </app-header>
 <app-container>
   <div *ngIf="!loading">
-    <app-steps></app-steps>
+    <h3 class="text-2xl text-gray-600 py-5">Gewählten Tarif buchen</h3>
+    <app-plan-detail [plan]="plan" [estimatedUsage]="estimatedUsage"></app-plan-detail>
     <ng-container *ngIf="currentStep === 1">
       <h3 class="text-2xl text-gray-600 py-5">Schritt 1:</h3>
       <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
         <h1 class="text-2xl mb-4">Ihre persönlichen Daten</h1>
-        <form [formGroup]="customInputForm">
+        <form [formGroup]="orderForm">
           <div class="md:flex">
             <app-input label="Vorname"
                        class="flex-1 md:pr-2"
@@ -53,10 +54,10 @@
       </div>
     </ng-container>
     <ng-container *ngIf="currentStep === 2">
-      <h3 class="text-2xl text-gray-600 py-5">Schritt 2:</h3>
+      <h3 class="text-2xl text-gray-600 py-5">Verbrauch</h3>
       <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
         <h1 class="text-2xl">Ihr gewählter Tarif</h1>
-        <form [formGroup]="customInputForm">
+        <form [formGroup]="orderForm">
           <div class="md:flex">
             <app-labeled-value label="Tarif" [value]="plan.plan" class="flex-1 md:pr-2">
             </app-labeled-value>
@@ -74,11 +75,11 @@
       </div>
     </ng-container>
     <ng-container *ngIf="currentStep === 3">
-      <h3 class="text-2xl text-gray-600 py-5">Schritt 3:</h3>
+      <h3 class="text-2xl text-gray-600 py-5">Angaben überprüfen</h3>
       <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
         <h1 class="text-2xl">Daten überprüfen</h1>
-        <form [formGroup]="customInputForm">
-          {{ customInputForm.value | json }}
+        <form [formGroup]="orderForm">
+          {{ orderForm.value | json }}
         </form>
       </div>
     </ng-container>

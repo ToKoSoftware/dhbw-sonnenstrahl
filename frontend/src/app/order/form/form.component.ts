@@ -19,25 +19,25 @@ export class FormComponent implements OnInit, OnDestroy {
   public plan: PlanData;
   public loading = false;
   private routeSubscription: Subscription;
-  private postcode: string;
+  public estimatedUsage: number;
   public breadcrumbs: UiBreadcrumb[] = [
     {routerLink: '/', title: 'Home'},
     {routerLink: '', title: 'Laden...'},
     {routerLink: '', title: 'Laden...'},
   ];
-  public customInputForm: FormGroup;
+  public orderForm: FormGroup;
   public currentStep = 1;
 
   constructor(
     private formBuilder: FormBuilder,
     private readonly loadingModalService: LoadingModalService,
     private readonly modalService: ModalService,
-    private apiService: ApiService,
+    private api: ApiService,
     private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.customInputForm = this.formBuilder.group(
+    this.orderForm = this.formBuilder.group(
       {
         email: [''],
         firstName: [''],
@@ -48,28 +48,24 @@ export class FormComponent implements OnInit, OnDestroy {
         city: [''],
         rateId: [''],
         consumption: [''],
-        agent: [''],
-        phone: [{
-          value: '0497 88 88 88',
-          disabled: true
-        }]
+        agent: ['Moonshine-Frontend'],
       }
     );
     this.routeSubscription = this.route.paramMap.subscribe(params => {
       this.loadingModalService.showLoading();
       this.loading = true;
-      if (isBlank(params.get('postcode')) || isBlank(params.get('id'))) {
-        this.loading = true;
+      if (isBlank(params.get('usage')) || isBlank(params.get('id'))) {
+        this.loading = false;
         this.showErrorModal();
         return;
       }
-      this.postcode = params.get('postcode') || '';
+      this.estimatedUsage = Number(params.get('usage')) || 0;
       this.getPlan(params.get('id') || '');
     });
   }
 
   private getPlan(id: string): void {
-    this.apiService.get<PlanData>('/plans/' + id)
+    this.api.get<PlanData>('/plans/' + id)
       .subscribe(data => {
           this.plan = data.data;
           this.breadcrumbs[1].title = `Postleitzahl: ${this.plan.postcode}`;
@@ -103,5 +99,12 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public showErrorModal(): void {
     this.modalService.showModal('Fehler', this.errorModal);
+  }
+
+  public order(): void {
+    this.api.post('/orders', {
+      ...this.orderForm.value,
+
+    }).subscribe();
   }
 }
