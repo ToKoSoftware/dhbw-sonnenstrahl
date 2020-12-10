@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {profilePages} from '../profile.pages';
+import {myProfilePages} from '../my-profile.pages';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
@@ -8,11 +8,11 @@ import {LoadingModalService} from '../../services/loading-modal/loading-modal.se
 
 @Component({
   selector: 'app-credentials',
-  templateUrl: './credentials.component.html',
-  styleUrls: ['./credentials.component.scss']
+  templateUrl: './my-credentials.component.html',
+  styleUrls: ['./my-credentials.component.scss']
 })
-export class CredentialsComponent implements OnInit {
-  public profilePages = profilePages;
+export class MyCredentialsComponent implements OnInit {
+  public profilePages = myProfilePages;
   public editUserForm: FormGroup;
   public loading = true;
   public currentUser: UserData;

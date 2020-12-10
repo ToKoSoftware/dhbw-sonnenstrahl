@@ -5,8 +5,6 @@ import { SuccessComponent } from './success/success.component';
 import {orderRoutes} from './order.routes';
 import {UiModule} from '../ui/ui.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PlansModule} from '../plans/plans.module';
-
 
 
 @NgModule({
@@ -16,8 +14,7 @@ import {PlansModule} from '../plans/plans.module';
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
-        UiModule,
-        PlansModule
+        UiModule
     ]
 })
 export class OrderModule { }

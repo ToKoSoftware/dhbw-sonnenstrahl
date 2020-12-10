@@ -3,10 +3,10 @@ import {PlanData} from '../../interfaces/plan.interface';
 
 @Component({
   selector: 'app-plan-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss']
+  templateUrl: './plan-detail.component.html',
+  styleUrls: ['./plan-detail.component.scss']
 })
-export class DetailComponent {
+export class PlanDetailComponent {
   @Input() plan: PlanData;
   @Input() estimatedUsage: number;
   constructor() { }

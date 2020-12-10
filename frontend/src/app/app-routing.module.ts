@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'profile',
     canActivate: [IsLoggedInGuard],
     canActivateChild: [IsLoggedInGuard],
-    loadChildren: './profile/profile.module#ProfileModule'
+    loadChildren: './my-profile/my-profile.module#MyProfileModule'
   },
   {
     path: 'order',

@@ -24,6 +24,7 @@ import {LayoutComponent} from './layout/layout.component';
 import {InputComponent} from './input/input.component';
 import {LabeledValueComponent} from './labeled-value/labeled-value.component';
 import { ZeroDataComponent } from './zero-data/zero-data.component';
+import {PlanDetailComponent} from './detail/plan-detail.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ZeroDataComponent } from './zero-data/zero-data.component';
     LayoutComponent,
     InputComponent,
     LabeledValueComponent,
-    ZeroDataComponent
+    ZeroDataComponent,
+    PlanDetailComponent
   ],
   exports: [
     NavbarComponent,
@@ -69,7 +71,8 @@ import { ZeroDataComponent } from './zero-data/zero-data.component';
     StepsComponent,
     InputComponent,
     LabeledValueComponent,
-    ZeroDataComponent
+    ZeroDataComponent,
+    PlanDetailComponent
   ],
   imports: [
     CommonModule,

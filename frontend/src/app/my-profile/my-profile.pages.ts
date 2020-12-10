@@ -1,6 +1,7 @@
 import {SidebarPageGroup} from '../ui/sidebar/sidebar.component';
+import {UiBreadcrumb} from '../ui/ui.interface';
 
-export const profilePages: SidebarPageGroup[] = [
+export const myProfilePages: SidebarPageGroup[] = [
   {
     title: 'Verwaltung',
     pages: [
@@ -28,5 +29,15 @@ export const profilePages: SidebarPageGroup[] = [
         matchFull: true
       },
     ]
+  }
+];
+
+export const adminBreadcrumb: UiBreadcrumb[] = [
+  {
+    title: 'Home',
+    routerLink: '/'
+  }, {
+    title: 'Profil',
+    routerLink: '/my-profile'
   }
 ];

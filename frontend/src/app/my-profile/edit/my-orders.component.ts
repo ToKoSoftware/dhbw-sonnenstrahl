@@ -1,20 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {profilePages} from '../profile.pages';
+import {myProfilePages} from '../my-profile.pages';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
 import {LoginService} from '../../services/login/login.service';
+import {OrderData} from '../../interfaces/order.interface';
+import {PlanData} from '../../interfaces/plan.interface';
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  templateUrl: './my-orders.component.html',
+  styleUrls: ['./my-orders.component.scss']
 })
-export class EditComponent implements OnInit {
-  public profilePages = profilePages;
+export class MyOrdersComponent implements OnInit {
+  public profilePages = myProfilePages;
   public editUserForm: FormGroup;
   public loading = true;
-  public currentUser: UserData;
+  public orders: OrderData[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,28 +25,23 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.loadUser();
+    this.loadOrders();
   }
 
-  private loadUser(): void {
+  private loadOrders(): void {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';
-    this.api.get<UserData>(`/users/${id}`).subscribe(
+    this.api.get<OrderData[]>(`/orders`, {
+      userId: this.login.decodedJwt$.value?.id
+    }).subscribe(
       (data) => {
         this.loading = false;
-        this.currentUser = data.data;
-        this.editUserForm = this.formBuilder.group(
-          {
-            email: [data.data.email],
-            password: [''],
-          }
-        );
+        this.orders = data.data;
       }
     );
+    this.api.get<PlanData>('/').subscribe();
   }
 
-  public updateUser(): void {
-    this.api.post(`/users/`)
+  public cancelOrder(): void {
   }
 }
