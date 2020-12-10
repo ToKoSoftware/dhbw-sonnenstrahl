@@ -1,14 +1,13 @@
 import { Request, Response } from 'express';
 import { wrapResponse } from '../../../functions/response-wrapper';
-import { IncomingUser, InternalUser } from '../../../interfaces/users.interface';
+import { InternalUser } from '../../../interfaces/users.interface';
 import { User } from '../../../models/user.model';
 import { mapUser } from '../../../functions/map-users.func';
 import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
 import * as EmailValidator from 'email-validator';
 
 export async function createUser(req: Request, res: Response) {
-    const incomingData: IncomingUser = req.body;
-    const mappedIncomingData: InternalUser = mapUser(incomingData);
+    const mappedIncomingData: InternalUser = mapUser(req.body);
 
     let requiredFields = User.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {

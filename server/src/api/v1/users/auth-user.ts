@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingUser } from "../../../interfaces/users.interface";
+import { InternalUser } from "../../../interfaces/users.interface";
 import { User } from "../../../models/user.model";
 import jwt from "jsonwebtoken";
 import { Vars } from "../../../vars";
 
 export async function loginUser(req: Request, res: Response) {
-    const incomingData: IncomingUser = req.body;
+    const incomingData: InternalUser = req.body;
     let success = true;
     let calculatedExpiresIn =  60*60; //expiration after 1h
 

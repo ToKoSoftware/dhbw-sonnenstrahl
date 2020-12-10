@@ -3,7 +3,7 @@ import isBlank from "is-blank";
 import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
 import { mapUser } from "../../../functions/map-users.func";
 import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingUser, InternalUser } from "../../../interfaces/users.interface";
+import { InternalUser } from "../../../interfaces/users.interface";
 import { User } from "../../../models/user.model";
 import * as EmailValidator from 'email-validator';
 import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
@@ -12,8 +12,7 @@ export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
     let updateResult: [number, User[]] | null;
-    const incomingData: IncomingUser = req.body;
-    const mappedIncomingData: InternalUser = mapUser(incomingData);
+    const mappedIncomingData: InternalUser = mapUser(req.body);
 
     let requiredFields = User.requiredFields();
 

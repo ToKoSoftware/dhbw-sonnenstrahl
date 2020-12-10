@@ -1,6 +1,6 @@
-import { IncomingUser, InternalUser } from '../interfaces/users.interface';
+import { InternalUser } from '../interfaces/users.interface';
 
-export function mapUser(incomingData: IncomingUser): InternalUser {
+export function mapUser(incomingData: InternalUser): InternalUser {
     return {
         email: incomingData.email,
         password: incomingData.password,
