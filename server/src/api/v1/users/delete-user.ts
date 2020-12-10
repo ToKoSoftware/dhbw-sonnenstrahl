@@ -4,7 +4,7 @@ import { User } from "../../../models/user.model";
 
 export async function deleteUser(req: Request, res: Response) {
     let success = true;
-    let destroyedRows = await User.destroy(
+    const destroyedRows = await User.destroy(
         {
             where: {
                 id: req.params.id

@@ -32,10 +32,7 @@ export async function getPlans(req: Request, res: Response) {
         allowedOrderFields: allowedOrderFields
     }
     query = buildQuery(queryConfig, req);
-    let data: unknown = [];
-    await Plan.findAll(query).then(d => {
-        data = d;
-    });
+    const data: Plan[] = await Plan.findAll(query);
     return res.send(wrapResponse(true, data));
 }
 
@@ -63,26 +60,20 @@ export async function getPlansInExternalFormat(req: Request, res:Response) {
         allowedOrderFields: allowedOrderFields
     }
     query = buildQuery(queryConfig, req);
-    let data: Plan[] =  await Plan.findAll(query);
+    const data: Plan[] =  await Plan.findAll(query);
     //TODO formatting of output
     return res.send(wrapResponse(true, data));
 }
 
 export async function getPlan(req: Request, res: Response) {
-    let data = null;
-    let success: boolean = true;
-    await Plan.findOne(
+    let success = true;
+    const data = await Plan.findOne(
         {
             where: {
                 id: req.params.id
             },
             raw: true
         })
-        .then(
-            d => {
-                data = d;
-            }
-        )
         .catch(error => {
             success = false;
             return null
@@ -92,7 +83,7 @@ export async function getPlan(req: Request, res: Response) {
     };
 
     if (data === null) {
-        return res.status(404).send(wrapResponse(false));
+        return res.status(404).send(wrapResponse(false, {error: 'No plan with given id found'}));
     }
 
     return res.send(wrapResponse(true, data));

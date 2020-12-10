@@ -14,7 +14,7 @@ export async function createPlan(req: Request, res: Response) {
         }))
     }
 
-    let data = await Plan.create(incomingData)
+    const data = await Plan.create(incomingData)
         .catch(error => null);
     if (data === null) {
         return res.status(500).send(wrapResponse(false, { error: 'Could not create Plan' }));

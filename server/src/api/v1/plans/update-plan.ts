@@ -8,28 +8,27 @@ import { Plan } from "../../../models/plan.model";
 
 export async function updatePlan(req: Request, res: Response) {
     let success = true;
-    let plan: Plan | null;
     let updateResult;
     const incomingData: InternalPlan = req.body;
 
-    let requiredFields = Plan.requiredFields();
+    const requiredFields = Plan.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
 
-    } else {
-        // Check if a plan exists with given id
-        plan = await Plan.findOne(
-            {
-                where: {
-                    id: req.params.id
-                }
-            })
-            .catch(error => {
-                success = false;
-                return null;
-            });
     }
+    // Check if a plan exists with given id
+    const plan: Plan | null = await Plan.findOne(
+        {
+            where: {
+                id: req.params.id
+            }
+        })
+        .catch(error => {
+            success = false;
+            return null;
+        });
+
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }

@@ -5,6 +5,7 @@ import { InternalCustomer } from "../../../interfaces/customers.interface";
 import { Customer } from "../../../models/customer.models";
 
 export async function createCustomer(req: Request, res: Response) {
+    let success = true;
     const incomingData: InternalCustomer = req.body;
 
     const requiredFields = Customer.requiredFields();
@@ -14,7 +15,14 @@ export async function createCustomer(req: Request, res: Response) {
         }));
     }
 
-    let data = await Customer.create(incomingData).catch(error => null);
+    const data = await Customer.create(incomingData)
+        .catch(error => {
+            success = false;
+            return null;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
     if (data === null) {
         return res.status(500).send(wrapResponse(false, { error: 'Could not create Customer' }));
     }

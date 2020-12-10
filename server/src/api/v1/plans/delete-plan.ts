@@ -6,7 +6,7 @@ import { Plan } from "../../../models/plan.model";
 export async function deletePlan(req: Request, res: Response) {
     let success = true;
 
-    let activeOrders: Order | null = await Order.findOne(
+    const activeOrders: Order | null = await Order.findOne(
         {
             where: {
                 planId: req.params.id,
@@ -24,7 +24,7 @@ export async function deletePlan(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: 'The given planId has active Orders and can not be deleted' }))
     }
 
-    let updateResult = await Plan.update(
+    const updateResult = await Plan.update(
         {
             is_active: false
         },

@@ -8,7 +8,7 @@ import { Vars } from "../../../vars";
 export async function terminateOrder(req: Request, res: Response) {
     let success = true;
 
-    let order: Order | null = await Order.findOne(
+    const order: Order | null = await Order.findOne(
         {
             where: {
                 id: req.params.id
@@ -25,7 +25,7 @@ export async function terminateOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: 'Count not find Order with id: ' + req.params.id }))
     }
 
-    let customerData = await Customer.findOne(
+    const customerData = await Customer.findOne(
         {
             where: {
                 id: order.customerId
@@ -52,10 +52,11 @@ export async function terminateOrder(req: Request, res: Response) {
     if (order.terminatedAt !== null) {
         return res.status(400).send(wrapResponse(false, { error: 'Order already terminated' }));
     }
-    let updatedOrder = await Order.update({ 
+    const updatedOrder = await Order.update(
+        {
             terminatedAt: Date.now(),
             is_active: false
-         },
+        },
         {
             where: {
                 id: req.params.id

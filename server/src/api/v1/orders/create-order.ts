@@ -19,7 +19,7 @@ export async function createInternalOrder(req: Request, res: Response) {
     }
 
     // Try to find Plan with given planId
-    let plan: Plan | null = await Plan.findOne(
+    const plan: Plan | null = await Plan.findOne(
         {
             where: {
                 id: incomingData.planId,
@@ -38,7 +38,6 @@ export async function createInternalOrder(req: Request, res: Response) {
     }
 
     //Try to find Customer with given customerId
-    // Try to find Plan with given planId
     let customer: Customer | null = await Customer.findOne(
         {
             where: {
@@ -62,7 +61,7 @@ export async function createInternalOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: 'Postcode of plan and order do not match!' }));
     }
 
-    let data = await Order.create(incomingData)
+    const data = await Order.create(incomingData)
         .catch(error => {
             success = false;
             return null;
@@ -83,14 +82,14 @@ export async function createExternalOrder(req: Request, res: Response) {
 
 
     // Check, if all required fields have been set
-    let requiredIncomingOrderFields = requiredIncomingFields();
+    const requiredIncomingOrderFields = requiredIncomingFields();
 
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredIncomingOrderFields)) {
         return res.status(400).send(wrapResponse(false, { error: 'Not all required fields have been set' }));
     }
 
     // Try to find Plan with given planId
-    let plan: Plan | null = await Plan.findOne(
+    const plan: Plan | null = await Plan.findOne(
         {
             where: {
                 id: incomingData.rateId,
@@ -144,7 +143,7 @@ export async function createExternalOrder(req: Request, res: Response) {
     const mappedIncomingData = mapOrder(incomingData, customer.id);
 
     // Create order
-    let data = await Order.create(mappedIncomingData)
+    const data = await Order.create(mappedIncomingData)
         .catch(error => {
             success = false;
             return null;
@@ -156,9 +155,9 @@ export async function createExternalOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: 'Could not create Order' }));
     }
 
-    const calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON)*100) / 100;
+    const calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
 
-    return res.send(wrapResponse(true, {costs: calculatedCosts+'€'}));
+    return res.send(wrapResponse(true, { costs: calculatedCosts + '€' }));
 }
 
 function requiredIncomingFields(): Array<keyof IncomingExternalOrder> {

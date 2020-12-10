@@ -7,20 +7,19 @@ import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-input
 import * as EmailValidator from 'email-validator';
 
 export async function createUser(req: Request, res: Response) {
+    let success = true;
     const mappedIncomingData: InternalUser = mapUser(req.body);
 
-    let requiredFields = User.requiredFields();
+    const requiredFields = User.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
-        res.send(wrapResponse(false, { error: 'Not all required fields have been set' }));
-        return;
+        return res.send(wrapResponse(false, { error: 'Not all required fields have been set' }));
     }
-    let validEmail = EmailValidator.validate(mappedIncomingData.email);
+    const validEmail = EmailValidator.validate(mappedIncomingData.email);
 
-    if (validEmail === false) {
+    if (!validEmail) {
         return res.status(400).send(wrapResponse(false, { error: 'E-mail is not valid' }));
     } else {
-        let success = true;
-        let user = await User.findOne(
+        const user = await User.findOne(
             {
                 where: {
                     email: mappedIncomingData.email
@@ -33,14 +32,14 @@ export async function createUser(req: Request, res: Response) {
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        
+
         if (user === null) {
-            let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
+            const createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
             if (createdData === null) {
                 return res.status(500).send(wrapResponse(false, { error: 'Could not create User' }));
             }
             //return everything beside password
-            let data = await User.findOne({
+            const data = await User.findOne({
                 attributes: { exclude: ['password'] },
                 where: {
                     id: createdData.id

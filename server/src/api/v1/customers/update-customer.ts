@@ -10,18 +10,16 @@ import { Vars } from "../../../vars";
 
 export async function updateCustomer(req: Request, res: Response) {
     let success = true;
-    let customer: Customer | null;
-    let user: User | null;
-    let updateResult;
+    let updateResult: [number, Customer[]] | [];
     const incomingData: InternalCustomer = req.body;
 
-    let requiredFields = Customer.requiredFields();
+    const requiredFields = Customer.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.send(wrapResponse(false, { error: "No body or valid param set." }));
 
     }
-    customer = await Customer.findOne(
+    const customer: Customer | null = await Customer.findOne(
         {
             where: {
                 id: req.params.id
@@ -49,7 +47,7 @@ export async function updateCustomer(req: Request, res: Response) {
     }
 
     if (req.body.userId !== undefined && req.body.userId !== null) {
-        user = await User.findOne(
+        const user: User | null = await User.findOne(
             {
                 where: {
                     id: req.body.userId
@@ -86,12 +84,12 @@ export async function updateCustomer(req: Request, res: Response) {
             })
             .catch(error => {
                 success = false;
-                return null;
+                return [];
             });
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        if (updateResult === null || updateResult[0] == 0) {
+        if (updateResult === [] || updateResult[0] == 0) {
             return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
         }
 

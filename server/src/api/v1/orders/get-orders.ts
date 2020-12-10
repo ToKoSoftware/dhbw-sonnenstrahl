@@ -9,7 +9,7 @@ import { Vars } from '../../../vars';
 
 export async function getOrder(req: Request, res: Response) {
     let success = true;
-    let orderData: Order | null = await Order.findOne(
+    const orderData: Order | null = await Order.findOne(
         {
             where: {
                 id: req.params.id
@@ -27,7 +27,7 @@ export async function getOrder(req: Request, res: Response) {
         return res.status(404).send(wrapResponse(false));
     }
 
-    let customerData = await Customer.findOne(
+    const customerData = await Customer.findOne(
         {
             where: {
                 id: orderData.customerId
@@ -67,7 +67,7 @@ export async function getOrders(req: Request, res: Response) {
         return true;
     });
     if (!Vars.currentUser.is_admin) {
-        let result: Customer[] = await Customer.findAll(
+        const result: Customer[] = await Customer.findAll(
             {
                 attributes: ['id'],
                 where: {
@@ -82,7 +82,7 @@ export async function getOrders(req: Request, res: Response) {
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        let customerIds = result.map(el => el.id);
+        const customerIds = result.map(el => el.id);
         customResolver.set('customerId', (field: string, req: Request, value: string) => {
             return customerIds;
         });
@@ -98,12 +98,10 @@ export async function getOrders(req: Request, res: Response) {
     }
     query = buildQuery(queryConfig, req);
 
-    let orderdata;
-    await Order.findAll(query)
-        .then((order) => orderdata = order)
+    const orderdata = await Order.findAll(query)
         .catch(error => {
             success = false;
-            orderdata = [];
+            return [];
         }
         );
     if (!success) {

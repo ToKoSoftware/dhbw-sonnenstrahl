@@ -5,7 +5,7 @@ import { Order } from "../../../models/order.model";
 
 export async function exportOrders(req: Request, res: Response) {
     let success = true;
-    let orders: Order[] = await Order.findAll(
+    const orders: Order[] = await Order.findAll(
         {
             where: {
                 terminatedAt: null

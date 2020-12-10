@@ -21,8 +21,8 @@ export async function getMonthlyStats(req: Request, res: Response) {
     res.send(wrapResponse(true, data));
 }
 
-async function countMonthlyEntities(model: monthlyEntityType) {
-    let count = await model.count(
+async function countMonthlyEntities(model: statEntityTypes) {
+    const count = await model.count(
         {
             group: [Sequelize.fn('date_trunc', 'month', Sequelize.col('createdAt'))]
         })
@@ -33,4 +33,5 @@ async function countMonthlyEntities(model: monthlyEntityType) {
     return count;
 }
 
-export type monthlyEntityType = typeof User | typeof Customer | typeof Plan | typeof Order;
+//TODO duplicate code
+export type statEntityTypes = typeof User | typeof Customer | typeof Plan | typeof Order;

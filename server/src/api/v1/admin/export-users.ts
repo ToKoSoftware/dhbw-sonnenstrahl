@@ -5,7 +5,7 @@ import { User } from "../../../models/user.model";
 
 export async function exportUsers(req: Request, res: Response) {
     let success = true;
-    let users: User[] = await User.findAll(
+    const users: User[] = await User.findAll(
         {
             where: {
                 terminatedAt: null
@@ -25,8 +25,8 @@ export async function exportUsers(req: Request, res: Response) {
 
     let csvData = convertObjectArrayToCsv(users);
     const date = new Date().toISOString();
-    res.set({"Content-Disposition":`attachment; filename="${date}_Users.csv"`});
+    res.set({ "Content-Disposition": `attachment; filename="${date}_Users.csv"` });
 
     res.send(csvData);
-    
+
 }

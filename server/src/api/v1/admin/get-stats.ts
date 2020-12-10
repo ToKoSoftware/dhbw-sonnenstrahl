@@ -34,7 +34,7 @@ export async function getStats(req: Request, res: Response) {
     return res.send(wrapResponse(true, data))
 }
 
-async function countTotalEntities(model: typeof User | typeof Customer | typeof Plan | typeof Order, is_active: boolean = true): Promise<number> {
+async function countTotalEntities(model: statEntityTypes, is_active: boolean = true): Promise<number> {
     let count;
     if (model !== User) {
         count = await model.count(
@@ -55,3 +55,6 @@ async function countTotalEntities(model: typeof User | typeof Customer | typeof 
     }
     return count;
 }
+
+//TODO duplicate code
+export type statEntityTypes = typeof User | typeof Customer | typeof Plan | typeof Order;

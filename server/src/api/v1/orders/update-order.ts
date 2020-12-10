@@ -12,17 +12,16 @@ import { Vars } from "../../../vars";
 
 export async function updateOrder(req: Request, res: Response) {
     let success = true;
-    let order: Order | null;
     let updateResult;
     const incomingData: IncomingInternalOrder = req.body;
 
-    let requiredFields = Order.requiredFields();
+    const requiredFields = Order.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.send(wrapResponse(false, { error: "No body or valid param set." }));
     }
 
-    order = await Order.findOne(
+    const order: Order | null = await Order.findOne(
         {
             where: {
                 id: req.params.id
@@ -40,7 +39,7 @@ export async function updateOrder(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: "No order with given id found" }));
     }
 
-    let customerData = await Customer.findOne(
+    const customerData = await Customer.findOne(
         {
             where: {
                 id: order.customerId
@@ -68,7 +67,7 @@ export async function updateOrder(req: Request, res: Response) {
     //id must not be changed and all set keys mut not be empty.
     if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
 
-        let plan: Plan | null = await Plan.findOne(
+        const plan: Plan | null = await Plan.findOne(
             {
                 where: {
                     id: incomingData.planId,

@@ -8,7 +8,7 @@ import { Vars } from "../../../vars";
 
 export async function getCustomer(req: Request, res: Response) {
     let success = true;
-    let customer: Customer | null = await Customer.findOne(
+    const customer: Customer | null = await Customer.findOne(
         {
             where: {
                 id: req.params.id
@@ -63,10 +63,11 @@ export async function getCustomers(req: Request, res: Response) {
         allowedOrderFields: allowedSearchAndOrderFields
     }
     query = buildQuery(queryConfig, req);
-    let data: unknown = [];
-    await Customer.findAll(query)
-        .then(d => data = d)
-        .catch(error => success = false);
+    const data: Customer[] = await Customer.findAll(query)
+        .catch(error => {
+            success = false;
+            return [];
+        });
 
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));

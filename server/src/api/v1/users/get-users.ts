@@ -12,7 +12,7 @@ export async function getUser(req: Request, res: Response) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
-    let data = await User.findOne(
+    const data = await User.findOne(
         {
             where: {
                 id: req.params.id
@@ -36,7 +36,6 @@ export async function getUsers(req: Request, res: Response) {
         raw: true,
     };
     const allowedSearchFilterAndOrderFields = ['email'];
-    let customResolver = new Map<string, customFilterValueResolver>();
     const queryConfig: QueryBuilderConfig = {
         query: query,
         searchString: req.query.search as string || '',

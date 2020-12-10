@@ -10,13 +10,12 @@ import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-i
 
 export async function updateUser(req: Request, res: Response) {
     let success = true;
-    let user: User | null;
     let updateResult: [number, User[]] | null;
     const mappedIncomingData: InternalUser = mapUser(req.body);
 
-    let requiredFields = User.requiredFields();
+    const requiredFields = User.requiredFields();
 
-    let validEmail = EmailValidator.validate(mappedIncomingData.email) || isBlank(mappedIncomingData.email);
+    const validEmail = EmailValidator.validate(mappedIncomingData.email) || isBlank(mappedIncomingData.email);
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
@@ -26,7 +25,7 @@ export async function updateUser(req: Request, res: Response) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
-    user = await User.findOne(
+    const user: User | null = await User.findOne(
         {
             where: {
                 id: req.params.id
@@ -49,7 +48,7 @@ export async function updateUser(req: Request, res: Response) {
         && (req.body.is_admin === undefined)
     ) {
 
-        let differentUser = await User.findOne(
+        const differentUser = await User.findOne(
             {
                 where: {
                     email: mappedIncomingData.email

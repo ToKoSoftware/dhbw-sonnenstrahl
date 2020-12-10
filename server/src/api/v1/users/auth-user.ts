@@ -8,7 +8,7 @@ import { Vars } from "../../../vars";
 export async function loginUser(req: Request, res: Response) {
     const incomingData: InternalUser = req.body;
     let success = true;
-    let calculatedExpiresIn =  60*60; //expiration after 1h
+    const calculatedExpiresIn = 60 * 60; //expiration after 1h
 
     const user = await User.findOne(
         {
@@ -31,7 +31,7 @@ export async function loginUser(req: Request, res: Response) {
     if (user === null) {
         res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     } else {
-        const token = jwt.sign({ id: user.id, email: user.email, is_admin: user.is_admin}, Vars.config.database.jwtSalt, { expiresIn: calculatedExpiresIn });
+        const token = jwt.sign({ id: user.id, email: user.email, is_admin: user.is_admin }, Vars.config.database.jwtSalt, { expiresIn: calculatedExpiresIn });
         return res.send(wrapResponse(true, token));
     }
 
