@@ -5,8 +5,6 @@ import { User } from '../../../models/user.model';
 import { mapUser } from '../../../functions/map-users.func';
 import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
 import * as EmailValidator from 'email-validator';
-import { Vars } from '../../../vars';
-import * as bcrypt from 'bcryptjs';
 
 export async function createUser(req: Request, res: Response) {
 
