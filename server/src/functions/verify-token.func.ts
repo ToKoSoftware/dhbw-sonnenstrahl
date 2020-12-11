@@ -1,8 +1,8 @@
-import { Response } from "express";
-import jwt from "jsonwebtoken";
-import { User } from "../models/user.model";
-import { Vars } from "../vars";
-import { wrapResponse } from "./response-wrapper";
+import { Response } from 'express';
+import jwt from 'jsonwebtoken';
+import { User } from '../models/user.model';
+import { Vars } from '../vars';
+import { wrapResponse } from './response-wrapper';
 
 export function verifyToken(res: Response, token: string, next: any) {
     jwt.verify(token, Vars.config.database.jwtSalt, async (err: unknown) => {

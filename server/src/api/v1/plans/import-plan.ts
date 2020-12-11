@@ -59,5 +59,5 @@ function createPlanEntry(data: InternalPlan) {
 }
 
 function transformEuroToCents(eur: string): number {
-    return Math.floor(Number(eur.replace(",", ".")) * 10000);
+    return Math.floor(Number(eur.replace(',', '.')) * 10000);
 }

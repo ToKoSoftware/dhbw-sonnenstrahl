@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import { FindOptions } from "sequelize";
-import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
-import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from "../../../functions/query-builder.func";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { Customer } from "../../../models/customer.models";
-import { Vars } from "../../../vars";
+import { Request, Response } from 'express';
+import { FindOptions } from 'sequelize';
+import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
+import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { Customer } from '../../../models/customer.models';
+import { Vars } from '../../../vars';
 
 export async function getCustomer(req: Request, res: Response) {
     let success = true;
@@ -16,7 +16,7 @@ export async function getCustomer(req: Request, res: Response) {
         })
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
@@ -44,7 +44,7 @@ export async function getCustomers(req: Request, res: Response) {
     // todo move this to the model
     const allowedSearchAndOrderFields = ['firstName', 'lastName', 'postcode'];
     const allowedFilterFields = ['userId'];
-    let customResolver = new Map<string, customFilterValueResolver>();
+    const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
@@ -61,7 +61,7 @@ export async function getCustomers(req: Request, res: Response) {
         allowedFilterFields: allowedFilterFields,
         allowedSearchFields: allowedSearchAndOrderFields,
         allowedOrderFields: allowedSearchAndOrderFields
-    }
+    };
     query = buildQuery(queryConfig, req);
     const data: Customer[] = await Customer.findAll(query)
         .catch(error => {

@@ -5,5 +5,5 @@ export function mapUser(incomingData: InternalUser): InternalUser {
         email: incomingData.email,
         password: incomingData.password,
         is_admin: false,
-    }
+    };
 }

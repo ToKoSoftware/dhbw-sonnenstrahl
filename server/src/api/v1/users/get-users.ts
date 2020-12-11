@@ -20,7 +20,7 @@ export async function getUser(req: Request, res: Response) {
         })
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
@@ -43,15 +43,15 @@ export async function getUsers(req: Request, res: Response) {
         allowedFilterFields: allowedSearchFilterAndOrderFields,
         allowedSearchFields: allowedSearchFilterAndOrderFields,
         allowedOrderFields: allowedSearchFilterAndOrderFields
-    }
+    };
     query = buildQuery(queryConfig, req);
 
 
     let success = true;
-    let data = await User.findAll(query)
+    const data = await User.findAll(query)
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
 
     return res.send(wrapResponse(success, data));

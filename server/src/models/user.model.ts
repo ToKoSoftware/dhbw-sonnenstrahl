@@ -1,5 +1,5 @@
 import { Table, Column, Model, HasMany, BeforeCreate } from 'sequelize-typescript';
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import { InternalUser } from '../interfaces/users.interface';
 
 @Table

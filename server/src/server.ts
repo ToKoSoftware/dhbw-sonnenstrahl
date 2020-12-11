@@ -5,7 +5,7 @@ import { wrapResponse } from './functions/response-wrapper';
 import fileUpload from 'express-fileupload';
 import tempDirectory from 'temp-dir';
 import { importPlan } from './api/v1/plans/import-plan';
-import { getPlan, getPlans, getPlansInExternalFormat } from "./api/v1/plans/get-plans";
+import { getPlan, getPlans, getPlansInExternalFormat } from './api/v1/plans/get-plans';
 import { getOrder, getOrders } from './api/v1/orders/get-orders';
 import bodyParser from 'body-parser';
 import { createExternalOrder, createInternalOrder } from './api/v1/orders/create-order';

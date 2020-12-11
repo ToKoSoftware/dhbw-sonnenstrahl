@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { Sequelize } from "sequelize-typescript";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { Order } from "../../../models/order.model";
+import { Request, Response } from 'express';
+import { Sequelize } from 'sequelize-typescript';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { Order } from '../../../models/order.model';
 
 export async function getReferrerStats(req: Request, res: Response) {
     let success = true;

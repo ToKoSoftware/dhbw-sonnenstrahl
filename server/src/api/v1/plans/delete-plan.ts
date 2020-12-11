@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { Order } from "../../../models/order.model";
-import { Plan } from "../../../models/plan.model";
+import { Request, Response } from 'express';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { Order } from '../../../models/order.model';
+import { Plan } from '../../../models/plan.model';
 
 export async function deletePlan(req: Request, res: Response) {
     let success = true;
@@ -21,7 +21,7 @@ export async function deletePlan(req: Request, res: Response) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
     if (activeOrders !== null) {
-        return res.status(400).send(wrapResponse(false, { error: 'The given planId has active Orders and can not be deleted' }))
+        return res.status(400).send(wrapResponse(false, { error: 'The given planId has active Orders and can not be deleted' }));
     }
 
     const updateResult = await Plan.update(

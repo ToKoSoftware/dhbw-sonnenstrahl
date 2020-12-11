@@ -62,7 +62,7 @@ export async function getOrders(req: Request, res: Response) {
     const allowedSearchFields = ['referrer'];
     const allowedFilterFields = ['customerId', 'planId', 'referrer', 'consumption'];
     const allowedOrderFields = ['customerId', 'planId', 'referrer', 'consumption'];
-    let customResolver = new Map<string, customFilterValueResolver>();
+    const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
@@ -95,7 +95,7 @@ export async function getOrders(req: Request, res: Response) {
         allowedFilterFields: allowedFilterFields,
         allowedSearchFields: allowedSearchFields,
         allowedOrderFields: allowedOrderFields
-    }
+    };
     query = buildQuery(queryConfig, req);
 
     const orderdata = await Order.findAll(query)

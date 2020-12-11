@@ -38,7 +38,7 @@ export async function createInternalOrder(req: Request, res: Response) {
     }
 
     //Try to find Customer with given customerId
-    let customer: Customer | null = await Customer.findOne(
+    const customer: Customer | null = await Customer.findOne(
         {
             where: {
                 id: incomingData.customerId,

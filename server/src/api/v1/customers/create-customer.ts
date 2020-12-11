@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { objectHasRequiredAndNotEmptyKeys } from "../../../functions/check-inputs.func";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { InternalCustomer } from "../../../interfaces/customers.interface";
-import { Customer } from "../../../models/customer.models";
+import { Request, Response } from 'express';
+import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { InternalCustomer } from '../../../interfaces/customers.interface';
+import { Customer } from '../../../models/customer.models';
 
 export async function createCustomer(req: Request, res: Response) {
     let success = true;

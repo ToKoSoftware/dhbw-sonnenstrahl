@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
-import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { Customer } from "../../../models/customer.models";
-import { Order } from "../../../models/order.model";
-import { Vars } from "../../../vars";
+import { Request, Response } from 'express';
+import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { Customer } from '../../../models/customer.models';
+import { Order } from '../../../models/order.model';
+import { Vars } from '../../../vars';
 
 export async function terminateOrder(req: Request, res: Response) {
     let success = true;
@@ -22,7 +22,7 @@ export async function terminateOrder(req: Request, res: Response) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
     if (order === null) {
-        return res.status(400).send(wrapResponse(false, { error: 'Count not find Order with id: ' + req.params.id }))
+        return res.status(400).send(wrapResponse(false, { error: 'Count not find Order with id: ' + req.params.id }));
     }
 
     const customerData = await Customer.findOne(

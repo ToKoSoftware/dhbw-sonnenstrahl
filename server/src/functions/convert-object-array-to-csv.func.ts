@@ -1,8 +1,8 @@
-import { Vars } from "../vars";
+import { Vars } from '../vars';
 
-export function convertObjectArrayToCsv(objectArray: Object[], columnDelimiter: string = ";", lineDelimiter: string = "\n") {
-    let result = "";
-    const keys: string[] = Object.keys(objectArray[0])
+export function convertObjectArrayToCsv(objectArray: Object[], columnDelimiter = ';', lineDelimiter = '\n') {
+    let result = '';
+    const keys: string[] = Object.keys(objectArray[0]);
     //Set headerline of csv data
 
     result += keys.join(columnDelimiter);
@@ -11,6 +11,6 @@ export function convertObjectArrayToCsv(objectArray: Object[], columnDelimiter: 
     objectArray.forEach(el => {
         result += Object.values(el).join(columnDelimiter);
         result += lineDelimiter;
-    })
+    });
     return result;
 }

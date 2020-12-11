@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { InternalUser } from "../../../interfaces/users.interface";
-import { User } from "../../../models/user.model";
-import jwt from "jsonwebtoken";
-import { Vars } from "../../../vars";
+import { Request, Response } from 'express';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { InternalUser } from '../../../interfaces/users.interface';
+import { User } from '../../../models/user.model';
+import jwt from 'jsonwebtoken';
+import { Vars } from '../../../vars';
 
 export async function loginUser(req: Request, res: Response) {
     const incomingData: InternalUser = req.body;

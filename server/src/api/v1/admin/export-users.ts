@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { convertObjectArrayToCsv } from "../../../functions/convert-object-array-to-csv.func";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { User } from "../../../models/user.model";
+import { Request, Response } from 'express';
+import { convertObjectArrayToCsv } from '../../../functions/convert-object-array-to-csv.func';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { User } from '../../../models/user.model';
 
 export async function exportUsers(req: Request, res: Response) {
     let success = true;
@@ -23,9 +23,9 @@ export async function exportUsers(req: Request, res: Response) {
         return res.status(404).send(wrapResponse(false, { error: 'No user found' }));
     }
 
-    let csvData = convertObjectArrayToCsv(users);
+    const csvData = convertObjectArrayToCsv(users);
     const date = new Date().toISOString();
-    res.set({ "Content-Disposition": `attachment; filename="${date}_Users.csv"` });
+    res.set({ 'Content-Disposition': `attachment; filename="${date}_Users.csv"` });
 
     res.send(csvData);
 
