@@ -24,10 +24,10 @@ export async function updateUser(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
     }
 
-  /*  if (!currentUserIsAdminOrMatchesId(req.params.id)) {
+   if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
-*/
+
     user = await User.findOne(
         {
             where: {
