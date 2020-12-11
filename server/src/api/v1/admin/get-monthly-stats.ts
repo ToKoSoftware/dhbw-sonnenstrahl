@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
-import { Sequelize } from 'sequelize-typescript';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { Customer } from '../../../models/customer.models';
-import { Order } from '../../../models/order.model';
-import { Plan } from '../../../models/plan.model';
-import { User } from '../../../models/user.model';
+import {Request, Response} from 'express';
+import {Sequelize} from 'sequelize-typescript';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {Customer} from '../../../models/customer.models';
+import {Order} from '../../../models/order.model';
+import {Plan} from '../../../models/plan.model';
+import {User} from '../../../models/user.model';
 
 export async function getMonthlyStats(req: Request, res: Response) {
     const customerCount = await countMonthlyEntities(Customer);

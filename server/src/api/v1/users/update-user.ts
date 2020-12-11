@@ -1,12 +1,12 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import isBlank from 'is-blank';
-import { checkKeysAreNotEmptyOrNotSet } from '../../../functions/check-inputs.func';
-import { mapUser } from '../../../functions/map-users.func';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { InternalUser } from '../../../interfaces/users.interface';
-import { User } from '../../../models/user.model';
+import {checkKeysAreNotEmptyOrNotSet} from '../../../functions/check-inputs.func';
+import {mapUser} from '../../../functions/map-users.func';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {InternalUser} from '../../../interfaces/users.interface';
+import {User} from '../../../models/user.model';
 import * as EmailValidator from 'email-validator';
-import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
+import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 
 export async function updateUser(req: Request, res: Response) {
     let success = true;
@@ -18,11 +18,11 @@ export async function updateUser(req: Request, res: Response) {
     const validEmail = EmailValidator.validate(mappedIncomingData.email) || isBlank(mappedIncomingData.email);
 
     if (isBlank(req.body) || req.params.id === null) {
-        return res.status(400).send(wrapResponse(false, { error: 'No body or valid param set.' }));
+        return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
 
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
 
     const user: User | null = await User.findOne(
@@ -36,7 +36,7 @@ export async function updateUser(req: Request, res: Response) {
             return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     //User object from database must not be null, id must not be changed and all set keys mut not be empty.
@@ -59,10 +59,10 @@ export async function updateUser(req: Request, res: Response) {
                 return null;
             });
         if (!success) {
-            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         if (differentUser !== null) {
-            return res.status(400).send(wrapResponse(false, { error: 'Email already in use' }));
+            return res.status(400).send(wrapResponse(false, {error: 'Email already in use'}));
         }
 
         updateResult = await User.update(
@@ -78,26 +78,26 @@ export async function updateUser(req: Request, res: Response) {
                 return null;
             });
         if (!success) {
-            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         if (updateResult === null || updateResult[0] == 0) {
-            return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
+            return res.status(404).send(wrapResponse(false, {error: 'No order updated'}));
         }
 
     } else if (user === null) {
-        return res.status(404).send(wrapResponse(false, { error: 'No user with given id found' }));
+        return res.status(404).send(wrapResponse(false, {error: 'No user with given id found'}));
 
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
-        return res.status(400).send(wrapResponse(false, { error: 'Fields must not be empty' }));
+        return res.status(400).send(wrapResponse(false, {error: 'Fields must not be empty'}));
 
     } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {
-        return res.status(400).send(wrapResponse(false, { error: 'ID must not be changed' }));
+        return res.status(400).send(wrapResponse(false, {error: 'ID must not be changed'}));
 
     } else if (validEmail === false) {
-        return res.status(400).send(wrapResponse(false, { error: 'E-mail is not valid' }));
+        return res.status(400).send(wrapResponse(false, {error: 'E-mail is not valid'}));
 
     } else if (req.body.is_admin !== undefined) {
-        return res.status(400).send(wrapResponse(false, { error: 'is_admin can not be changed' }));
+        return res.status(400).send(wrapResponse(false, {error: 'is_admin can not be changed'}));
 
     } else {
         return res.status(400).send(wrapResponse(false));

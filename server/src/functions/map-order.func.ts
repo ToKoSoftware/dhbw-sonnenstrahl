@@ -1,4 +1,4 @@
-import { IncomingExternalOrder, IncomingInternalOrder, InternalOrder } from '../interfaces/orders.interface';
+import {IncomingExternalOrder, IncomingInternalOrder, InternalOrder} from '../interfaces/orders.interface';
 
 export function mapOrder(incomingData: IncomingExternalOrder, custId: string): InternalOrder {
     return {

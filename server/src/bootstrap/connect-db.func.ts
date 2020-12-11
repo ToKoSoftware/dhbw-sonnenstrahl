@@ -4,7 +4,7 @@ import {User} from '../models/user.model';
 import {Plan} from '../models/plan.model';
 import {Op} from 'sequelize';
 import {Order} from '../models/order.model';
-import { Customer } from '../models/customer.models';
+import {Customer} from '../models/customer.models';
 
 export function connectToDatabase() {
     const sequelize = new Sequelize(

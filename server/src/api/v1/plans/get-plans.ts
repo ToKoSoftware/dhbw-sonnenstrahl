@@ -1,8 +1,8 @@
-import { Plan } from '../../../models/plan.model';
-import { Request, Response } from 'express';
-import { FindOptions, Op } from 'sequelize';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
+import {Plan} from '../../../models/plan.model';
+import {Request, Response} from 'express';
+import {FindOptions} from 'sequelize';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
 
 export async function getPlans(req: Request, res: Response) {
     let query: FindOptions = {
@@ -15,11 +15,11 @@ export async function getPlans(req: Request, res: Response) {
 
     const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, requ: Request, value: string) => {
-        if (req.query.is_active == null){
+        if (req.query.is_active == null) {
             return true;
         } else {
             // todo check if user is admin -> if not, return true
-            return req.query.is_active === 'all'? '' : (req.query.is_active === 'true');
+            return req.query.is_active === 'all' ? '' : (req.query.is_active === 'true');
         }
     });
     const queryConfig: QueryBuilderConfig = {
@@ -36,7 +36,7 @@ export async function getPlans(req: Request, res: Response) {
     return res.send(wrapResponse(true, data));
 }
 
-export async function getPlansInExternalFormat(req: Request, res:Response) {
+export async function getPlansInExternalFormat(req: Request, res: Response) {
     let query: FindOptions = {
         raw: true,
     };
@@ -60,7 +60,7 @@ export async function getPlansInExternalFormat(req: Request, res:Response) {
         allowedOrderFields: allowedOrderFields
     };
     query = buildQuery(queryConfig, req);
-    const data: Plan[] =  await Plan.findAll(query);
+    const data: Plan[] = await Plan.findAll(query);
     //TODO formatting of output
     return res.send(wrapResponse(true, data));
 }
@@ -79,7 +79,7 @@ export async function getPlan(req: Request, res: Response) {
             return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     if (data === null) {

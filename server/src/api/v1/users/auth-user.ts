@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { InternalUser } from '../../../interfaces/users.interface';
-import { User } from '../../../models/user.model';
+import {Request, Response} from 'express';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {InternalUser} from '../../../interfaces/users.interface';
+import {User} from '../../../models/user.model';
 import jwt from 'jsonwebtoken';
-import { Vars } from '../../../vars';
+import {Vars} from '../../../vars';
 
 export async function loginUser(req: Request, res: Response) {
     const incomingData: InternalUser = req.body;
@@ -25,13 +25,17 @@ export async function loginUser(req: Request, res: Response) {
 
 
     if (!success) {
-        res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     if (user === null) {
-        res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     } else {
-        const token = jwt.sign({ id: user.id, email: user.email, is_admin: user.is_admin }, Vars.config.database.jwtSalt, { expiresIn: calculatedExpiresIn });
+        const token = jwt.sign({
+            id: user.id,
+            email: user.email,
+            is_admin: user.is_admin
+        }, Vars.config.database.jwtSalt, {expiresIn: calculatedExpiresIn});
         return res.send(wrapResponse(true, token));
     }
 

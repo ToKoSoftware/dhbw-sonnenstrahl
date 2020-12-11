@@ -44,7 +44,7 @@ export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders:
     if (req.query.order && !isBlank(req.query.order) || req.query.sort && !isBlank(req.query.sort)) {
         let o = req.query.order as string || req.query.sort as string;
         let direction = 'DESC';
-        if (o.charAt(0) === '-' ) {
+        if (o.charAt(0) === '-') {
             direction = 'ASC';
             o = o.substring(1);
         }
@@ -99,7 +99,7 @@ export function buildFilter(query: QueryBuilderData, req: Request, allowedFields
     return query;
 }
 
-function mergeQueryBuilders(query: QueryBuilderData, newQuery: any): QueryBuilderData{
+function mergeQueryBuilders(query: QueryBuilderData, newQuery: any): QueryBuilderData {
     if (query.hasOwnProperty('where')) {
         query.where = {
             ...query.where,
@@ -121,6 +121,7 @@ export interface QueryBuilderData {
 
 export type customFilterValueResolver = ((field: string, req: Request, value: string) => any);
 export type customFilterResolverMap = Map<string, customFilterValueResolver>;
+
 export interface QueryBuilderConfig {
     query: QueryBuilderData;
     allowedOrderFields?: string[];

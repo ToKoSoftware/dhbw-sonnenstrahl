@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
-import { FindOptions } from 'sequelize';
-import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
-import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { Customer } from '../../../models/customer.models';
-import { Vars } from '../../../vars';
+import {Request, Response} from 'express';
+import {FindOptions} from 'sequelize';
+import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
+import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {Customer} from '../../../models/customer.models';
+import {Vars} from '../../../vars';
 
 export async function getCustomer(req: Request, res: Response) {
     let success = true;
@@ -19,7 +19,7 @@ export async function getCustomer(req: Request, res: Response) {
             return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (customer === null) {
         return res.status(404).send(wrapResponse(false));
@@ -28,7 +28,7 @@ export async function getCustomer(req: Request, res: Response) {
     if (customer.userId !== undefined) {
         if (!currentUserIsAdminOrMatchesId(customer.userId)) {
             if (!Vars.currentUser.is_admin) {
-                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+                return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
             }
         }
     }
@@ -70,7 +70,7 @@ export async function getCustomers(req: Request, res: Response) {
         });
 
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     return res.send(wrapResponse(true, data));
 }
