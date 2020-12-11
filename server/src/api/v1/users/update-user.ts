@@ -12,8 +12,9 @@ export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
     let updateResult: [number, User[]] | null;
+    let APIuser: User | null;
     const incomingData: IncomingUser = req.body;
-    const mappedIncomingData: InternalUser = mapUser(incomingData);
+    const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     let requiredFields = User.requiredFields();
 
@@ -60,6 +61,7 @@ export async function updateUser(req: Request, res: Response) {
                 success = false;
                 return null;
             });
+
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
@@ -79,9 +81,7 @@ export async function updateUser(req: Request, res: Response) {
                 success = false;
                 return null;
             });
-        if (user.changed('password')) {
-                
-              }   
+      
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
@@ -107,7 +107,24 @@ export async function updateUser(req: Request, res: Response) {
     } else {
         return res.status(400).send(wrapResponse(false));
     } 
+    
+    //return everything beside password
+    if (!(updateResult === null || updateResult[0] == 0)) {
+    APIuser = await User.findOne(
+        {
+            attributes: { exclude: ['password'] },
+            where: {
+                id: req.params.id
+            }
+        })
+        .catch(error => {
+            success = false;
+            return null
+        });
+    } else {
+    APIuser =null;
+    };
 
-    return res.send(wrapResponse(true, updateResult[1]));
+    return res.send(wrapResponse(true, APIuser));
 
 }
