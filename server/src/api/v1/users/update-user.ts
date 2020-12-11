@@ -23,10 +23,10 @@ export async function updateUser(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
     }
 
-    if (!currentUserIsAdminOrMatchesId(req.params.id)) {
+  /*  if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
-
+*/
     user = await User.findOne(
         {
             where: {
@@ -68,7 +68,7 @@ export async function updateUser(req: Request, res: Response) {
         }
 
         updateResult = await User.update(
-            req.body,
+            mappedIncomingData,
             {
                 where: {
                     id: req.params.id
@@ -79,6 +79,9 @@ export async function updateUser(req: Request, res: Response) {
                 success = false;
                 return null;
             });
+        if (user.changed('password')) {
+                
+              }   
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
@@ -103,7 +106,7 @@ export async function updateUser(req: Request, res: Response) {
 
     } else {
         return res.status(400).send(wrapResponse(false));
-    }
+    } 
 
     return res.send(wrapResponse(true, updateResult[1]));
 
