@@ -12,6 +12,7 @@ export class LoginService {
   public isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public currentUser$: ReplaySubject<UserData | null> = new ReplaySubject();
   public jwt$: BehaviorSubject<string |null> = new BehaviorSubject(null);
+  public decodedJwt$: BehaviorSubject<JWT |null> = new BehaviorSubject(null);
 
   constructor() {
     this.reloadJWT();
@@ -36,6 +37,7 @@ export class LoginService {
       const expiration = new Date(decodedJWT.exp * 1000);
       this.isLoggedIn$.next(expiration > now);
       this.jwt$.next(jwt);
+      this.decodedJwt$.next(decodedJWT);
       this.isAdmin$.next(decodedJWT.is_admin);
     } catch (error) {
       this.isLoggedIn$.next(false);

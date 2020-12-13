@@ -3,8 +3,7 @@ import {Subscription} from 'rxjs';
 import {PlanData} from '../../interfaces/plan.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
-import {UiBreadcrumb, UiButtonGroup, UiButtonType} from '../../ui/ui.interface';
-import {EstimatedUsageService} from '../../services/estimated-usage/estimated-usage.service';
+import {UiBreadcrumb} from '../../ui/ui.interface';
 
 @Component({
   selector: 'app-overview',
@@ -14,7 +13,7 @@ import {EstimatedUsageService} from '../../services/estimated-usage/estimated-us
 export class OverviewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   public results: PlanData[] = [];
-  public loading = false;
+  public loading = true;
   public breadcrumbs: UiBreadcrumb[] = [
     {routerLink: '/', title: 'Home'},
     {routerLink: '', title: 'Laden...'},
@@ -22,34 +21,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
   public title = 'Suchergebnisse';
   public currentEstimatedUsage = 1000;
   public currentEstimatedUsageCount = 1;
-  public plusMinusButtons: UiButtonGroup = {
-    buttons: [
-      {
-        title: '-',
-        function: () => {
-          console.log('Minus');
-          this.changeEstimatedUsagePersonCount(this.currentEstimatedUsageCount - 1);
-        },
-        type: UiButtonType.disabled
-      },
-      {
-        title: `${this.currentEstimatedUsageCount} Personen`,
-        type: UiButtonType.noAction,
-      },
-      {
-        title: '+',
-        function: () => {
-          this.changeEstimatedUsagePersonCount(this.currentEstimatedUsageCount + 1);
-        }
-      }
-    ]
-  };
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService,
-    private estimatedUsageService: EstimatedUsageService) {
+    private api: ApiService) {
   }
 
   ngOnInit(): void {
@@ -79,20 +55,4 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
-  public calculateCostExample(costVar: number, costFix: number): string {
-    const cost = Math.floor(costVar / 10000 * this.currentEstimatedUsage) + (costFix / 10000);
-    return this.roundToTwoDigits(cost);
-  }
-
-  public roundToTwoDigits(n: number): string {
-    return (Math.round((n + Number.EPSILON) * 100) / 100).toString().replace('.', ',');
-  }
-
-  private changeEstimatedUsagePersonCount(count: number): void {
-    this.currentEstimatedUsageCount = count;
-    this.plusMinusButtons.buttons[1].title = `${this.currentEstimatedUsageCount} Personen`;
-    const newEstimatedUsage = this.estimatedUsageService.getEstimatedUsage(count);
-    this.currentEstimatedUsage = newEstimatedUsage || this.currentEstimatedUsage;
-    this.plusMinusButtons.buttons[0].type = count - 1 === 0 ? UiButtonType.disabled : undefined;
-  }
 }

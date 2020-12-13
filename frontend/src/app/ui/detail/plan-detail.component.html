@@ -1,0 +1,49 @@
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10" *ngIf="plan != null">
+  <div class="mx-auto rounded-lg shadow-lg overflow-hidden lg:max-w-none lg:flex">
+    <div class="flex-1">
+      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+        <div class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
+          <div class="ml-4 mt-4">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              {{ plan.plan }} Tarif
+            </h3>
+            <p class="mt-1 text-sm leading-5 text-gray-500">
+              Dieser Tarif ist für Ihre Region verfügbar.
+            </p>
+          </div>
+          <div class="ml-4 mt-4 flex-shrink-0">
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-5 sm:px-6">
+        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+          <div class="sm:col-span-1">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Grundpreis
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900">
+              {{roundToTwoDigits(plan.cost_fix / 10000)}} €
+            </dd>
+          </div>
+          <div class="sm:col-span-1">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Arbeitspreis
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900">
+              {{roundToTwoDigits(plan.cost_var / 100)}} ct/kWh
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12"
+         style="min-width: 300px">
+      <small>Anhand Ihrer Angaben kalkulierte jährliche Kosten:</small>
+      <div class="my-4 flex items-center justify-center text-3xl leading-none font-extrabold text-blue-900">
+        <span>{{ calculateCostExample(plan.cost_var, plan.cost_fix) }}</span>
+        <span class="ml-3 text-xl leading-7 font-medium text-gray-500">€</span>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

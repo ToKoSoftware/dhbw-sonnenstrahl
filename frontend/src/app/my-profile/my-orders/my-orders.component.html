@@ -1,0 +1,11 @@
+<app-layout
+  title="Ihr Kundenprofil"
+  [sidebarPages]="profilePages"
+  [breadcrumbs]="breadcrumbs">
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3" *ngIf="loading">
+    <app-loading></app-loading>
+  </div>
+  <ng-container *ngFor="let order of orders">
+    <app-order-detail [order]="order"></app-order-detail>
+  </ng-container>
+</app-layout>
