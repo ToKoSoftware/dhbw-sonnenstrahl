@@ -56,5 +56,6 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
         }
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
+    return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
 }
 
