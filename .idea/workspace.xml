@@ -235,6 +235,9 @@
       <list>
         <item itemvalue="npm.start (1)" />
         <item itemvalue="npm.db:migrate" />
+        <item itemvalue="Docker.docker-compose.yml.web: Compose Deployment" />
+        <item itemvalue="npm.start (1)" />
+        <item itemvalue="npm.db:migrate" />
       </list>
     </recent_temporary>
   </component>

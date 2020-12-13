@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import {Vars} from '../../../vars';
 import * as bcrypt from 'bcryptjs';
 
-export async function loginUser(req: Request, res: Response) {
+export async function loginUser(req: Request, res: Response): Promise<Response> {
 
     const incomingData: IncomingUser = req.body;
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
@@ -21,7 +21,6 @@ export async function loginUser(req: Request, res: Response) {
             attributes: ['id', 'email', 'is_admin'],
             where: {
                 email: mappedIncomingData.email,
-                password: mappedIncomingData.password
             }
         })
         .catch(error => {
@@ -42,13 +41,16 @@ export async function loginUser(req: Request, res: Response) {
                 return false;
             });
         if (passwordMatches) {
-            const token = jwt.sign({
+            const token = jwt.sign(
+                {
                     id: user.id,
                     email: user.email,
                     is_admin: user.is_admin
                 },
                 Vars.config.database.jwtSalt,
-                {expiresIn: calculatedExpiresIn}
+                {
+                    expiresIn: calculatedExpiresIn
+                }
             );
             return res.send(wrapResponse(true, token));
         }
