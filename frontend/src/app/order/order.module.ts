@@ -7,15 +7,14 @@ import {UiModule} from '../ui/ui.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
-
 @NgModule({
   declarations: [FormComponent, SuccessComponent],
-  imports: [
-    orderRoutes,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    UiModule
-  ]
+    imports: [
+        orderRoutes,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        UiModule
+    ]
 })
 export class OrderModule { }
