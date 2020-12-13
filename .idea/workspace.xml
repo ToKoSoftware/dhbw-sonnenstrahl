@@ -22,53 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d5647a1-a779-4199-8666-641bc6c3c9a0" name="Default Changelist" comment="* Run ESLINT 😅">
-      <change afterPath="$PROJECT_DIR$/server/.eslintignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/.eslintrc.json" afterDir="false" />
+    <list default="true" id="1d5647a1-a779-4199-8666-641bc6c3c9a0" name="Default Changelist" comment="* Don't fix linter errors when building">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/api/v1/admin/export-order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/admin/export-order.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/api/v1/admin/export-users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/admin/export-users.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/admin/get-monthly-stats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/admin/get-monthly-stats.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/admin/get-referrer-stats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/admin/get-referrer-stats.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/admin/get-stats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/admin/get-stats.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/customers/create-customer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/customers/create-customer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/customers/delete-customer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/customers/delete-customer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/customers/get-customer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/customers/get-customer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/customers/update-customer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/customers/update-customer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/orders/create-order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/orders/create-order.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/orders/delete-order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/orders/delete-order.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/orders/get-orders.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/orders/get-orders.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/orders/terminate-order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/orders/terminate-order.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/orders/update-order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/orders/update-order.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/plans/create-plan.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/plans/create-plan.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/plans/delete-plan.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/plans/delete-plan.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/plans/get-plans.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/plans/get-plans.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/plans/import-plan.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/plans/import-plan.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/plans/update-plan.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/plans/update-plan.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/users/auth-user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/users/auth-user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/users/delete-user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/users/delete-user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/users/get-users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/users/get-users.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/api/v1/users/update-user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/users/update-user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/bootstrap/connect-db.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/bootstrap/connect-db.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/bootstrap/load-config.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/bootstrap/load-config.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/check-inputs.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/check-inputs.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/convert-object-array-to-csv.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/convert-object-array-to-csv.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/current-user-is-admin-or-matches-id.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/current-user-is-admin-or-matches-id.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/map-order-data-on-customer.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/map-order-data-on-customer.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/map-order.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/map-order.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/map-users.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/map-users.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/query-builder.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/query-builder.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/response-wrapper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/response-wrapper.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/functions/verify-token.func.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/functions/verify-token.func.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/middleware/user-is-admin.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/middleware/user-is-admin.middleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/middleware/user-is-authorized-by-param.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/middleware/user-is-authorized-by-param.middleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/middleware/user-is-authorized.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/middleware/user-is-authorized.middleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/user.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/vars.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/vars.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +54,6 @@
     <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="js.linters.configure.manually.selectedtslint" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/src/app/admin" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -512,7 +468,28 @@
       <option name="project" value="LOCAL" />
       <updated>1607704076259</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="* Run ESLINT 😅">
+      <created>1607704873036</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1607704873036</updated>
+    </task>
+    <task id="LOCAL-00030" summary="* Run WebStorm's linter">
+      <created>1607705083554</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1607705083554</updated>
+    </task>
+    <task id="LOCAL-00031" summary="* Don't fix linter errors when building">
+      <created>1607705163954</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1607705163954</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,8 +512,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/server" />
     </ignored-roots>
-    <MESSAGE value="* Create modules and components" />
-    <MESSAGE value="* Add map&#10;* Add nested route loading" />
     <MESSAGE value="* Add search" />
     <MESSAGE value="* Finally get docker-compose to work&#10;* Try to fix query builder" />
     <MESSAGE value="* Resolve conflict" />
@@ -560,6 +535,8 @@
     <MESSAGE value="* Fix wrong input field types and placeholders" />
     <MESSAGE value="* Implemented password hashing" />
     <MESSAGE value="* Run ESLINT " />
-    <option name="LAST_COMMIT_MESSAGE" value="* Run ESLINT " />
+    <MESSAGE value="* Run WebStorm's linter" />
+    <MESSAGE value="* Don't fix linter errors when building" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Don't fix linter errors when building" />
   </component>
 </project>

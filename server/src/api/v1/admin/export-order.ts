@@ -3,7 +3,7 @@ import {convertObjectArrayToCsv} from '../../../functions/convert-object-array-t
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 
-export async function exportOrders(req: Request, res: Response) {
+export async function exportOrders(req: Request, res: Response): Promise<Response> {
     let success = true;
     const orders: Order[] = await Order.findAll(
         {
@@ -27,5 +27,5 @@ export async function exportOrders(req: Request, res: Response) {
     const date = new Date().toISOString();
     res.set({'Content-Disposition': `attachment; filename="${date}_Orders.csv"`});
 
-    res.send(csvData);
+    return res.send(csvData);
 }
