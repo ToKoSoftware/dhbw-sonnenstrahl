@@ -71,7 +71,7 @@ export async function updateUser(req: Request, res: Response) {
 
         updateResult = await User.update(
             mappedIncomingData,
-            {
+            { 
                 where: {
                     id: req.params.id
                 },
@@ -109,7 +109,6 @@ export async function updateUser(req: Request, res: Response) {
     } 
     
     //return everything beside password
-    if (!(updateResult === null || updateResult[0] == 0)) {
     APIuser = await User.findOne(
         {
             attributes: { exclude: ['password'] },
@@ -121,9 +120,10 @@ export async function updateUser(req: Request, res: Response) {
             success = false;
             return null
         });
-    } else {
-    APIuser =null;
-    };
+ 
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
 
     return res.send(wrapResponse(true, APIuser));
 
