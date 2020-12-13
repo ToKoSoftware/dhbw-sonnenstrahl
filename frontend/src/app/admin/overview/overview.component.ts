@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {adminBreadcrumb, adminPages} from '../admin.pages';
+import {ApiService} from '../../services/api/api.service';
+import {AdminCountStats} from '../../interfaces/stats.interface';
 
 @Component({
   selector: 'app-overview',
@@ -11,27 +13,46 @@ export class OverviewComponent implements OnInit {
   public breadcrumb = adminBreadcrumb;
   public tiles: StatisticTile[] = [{
     title: 'Benutzer',
-    count: 300,
-    icon: 'mouse-pointer'
+    count: 0,
+    icon: 'mouse-pointer',
+    loading: true,
   }, {
     title: 'Kunden',
-    count: 300,
-    icon: 'user'
+    count: 0,
+    icon: 'user',
+    loading: true,
   }, {
     title: 'Bestellungen',
-    count: 300,
-    icon: 'shopping-cart'
+    count: 0,
+    icon: 'shopping-cart',
+    loading: true,
   }, {
     title: 'Tarife',
-    count: 300,
-    icon: 'map'
+    count: 0,
+    icon: 'map',
+    loading: true,
   }];
 
-  constructor() {
+  constructor(private api: ApiService) {
   }
 
   ngOnInit(): void {
+    this.api.get<AdminCountStats>('/admin/stats').subscribe(
+      data => {
+        const stats = data.data;
+        this.tiles[0].count = stats.users;
+        this.tiles[0].loading = false;
+        this.tiles[1].count = stats.activeCustomers;
+        this.tiles[1].loading = false;
+        this.tiles[2].count = stats.activeOrders;
+        this.tiles[2].loading = false;
+        this.tiles[3].count = stats.activePlans;
+        this.tiles[3].loading = false;
+      },
+      error => {
 
+      }
+    );
   }
 
 }
@@ -40,4 +61,5 @@ interface StatisticTile {
   title: string;
   icon: string;
   count: number;
+  loading: boolean;
 }
