@@ -41,9 +41,9 @@ export async function updateCustomer(req: Request, res: Response) {
     if (customer !== null) {
         if (customer.userId !== undefined) {
             if (!currentUserIsAdminOrMatchesId(customer.userId)) {
-                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
-            } else if (!Vars.currentUser.is_admin) {
-                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+                if (!Vars.currentUser.is_admin) {
+                    return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+                }
             }
         }
     } else {
