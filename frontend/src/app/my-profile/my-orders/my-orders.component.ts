@@ -31,7 +31,7 @@ export class MyOrdersComponent implements OnInit {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';
     this.api.get<OrderData[]>(`/orders`, {
-      userId: this.login.decodedJwt$.value?.id
+      sort: "terminatedAt",
     }).subscribe(
       (data) => {
         this.loading = false;
