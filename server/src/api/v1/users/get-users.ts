@@ -12,8 +12,10 @@ export async function getUser(req: Request, res: Response) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
+    //return everything beside password
     let data = await User.findOne(
         {
+            attributes: { exclude: ['password'] },
             where: {
                 id: req.params.id
             }
@@ -49,7 +51,11 @@ export async function getUsers(req: Request, res: Response) {
 
 
     let success = true;
-    let data = await User.findAll(query)
+
+    //return everything beside password
+    let data = await User.findAll(
+        { attributes: { exclude: ['password'] }}
+        )
         .catch(error => {
             success = false;
             return null

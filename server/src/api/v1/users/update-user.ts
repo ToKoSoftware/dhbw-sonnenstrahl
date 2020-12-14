@@ -12,8 +12,9 @@ export async function updateUser(req: Request, res: Response) {
     let success = true;
     let user: User | null;
     let updateResult: [number, User[]] | null;
+    let APIuser: User | null;
     const incomingData: IncomingUser = req.body;
-    const mappedIncomingData: InternalUser = mapUser(incomingData);
+    const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     let requiredFields = User.requiredFields();
 
@@ -23,7 +24,7 @@ export async function updateUser(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
     }
 
-    if (!currentUserIsAdminOrMatchesId(req.params.id)) {
+   if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
@@ -60,6 +61,7 @@ export async function updateUser(req: Request, res: Response) {
                 success = false;
                 return null;
             });
+
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
@@ -68,8 +70,8 @@ export async function updateUser(req: Request, res: Response) {
         }
 
         updateResult = await User.update(
-            req.body,
-            {
+            mappedIncomingData,
+            { 
                 where: {
                     id: req.params.id
                 },
@@ -79,6 +81,7 @@ export async function updateUser(req: Request, res: Response) {
                 success = false;
                 return null;
             });
+      
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
@@ -103,8 +106,25 @@ export async function updateUser(req: Request, res: Response) {
 
     } else {
         return res.status(400).send(wrapResponse(false));
+    } 
+    
+    //return everything beside password
+    APIuser = await User.findOne(
+        {
+            attributes: { exclude: ['password'] },
+            where: {
+                id: req.params.id
+            }
+        })
+        .catch(error => {
+            success = false;
+            return null
+        });
+ 
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
-    return res.send(wrapResponse(true, updateResult[1]));
+    return res.send(wrapResponse(true, APIuser));
 
 }
