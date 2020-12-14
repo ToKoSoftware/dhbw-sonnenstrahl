@@ -7,8 +7,10 @@ import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-input
 import * as EmailValidator from 'email-validator';
 
 export async function createUser(req: Request, res: Response) {
-    let success = true;
-    const mappedIncomingData: InternalUser = mapUser(req.body);
+
+    const incomingData: IncomingUser = req.body;
+    const mappedIncomingData: InternalUser = await mapUser(incomingData);
+    
 
     const requiredFields = User.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
@@ -34,7 +36,8 @@ export async function createUser(req: Request, res: Response) {
         }
 
         if (user === null) {
-            const createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
+            
+            let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
             if (createdData === null) {
                 return res.status(500).send(wrapResponse(false, { error: 'Could not create User' }));
             }
