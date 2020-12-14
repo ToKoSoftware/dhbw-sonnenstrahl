@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {adminBreadcrumb, adminPages} from '../admin.pages';
 import {ApiService} from '../../services/api/api.service';
 import {AdminCountStats} from '../../interfaces/stats.interface';
+import {StatsResponse} from './admin-line-stats/admin-line-stats.component';
 
 @Component({
   selector: 'app-overview',
@@ -11,6 +12,7 @@ import {AdminCountStats} from '../../interfaces/stats.interface';
 export class OverviewComponent implements OnInit {
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
+  public monthlyData: StatsResponse | null = null;
   public tiles: StatisticTile[] = [{
     title: 'Benutzer',
     count: 0,
@@ -53,8 +55,8 @@ export class OverviewComponent implements OnInit {
 
       }
     );
+    this.api.get<StatsResponse>('/admin/stats/monthly').subscribe(monthlyData => this.monthlyData = monthlyData.data);
   }
-
 }
 
 interface StatisticTile {

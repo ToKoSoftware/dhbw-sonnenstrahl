@@ -19,6 +19,7 @@ import {MyProfileModule} from './my-profile/my-profile.module';
 import {OrderModule} from './order/order.module';
 import {MomentModule} from 'ngx-moment';
 import 'moment/locale/de';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import 'moment/locale/de';
       relativeTimeThresholdOptions: {
         m: 59
       }
-    })
+    }),
+    ChartsModule
   ],
   providers: [
     ApiService,
