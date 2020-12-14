@@ -51,6 +51,7 @@ export async function getUsers(req: Request, res: Response) {
 
     let success = true;
 
+    //TODO keine Query berücksichtigung!!! FALSCH!!!
     //return everything beside password
     let data = await User.findAll(
         { attributes: { exclude: ['password'] }}
