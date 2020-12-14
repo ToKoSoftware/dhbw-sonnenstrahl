@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
-import { Order } from '../../../models/order.model';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { FindOptions } from 'sequelize';
-import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
-import { Customer } from '../../../models/customer.models';
-import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
-import { Vars } from '../../../vars';
+import {Request, Response} from 'express';
+import {Order} from '../../../models/order.model';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {FindOptions} from 'sequelize';
+import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
+import {Customer} from '../../../models/customer.models';
+import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
+import {Vars} from '../../../vars';
 
 export async function getOrder(req: Request, res: Response) {
     let success = true;
@@ -21,7 +21,7 @@ export async function getOrder(req: Request, res: Response) {
         });
 
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (orderData === null) {
         return res.status(404).send(wrapResponse(false));
@@ -39,19 +39,19 @@ export async function getOrder(req: Request, res: Response) {
         });
 
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (customerData !== null) {
         if (customerData.userId !== undefined) {
             if (!currentUserIsAdminOrMatchesId(customerData.userId)) {
-                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+                return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
             }
         } else if (!Vars.currentUser.is_admin) {
-            return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+            return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
         }
     }
 
-    return res.send(wrapResponse(true, { orderData, customerData }));
+    return res.send(wrapResponse(true, {orderData, customerData}));
 }
 
 export async function getOrders(req: Request, res: Response) {
@@ -62,7 +62,7 @@ export async function getOrders(req: Request, res: Response) {
     const allowedSearchFields = ['referrer'];
     const allowedFilterFields = ['customerId', 'planId', 'referrer', 'consumption'];
     const allowedOrderFields = ['customerId', 'planId', 'referrer', 'consumption'];
-    let customResolver = new Map<string, customFilterValueResolver>();
+    const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
@@ -80,7 +80,7 @@ export async function getOrders(req: Request, res: Response) {
                 return [];
             });
         if (!success) {
-            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         const customerIds = result.map(el => el.id);
         customResolver.set('customerId', (field: string, req: Request, value: string) => {
@@ -95,7 +95,7 @@ export async function getOrders(req: Request, res: Response) {
         allowedFilterFields: allowedFilterFields,
         allowedSearchFields: allowedSearchFields,
         allowedOrderFields: allowedOrderFields
-    }
+    };
     query = buildQuery(queryConfig, req);
 
     const orderdata = await Order.findAll(query)
@@ -105,7 +105,7 @@ export async function getOrders(req: Request, res: Response) {
         }
         );
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     return res.send(wrapResponse(true, orderdata));

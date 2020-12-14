@@ -10,5 +10,5 @@ export async function mapUser(incomingData: IncomingUser): Promise<InternalUser>
         email: incomingData.email,
         password: hashedPassword,
         is_admin: false,
-    }
+    };
 }

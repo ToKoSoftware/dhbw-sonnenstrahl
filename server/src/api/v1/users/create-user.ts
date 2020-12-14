@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { InternalUser } from '../../../interfaces/users.interface';
-import { User } from '../../../models/user.model';
-import { mapUser } from '../../../functions/map-users.func';
-import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
+import {Request, Response} from 'express';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {InternalUser} from '../../../interfaces/users.interface';
+import {User} from '../../../models/user.model';
+import {mapUser} from '../../../functions/map-users.func';
+import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
 import * as EmailValidator from 'email-validator';
 
 export async function createUser(req: Request, res: Response) {
@@ -14,12 +14,12 @@ export async function createUser(req: Request, res: Response) {
 
     const requiredFields = User.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
-        return res.send(wrapResponse(false, { error: 'Not all required fields have been set' }));
+        return res.send(wrapResponse(false, {error: 'Not all required fields have been set'}));
     }
     const validEmail = EmailValidator.validate(mappedIncomingData.email);
 
     if (!validEmail) {
-        return res.status(400).send(wrapResponse(false, { error: 'E-mail is not valid' }));
+        return res.status(400).send(wrapResponse(false, {error: 'E-mail is not valid'}));
     } else {
         const user = await User.findOne(
             {
@@ -32,18 +32,18 @@ export async function createUser(req: Request, res: Response) {
                 return null;
             });
         if (!success) {
-            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
 
         if (user === null) {
             
             let createdData = await User.create(mappedIncomingData).then((res) => res).catch(error => null);
             if (createdData === null) {
-                return res.status(500).send(wrapResponse(false, { error: 'Could not create User' }));
+                return res.status(500).send(wrapResponse(false, {error: 'Could not create User'}));
             }
             //return everything beside password
             const data = await User.findOne({
-                attributes: { exclude: ['password'] },
+                attributes: {exclude: ['password']},
                 where: {
                     id: createdData.id
                 }
@@ -53,11 +53,11 @@ export async function createUser(req: Request, res: Response) {
                     return null;
                 });
             if (!success) {
-                return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
             }
             return res.send(wrapResponse(true, data));
         } else {
-            return res.status(400).send(wrapResponse(false, { error: 'E-mail is already in use' }));
+            return res.status(400).send(wrapResponse(false, {error: 'E-mail is already in use'}));
         }
     }
 }

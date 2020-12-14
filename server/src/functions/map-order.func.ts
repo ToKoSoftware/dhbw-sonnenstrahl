@@ -1,4 +1,4 @@
-import { IncomingExternalOrder, IncomingInternalOrder, InternalOrder } from '../interfaces/orders.interface';
+import {IncomingExternalOrder, IncomingInternalOrder, InternalOrder} from '../interfaces/orders.interface';
 
 export function mapOrder(incomingData: IncomingExternalOrder, custId: string): InternalOrder {
     return {
@@ -8,7 +8,7 @@ export function mapOrder(incomingData: IncomingExternalOrder, custId: string): I
         planId: incomingData.rateId,
         referrer: incomingData.agent,
         terminatedAt: null
-    }
+    };
 }
 
 export function mapInternalOrder(incomingData: IncomingInternalOrder): InternalOrder {
@@ -19,5 +19,5 @@ export function mapInternalOrder(incomingData: IncomingInternalOrder): InternalO
         consumption: incomingData.consumption,
         is_active: true,
         terminatedAt: null
-    }
+    };
 }

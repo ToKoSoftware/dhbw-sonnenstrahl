@@ -4,5 +4,5 @@ export function wrapResponse<T>(success: boolean, data?: ApiResponseData | T): A
     return {
         success,
         data
-    }
+    };
 }

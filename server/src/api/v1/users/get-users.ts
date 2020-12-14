@@ -1,15 +1,15 @@
-import { Request, Response } from 'express';
-import { User } from '../../../models/user.model';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { FindOptions } from 'sequelize';
-import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
-import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
+import {Request, Response} from 'express';
+import {User} from '../../../models/user.model';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {FindOptions} from 'sequelize';
+import {buildQuery, QueryBuilderConfig} from '../../../functions/query-builder.func';
+import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 
 export async function getUser(req: Request, res: Response) {
     let success = true;
 
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
 
     //return everything beside password
@@ -22,10 +22,10 @@ export async function getUser(req: Request, res: Response) {
         })
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (data === null) {
         return res.status(404).send(wrapResponse(false));
@@ -45,7 +45,7 @@ export async function getUsers(req: Request, res: Response) {
         allowedFilterFields: allowedSearchFilterAndOrderFields,
         allowedSearchFields: allowedSearchFilterAndOrderFields,
         allowedOrderFields: allowedSearchFilterAndOrderFields
-    }
+    };
     query = buildQuery(queryConfig, req);
 
 
@@ -57,7 +57,7 @@ export async function getUsers(req: Request, res: Response) {
         )
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
 
     return res.send(wrapResponse(success, data));

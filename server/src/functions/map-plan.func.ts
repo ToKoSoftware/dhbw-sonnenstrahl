@@ -1,4 +1,4 @@
-import { PlanFromFileUpload, InternalPlan } from '../interfaces/plan.interface';
+import {InternalPlan, PlanFromFileUpload} from '../interfaces/plan.interface';
 
 export function mapPlan(incomingPlan: PlanFromFileUpload): InternalPlan {
     return {

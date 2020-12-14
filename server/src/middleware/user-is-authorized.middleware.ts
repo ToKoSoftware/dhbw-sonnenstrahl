@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { wrapResponse } from "../functions/response-wrapper";
-import { verifyToken } from "../functions/verify-token.func";
+import {Request, Response} from 'express';
+import {wrapResponse} from '../functions/response-wrapper';
+import {verifyToken} from '../functions/verify-token.func';
 
 export async function userIsAuthorized(req: Request, res: Response, next: any): Promise<void> {
     const header = req.headers.authorization;
@@ -8,6 +8,6 @@ export async function userIsAuthorized(req: Request, res: Response, next: any): 
         const [bearer, token] = header.split(' ');
         verifyToken(res, token, next);
     } else {
-        res.status(401).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        res.status(401).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
 }

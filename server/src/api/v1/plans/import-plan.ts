@@ -1,10 +1,10 @@
-import { PlanFromFileUpload, InternalPlan } from '../../../interfaces/plan.interface';
-import { Request, Response } from 'express';
-import { wrapResponse } from '../../../functions/response-wrapper';
+import {InternalPlan, PlanFromFileUpload} from '../../../interfaces/plan.interface';
+import {Request, Response} from 'express';
+import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
-import { mapPlan } from '../../../functions/map-plan.func';
-import { UploadedFile } from 'express-fileupload';
-import { Plan } from '../../../models/plan.model';
+import {mapPlan} from '../../../functions/map-plan.func';
+import {UploadedFile} from 'express-fileupload';
+import {Plan} from '../../../models/plan.model';
 
 export async function importPlan(req: Request, res: Response) {
     try {
@@ -19,7 +19,7 @@ export async function importPlan(req: Request, res: Response) {
         targetData.forEach(createPlanEntry);
         res.send(wrapResponse(true, targetData));
     } catch (e) {
-        res.status(400).send(wrapResponse(false, { error: e }));
+        res.status(400).send(wrapResponse(false, {error: e}));
         return;
     }
 }
@@ -59,5 +59,5 @@ function createPlanEntry(data: InternalPlan) {
 }
 
 function transformEuroToCents(eur: string): number {
-    return Math.floor(Number(eur.replace(",", ".")) * 10000);
+    return Math.floor(Number(eur.replace(',', '.')) * 10000);
 }

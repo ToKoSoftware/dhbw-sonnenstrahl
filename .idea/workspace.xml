@@ -22,7 +22,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d5647a1-a779-4199-8666-641bc6c3c9a0" name="Default Changelist" comment="" />
+    <list default="true" id="1d5647a1-a779-4199-8666-641bc6c3c9a0" name="Default Changelist" comment="* Don't fix linter errors when building">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/api/v1/admin/export-order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/admin/export-order.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/api/v1/admin/export-users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/api/v1/admin/export-users.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="backend/refactorOrderProcess" />
+        <entry key="$PROJECT_DIR$" value="Password_hashing" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,7 +54,6 @@
     <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="js.linters.configure.manually.selectedtslint" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/src/app/admin" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -100,7 +103,7 @@
       <command value="npm install @tailwindcss/ui" />
     </option>
   </component>
-  <component name="RunManager" selected="npm.Angular CLI Server">
+  <component name="RunManager" selected="npm.start (1)">
     <configuration name="Tests (dlrg-zwrdk)" type="JavaScriptTestRunnerKarma">
       <config-file value="$PROJECT_DIR$/karma.conf.js" />
       <karma-package-dir value="$PROJECT_DIR$/dlrg-data/node_modules/@angular/cli" />
@@ -461,14 +464,35 @@
       <option name="project" value="LOCAL" />
       <updated>1607452320258</updated>
     </task>
-    <task id="LOCAL-00028" summary="* Fix requested changes in code review">
-      <created>1607857440538</created>
+    <task id="LOCAL-00028" summary="* Implemented password hashing">
+      <created>1607704076259</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
       <option name="project" value="LOCAL" />
-      <updated>1607857440538</updated>
+      <updated>1607704076259</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="* Run ESLINT 😅">
+      <created>1607704873036</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1607704873036</updated>
+    </task>
+    <task id="LOCAL-00030" summary="* Run WebStorm's linter">
+      <created>1607705083554</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1607705083554</updated>
+    </task>
+    <task id="LOCAL-00031" summary="* Don't fix linter errors when building">
+      <created>1607705163954</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1607705163954</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -515,7 +539,10 @@
     <MESSAGE value="* Implemented editing of customers&#10;* Updated frontend interfaces" />
     <MESSAGE value="* Show related customers for user" />
     <MESSAGE value="* Fix wrong input field types and placeholders" />
-    <MESSAGE value="* Fix requested changes in code review" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Fix requested changes in code review" />
+    <MESSAGE value="* Implemented password hashing" />
+    <MESSAGE value="* Run ESLINT " />
+    <MESSAGE value="* Run WebStorm's linter" />
+    <MESSAGE value="* Don't fix linter errors when building" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Don't fix linter errors when building" />
   </component>
 </project>
