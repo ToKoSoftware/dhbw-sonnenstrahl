@@ -1,15 +1,15 @@
-import {Request, Response} from 'express';
-import {User} from '../../../models/user.model';
-import {wrapResponse} from '../../../functions/response-wrapper';
-import {FindOptions} from 'sequelize';
-import {buildQuery, QueryBuilderConfig} from '../../../functions/query-builder.func';
-import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
+import { Request, Response } from 'express';
+import { User } from '../../../models/user.model';
+import { wrapResponse } from '../../../functions/response-wrapper';
+import { FindOptions } from 'sequelize';
+import { buildQuery, QueryBuilderConfig } from '../../../functions/query-builder.func';
+import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
 
 export async function getUser(req: Request, res: Response) {
     let success = true;
 
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
-        return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
+        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
     //return everything beside password
@@ -25,7 +25,7 @@ export async function getUser(req: Request, res: Response) {
             return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
     if (data === null) {
         return res.status(404).send(wrapResponse(false));
@@ -34,7 +34,7 @@ export async function getUser(req: Request, res: Response) {
 }
 
 export async function getUsers(req: Request, res: Response) {
-    let query: FindOptions = {
+    /*let query: FindOptions = {
         raw: true,
     };
     const allowedSearchFilterAndOrderFields = ['email'];
@@ -47,19 +47,24 @@ export async function getUsers(req: Request, res: Response) {
         allowedOrderFields: allowedSearchFilterAndOrderFields
     };
     query = buildQuery(queryConfig, req);
-
+    */
 
     let success = true;
 
-    //TODO keine Query berücksichtigung!!! FALSCH!!!
+    //TODO keine Query berücksichtigung!!!
     //return everything beside password
-    let data = await User.findAll(
-        { attributes: { exclude: ['password'] }}
-        )
+    let data = await User.findAll({
+        attributes: {
+            exclude: [ 'password' ]
+        }
+    })
         .catch(error => {
             success = false;
             return null;
         });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
 
-    return res.send(wrapResponse(success, data));
+    return res.send(wrapResponse(true, data));
 }

@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
-import {IncomingUser, InternalUser} from '../../../interfaces/users.interface';
+import {InternalUser} from '../../../interfaces/users.interface';
 import {mapUser} from '../../../functions/map-users.func';
 import {User} from '../../../models/user.model';
 import jwt from 'jsonwebtoken';
@@ -9,7 +9,7 @@ import * as bcrypt from 'bcryptjs';
 
 export async function loginUser(req: Request, res: Response): Promise<Response> {
 
-    const incomingData: IncomingUser = req.body;
+    const incomingData: InternalUser = req.body;
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     let success = true;

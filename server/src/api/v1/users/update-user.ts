@@ -7,12 +7,13 @@ import {InternalUser} from '../../../interfaces/users.interface';
 import {User} from '../../../models/user.model';
 import * as EmailValidator from 'email-validator';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
+import { Vars } from '../../../vars';
+import {Op} from 'sequelize';
 
 export async function updateUser(req: Request, res: Response) {
     let success = true;
     let updateResult: [number, User[]] | null;
-    let APIuser: User | null;
-    const incomingData: IncomingUser = req.body;
+    const incomingData: InternalUser = req.body;
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     const requiredFields = User.requiredFields();
@@ -49,27 +50,29 @@ export async function updateUser(req: Request, res: Response) {
         && validEmail
         && (req.body.is_admin === undefined)
     ) {
-
-        const differentUser = await User.findOne(
-            {
+        //If mail of found user does not match incoming mail check, if email already in use.
+        if(user.email !== mappedIncomingData.email && mappedIncomingData.email !== undefined){
+            let emailInUseCount = await User.count({
                 where: {
-                    email: mappedIncomingData.email
+                    email: mappedIncomingData.email,
+                    id: {
+                        [Op.ne]: user.id
+                    }
                 }
             })
             .catch(error => {
                 success = false;
-                return null;
-            });
-
-        if (!success) {
-            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
-        }
-        if (differentUser !== null) {
-            return res.status(400).send(wrapResponse(false, {error: 'Email already in use'}));
-        }
-
-        updateResult = await User.update(
-            mappedIncomingData,
+                return 0;
+            })
+            if (!success) {
+                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+            }
+            if(emailInUseCount > 0){
+                return res.status(400).send(wrapResponse(false, {error: 'E-Mail already in use'}));
+            }
+            // mail can be changed, so change complete user.
+            updateResult = await User.update(
+                mappedIncomingData,
             { 
                 where: {
                     id: req.params.id
@@ -80,12 +83,31 @@ export async function updateUser(req: Request, res: Response) {
                 success = false;
                 return null;
             });
-      
-        if (!success) {
-            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+            if (!success) {
+                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+            }
+        } else {
+            // mail should not be changed, so change only password (only changable field)
+            updateResult = await User.update({
+                password: mappedIncomingData.password,
+            },
+            { 
+                where: {
+                    id: req.params.id
+                },
+                returning: true,
+            })
+            .catch(error => {
+                success = false;
+                return null;
+            });
+            if (!success) {
+                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+            }
         }
+
         if (updateResult === null || updateResult[0] == 0) {
-            return res.status(404).send(wrapResponse(false, {error: 'No order updated'}));
+            return res.status(404).send(wrapResponse(false, {error: 'No user updated'}));
         }
 
     } else if (user === null) {
@@ -108,7 +130,7 @@ export async function updateUser(req: Request, res: Response) {
     } 
     
     //return everything beside password
-    APIuser = await User.findOne(
+    const returnedUser = await User.findOne(
         {
             attributes: { exclude: ['password'] },
             where: {
@@ -124,6 +146,6 @@ export async function updateUser(req: Request, res: Response) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
-    return res.send(wrapResponse(true, APIuser));
+    return res.send(wrapResponse(true, returnedUser));
 
 }
