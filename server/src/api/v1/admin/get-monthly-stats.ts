@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import {Sequelize} from 'sequelize-typescript';
 import {wrapResponse} from '../../../functions/response-wrapper';
+import {statEntityTypes} from '../../../interfaces/stats.interface';
 import {Customer} from '../../../models/customer.models';
 import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
@@ -33,5 +34,3 @@ async function countMonthlyEntities(model: statEntityTypes) {
     return count;
 }
 
-//TODO duplicate code
-export type statEntityTypes = typeof User | typeof Customer | typeof Plan | typeof Order;
