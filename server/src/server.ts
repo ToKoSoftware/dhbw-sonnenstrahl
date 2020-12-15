@@ -80,7 +80,7 @@ export default function startServer() {
      */
     app.get('/api/v1/orders', userIsAuthorized, (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', userIsAuthorized, (req, res) => getOrder(req, res));
-    app.post('/api/v1/orders', (req, res) => createInternalOrder(req, res));
+    app.post('/api/v1/orders', userIsAuthorized, (req, res) => createInternalOrder(req, res));
     // route for external orders
     app.post('/orders', (req, res) => createExternalOrder(req, res));
     // following route just to update the order itself. not terminating it (to set is_active = false, use /api/v1/orders/:id/terminate)

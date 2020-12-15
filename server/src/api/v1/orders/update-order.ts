@@ -65,19 +65,20 @@ export async function updateOrder(req: Request, res: Response) {
 
     //id must not be changed and all set keys mut not be empty.
     if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
-
-        const plan: Plan | null = await Plan.findOne(
-            {
-                where: {
-                    id: incomingData.planId,
-                    is_active: true
+        if(incomingData.planId !== undefined){
+            const plan: Plan | null = await Plan.findOne(
+                {
+                    where: {
+                        id: incomingData.planId,
+                        is_active: true
+                    }
                 }
+            ).catch((error) => {
+                return null;
+            });
+            if (plan === null) {
+                return res.status(400).send(wrapResponse(false, {error: 'Plan cannot be changed to given planId'}));
             }
-        ).catch((error) => {
-            return null;
-        });
-        if (plan === null) {
-            return res.status(400).send(wrapResponse(false, {error: 'Plan cannot be changed to given planId'}));
         }
         updateResult = await Order.update(
             incomingData,

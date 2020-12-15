@@ -22,7 +22,6 @@ export class Order extends Model<Order> {
         return [
             'customerId',
             'planId',
-            'referrer',
             'consumption'
         ];
     }

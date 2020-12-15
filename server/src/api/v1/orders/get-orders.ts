@@ -51,7 +51,7 @@ export async function getOrder(req: Request, res: Response) {
         }
     }
 
-    return res.send(wrapResponse(true, {orderData, customerData}));
+    return res.send(wrapResponse(true, orderData));
 }
 
 export async function getOrders(req: Request, res: Response) {
