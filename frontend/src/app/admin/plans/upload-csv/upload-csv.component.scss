@@ -1,5 +1,6 @@
 .file-upload-container {
-  height: 200px;
+  min-height: 200px;
+  padding: 10px 0;
   margin: 20px auto;
   border: 2px dashed #000;
   border-radius: 10px;
@@ -19,12 +20,6 @@
   border-radius: 12px;
   padding: 5px;
   color: black;
-}
-
-.files-list .delete-file {
-  background: transparent;
-  border: none;
-  cursor: pointer;
 }
 
 .files-list .delete-file img {

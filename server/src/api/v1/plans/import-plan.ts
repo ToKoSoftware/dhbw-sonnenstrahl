@@ -12,7 +12,12 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
             throw 'No file uploaded';
         }
         // flatten
-        const file = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file;
+        const file: UploadedFile = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file;
+        const splittedFileName = file.name.split('.');
+        const fileExtension = splittedFileName[splittedFileName.length - 1];
+        if (fileExtension !== "csv") {
+            throw 'Wrong File Extension, expected csv - got ' + fileExtension;
+        }
         const incomingData = await loadCSV(file);
         const targetData: InternalPlan[] = incomingData.map(mapPlan);
         await deactivatePlans();
@@ -26,12 +31,12 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
 async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
     const csv = require('csvtojson');
     return csv({
-        delimiter: ';',
-        colParser: {
-            Fixkosten: transformEuroToCents,
-            VariableKosten: transformEuroToCents
+            delimiter: ';',
+            colParser: {
+                Fixkosten: transformEuroToCents,
+                VariableKosten: transformEuroToCents
+            }
         }
-    }
     ).fromFile(file.tempFilePath);
 }
 
