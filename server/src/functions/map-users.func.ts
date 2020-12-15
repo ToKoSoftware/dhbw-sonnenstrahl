@@ -4,7 +4,7 @@ import * as bcrypt from 'bcryptjs';
 export async function mapUser(incomingData: InternalUser): Promise<InternalUser> {
 
     const SALT_FACTOR = 10;
-    const hashedPassword =  await bcrypt.hash(incomingData.password, SALT_FACTOR);
+    const hashedPassword =  incomingData.password !== undefined ? await bcrypt.hash(incomingData.password, SALT_FACTOR) : incomingData.password;
 
     return {
         email: incomingData.email,

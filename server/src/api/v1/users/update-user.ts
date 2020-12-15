@@ -50,6 +50,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
         && validEmail
         && (req.body.is_admin === undefined)
     ) {
+        let updateQuery;
         //If mail of found user does not match incoming mail check, if email already in use.
         if(user.email !== mappedIncomingData.email && mappedIncomingData.email !== undefined){
             const emailInUseCount = await User.count({
@@ -71,41 +72,26 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
                 return res.status(400).send(wrapResponse(false, {error: 'E-Mail already in use'}));
             }
             // mail can be changed, so change complete user.
-            updateResult = await User.update(
-                mappedIncomingData,
-                { 
-                    where: {
-                        id: req.params.id
-                    },
-                    returning: true,
-                })
-                .catch(error => {
-                    success = false;
-                    return null;
-                });
-            if (!success) {
-                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
-            }
+            updateQuery = mappedIncomingData.password === undefined ? {email: mappedIncomingData.email} : mappedIncomingData;
         } else {
             // mail should not be changed, so change only password (only changable field)
-            updateResult = await User.update({
-                password: mappedIncomingData.password,
-            },
+            updateQuery = { password: mappedIncomingData.password };
+            
+        }
+        updateResult = await User.update(updateQuery,
             { 
                 where: {
                     id: req.params.id
                 },
                 returning: true,
             })
-                .catch(error => {
-                    success = false;
-                    return null;
-                });
-            if (!success) {
-                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
-            }
+            .catch(error => {
+                success = false;
+                return null;
+            });
+        if (!success) {
+            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
-
         if (updateResult === null || updateResult[0] == 0) {
             return res.status(404).send(wrapResponse(false, {error: 'No user updated'}));
         }
