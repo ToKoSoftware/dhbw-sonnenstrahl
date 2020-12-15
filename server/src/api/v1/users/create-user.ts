@@ -7,7 +7,7 @@ import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-input
 import * as EmailValidator from 'email-validator';
 
 export async function createUser(req: Request, res: Response) {
-    let success = false;
+    let success = true;
     const incomingData: InternalUser = req.body;
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
