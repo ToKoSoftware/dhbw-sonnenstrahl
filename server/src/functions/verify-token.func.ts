@@ -12,8 +12,7 @@ export function verifyToken(res: Response, token: string, next: any) {
             Vars.currentJWT = token;
             const userData: string | { [key: string]: any; } | null = jwt.decode(token);
             if (!(userData instanceof Object) || userData === null) {
-                res.status(403).send(wrapResponse(false, {error: 'Error occured during authorization!'}));
-                return;
+                return res.status(403).send(wrapResponse(false, {error: 'Error occured during authorization!'}));
             }
             const user = await User.findOne({
                 where: {
@@ -22,8 +21,7 @@ export function verifyToken(res: Response, token: string, next: any) {
             });
 
             if (user === null) {
-                res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
-                return;
+                return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
             }
             Vars.currentUser = user;
             next();
