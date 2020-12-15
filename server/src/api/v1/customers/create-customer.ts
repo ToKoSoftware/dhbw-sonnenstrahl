@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
+import { mapCustomer } from '../../../functions/map-customer.func';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {InternalCustomer} from '../../../interfaces/customers.interface';
 import {Customer} from '../../../models/customer.models';
@@ -7,6 +8,7 @@ import {Customer} from '../../../models/customer.models';
 export async function createCustomer(req: Request, res: Response) {
     let success = true;
     const incomingData: InternalCustomer = req.body;
+    const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);
 
     const requiredFields = Customer.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
@@ -15,7 +17,7 @@ export async function createCustomer(req: Request, res: Response) {
         }));
     }
 
-    const data = await Customer.create(incomingData)
+    const data = await Customer.create(mappedIncomingData)
         .catch(error => {
             success = false;
             return null;

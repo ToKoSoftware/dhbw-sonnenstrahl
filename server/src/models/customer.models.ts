@@ -29,8 +29,7 @@ export class Customer extends Model<Customer> {
             'street',
             'streetNumber',
             'postcode',
-            'city',
-            'is_active'
+            'city'
         ];
     }
 
