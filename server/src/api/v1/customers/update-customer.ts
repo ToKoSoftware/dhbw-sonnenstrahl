@@ -46,11 +46,11 @@ export async function updateCustomer(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, {error: 'No customer with given id found!'}));
     }
 
-    if (req.body.userId !== undefined && req.body.userId !== null) {
+    if (incomingData.userId !== undefined && incomingData.userId !== null) {
         const user: User | null = await User.findOne(
             {
                 where: {
-                    id: req.body.userId
+                    id: incomingData.userId
                 }
             })
             .catch(error => {
@@ -75,7 +75,7 @@ export async function updateCustomer(req: Request, res: Response) {
     ) {
 
         updateResult = await Customer.update(
-            req.body,
+            incomingData,
             {
                 where: {
                     id: req.params.id
