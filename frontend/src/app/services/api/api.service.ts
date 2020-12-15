@@ -9,11 +9,11 @@ import {environment} from '../../../environments/environment';
 })
 export class ApiService {
 
-  private static getApiBaseUrl(): string {
+  public static getApiBaseUrl(): string {
     return environment.apiUrl;
   }
 
-  private static getJwt(): string | null {
+  public static getJwt(): string | null {
     return localStorage.getItem('jwt');
   }
 

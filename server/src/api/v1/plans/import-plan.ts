@@ -1,10 +1,10 @@
-import { IncomingPlan, InternalPlan } from '../../../interfaces/plan.interface';
-import { Request, Response } from 'express';
-import { wrapResponse } from '../../../functions/response-wrapper';
+import {IncomingPlan, InternalPlan} from '../../../interfaces/plan.interface';
+import {Request, Response} from 'express';
+import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
-import { mapPlan } from '../../../functions/map-plan.func';
-import { UploadedFile } from 'express-fileupload';
-import { Plan } from '../../../models/plan.model';
+import {mapPlan} from '../../../functions/map-plan.func';
+import {UploadedFile} from 'express-fileupload';
+import {Plan} from '../../../models/plan.model';
 
 export async function importPlan(req: Request, res: Response) {
     try {
@@ -12,14 +12,19 @@ export async function importPlan(req: Request, res: Response) {
             throw 'No file uploaded';
         }
         // flatten
-        const file = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file;
+        const file: UploadedFile = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file;
+        const splittedFileName = file.name.split('.');
+        const fileExtension = splittedFileName[splittedFileName.length - 1];
+        if (fileExtension !== "csv") {
+            throw 'Wrong File Extension, expected csv - got ' + fileExtension;
+        }
         const incomingData = await loadCSV(file);
         const targetData: InternalPlan[] = incomingData.map(mapPlan);
         await deactivatePlans();
         targetData.forEach(createPlanEntry);
         res.send(wrapResponse(true, targetData));
     } catch (e) {
-        res.status(400).send(wrapResponse(false, { error: e }));
+        res.status(400).send(wrapResponse(false, {error: e}));
         return;
     }
 }
@@ -27,12 +32,12 @@ export async function importPlan(req: Request, res: Response) {
 async function loadCSV(file: UploadedFile): Promise<IncomingPlan[]> {
     const csv = require('csvtojson');
     return csv({
-        delimiter: ';',
-        colParser: {
-            Fixkosten: transformEuroToCents,
-            VariableKosten: transformEuroToCents
+            delimiter: ';',
+            colParser: {
+                Fixkosten: transformEuroToCents,
+                VariableKosten: transformEuroToCents
+            }
         }
-    }
     ).fromFile(file.tempFilePath);
 }
 
@@ -59,5 +64,5 @@ function createPlanEntry(data: InternalPlan) {
 }
 
 function transformEuroToCents(eur: string): number {
-    return Math.floor(Number(eur.replace(",", ".")) * 10000);
+    return Math.floor(Number(eur.replace(',', '.')) * 10000);
 }
