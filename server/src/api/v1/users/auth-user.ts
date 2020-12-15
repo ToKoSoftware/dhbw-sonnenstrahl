@@ -29,10 +29,10 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
 
 
     if (!success) {
-        res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (user === null) {
-        res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
+        return res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
     } else {
         const passwordMatches = await bcrypt.compare(incomingData.password, user.password)
             .catch(error => {
@@ -54,6 +54,5 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
         }
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
-    return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
 }
 
