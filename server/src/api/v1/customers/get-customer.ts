@@ -6,7 +6,7 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {Customer} from '../../../models/customer.models';
 import {Vars} from '../../../vars';
 
-export async function getCustomer(req: Request, res: Response) {
+export async function getCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
     const customer: Customer | null = await Customer.findOne(
         {
@@ -36,7 +36,7 @@ export async function getCustomer(req: Request, res: Response) {
 }
 
 
-export async function getCustomers(req: Request, res: Response) {
+export async function getCustomers(req: Request, res: Response): Promise<Response> {
     let success = true;
     let query: FindOptions = {
         raw: true,

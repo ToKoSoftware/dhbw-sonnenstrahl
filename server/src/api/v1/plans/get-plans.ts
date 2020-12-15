@@ -4,7 +4,7 @@ import {FindOptions} from 'sequelize';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
 
-export async function getPlans(req: Request, res: Response) {
+export async function getPlans(req: Request, res: Response): Promise<Response> {
     let query: FindOptions = {
         raw: true,
     };
@@ -36,7 +36,7 @@ export async function getPlans(req: Request, res: Response) {
     return res.send(wrapResponse(true, data));
 }
 
-export async function getPlansInExternalFormat(req: Request, res: Response) {
+export async function getPlansInExternalFormat(req: Request, res: Response): Promise<Response> {
     let query: FindOptions = {
         raw: true,
     };
@@ -65,7 +65,7 @@ export async function getPlansInExternalFormat(req: Request, res: Response) {
     return res.send(wrapResponse(true, data));
 }
 
-export async function getPlan(req: Request, res: Response) {
+export async function getPlan(req: Request, res: Response): Promise<Response> {
     let success = true;
     const data = await Plan.findOne(
         {

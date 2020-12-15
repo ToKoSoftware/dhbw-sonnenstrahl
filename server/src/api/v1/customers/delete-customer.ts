@@ -5,7 +5,7 @@ import {Order} from '../../../models/order.model';
 import {Op} from 'sequelize';
 
 
-export async function deleteCustomer(req: Request, res: Response) {
+export async function deleteCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
     // Can only set Customer to inactive, if none of his orders is active/not terminated
 

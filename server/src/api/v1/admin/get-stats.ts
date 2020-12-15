@@ -6,7 +6,7 @@ import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 import {User} from '../../../models/user.model';
 
-export async function getStats(req: Request, res: Response) {
+export async function getStats(req: Request, res: Response): Promise<Response> {
     const usersCount = await countTotalEntities(User);
 
     const activePlansCount = await countTotalEntities(Plan, true);

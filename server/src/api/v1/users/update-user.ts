@@ -10,7 +10,7 @@ import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-
 import { Vars } from '../../../vars';
 import {Op} from 'sequelize';
 
-export async function updateUser(req: Request, res: Response) {
+export async function updateUser(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult: [number, User[]] | null;
     const incomingData: InternalUser = req.body;

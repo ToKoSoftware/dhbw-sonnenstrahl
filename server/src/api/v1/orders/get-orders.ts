@@ -7,7 +7,7 @@ import {Customer} from '../../../models/customer.models';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 import {Vars} from '../../../vars';
 
-export async function getOrder(req: Request, res: Response) {
+export async function getOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
     const orderData: Order | null = await Order.findOne(
         {
@@ -54,7 +54,7 @@ export async function getOrder(req: Request, res: Response) {
     return res.send(wrapResponse(true, orderData));
 }
 
-export async function getOrders(req: Request, res: Response) {
+export async function getOrders(req: Request, res: Response): Promise<Response> {
     let success = true;
     let query: FindOptions = {
         raw: true,

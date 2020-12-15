@@ -3,7 +3,7 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 
-export async function deletePlan(req: Request, res: Response) {
+export async function deletePlan(req: Request, res: Response): Promise<Response> {
     let success = true;
 
     const activeOrders: Order | null = await Order.findOne(

@@ -4,7 +4,7 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {InternalPlan} from '../../../interfaces/plan.interface';
 import {Plan} from '../../../models/plan.model';
 
-export async function createPlan(req: Request, res: Response) {
+export async function createPlan(req: Request, res: Response): Promise<Response> {
     const incomingData: InternalPlan = req.body;
 
     const requiredFields = Plan.requiredFields();

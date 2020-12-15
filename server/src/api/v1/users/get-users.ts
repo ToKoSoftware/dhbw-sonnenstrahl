@@ -5,7 +5,7 @@ import { FindOptions } from 'sequelize';
 import { buildQuery, QueryBuilderConfig } from '../../../functions/query-builder.func';
 import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
 
-export async function getUser(req: Request, res: Response) {
+export async function getUser(req: Request, res: Response): Promise<Response> {
     let success = true;
 
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
@@ -33,7 +33,7 @@ export async function getUser(req: Request, res: Response) {
     return res.send(wrapResponse(data != null, data));
 }
 
-export async function getUsers(req: Request, res: Response) {
+export async function getUsers(req: Request, res: Response): Promise<Response> {
     /*let query: FindOptions = {
         raw: true,
     };

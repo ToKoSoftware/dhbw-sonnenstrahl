@@ -8,7 +8,7 @@ import {Customer} from '../../../models/customer.models';
 import {User} from '../../../models/user.model';
 import {Vars} from '../../../vars';
 
-export async function updateCustomer(req: Request, res: Response) {
+export async function updateCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult: [number, Customer[]] | [];
     const incomingData: InternalCustomer = req.body;

@@ -5,7 +5,7 @@ import {Customer} from '../../../models/customer.models';
 import {Order} from '../../../models/order.model';
 import {Vars} from '../../../vars';
 
-export async function terminateOrder(req: Request, res: Response) {
+export async function terminateOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
 
     const order: Order | null = await Order.findOne(

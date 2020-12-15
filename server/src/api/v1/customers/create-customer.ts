@@ -6,7 +6,7 @@ import {InternalCustomer} from '../../../interfaces/customers.interface';
 import {Customer} from '../../../models/customer.models';
 import { User } from '../../../models/user.model';
 
-export async function createCustomer(req: Request, res: Response) {
+export async function createCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: InternalCustomer = req.body;
     const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);

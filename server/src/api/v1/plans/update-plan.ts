@@ -6,7 +6,7 @@ import {InternalPlan} from '../../../interfaces/plan.interface';
 import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 
-export async function updatePlan(req: Request, res: Response) {
+export async function updatePlan(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult;
     const incomingData: InternalPlan = req.body;

@@ -7,7 +7,7 @@ import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 import {User} from '../../../models/user.model';
 
-export async function getMonthlyStats(req: Request, res: Response) {
+export async function getMonthlyStats(req: Request, res: Response): Promise<Response>  {
     const customerCount = await countMonthlyEntities(Customer);
     const userCount = await countMonthlyEntities(User);
     const planCount = await countMonthlyEntities(Plan);
@@ -19,7 +19,7 @@ export async function getMonthlyStats(req: Request, res: Response) {
         'plans': planCount,
         'orders': orderCount
     };
-    res.send(wrapResponse(true, data));
+    return res.send(wrapResponse(true, data));
 }
 
 async function countMonthlyEntities(model: statEntityTypes) {
