@@ -62,7 +62,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
         }
         return res.send(wrapResponse(true, data));
     } else {
-        return res.status(400).send(wrapResponse(false, { error: 'E-mail is already in use' }));
+        return res.status(400).send(wrapResponse(false, { error: 'Email is already in use' }));
     }
 
 }
