@@ -2,7 +2,7 @@ import {InternalCustomer} from '../interfaces/customers.interface';
 
 export function mapCustomer(incomingData: InternalCustomer): InternalCustomer {
     return {
-        userId: incomingData.userId !== undefined ? incomingData.userId : null,
+        userId: incomingData.userId || null,
         firstName: incomingData.firstName,
         lastName: incomingData.lastName,
         street: incomingData.street,
