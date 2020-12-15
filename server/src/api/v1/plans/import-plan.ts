@@ -1,4 +1,4 @@
-import {InternalPlan, PlanFromFileUpload} from '../../../interfaces/plan.interface';
+import {InternalPlan, FileUploadPlan} from '../../../interfaces/plan.interface';
 import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
@@ -23,7 +23,7 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
     }
 }
 
-async function loadCSV(file: UploadedFile): Promise<PlanFromFileUpload[]> {
+async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
     const csv = require('csvtojson');
     return csv({
         delimiter: ';',
