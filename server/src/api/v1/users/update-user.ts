@@ -24,7 +24,7 @@ export async function updateUser(req: Request, res: Response) {
         return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
 
-   if (!currentUserIsAdminOrMatchesId(req.params.id)) {
+    if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
@@ -52,7 +52,7 @@ export async function updateUser(req: Request, res: Response) {
     ) {
         //If mail of found user does not match incoming mail check, if email already in use.
         if(user.email !== mappedIncomingData.email && mappedIncomingData.email !== undefined){
-            let emailInUseCount = await User.count({
+            const emailInUseCount = await User.count({
                 where: {
                     email: mappedIncomingData.email,
                     id: {
@@ -60,10 +60,10 @@ export async function updateUser(req: Request, res: Response) {
                     }
                 }
             })
-            .catch(error => {
-                success = false;
-                return 0;
-            })
+                .catch(error => {
+                    success = false;
+                    return 0;
+                });
             if (!success) {
                 return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
             }
@@ -73,16 +73,16 @@ export async function updateUser(req: Request, res: Response) {
             // mail can be changed, so change complete user.
             updateResult = await User.update(
                 mappedIncomingData,
-            { 
-                where: {
-                    id: req.params.id
-                },
-                returning: true,
-            })
-            .catch(error => {
-                success = false;
-                return null;
-            });
+                { 
+                    where: {
+                        id: req.params.id
+                    },
+                    returning: true,
+                })
+                .catch(error => {
+                    success = false;
+                    return null;
+                });
             if (!success) {
                 return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
             }
@@ -97,10 +97,10 @@ export async function updateUser(req: Request, res: Response) {
                 },
                 returning: true,
             })
-            .catch(error => {
-                success = false;
-                return null;
-            });
+                .catch(error => {
+                    success = false;
+                    return null;
+                });
             if (!success) {
                 return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
             }
@@ -139,7 +139,7 @@ export async function updateUser(req: Request, res: Response) {
         })
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
  
     if (!success) {

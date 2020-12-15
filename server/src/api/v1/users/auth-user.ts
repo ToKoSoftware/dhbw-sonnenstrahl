@@ -13,7 +13,7 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     let success = true;
-    let calculatedExpiresIn = 60 * 60; //expiration after 1h
+    const calculatedExpiresIn = 60 * 60; //expiration after 1h
 
 
     const user = await User.findOne(

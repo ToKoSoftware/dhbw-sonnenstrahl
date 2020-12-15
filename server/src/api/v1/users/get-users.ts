@@ -13,7 +13,7 @@ export async function getUser(req: Request, res: Response) {
     }
 
     //return everything beside password
-    let data = await User.findOne(
+    const data = await User.findOne(
         {
             attributes: { exclude: ['password'] },
             where: {
@@ -53,7 +53,7 @@ export async function getUsers(req: Request, res: Response) {
 
     //TODO keine Query berücksichtigung!!!
     //return everything beside password
-    let data = await User.findAll({
+    const data = await User.findAll({
         attributes: {
             exclude: [ 'password' ]
         }

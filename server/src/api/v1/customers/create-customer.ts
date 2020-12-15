@@ -19,17 +19,17 @@ export async function createCustomer(req: Request, res: Response) {
     }
 
     if(mappedIncomingData.userId !== null){
-        let user = await User.findOne(
+        const user = await User.findOne(
             {
                 where: {
                     id: mappedIncomingData.userId
                 }
             }
         )
-        .catch(error => {
-            success = false;
-            return null;
-        });
+            .catch(error => {
+                success = false;
+                return null;
+            });
         if (!success) {
             return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }

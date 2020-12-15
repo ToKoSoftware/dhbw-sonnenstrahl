@@ -38,10 +38,10 @@ export async function createUser(req: Request, res: Response) {
 
     if (user === null) {
 
-        let createdData = await User.create(mappedIncomingData)
+        const createdData = await User.create(mappedIncomingData)
             .catch(error => {
                 success = false;
-                return null
+                return null;
             });
         if (!success||createdData === null) {
             return res.status(500).send(wrapResponse(false, { error: 'Could not create User' }));
