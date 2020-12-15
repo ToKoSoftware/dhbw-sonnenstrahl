@@ -74,6 +74,13 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/app/ui" />
+      <recent name="$PROJECT_DIR$/frontend/src/app/services/login" />
+      <recent name="$PROJECT_DIR$/frontend/src/app/services" />
+      <recent name="$PROJECT_DIR$/frontend/src/app/home" />
+      <recent name="$PROJECT_DIR$/frontend/src/assets" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/src/app/profile" />
       <recent name="$PROJECT_DIR$/frontend/src/app/login-register" />
