@@ -18,7 +18,6 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
 
     const user = await User.findOne(
         {
-            attributes: ['id', 'email', 'is_admin'],
             where: {
                 email: mappedIncomingData.email,
             }
@@ -32,12 +31,11 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
     if (!success) {
         res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-
     if (user === null) {
         res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
     } else {
-        const passwordMatches = await bcrypt.compare(req.body.password, user.password)
-            .then(matches => matches).catch(error => {
+        const passwordMatches = await bcrypt.compare(incomingData.password, user.password)
+            .catch(error => {
                 return false;
             });
         if (passwordMatches) {
