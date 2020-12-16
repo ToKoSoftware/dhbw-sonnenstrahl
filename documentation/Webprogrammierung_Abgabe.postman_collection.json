@@ -1,0 +1,852 @@
+{
+	"info": {
+		"_postman_id": "a6d6fc76-7be8-4e16-879e-eea8b31af22e",
+		"name": "Webprogrammierung Abgabe",
+		"description": "Diese Collection enthält alle möglichen API Routen mit passenden Bodies.\n\nDa wir bestimmte Permission-Level unserer User(Benutzer) gepflegt haben, muss für bestimmte Routen/Funktionalitäten ein Token generiert werden.\nDiesen erhält man mit der folgenden Route:\n\n/api/v1/login\nBody: username und password.\nAls Response daraus erhält man einen Token, der bei allen nötigen Abfragen im Header mitgeliefert werden muss. (Beispiel siehe Authorization-Tab).\n\nFolgende Routen sind ohne Permission möglich:\n- Alle Tarife abfragen: GET /api/v1/plans\n- Einen bestimmten Tarif abfragen: GET /api/v1/plans/:id\n- /orders ... externe Bestellung\n- Einen Benutzer (der Webanwendung) anlegen: POST /api/v1/users\n- Einen Kunden anlegen: POST /api/v1/customers\n\nFolgende Routen sind mit Permission für den entsprechenden User mit seinen (und nur seinen) zugehörigen Daten möglich:\n- Eine Bestellung abgeben: POST /api/v1/orders, oder POST /orders (entsprechend der Vorgaben)\n- Eine eigene Bestellung ausgeben: GET /api/v1/orders/:id\n- Eine eigene Bestellung abändern: PUT /api/v1/orders/:id\n- Eine eigene Bestellung beenden: PUT /api/v1/orders/:id/terminate\n- Den eigenen User ausgeben: GET /api/v1/users/:id\n- Den eigenen User abändern: PUT /api/v1/users/:id\n- Eigene Kunden(-daten) ausgeben: GET /api/v1/customers (hier werden nur die Kunden(-daten) ausgegeben, die dem Benutzer zugeordnet sind)\n- Daten eines eigenen Kunden ausgeben: GET /api/v1/customers/:id\n- Einen eigenen Kunden abändern: PUT /api/v1/customers/:id\n\nFolgende Routen sind nur als Admin möglich:\n- Tarife importieren: PUT /api/v1/plans\n- Einen einzelnen Tarif anlegen: POST /api/v1/plans\n- Einen Tarif abändern: PUT /api/v1/plans/:id\n- Einen Tarif löschen: DELETE /api/v1/plans/:id\n- Alle Bestellungen ausgeben: GET /api/v1/orders\n- Eine Bestellung löschen: DELETE /api/v1/orders/:id\n- Alle Benutzer ausgeben: GET /api/v1/users\n- Einen Benutzer löschen: DELETE /api/v1/users/:id\n- Alle Kunden ausgeben: GET /api/v1/customers\n- Einen Kunden löschen: GET /api/v1/customers/:id\n- Allgemeine Statistiken ausgeben: GET api/v1/admin/stats\n- Monatliche Statistiken ausgeben: GET api/v1/admin/stats/monthly\n- Alle Bestellungen per CSV exportieren: /api/v1/admin/export/orders (Datei-Download nur möglich im Browser und mit Token in der URL)\n- Alle Benutzer per CSV exportieren: /api/v1/admin/export/users (Datei-Download nur möglich im Browser und mit Token in der URL)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "GetUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/users/d47e1463-ba99-48d6-990f-4121d3e95915",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"d47e1463-ba99-48d6-990f-4121d3e95915"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/users/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@test.de\",\n    \"password\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/users/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"neuerTest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/users/d35c7e19-63f2-4bdf-b85f-620346d1e310",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"d35c7e19-63f2-4bdf-b85f-620346d1e310"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"neuerTest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/users/d35c7e19-63f2-4bdf-b85f-620346d1e310",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"d35c7e19-63f2-4bdf-b85f-620346d1e310"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "plans",
+			"item": [
+				{
+					"name": "GetPlans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/plans",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPlan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/plans/f5b7db0e-62e1-4138-abf3-96fe20ab29d8",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"f5b7db0e-62e1-4138-abf3-96fe20ab29d8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostPlan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan\": \"Neuer Tarif\",\n    \"postcode\": \"01234\",\n    \"cost_var\": 2000,\n    \"cost_fix\": 2000000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/plans/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutPlan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan\": \"Neuer Tarifname\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/plans/c8ef3180-0e52-44de-a1cb-3ef36da21075",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"c8ef3180-0e52-44de-a1cb-3ef36da21075"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ImportPlans",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/dominikprivat/Dokumente/DHBW/Sem3+4/Web-Programmierung/dhbw-sonnenstrahl/data/sample-data.csv"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/plans",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePlan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/plans/c47569a0-5cd9-4e5e-bb97-d5a2a5d0e716",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"c47569a0-5cd9-4e5e-bb97-d5a2a5d0e716"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "customers",
+			"item": [
+				{
+					"name": "GetCustomers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/customers",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/customers/273f97d7-5400-4e9a-bf23-fdfb9098a255",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"273f97d7-5400-4e9a-bf23-fdfb9098a255"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"d47e1463-ba99-48d6-990f-4121d3e95915\",\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Hausnummer\",\n    \"postcode\": \"01234\",\n    \"city\": \"Ort\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/customers",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutCustomer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"NeuerVorname\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/customers/e76daf7b-e886-455e-9a62-2a569ff5dc8d",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"e76daf7b-e886-455e-9a62-2a569ff5dc8d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCustomer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/customers/e76daf7b-e886-455e-9a62-2a569ff5dc8d",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"e76daf7b-e886-455e-9a62-2a569ff5dc8d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "GetOrders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/orders",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"d223c5a7-2a48-4430-b937-4c5adf71f636"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": \"273f97d7-5400-4e9a-bf23-fdfb9098a255\",\n    \"planId\": \"7809cf8f-5811-41e8-9543-18e2cfd3a6ac\",\n    \"consumption\": 1000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/orders/",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"consumption\": \"1100\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"d223c5a7-2a48-4430-b937-4c5adf71f636"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TerminateOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636/terminate",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"d223c5a7-2a48-4430-b937-4c5adf71f636",
+								"terminate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"d223c5a7-2a48-4430-b937-4c5adf71f636"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostExternalOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Nummer\",\n    \"zipCode\": \"73431\",\n    \"city\": \"Ort\",\n    \"rateId\": \"812c2d61-683a-4240-8463-6d9de4b8364f\",\n    \"consumption\": 1000,\n    \"agent\": \"CHECK27/7\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost/orders",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3ZDU5NjIxLWUyMDQtNDVjZS04OTFjLWYwMzEyZmY5NjcxYyIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA3NjEwNjk0LCJleHAiOjE2MDc2MTQyOTR9.wCRNyBWF7VHrz_tYw24GXCtePtXkwalUhYgPk7esPIk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@admin.de\",\n    \"password\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3ZDU5NjIxLWUyMDQtNDVjZS04OTFjLWYwMzEyZmY5NjcxYyIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA3MjUzMjYwLCJleHAiOjE2MDcyNTY4NjB9.r7eP2ZqppU0Y2wEHQZiGZQ6IgS5LkpSL1Ws7FNsCtJQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0e0bec47-1bb2-4471-8f5f-6da968ecae8a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c7772d53-3ca3-4c5c-bb45-98b28160d592",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

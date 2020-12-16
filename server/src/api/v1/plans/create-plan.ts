@@ -1,25 +1,23 @@
-import { Request, Response } from "express";
-import { objectHasRequiredAndNotEmptyKeys } from "../../../functions/check-inputs.func";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingPlan, InternalPlan } from "../../../interfaces/plan.interface";
-import { Plan } from "../../../models/plan.model";
-import { mapPlan } from '../../../functions/map-plan.func';
+import {Request, Response} from 'express';
+import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {InternalPlan} from '../../../interfaces/plan.interface';
+import {Plan} from '../../../models/plan.model';
 
-export async function createPlan(req: Request, res: Response) {
-    const incomingData: IncomingPlan = req.body;
-    const mappedIncomingData: InternalPlan = mapPlan(incomingData);
+export async function createPlan(req: Request, res: Response): Promise<Response> {
+    const incomingData: InternalPlan = req.body;
 
     const requiredFields = Plan.requiredFields();
-    if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
+    if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
         return res.status(400).send(wrapResponse(false, {
             error: 'Not all required fields have been set'
-        }))
+        }));
     }
 
-    let data = await Plan.create(mappedIncomingData)
+    const data = await Plan.create(incomingData)
         .catch(error => null);
     if (data === null) {
-        return res.status(500).send(wrapResponse(false, { error: 'Could not create Plan' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Could not create Plan'}));
     }
 
     return res.send(wrapResponse(true, data));

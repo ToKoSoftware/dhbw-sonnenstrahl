@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import { User } from '../../../models/user.model';
 import { wrapResponse } from '../../../functions/response-wrapper';
 import { FindOptions } from 'sequelize';
-import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from '../../../functions/query-builder.func';
+import { buildQuery, QueryBuilderConfig } from '../../../functions/query-builder.func';
 import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
 
-export async function getUser(req: Request, res: Response) {
+export async function getUser(req: Request, res: Response): Promise<Response> {
     let success = true;
 
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
@@ -13,7 +13,7 @@ export async function getUser(req: Request, res: Response) {
     }
 
     //return everything beside password
-    let data = await User.findOne(
+    const data = await User.findOne(
         {
             attributes: { exclude: ['password'] },
             where: {
@@ -22,7 +22,7 @@ export async function getUser(req: Request, res: Response) {
         })
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
     if (!success) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
@@ -33,12 +33,11 @@ export async function getUser(req: Request, res: Response) {
     return res.send(wrapResponse(data != null, data));
 }
 
-export async function getUsers(req: Request, res: Response) {
-    let query: FindOptions = {
+export async function getUsers(req: Request, res: Response): Promise<Response> {
+    /*let query: FindOptions = {
         raw: true,
     };
     const allowedSearchFilterAndOrderFields = ['email'];
-    let customResolver = new Map<string, customFilterValueResolver>();
     const queryConfig: QueryBuilderConfig = {
         query: query,
         searchString: req.query.search as string || '',
@@ -46,20 +45,26 @@ export async function getUsers(req: Request, res: Response) {
         allowedFilterFields: allowedSearchFilterAndOrderFields,
         allowedSearchFields: allowedSearchFilterAndOrderFields,
         allowedOrderFields: allowedSearchFilterAndOrderFields
-    }
+    };
     query = buildQuery(queryConfig, req);
-
+    */
 
     let success = true;
 
+    //TODO keine Query berücksichtigung!!!
     //return everything beside password
-    let data = await User.findAll(
-        { attributes: { exclude: ['password'] }}
-        )
+    const data = await User.findAll({
+        attributes: {
+            exclude: [ 'password' ]
+        }
+    })
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+    }
 
-    return res.send(wrapResponse(success, data));
+    return res.send(wrapResponse(true, data));
 }

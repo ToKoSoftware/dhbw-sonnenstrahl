@@ -1,9 +1,26 @@
-import { Table, Column, Model, BeforeCreate } from 'sequelize-typescript';
-import { v4 as uuidv4 } from 'uuid';
-import { InternalCustomer } from '../interfaces/customers.interface';
+import {BeforeCreate, Column, Model, Table} from 'sequelize-typescript';
+import {v4 as uuidv4} from 'uuid';
+import {InternalCustomer} from '../interfaces/customers.interface';
 
 @Table
 export class Customer extends Model<Customer> {
+
+    @Column
+    userId?: string;
+    @Column
+    firstName: string;
+    @Column
+    lastName: string;
+    @Column
+    street: string;
+    @Column
+    streetNumber: number;
+    @Column
+    postcode: string;
+    @Column
+    city: number;
+    @Column
+    is_active: boolean;
 
     public static requiredFields(): Array<keyof InternalCustomer> {
         return [
@@ -12,8 +29,7 @@ export class Customer extends Model<Customer> {
             'street',
             'streetNumber',
             'postcode',
-            'city',
-            'is_active'
+            'city'
         ];
     }
 
@@ -21,28 +37,4 @@ export class Customer extends Model<Customer> {
     static addUuid(instance: Customer) {
         return instance.id = uuidv4();
     }
-
-    @Column
-    userId?: string;
-
-    @Column
-    firstName: string;
-
-    @Column
-    lastName: string;
-
-    @Column
-    street: string;
-
-    @Column
-    streetNumber: number;
-
-    @Column
-    postcode: string;
-
-    @Column
-    city: number;
-
-    @Column
-    is_active: boolean;
 }

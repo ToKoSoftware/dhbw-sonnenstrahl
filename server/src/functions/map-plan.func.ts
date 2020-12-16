@@ -1,6 +1,6 @@
-import { IncomingPlan, InternalPlan } from '../interfaces/plan.interface';
+import {InternalPlan, FileUploadPlan} from '../interfaces/plan.interface';
 
-export function mapPlan(incomingPlan: IncomingPlan): InternalPlan {
+export function mapPlan(incomingPlan: FileUploadPlan): InternalPlan {
     return {
         plan: incomingPlan.Tarifname,
         postcode: incomingPlan.PLZ,

@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
-import {IncomingUser, InternalUser} from '../../../interfaces/users.interface';
+import {InternalUser} from '../../../interfaces/users.interface';
 import {mapUser} from '../../../functions/map-users.func';
 import {User} from '../../../models/user.model';
 import jwt from 'jsonwebtoken';
@@ -9,16 +9,15 @@ import * as bcrypt from 'bcryptjs';
 
 export async function loginUser(req: Request, res: Response): Promise<Response> {
 
-    const incomingData: IncomingUser = req.body;
+    const incomingData: InternalUser = req.body;
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     let success = true;
-    let calculatedExpiresIn = 60 * 60; //expiration after 1h
+    const calculatedExpiresIn = 60 * 60; //expiration after 1h
 
 
     const user = await User.findOne(
         {
-            attributes: ['id', 'email', 'is_admin'],
             where: {
                 email: mappedIncomingData.email,
             }
@@ -30,14 +29,13 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
 
 
     if (!success) {
-        res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-
     if (user === null) {
-        res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
+        return res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
     } else {
-        const passwordMatches = await bcrypt.compare(req.body.password, user.password)
-            .then(matches => matches).catch(error => {
+        const passwordMatches = await bcrypt.compare(incomingData.password, user.password)
+            .catch(error => {
                 return false;
             });
         if (passwordMatches) {
@@ -56,6 +54,5 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
         }
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
-    return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
 }
 

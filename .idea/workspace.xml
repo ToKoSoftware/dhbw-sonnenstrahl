@@ -422,9 +422,79 @@
       <option name="number" value="00021" />
       <option name="presentableId" value="LOCAL-00021" />
       <option name="project" value="LOCAL" />
-      <updated>1607868693123</updated>
+      <updated>1607192676149</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="* Edit and delete Users">
+      <created>1607193810878</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1607193810878</updated>
+    </task>
+    <task id="LOCAL-00023" summary="* Implemented frontend token expiration">
+      <created>1607370777139</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1607370777139</updated>
+    </task>
+    <task id="LOCAL-00024" summary="* Export plans&#10;* Add breadcrumb to admin pages">
+      <created>1607372080523</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1607372080523</updated>
+    </task>
+    <task id="LOCAL-00025" summary="* Implemented editing of customers&#10;* Updated frontend interfaces">
+      <created>1607373762797</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1607373762797</updated>
+    </task>
+    <task id="LOCAL-00026" summary="* Show related customers for user">
+      <created>1607375285609</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1607375285609</updated>
+    </task>
+    <task id="LOCAL-00027" summary="* Fix wrong input field types and placeholders">
+      <created>1607452320258</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1607452320258</updated>
+    </task>
+    <task id="LOCAL-00028" summary="* Implemented password hashing">
+      <created>1607704076259</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1607704076259</updated>
+    </task>
+    <task id="LOCAL-00029" summary="* Run ESLINT 😅">
+      <created>1607704873036</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1607704873036</updated>
+    </task>
+    <task id="LOCAL-00030" summary="* Run WebStorm's linter">
+      <created>1607705083554</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1607705083554</updated>
+    </task>
+    <task id="LOCAL-00031" summary="* Don't fix linter errors when building">
+      <created>1607705163954</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1607705163954</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
