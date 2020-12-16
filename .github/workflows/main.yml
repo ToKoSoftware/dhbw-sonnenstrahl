@@ -14,18 +14,15 @@ on:
   workflow_dispatch:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  lint-frontend:
+  build-frontend:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v2
         - name: Install modules
           working-directory: ./server
-          run: npm install
-        - name: Run ESLint
-          working-directory: ./server
-          run: eslint . --ext .ts
+          run: npm install && npm run build
   # This workflow contains a single job called "build"
-  build:
+  build-docker:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
