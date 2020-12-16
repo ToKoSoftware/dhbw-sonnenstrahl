@@ -1,72 +1,23 @@
 <app-nav-spacer></app-nav-spacer>
-<app-container>
-  <ng-container *ngIf="!loading">
-    <app-header [breadcrumbs]="breadcrumbs" [title]="title"></app-header>
-    <div class="my-3">
-      <div>
-        <label for="account_number" class="block text-sm font-medium leading-5 text-gray-700">
-          Jährlichen Verbrauch angeben:
-        </label>
-        <div class="flex items-stretch">
-          <div class="mt-1 flex-1 relative rounded-md shadow-sm">
-            <input id="account_number" class="form-input block w-full pr-10 sm:text-sm sm:leading-5" placeholder="1000"
-                   value="1000" [(ngModel)]="currentEstimatedUsage">
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              kWh
-            </div>
-          </div>
-          <app-button-group class="mt-1 pl-2" [buttons]="plusMinusButtons"></app-button-group>
-        </div>
-      </div>
-    </div>
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10" *ngFor="let result of results">
-      <div class="mx-auto rounded-lg shadow-lg overflow-hidden lg:max-w-none lg:flex">
-        <div class="flex-1">
-          <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-            <div class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
-              <div class="ml-4 mt-4">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">
-                  {{ result.plan }} Tarif
-                </h3>
-                <p class="mt-1 text-sm leading-5 text-gray-500">
-                  Dieser Tarif ist für Ihre Region verfügbar.
-                </p>
-              </div>
-              <div class="ml-4 mt-4 flex-shrink-0">
-              </div>
-            </div>
-          </div>
-          <div class="px-4 py-5 sm:px-6">
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <div class="sm:col-span-1">
-                <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Grundpreis
-                </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900">
-                  {{roundToTwoDigits(result.cost_fix / 10000)}} €
-                </dd>
-              </div>
-              <div class="sm:col-span-1">
-                <dt class="text-sm leading-5 font-medium text-gray-500">
-                  Arbeitspreis
-                </dt>
-                <dd class="mt-1 text-sm leading-5 text-gray-900">
-                  {{roundToTwoDigits(result.cost_var / 100)}} ct/kWh
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div>
-        <div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12"
-             style="min-width: 300px">
-          <small>Anhand Ihrer Angaben kalkulierte jährliche Kosten:</small>
-          <div class="my-4 flex items-center justify-center text-3xl leading-none font-extrabold text-blue-900">
-            <span>{{ calculateCostExample(result.cost_var, result.cost_fix) }}</span>
-            <span class="ml-3 text-xl leading-7 font-medium text-gray-500">€</span>
-          </div>
-          <app-button label="Jetzt bestellen"></app-button>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-</app-container>
+<ng-container *ngIf="!loading">
+  <app-header
+    [breadcrumbs]="breadcrumbs"
+    [title]="title"
+    [whiteBg]="true"
+  >
+  </app-header>
+  <app-container>
+    <app-usage-people-counter (estimatedUsage)="currentEstimatedUsage = $event"></app-usage-people-counter>
+    <ng-container *ngIf="!loading">
+      <ng-container *ngFor="let result of results">
+        <app-plan-detail
+          [estimatedUsage]="currentEstimatedUsage" [plan]="result">
+          <a [routerLink]="'/order/' + result.id  + '/' + currentEstimatedUsage">
+            <app-button label="Jetzt bestellen"></app-button>
+          </a>
+        </app-plan-detail>
+      </ng-container>
+    </ng-container>
+    <app-loading *ngIf="loading"></app-loading>
+  </app-container>
+</ng-container>

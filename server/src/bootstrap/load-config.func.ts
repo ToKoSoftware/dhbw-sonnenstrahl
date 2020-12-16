@@ -1,12 +1,12 @@
 import {Configuration, DatabaseCredentials} from '../interfaces/configutation.interface';
 import {Vars} from '../vars';
-import isBlank from "is-blank";
+import isBlank from 'is-blank';
 
 export function loadConfig(): Configuration {
     const loggingEnabled = process.env.LOGGING === 'true';
     Vars.loggy.loggingEnabled = loggingEnabled;
     if (loggingEnabled) {
-        Vars.loggy.warn(`[Configuration Loader] Enabled config.logging because the LOGGING env variable is set to true`);
+        Vars.loggy.warn('[Configuration Loader] Enabled config.logging because the LOGGING env variable is set to true');
     }
     const databaseCredentialFields: ConfigurationConfig[] = [
         {
@@ -30,15 +30,21 @@ export function loadConfig(): Configuration {
             mappingName: 'port',
             defaultValue: '5432',
             required: false
+        }, {
+            name: 'JWT_HASH',
+            mappingName: 'jwtSalt',
+            defaultValue: '',
+            required: true
         },
     ];
 
-    let mappedDatabaseCredentials: DatabaseCredentials = {
+    const mappedDatabaseCredentials: DatabaseCredentials = {
         dbname: '',
         password: '',
         username: '',
         url: '',
-        port: ''
+        port: '',
+        jwtSalt: ''
     };
 
     databaseCredentialFields.forEach((field) => {
@@ -50,7 +56,7 @@ export function loadConfig(): Configuration {
             Vars.loggy.error(`[Configuration Loader] Database Environment Variable ${field.name} is missing`);
             process.abort();
         }
-    })
+    });
 
     return {
         logging: loggingEnabled,
@@ -65,4 +71,4 @@ interface ConfigurationConfig {
     required: boolean;
 }
 
-export type allowedMappedValues = 'username' | 'url' | 'dbname' | 'port' | 'password';
+export type allowedMappedValues = keyof DatabaseCredentials;

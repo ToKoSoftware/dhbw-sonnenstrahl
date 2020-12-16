@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  @Input() pageGroups: SidebarPageGroup[];
 
   constructor() { }
 
@@ -13,3 +14,16 @@ export class SidebarComponent implements OnInit {
   }
 
 }
+
+export interface SidebarPage {
+  title: string;
+  url: string;
+  icon: string;
+  matchFull?: boolean;
+}
+
+export interface SidebarPageGroup {
+  title: string;
+  pages: SidebarPage[];
+}
+

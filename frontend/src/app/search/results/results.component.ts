@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {ApiService} from '../../services/api.service';
+import {ApiService} from '../../services/api/api.service';
 import {PlanData} from '../../interfaces/plan.interface';
 import {UiBreadcrumb} from '../../ui/ui.interface';
 
@@ -27,7 +27,6 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private api: ApiService) {
   }
 

@@ -1,11 +1,11 @@
-<nav class="flex-shrink-0 bg-yellow-300 fixed top-0 left-0 right-0">
+<nav class="flex-shrink-0 bg-yellow-300 fixed top-0 left-0 right-0 z-40">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
       <!-- Logo section -->
       <div class="flex items-center px-2 lg:px-0 xl:w-64">
         <div class="flex-shrink-0">
           <a routerLink="/">
-          <img class="h-8 w-auto" src="/assets/logo.svg" alt="Workflow logo">
+          <img class="h-8 w-auto" src="/assets/logo.svg">
           </a>
         </div>
       </div>
@@ -51,30 +51,22 @@
       <div class="hidden lg:block lg:w-80">
         <div class="flex items-center justify-end">
           <div class="flex">
-            <a href="#" class="px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-600 hover:text-white focus:outline-none focus:text-white focus:bg-indigo-600 transition duration-150 ease-in-out">Support</a>
+            <a *ngIf="!(login.isLoggedIn$ | async)" routerLink="/login" class="px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-600 hover:text-white focus:outline-none focus:text-white focus:bg-indigo-600 transition duration-150 ease-in-out">Login</a>
           </div>
           <!-- Profile dropdown -->
-          <div class="ml-4 relative flex-shrink-0">
+          <div class="ml-4 relative flex-shrink-0" *ngIf="login.isLoggedIn$ | async">
             <div>
               <button (click)="toggleUserMenu()" class="flex text-sm rounded-full text-white focus:outline-none focus:shadow-solid transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
                 <img class="h-8 w-8 rounded-full" src="/assets/sun.jpg" alt="">
               </button>
             </div>
-            <!--
-              Profile dropdown panel, show/hide based on dropdown state.
-
-              Entering: "transition ease-out duration-100"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            -->
             <div class="transition ease-out duration-100 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg transition ease-out duration-100 transform opacity-0 scale-95 hidden" #profileMenu>
               <div class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">View Profile</a>
-                <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Settings</a>
-                <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Logout</a>
+                <a routerLink="/profile/" (click)="toggleUserMenu()" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Meine Bestellungen</a>
+                <a routerLink="/profile/customers" (click)="toggleUserMenu()" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Mein Konto</a>
+                <a routerLink="/profile/credentials" (click)="toggleUserMenu()" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Zugangsdaten</a>
+                <a routerLink="/admin" *ngIf="login.isAdmin$ | async" (click)="toggleUserMenu()" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out border-t border-b border-gray-300" role="menuitem">Admin</a>
+                <a routerLink="/login/logout" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Abmelden</a>
               </div>
             </div>
           </div>
@@ -82,12 +74,6 @@
       </div>
     </div>
   </div>
-
-  <!--
-    Mobile menu, toggle classes based on menu state.
-
-    Menu open: "block", Menu closed: "hidden"
-  -->
   <div class="hidden lg:hidden">
     <div class="px-2 pt-2 pb-3">
       <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-indigo-800 focus:outline-none focus:text-indigo-100 focus:bg-indigo-600 transition duration-150 ease-in-out">Dashboard</a>

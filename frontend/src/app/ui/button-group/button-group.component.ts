@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UiButton, UiButtonGroup, UiButtonType} from '../ui.interface';
+import {UiButtonGroup} from '../ui.interface';
 
 @Component({
   selector: 'app-button-group',

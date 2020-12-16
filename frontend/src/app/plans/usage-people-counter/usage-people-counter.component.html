@@ -1,0 +1,17 @@
+<div class="my-3">
+  <div>
+    <label for="usage" class="block text-sm font-medium leading-5 text-gray-700">
+      Jährlichen Verbrauch angeben:
+    </label>
+    <div class="flex items-stretch">
+      <div class="mt-1 flex-1 relative rounded-md shadow-sm">
+        <input id="usage" class="form-input block w-full pr-10 sm:text-sm sm:leading-5" placeholder="1000"
+               value="1000" (change)="updateUsageCount()" (ngModelChange)="updateUsageCount()" [(ngModel)]="currentEstimatedUsage">
+        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+          kWh
+        </div>
+      </div>
+      <app-button-group class="mt-1 pl-2" [buttons]="plusMinusButtons"></app-button-group>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import {IncomingPlan, InternalPlan} from '../../../interfaces/plan.interface';
+import {InternalPlan, FileUploadPlan} from '../../../interfaces/plan.interface';
 import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
@@ -6,25 +6,29 @@ import {mapPlan} from '../../../functions/map-plan.func';
 import {UploadedFile} from 'express-fileupload';
 import {Plan} from '../../../models/plan.model';
 
-export async function importPlan(req: Request, res: Response) {
+export async function importPlan(req: Request, res: Response): Promise<Response> {
     try {
         if (isBlank(req.files) || req.files === undefined || req.files.file == null) {
             throw 'No file uploaded';
         }
         // flatten
-        const file = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file;
+        const file: UploadedFile = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file;
+        const splittedFileName = file.name.split('.');
+        const fileExtension = splittedFileName[splittedFileName.length - 1];
+        if (fileExtension !== "csv") {
+            throw 'Wrong File Extension, expected csv - got ' + fileExtension;
+        }
         const incomingData = await loadCSV(file);
         const targetData: InternalPlan[] = incomingData.map(mapPlan);
         await deactivatePlans();
         targetData.forEach(createPlanEntry);
-        res.send(wrapResponse(true, targetData));
+        return res.send(wrapResponse(true, targetData));
     } catch (e) {
-        res.send(wrapResponse(false, {error: e}));
-        return;
+        return res.status(400).send(wrapResponse(false, {error: e}));
     }
 }
 
-async function loadCSV(file: UploadedFile): Promise<IncomingPlan[]> {
+async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
     const csv = require('csvtojson');
     return csv({
             delimiter: ';',
@@ -59,5 +63,5 @@ function createPlanEntry(data: InternalPlan) {
 }
 
 function transformEuroToCents(eur: string): number {
-    return Math.floor(Number(eur.replace(",", ".")) * 10000);
+    return Math.floor(Number(eur.replace(',', '.')) * 10000);
 }
