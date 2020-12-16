@@ -1,1 +1,12 @@
-<p>admin-pie-stats works!</p>
+<div style="display: block;">
+  <p class="text-center leading-1 text-gray-600">Bestellungen nach Portal</p>
+  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [colors]="pieChartColors"
+          [legend]="pieChartLegend">
+  </canvas>
+</div>

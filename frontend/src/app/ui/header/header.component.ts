@@ -7,7 +7,7 @@ import {UiBreadcrumb, UiButtonGroup} from '../ui.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() title = '';
+  @Input() heading = '';
   @Input() whiteBg = false;
   @Input() large = false;
   @Input() buttons: UiButtonGroup | null = null;

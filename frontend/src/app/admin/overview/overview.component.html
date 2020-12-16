@@ -18,6 +18,10 @@
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-8">
     <div class="bg-white shadow sm:rounded-lg mb-10 px-4 py-6 rounded-lg bg-white p-4">
+      <app-admin-pie-stats>
+      </app-admin-pie-stats>
+    </div>
+    <div class="bg-white shadow sm:rounded-lg mb-10 px-4 py-6 rounded-lg bg-white p-4">
       <app-order-stats chartFor="customers" *ngIf="monthlyData !== null" [statData]="monthlyData">
       </app-order-stats>
     </div>
