@@ -48,12 +48,13 @@ JWT_HASH=randomstr
   ```
   **Remember to fill in your own database configuaration**
   
-4. Open a new terminal window. In `frontend` run `npm install` (`cd ../frontend && npm install`)
-5. To start an Angular Dev Server run run `npm start` (`cd ../frontend && npm install`)
-6. The API should be running on port `50`; The Angular development server should be running on port `4200` 
+4. Open a new terminal window. In `frontend` run `npm install` (`cd frontend && npm install`)
+5. To start an Angular Dev Server run run `npm start`
+6. The API should be running on port `80`; The Angular development server should be running on port `4200` 
 
 ## Migrations
 
-To run a migration run `cd server && npm run db:migrate`.
-To undo a migration run `cd server && npm run db:migrate:undo`.
+To run a database migration run `cd server && npm run db:migrate`. The Docker container will do this automatically on restart.
+
+To undo a database migration run `cd server && npm run db:migrate:undo`.
 
