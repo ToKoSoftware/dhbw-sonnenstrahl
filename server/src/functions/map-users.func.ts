@@ -1,9 +1,14 @@
-import { IncomingUser, InternalUser } from '../interfaces/users.interface';
+import { InternalUser } from '../interfaces/users.interface';
+import * as bcrypt from 'bcryptjs';
 
-export function mapUser(incomingData: IncomingUser): InternalUser {
+export async function mapUser(incomingData: InternalUser): Promise<InternalUser> {
+
+    const SALT_FACTOR = 10;
+    const hashedPassword =  incomingData.password !== undefined ? await bcrypt.hash(incomingData.password, SALT_FACTOR) : incomingData.password;
+
     return {
         email: incomingData.email,
-        password: incomingData.password,
+        password: hashedPassword,
         is_admin: false,
-    }
+    };
 }

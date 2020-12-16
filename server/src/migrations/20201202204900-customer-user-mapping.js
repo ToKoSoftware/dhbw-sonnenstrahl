@@ -5,8 +5,8 @@ module.exports = {
         await queryInterface.removeColumn('Users', 'customerId');
     },
 
-    down: async (queryInterface, Sequelize) =>{
+    down: async (queryInterface, Sequelize) => {
         await queryInterface.removeColumn('Customers', 'userId');
-        await queryInterface.addColumn('Users', 'customerId',Sequelize.UUID);
+        await queryInterface.addColumn('Users', 'customerId', Sequelize.UUID);
     }
-  };
+};

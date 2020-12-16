@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { Customer } from "../../../models/customer.models";
-import { Order } from "../../../models/order.model";
-import { Plan } from "../../../models/plan.model";
-import { User } from "../../../models/user.model";
+import {Request, Response} from 'express';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {statEntityTypes} from '../../../interfaces/stats.interface';
+import {Customer} from '../../../models/customer.models';
+import {Order} from '../../../models/order.model';
+import {Plan} from '../../../models/plan.model';
+import {User} from '../../../models/user.model';
 
-export async function getStats(req: Request, res: Response) {
+export async function getStats(req: Request, res: Response): Promise<Response> {
     const usersCount = await countTotalEntities(User);
 
     const activePlansCount = await countTotalEntities(Plan, true);
@@ -22,19 +23,19 @@ export async function getStats(req: Request, res: Response) {
 
 
     const data = {
-        "users": usersCount,
-        "activePlans": activePlansCount,
-        "inactivePlans": inactivePlansCount,
-        "activeCustomers": activeCustomersCount,
-        "inactiveCustomers": inactiveCustomersCount,
-        "activeOrders": activeOrdersCount,
-        "inactiveOrder": inactiveOrdersCount
+        'users': usersCount,
+        'activePlans': activePlansCount,
+        'inactivePlans': inactivePlansCount,
+        'activeCustomers': activeCustomersCount,
+        'inactiveCustomers': inactiveCustomersCount,
+        'activeOrders': activeOrdersCount,
+        'inactiveOrder': inactiveOrdersCount
     };
 
-    return res.send(wrapResponse(true, data))
+    return res.send(wrapResponse(true, data));
 }
 
-async function countTotalEntities(model: typeof User | typeof Customer | typeof Plan | typeof Order, is_active: boolean = true): Promise<number> {
+async function countTotalEntities(model: statEntityTypes, is_active = true): Promise<number> {
     let count;
     if (model !== User) {
         count = await model.count(
