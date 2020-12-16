@@ -16,3 +16,15 @@
     </table>
   </div>
 </app-layout>
+
+<ng-template #provisionModal>
+  <app-admin-pie-stats></app-admin-pie-stats>
+  <div class="flex justify-end w-full mt-7">
+    <div>
+      <app-button
+        (click)="closeModal()"
+        type="info"
+        label="Ok"></app-button>
+    </div>
+  </div>
+</ng-template>

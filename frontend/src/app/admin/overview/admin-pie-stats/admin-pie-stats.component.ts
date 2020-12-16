@@ -35,6 +35,7 @@ export class AdminPieStatsComponent implements OnInit {
   ngOnInit(): void {
     this.api.get<ReferrerStatItem[]>('/admin/stats/referrer').subscribe(
       data => {
+        this.loading = false;
         this.stats = data.data;
         this.pieChartLabels = data.data.map(d => d.referrer);
         this.pieChartData = data.data.map(d => Number(d.count));
