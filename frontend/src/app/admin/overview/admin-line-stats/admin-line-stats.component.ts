@@ -22,7 +22,7 @@ export class AdminLineStatsComponent implements OnInit {
     'orders': 'Neue Bestellungen / Monat',
   };
 
-  public lineChartLabels: Label[] = ["Hallo", "Welt"];
+  public lineChartLabels: Label[] = [];
 
   public lineChartOptions = {
     responsive: true,
@@ -40,7 +40,8 @@ export class AdminLineStatsComponent implements OnInit {
   public lineChartType = 'line';
 
   constructor(private api: ApiService) {
-    this.lineChartLabels = AdminLineStatsComponent.getLast12Months().map(date => `${date.getMonth()}-${date.getFullYear()}`);
+    // + 1 because js returns months index-off-by-one (0-11, not 1-12)
+    this.lineChartLabels = AdminLineStatsComponent.getLast12Months().map(date => `${date.getMonth() + 1}-${date.getFullYear()}`);
   }
 
   ngOnInit(): void {
@@ -70,7 +71,7 @@ export class AdminLineStatsComponent implements OnInit {
     let last12MonthsArray = [];
 
     // get Dates of last 12 Months
-    for (let i = 11; i >= 1; i--) {
+    for (let i = 11; i > 1; i--) {
       let d = new Date(date.getFullYear(), date.getMonth() - i, 1, 0, 0, 0, 0);
       last12MonthsArray.push(d);
     }
