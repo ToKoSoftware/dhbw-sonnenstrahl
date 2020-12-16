@@ -1,6 +1,8 @@
 # Sonnenstrahl Energie Project
+![](https://github.com/ToKoSoftware/dhbw-sonnenstrahl/workflows/CI/badge.svg)
 
-This project is a university assignment project.
+
+This is a university assignment project for the course of Web-Development (WWI2019A).
 
 
 ## Screenshots
@@ -15,7 +17,7 @@ Change credentials             |  Admin - Edit Plans
 
 
 ## Installation - Docker
-**This is the recomended way**
+**This is the recommended way**
 
 0. You need to have docker installed
 1. Create a `.env` file and fill in your desired database configuration:
