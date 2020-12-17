@@ -1,14 +1,14 @@
-import { Request, Response } from "express";
-import { FindOptions } from "sequelize";
-import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
-import { buildQuery, customFilterValueResolver, QueryBuilderConfig } from "../../../functions/query-builder.func";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { Customer } from "../../../models/customer.models";
-import { Vars } from "../../../vars";
+import {Request, Response} from 'express';
+import {FindOptions} from 'sequelize';
+import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
+import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {Customer} from '../../../models/customer.models';
+import {Vars} from '../../../vars';
 
-export async function getCustomer(req: Request, res: Response) {
+export async function getCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
-    let customer: Customer | null = await Customer.findOne(
+    const customer: Customer | null = await Customer.findOne(
         {
             where: {
                 id: req.params.id
@@ -16,10 +16,10 @@ export async function getCustomer(req: Request, res: Response) {
         })
         .catch(error => {
             success = false;
-            return null
+            return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (customer === null) {
         return res.status(404).send(wrapResponse(false));
@@ -28,7 +28,7 @@ export async function getCustomer(req: Request, res: Response) {
     if (customer.userId !== undefined) {
         if (!currentUserIsAdminOrMatchesId(customer.userId)) {
             if (!Vars.currentUser.is_admin) {
-                return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+                return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
             }
         }
     }
@@ -36,7 +36,7 @@ export async function getCustomer(req: Request, res: Response) {
 }
 
 
-export async function getCustomers(req: Request, res: Response) {
+export async function getCustomers(req: Request, res: Response): Promise<Response> {
     let success = true;
     let query: FindOptions = {
         raw: true,
@@ -44,7 +44,7 @@ export async function getCustomers(req: Request, res: Response) {
     // todo move this to the model
     const allowedSearchAndOrderFields = ['firstName', 'lastName', 'postcode'];
     const allowedFilterFields = ['userId'];
-    let customResolver = new Map<string, customFilterValueResolver>();
+    const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
@@ -61,15 +61,16 @@ export async function getCustomers(req: Request, res: Response) {
         allowedFilterFields: allowedFilterFields,
         allowedSearchFields: allowedSearchAndOrderFields,
         allowedOrderFields: allowedSearchAndOrderFields
-    }
+    };
     query = buildQuery(queryConfig, req);
-    let data: unknown = [];
-    await Customer.findAll(query)
-        .then(d => data = d)
-        .catch(error => success = false);
+    const data: Customer[] = await Customer.findAll(query)
+        .catch(error => {
+            success = false;
+            return [];
+        });
 
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     return res.send(wrapResponse(true, data));
 }

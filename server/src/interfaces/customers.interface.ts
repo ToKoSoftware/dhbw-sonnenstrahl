@@ -1,5 +1,5 @@
 export interface InternalCustomer {
-    userId: string;
+    userId: string | null;
     firstName: string;
     lastName: string;
     street: string;
@@ -7,14 +7,4 @@ export interface InternalCustomer {
     postcode: string;
     city: string;
     is_active: boolean
-}
-
-export interface IncomingCustomer {
-    userId: string;
-    firstName: string;
-    lastName: string;
-    street: string;
-    streetNumber: string;
-    zipCode: string;
-    city: string;
 }

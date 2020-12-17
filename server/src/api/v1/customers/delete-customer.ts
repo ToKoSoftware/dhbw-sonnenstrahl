@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { Customer } from "../../../models/customer.models";
-import { Order } from "../../../models/order.model";
-import { Op } from "sequelize"
+import {Request, Response} from 'express';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {Customer} from '../../../models/customer.models';
+import {Order} from '../../../models/order.model';
+import {Op} from 'sequelize';
 
 
-export async function deleteCustomer(req: Request, res: Response) {
+export async function deleteCustomer(req: Request, res: Response): Promise<Response> {
+    let success = true;
     // Can only set Customer to inactive, if none of his orders is active/not terminated
 
     const count = await Order.count({
@@ -17,7 +18,7 @@ export async function deleteCustomer(req: Request, res: Response) {
         }
     });
     if (count > 0) {
-        return res.status(400).send(wrapResponse(false, { error: 'You can not delete a customer with active orders' }));
+        return res.status(400).send(wrapResponse(false, {error: 'You can not delete a customer with active orders'}));
     }
     await Customer.update(
         {
@@ -29,7 +30,10 @@ export async function deleteCustomer(req: Request, res: Response) {
             }
         })
         .catch(error => {
-            return res.status(500).send(wrapResponse(false, { error: 'Could not delete Order with id ' + req.params.id }));
+            success = false;
         });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, {error: 'Could not delete Order with id ' + req.params.id}));
+    }
     return res.send(wrapResponse(true));
 }

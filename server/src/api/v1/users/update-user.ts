@@ -1,33 +1,34 @@
-import { Request, Response } from "express";
-import isBlank from "is-blank";
-import { checkKeysAreNotEmptyOrNotSet } from "../../../functions/check-inputs.func";
-import { mapUser } from "../../../functions/map-users.func";
-import { wrapResponse } from "../../../functions/response-wrapper";
-import { IncomingUser, InternalUser } from "../../../interfaces/users.interface";
-import { User } from "../../../models/user.model";
+import {Request, Response} from 'express';
+import isBlank from 'is-blank';
+import {checkKeysAreNotEmptyOrNotSet} from '../../../functions/check-inputs.func';
+import {mapUser} from '../../../functions/map-users.func';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {InternalUser} from '../../../interfaces/users.interface';
+import {User} from '../../../models/user.model';
 import * as EmailValidator from 'email-validator';
-import { currentUserIsAdminOrMatchesId } from "../../../functions/current-user-is-admin-or-matches-id.func";
+import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
+import { Vars } from '../../../vars';
+import {Op} from 'sequelize';
 
-export async function updateUser(req: Request, res: Response) {
+export async function updateUser(req: Request, res: Response): Promise<Response> {
     let success = true;
-    let user: User | null;
     let updateResult: [number, User[]] | null;
-    const incomingData: IncomingUser = req.body;
-    const mappedIncomingData: InternalUser = mapUser(incomingData);
+    const incomingData: InternalUser = req.body;
+    const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
-    let requiredFields = User.requiredFields();
+    const requiredFields = User.requiredFields();
 
-    let validEmail = EmailValidator.validate(mappedIncomingData.email) || isBlank(mappedIncomingData.email);
+    const validEmail = EmailValidator.validate(mappedIncomingData.email) || isBlank(mappedIncomingData.email);
 
     if (isBlank(req.body) || req.params.id === null) {
-        return res.status(400).send(wrapResponse(false, { error: "No body or valid param set." }));
+        return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
 
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }
 
-    user = await User.findOne(
+    const user: User | null = await User.findOne(
         {
             where: {
                 id: req.params.id
@@ -38,7 +39,7 @@ export async function updateUser(req: Request, res: Response) {
             return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     //User object from database must not be null, id must not be changed and all set keys mut not be empty.
@@ -46,30 +47,39 @@ export async function updateUser(req: Request, res: Response) {
         user !== null
         && (req.body.id === undefined || req.params.id === req.body.id)
         && checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) !== false
-        && validEmail !== false
+        && validEmail
         && (req.body.is_admin === undefined)
     ) {
-
-        let differentUser = await User.findOne(
-            {
+        let updateQuery;
+        //If mail of found user does not match incoming mail check, if email already in use.
+        if(user.email !== mappedIncomingData.email && mappedIncomingData.email !== undefined){
+            const emailInUseCount = await User.count({
                 where: {
-                    email: mappedIncomingData.email
+                    email: mappedIncomingData.email,
+                    id: {
+                        [Op.ne]: user.id
+                    }
                 }
             })
-            .catch(error => {
-                success = false;
-                return null;
-            });
-        if (!success) {
-            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+                .catch(error => {
+                    success = false;
+                    return 0;
+                });
+            if (!success) {
+                return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+            }
+            if(emailInUseCount > 0){
+                return res.status(400).send(wrapResponse(false, {error: 'E-Mail already in use'}));
+            }
+            // mail can be changed, so change complete user.
+            updateQuery = mappedIncomingData.password === undefined ? {email: mappedIncomingData.email} : mappedIncomingData;
+        } else {
+            // mail should not be changed, so change only password (only changable field)
+            updateQuery = { password: mappedIncomingData.password };
+            
         }
-        if (differentUser !== null) {
-            return res.status(400).send(wrapResponse(false, { error: 'Email already in use' }));
-        }
-
-        updateResult = await User.update(
-            req.body,
-            {
+        updateResult = await User.update(updateQuery,
+            { 
                 where: {
                     id: req.params.id
                 },
@@ -80,31 +90,48 @@ export async function updateUser(req: Request, res: Response) {
                 return null;
             });
         if (!success) {
-            return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+            return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         if (updateResult === null || updateResult[0] == 0) {
-            return res.status(404).send(wrapResponse(false, { error: 'No order updated' }));
+            return res.status(404).send(wrapResponse(false, {error: 'No user updated'}));
         }
 
     } else if (user === null) {
-        return res.status(404).send(wrapResponse(false, { error: "No user with given id found" }));
+        return res.status(404).send(wrapResponse(false, {error: 'No user with given id found'}));
 
     } else if (checkKeysAreNotEmptyOrNotSet(mappedIncomingData, requiredFields) === false) {
-        return res.status(400).send(wrapResponse(false, { error: "Fields must not be empty" }));
+        return res.status(400).send(wrapResponse(false, {error: 'Fields must not be empty'}));
 
     } else if (!(req.body.id === undefined || req.params.id === req.body.id)) {
-        return res.status(400).send(wrapResponse(false, { error: "ID must not be changed" }));
+        return res.status(400).send(wrapResponse(false, {error: 'ID must not be changed'}));
 
     } else if (validEmail === false) {
-        return res.status(400).send(wrapResponse(false, { error: 'E-mail is not valid' }));
+        return res.status(400).send(wrapResponse(false, {error: 'E-mail is not valid'}));
 
     } else if (req.body.is_admin !== undefined) {
-        return res.status(400).send(wrapResponse(false, { error: 'is_admin can not be changed' }));
+        return res.status(400).send(wrapResponse(false, {error: 'is_admin can not be changed'}));
 
     } else {
         return res.status(400).send(wrapResponse(false));
+    } 
+    
+    //return everything beside password
+    const returnedUser = await User.findOne(
+        {
+            attributes: { exclude: ['password'] },
+            where: {
+                id: req.params.id
+            }
+        })
+        .catch(error => {
+            success = false;
+            return null;
+        });
+ 
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
-    return res.send(wrapResponse(true, updateResult[1]));
+    return res.send(wrapResponse(true, returnedUser));
 
 }

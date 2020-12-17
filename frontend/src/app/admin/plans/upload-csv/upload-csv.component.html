@@ -1,10 +1,9 @@
-<script src="../../customers/customers.component.spec.ts"></script>
 <p class="py-3 leading-relaxed">
   <i-feather name="alert-circle" style="width: 18px; height: 18px"></i-feather>
   Alle vorhandenen Tarife werden durch diese Aktion archiviert. Bitte wählen Sie eine gültige <b>CSV</b>-Datei aus.
 </p>
 <div class="file-upload-container transition duration-300 ease-in-out" (click)="fileInput.click()" appDragDrop
-     (onFileDropped)="handleFileChange($event)" *ngIf="files === null">
+     (onFileDropped)="handleFileChange($event)" *ngIf="files === null && !uploading">
   <input hidden type="file" #fileInput (change)="handleFileChange($event.target.files)">
   <div class="text-center pt-10 px-3">
     <i-feather name="upload-cloud" style="width: 20%; height: 20%"></i-feather>
@@ -12,7 +11,7 @@
       gelbe Fläche, um eine Datei auszuwählen.</p>
   </div>
 </div>
-<div class="pt-5" *ngIf="files !== null">
+<div class="pt-5" *ngIf="files !== null && !uploading">
   <div class="pl-3 pr-4 py-3 flex items-center justify-between text-sm border border-gray-200 rounded-md w-full">
     <div class="w-0 flex-1 flex items-center">
       <i-feather class="flex-shrink-0 h-2 w-2 text-gray-400" name="file"></i-feather>
@@ -27,8 +26,9 @@
     </div>
   </div>
 </div>
+<app-loading *ngIf="uploading"></app-loading>
 
-<div class="flex justify-end w-full mt-7">
+<div class="flex justify-end w-full mt-7" *ngIf="!uploading">
   <div>
     <app-button
       (click)="closeModal()"

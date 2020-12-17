@@ -1,12 +1,12 @@
 import {Configuration, DatabaseCredentials} from '../interfaces/configutation.interface';
 import {Vars} from '../vars';
-import isBlank from "is-blank";
+import isBlank from 'is-blank';
 
 export function loadConfig(): Configuration {
     const loggingEnabled = process.env.LOGGING === 'true';
     Vars.loggy.loggingEnabled = loggingEnabled;
     if (loggingEnabled) {
-        Vars.loggy.warn(`[Configuration Loader] Enabled config.logging because the LOGGING env variable is set to true`);
+        Vars.loggy.warn('[Configuration Loader] Enabled config.logging because the LOGGING env variable is set to true');
     }
     const databaseCredentialFields: ConfigurationConfig[] = [
         {
@@ -38,7 +38,7 @@ export function loadConfig(): Configuration {
         },
     ];
 
-    let mappedDatabaseCredentials: DatabaseCredentials = {
+    const mappedDatabaseCredentials: DatabaseCredentials = {
         dbname: '',
         password: '',
         username: '',
@@ -56,7 +56,7 @@ export function loadConfig(): Configuration {
             Vars.loggy.error(`[Configuration Loader] Database Environment Variable ${field.name} is missing`);
             process.abort();
         }
-    })
+    });
 
     return {
         logging: loggingEnabled,
