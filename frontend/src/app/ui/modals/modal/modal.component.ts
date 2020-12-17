@@ -6,13 +6,15 @@ import {ModalService} from '../../../services/modal/modal.service';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
   @Input() title = '';
+  @Input() blocking = false; // modal cannot be closed (e.g. loading)
 
   constructor(private modalService: ModalService) {
   }
 
-  ngOnInit(): void {
+  public closeModal(): void {
+    this.modalService.close();
   }
 
 }
