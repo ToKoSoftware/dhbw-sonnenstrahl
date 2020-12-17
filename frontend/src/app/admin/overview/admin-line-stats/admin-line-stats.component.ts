@@ -71,7 +71,7 @@ export class AdminLineStatsComponent implements OnInit {
     let last12MonthsArray = [];
 
     // get Dates of last 12 Months
-    for (let i = 11; i > 1; i--) {
+    for (let i = 11; i >= 1; i--) {
       let d = new Date(date.getFullYear(), date.getMonth() - i, 1, 0, 0, 0, 0);
       last12MonthsArray.push(d);
     }
