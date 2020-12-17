@@ -8,13 +8,16 @@ import {FormsModule} from '@angular/forms';
 import {LogoutComponent} from './logout/logout.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, LogoutComponent],
-  imports: [
-    loginRegisterRoutes,
-    CommonModule,
-    FormsModule,
-    UiModule
-  ]
+    declarations: [RegisterComponent, LoginComponent, LogoutComponent],
+    exports: [
+        LoginComponent
+    ],
+    imports: [
+        loginRegisterRoutes,
+        CommonModule,
+        FormsModule,
+        UiModule
+    ]
 })
 export class LoginRegisterModule {
 }
