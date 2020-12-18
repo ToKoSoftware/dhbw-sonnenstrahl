@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UiButtonGroup} from '../../ui/ui.interface';
 import {ApiService} from '../../services/api/api.service';
 import {OrderData} from '../../interfaces/order.interface';
 import {adminBreadcrumb, adminPages} from '../admin.pages';
+import {ModalService} from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-orders',
@@ -10,6 +11,7 @@ import {adminBreadcrumb, adminPages} from '../admin.pages';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  @ViewChild('provisionModal', {static: true}) provisionModal: TemplateRef<unknown>;
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
   public results: OrderData[] = [];
@@ -19,6 +21,7 @@ export class OrdersComponent implements OnInit {
       {
         title: 'Provisionsberechnung',
         function: () => {
+          this.modal.showModal(`Provisionen`, this.provisionModal);
         },
         icon: 'bar-chart-2'
       },
@@ -31,7 +34,10 @@ export class OrdersComponent implements OnInit {
     ]
   };
 
-  constructor(private api: ApiService) {
+  constructor(
+    private api: ApiService,
+    private modal: ModalService
+    ) {
   }
 
   ngOnInit(): void {
@@ -44,6 +50,10 @@ export class OrdersComponent implements OnInit {
         this.results = data.data;
       }
     );
+  }
+
+  public closeModal(): void {
+    this.modal.close();
   }
 
 }

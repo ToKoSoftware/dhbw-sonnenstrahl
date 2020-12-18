@@ -1,7 +1,7 @@
 <app-nav-spacer></app-nav-spacer>
 <app-container>
   <ng-container *ngIf="!loading">
-    <app-header [title]="results.length + ' Suchergebnisse'" [breadcrumbs]="breadcrumbs"></app-header>
+    <app-header [heading]="results.length + ' Suchergebnisse'" [breadcrumbs]="breadcrumbs"></app-header>
     <div class="bg-white shadow overflow-hidden my-5 sm:rounded-lg" *ngFor="let result of results">
       <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
         <div class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">

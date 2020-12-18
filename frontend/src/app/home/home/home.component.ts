@@ -8,8 +8,12 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   public searchQuery = '';
+  public image = '';
+  private availableImages = ['sun.jpg', 'nature.jpg', 'sun2.jpg', 'water.jpg', 'solar.jpg']
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.image = this.availableImages[Math.floor(Math.random() * this.availableImages.length)];
+  }
 
   ngOnInit(): void {
   }
