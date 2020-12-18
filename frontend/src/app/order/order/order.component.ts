@@ -6,8 +6,11 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
 import {ApiService} from '../../services/api/api.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import isBlank from 'is-blank';
+import {LoginService} from '../../services/login/login.service';
+import {OrderService} from '../../services/order/order.service';
+import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 
 @Component({
   selector: 'app-order',
@@ -19,6 +22,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   @ViewChild('errorModal') errorModal: TemplateRef<unknown>;
   @ViewChild('loginModal') loginModal: TemplateRef<unknown>;
   @ViewChild('registerModal') registerModal: TemplateRef<unknown>;
+  @ViewChild('selectCustomerModal') selectCustomer: TemplateRef<unknown>;
   public plan: PlanData;
   public loading = false;
   private routeSubscription: Subscription;
@@ -32,11 +36,15 @@ export class OrderComponent implements OnInit, OnDestroy {
   public currentStep = 1;
 
   constructor(
-    private formBuilder: FormBuilder,
+    public readonly loginService: LoginService,
+    public readonly orderService: OrderService,
+    private readonly formBuilder: FormBuilder,
+    private readonly confirmService: ConfirmModalService,
     private readonly loadingModalService: LoadingModalService,
     private readonly modalService: ModalService,
-    private api: ApiService,
-    private route: ActivatedRoute) {
+    private readonly api: ApiService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router) {
   }
 
   ngOnInit(): void {
@@ -50,7 +58,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         zipCode: [''],
         city: [''],
         rateId: [''],
-        consumption: [''],
+        consumption: ['8'],
         agent: ['Moonshine-Frontend'],
       }
     );
@@ -64,6 +72,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       }
       this.estimatedUsage = Number(params.get('usage')) || 0;
       this.getPlan(params.get('id') || '');
+      this.orderForm.controls['consumption'].setValue(this.estimatedUsage);
     });
   }
 
@@ -87,7 +96,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   public showNextStep(): void {
-    if (this.currentStep === 3) return;
+    if (this.currentStep === 4) return;
     this.currentStep = this.currentStep + 1;
   }
 
@@ -105,19 +114,46 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   public order(): void {
-    this.api.post('/orders', {
-      ...this.orderForm.value,
+    const planId = this.plan.id;
+    const customerId = this.orderService.selectedCustomer$.value?.id || '';
+    if (isBlank(planId) || isBlank(customerId)) {
+      this.confirmService.confirm({
+        title: `Es ist ein Fehler beim Kündigen aufgetreten.`,
+        confirmButtonType: 'info',
+        confirmText: 'Ok',
+        showCancelButton: false
+      });
+      return;
+    }
 
-    }).subscribe();
+    this.api.post('/orders', {
+      planId,
+      customerId,
+      consumption: this.estimatedUsage,
+      referrer: 'Sonnenstrahl-Website'
+    }).subscribe(data => {
+      this.router.navigate(['/order/success']);
+    }, error => {
+      this.confirmService.confirm({
+        title: `Es ist ein Fehler aufgetreten.`,
+        confirmButtonType: 'info',
+        confirmText: 'Ok',
+        description: 'Der Server gab folgenden Fehler an: ' + error.error.data.error,
+        showCancelButton: false
+      });
+    });
   }
 
-  public showModal(name: 'login' | 'register'): void {
+  public showModal(name: 'login' | 'register' | 'selectCustomer'): void {
     switch (name) {
     case 'login':
       this.modalService.showModal('Anmelden', this.loginModal);
       break;
     case 'register':
       this.modalService.showModal('Registrieren', this.registerModal);
+      break;
+    case 'selectCustomer':
+      this.modalService.showModal('Kunde wählen', this.selectCustomer);
       break;
     }
   }

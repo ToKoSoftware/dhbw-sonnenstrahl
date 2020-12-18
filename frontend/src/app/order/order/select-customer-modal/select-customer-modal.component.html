@@ -1,0 +1,29 @@
+<ng-container *ngIf="loading">
+  <app-loading></app-loading>
+</ng-container>
+<ng-container *ngIf="!loading">
+  <div class="">
+  </div>
+  <h1 class="text-lg text-gray-600">Bestehenden Kunden auswählen:</h1>
+  <div class="flex my-3" *ngFor="let customer of customers">
+    <div class="flex-1 pr-2 pt-2">{{customer.firstName}} {{customer.lastName}}</div>
+    <div class="flex-1 truncate  pt-2">
+      {{customer.street}} {{customer.streetNumber}}, {{customer.postcode}} {{customer.city}}
+    </div>
+    <div class="flex-1">
+      <div class="flex justify-end">
+        <app-button
+          size="small"
+          label="Auswählen"
+          (click)="selectCustomer(customer)"
+          *ngIf="!((orderService.selectedCustomer$ | async)?.id === customer.id)"></app-button>
+        <app-button
+          size="small"
+          label="Ausgewählt"
+          type="blank"
+          (click)="selectCustomer(null)"
+          *ngIf="((orderService.selectedCustomer$ | async)?.id === customer.id)"></app-button>
+      </div>
+    </div>
+  </div>
+</ng-container>

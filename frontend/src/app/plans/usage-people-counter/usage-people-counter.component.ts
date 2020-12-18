@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UiButtonGroup, UiButtonType} from '../../ui/ui.interface';
 import {EstimatedUsageService} from '../../services/estimated-usage/estimated-usage.service';
 
@@ -9,7 +9,7 @@ import {EstimatedUsageService} from '../../services/estimated-usage/estimated-us
 })
 export class UsagePeopleCounterComponent implements OnInit {
   @Output() estimatedUsage = new EventEmitter<number>();
-  public currentEstimatedUsage = 1000;
+  @Input() public currentEstimatedUsage = 1000;
   public currentEstimatedCount = 1;
   public plusMinusButtons: UiButtonGroup = {
     buttons: [

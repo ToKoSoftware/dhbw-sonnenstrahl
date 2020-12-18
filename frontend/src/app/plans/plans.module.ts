@@ -9,6 +9,9 @@ import { UsagePeopleCounterComponent } from './usage-people-counter/usage-people
 
 @NgModule({
   declarations: [OverviewComponent, UsagePeopleCounterComponent],
+  exports: [
+    UsagePeopleCounterComponent
+  ],
   imports: [
     planRoutes,
     CommonModule,

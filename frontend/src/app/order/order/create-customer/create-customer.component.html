@@ -1,1 +1,43 @@
-<p>create-customer works!</p>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4">
+  <h1 class="text-2xl mb-4">Ihre persönlichen Daten</h1>
+  <form> <!--[formGroup]="orderForm"-->
+    <div class="md:flex">
+      <app-input label="Vorname"
+                 class="flex-1 md:pr-2"
+                 placeholder="Max"
+                 formControlName="firstName">
+      </app-input>
+      <app-input label="Nachname"
+                 class="flex-1 md:pl-2"
+                 placeholder="Mustermann"
+                 formControlName="lastName">
+      </app-input>
+    </div>
+    <hr class="my-3">
+    <div class="md:flex">
+      <app-input label="Straße"
+                 class="flex-1 md:pr-2"
+                 placeholder="Bahnhofsstraße"
+                 formControlName="street">
+      </app-input>
+      <app-input label="Hausnummer"
+                 class="flex-1 md:pl-2"
+                 placeholder="42"
+                 formControlName="streetNumber">
+      </app-input>
+    </div>
+    <div class="md:flex">
+      <app-input label="Postleitzahl"
+                 class="flex-1 md:pr-2"
+                 placeholder="12345"
+                 formControlName="zipCode">
+      </app-input>
+      <app-input label="Stadt"
+                 class="flex-1 md:pl-2"
+                 placeholder="Musterstadt"
+                 formControlName="city">
+      </app-input>
+    </div>
+  </form>
+</div>
