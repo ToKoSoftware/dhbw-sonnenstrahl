@@ -17,10 +17,8 @@
           description="Geben Sie hier Ihren geschätzen jährlichen Verbrauch an. Alternativ können Sie auch die Personenzahl angeben."
           heading="Geschätzter Verbrauch"></app-zero-data>
         <div class="flex-1">
-          <form [formGroup]="orderForm">
             <app-usage-people-counter [currentEstimatedUsage]="estimatedUsage"
                                       (estimatedUsage)="estimatedUsage = $event"></app-usage-people-counter>
-          </form>
         </div>
       </div>
     </ng-container>

@@ -32,13 +32,11 @@ export class OrderComponent implements OnInit, OnDestroy {
     {routerLink: '', title: 'Laden...'},
     {routerLink: '', title: 'Laden...'},
   ];
-  public orderForm: FormGroup;
   public currentStep = 1;
 
   constructor(
     public readonly loginService: LoginService,
     public readonly orderService: OrderService,
-    private readonly formBuilder: FormBuilder,
     private readonly confirmService: ConfirmModalService,
     private readonly loadingModalService: LoadingModalService,
     private readonly modalService: ModalService,
@@ -48,20 +46,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.orderForm = this.formBuilder.group(
-      {
-        email: [''],
-        firstName: [''],
-        lastName: [''],
-        street: [''],
-        streetNumber: [''],
-        zipCode: [''],
-        city: [''],
-        rateId: [''],
-        consumption: ['8'],
-        agent: ['Moonshine-Frontend'],
-      }
-    );
     this.routeSubscription = this.route.paramMap.subscribe(params => {
       this.loadingModalService.showLoading();
       this.loading = true;
@@ -72,7 +56,6 @@ export class OrderComponent implements OnInit, OnDestroy {
       }
       this.estimatedUsage = Number(params.get('usage')) || 0;
       this.getPlan(params.get('id') || '');
-      this.orderForm.controls['consumption'].setValue(this.estimatedUsage);
     });
   }
 
