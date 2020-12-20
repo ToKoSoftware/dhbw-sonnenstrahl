@@ -9,18 +9,23 @@ import {CreateCustomerComponent} from './order/create-customer/create-customer.c
 import {SelectCustomerModalComponent} from './order/select-customer-modal/select-customer-modal.component';
 import {LoginModalComponent} from './order/login-modal/login-modal.component';
 import {RegisterModalComponent} from './order/register-modal/register-modal.component';
-import {PlansModule} from '../plans/plans.module';
 
 
 @NgModule({
-  declarations: [SuccessComponent, OrderComponent, CreateCustomerComponent, SelectCustomerModalComponent, LoginModalComponent, RegisterModalComponent],
+  declarations: [
+    OrderComponent,
+    SuccessComponent,
+    CreateCustomerComponent,
+    SelectCustomerModalComponent,
+    LoginModalComponent,
+    RegisterModalComponent
+  ],
   imports: [
     orderRoutes,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
     UiModule,
-    PlansModule
   ]
 })
 export class OrderModule {
