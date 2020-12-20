@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UiButtonGroup, UiButtonType} from '../../ui/ui.interface';
+import {UiButtonGroup, UiButtonType} from '../ui.interface';
 import {EstimatedUsageService} from '../../services/estimated-usage/estimated-usage.service';
 
 @Component({
