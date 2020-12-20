@@ -54,10 +54,16 @@
       Wählen Sie einen bestehenden Kunden aus oder erstellen Sie einen neuen Kunden. Bestehende Kunden können unter Ihrem Profil bearbeitet werden."
           heading="Kunde wählen"></app-zero-data>
         <div class="flex-1 text-center" *ngIf="(orderService.selectedCustomer$ | async) === null">
+          <div class="w-full my-5" *ngIf="customersOfCurrentUserCount === 0">
+            Zu Ihrem Account wurde noch kein Kunde angelegt.
+          </div>
           <app-button size="small"
+                      (click)="showModal('createCustomer')"
                       label="Neuen Kunden anlegen"></app-button>
           <div class="mt-3">
-            <app-button size="small"
+            <app-button
+                        *ngIf="customersOfCurrentUserCount !== 0"
+                        size="small"
                         type="blank"
                         (click)="showModal('selectCustomer')"
                         label="Bestehenden Kunden wählen"></app-button>
@@ -155,4 +161,7 @@
 </ng-template>
 <ng-template #selectCustomerModal>
   <app-select-customer-modal></app-select-customer-modal>
+</ng-template>
+<ng-template #createCustomerModal>
+  <app-create-customer-modal></app-create-customer-modal>
 </ng-template>
