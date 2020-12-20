@@ -1,1 +1,26 @@
-<p>register-modal works!</p>
+<p *ngIf="error" class="text-red-700">Ein Fehler ist aufgetreten.</p>
+<form [formGroup]="loginForm">
+  <app-input label="E-Mail"
+             type="email"
+             placeholder="max@mustermann.de"
+             formControlName="email">
+  </app-input>
+  <app-input label="Passwort"
+             type="password"
+             placeholder="*****"
+             formControlName="password">
+  </app-input>
+  <div class="flex justify-end w-full mt-7">
+    <div>
+      <app-button
+        (click)="closeModal()"
+        type="blank"
+        label="Abbrechen"
+        [icon]="null"></app-button>
+      <app-button
+        (click)="register()"
+        type="info"
+        label="Account anlegen"></app-button>
+    </div>
+  </div>
+</form>
