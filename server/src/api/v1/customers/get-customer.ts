@@ -64,7 +64,7 @@ export async function getCustomers(req: Request, res: Response): Promise<Respons
     };
     query = buildQuery(queryConfig, req);
     const data: Customer[] = await Customer.findAll(query)
-        .catch(error => {
+        .catch(() => {
             success = false;
             return [];
         });

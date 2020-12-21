@@ -1,8 +1,8 @@
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import {wrapResponse} from '../functions/response-wrapper';
 import {Vars} from '../vars';
 
-export function userIsAdmin(req: Request, res: Response, next: any): void {
+export function userIsAdmin(req: Request, res: Response, next: NextFunction): void {
     if (Vars.currentUser.is_admin) {
         next();
     } else {

@@ -26,7 +26,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -44,7 +44,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
                 id: order.customerId
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -73,7 +73,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
                         is_active: true
                     }
                 }
-            ).catch((error) => {
+            ).catch(() => {
                 return null;
             });
             if (plan === null) {
@@ -88,7 +88,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
                 },
                 returning: true,
             })
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return null;
             });

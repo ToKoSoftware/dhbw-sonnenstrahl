@@ -27,7 +27,7 @@ export class Order extends Model<Order> {
     }
 
     @BeforeCreate
-    static addUuid(instance: Order) {
+    static addUuid(instance: Order): string {
         return instance.id = uuidv4();
     }
 }

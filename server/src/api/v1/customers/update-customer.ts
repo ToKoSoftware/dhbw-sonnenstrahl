@@ -25,7 +25,7 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -53,7 +53,7 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
                     id: incomingData.userId
                 }
             })
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return null;
             });
@@ -82,7 +82,7 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
                 },
                 returning: true,
             })
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return [];
             });
