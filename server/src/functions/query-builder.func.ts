@@ -100,7 +100,7 @@ export function buildFilter(query: QueryBuilderData, req: Request, allowedFields
 }
 
 function mergeQueryBuilders(query: QueryBuilderData, newQuery: any): QueryBuilderData {
-    if (query.hasOwnProperty('where')) {
+    if (Object.prototype.hasOwnProperty.call(query, 'where')) {
         query.where = {
             ...query.where,
             ...newQuery

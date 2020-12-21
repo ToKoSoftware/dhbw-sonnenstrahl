@@ -74,7 +74,7 @@ export async function getPlan(req: Request, res: Response): Promise<Response> {
             },
             raw: true
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });

@@ -58,7 +58,7 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
             exclude: [ 'password' ]
         }
     })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });

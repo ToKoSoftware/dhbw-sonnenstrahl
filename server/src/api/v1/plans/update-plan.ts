@@ -24,7 +24,7 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -45,7 +45,7 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
                         terminatedAt: null
                     }
                 })
-                .catch(error => {
+                .catch(() => {
                     success = false;
                     return null;
                 });
@@ -67,7 +67,7 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
                     },
                     returning: true,
                 })
-                .catch(error => {
+                .catch(() => {
                     success = false;
                     return null;
                 });

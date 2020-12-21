@@ -24,7 +24,15 @@
   <component name="ChangeListManager">
     <list default="true" id="7db4e6fb-2636-4f1d-b7e3-53d9167b6db6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/overview/admin-line-stats/admin-line-stats.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/overview/admin-line-stats/admin-line-stats.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer/create-customer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer-modal/create-customer-modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer/create-customer.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer-modal/create-customer-modal.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer/create-customer.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer-modal/create-customer-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer/create-customer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order/create-customer-modal/create-customer-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order/order.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order/order.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order/order.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order/order.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/order/order/select-customer-modal/select-customer-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/order/order/select-customer-modal/select-customer-modal.component.html" afterDir="false" />
     </list>
     <list id="210c0ac5-cddc-4f02-bcbb-6f728c1409fc" name="t" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,13 +82,6 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontend/src/app/ui" />
-      <recent name="$PROJECT_DIR$/frontend/src/app/services/login" />
-      <recent name="$PROJECT_DIR$/frontend/src/app/services" />
-      <recent name="$PROJECT_DIR$/frontend/src/app/home" />
-      <recent name="$PROJECT_DIR$/frontend/src/assets" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/src/assets/wallpaper" />
       <recent name="$PROJECT_DIR$/frontend/src/app/profile" />
@@ -89,11 +90,11 @@
       <recent name="$PROJECT_DIR$/frontend/src/app/home/home" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontend/src/assets/wallpaper" />
+      <recent name="$PROJECT_DIR$/frontend/src/assets" />
       <recent name="$PROJECT_DIR$/frontend/src/app/ui" />
+      <recent name="$PROJECT_DIR$/frontend/src/app/services/order" />
+      <recent name="$PROJECT_DIR$/frontend/src/assets/wallpaper" />
       <recent name="$PROJECT_DIR$/frontend/src/app/services/login" />
-      <recent name="$PROJECT_DIR$/frontend/src/app/services" />
-      <recent name="$PROJECT_DIR$/frontend/src/app/home" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -113,7 +114,7 @@
       <command value="npm install @tailwindcss/ui" />
     </option>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="npm.Angular CLI Server">
     <configuration name="Tests (dlrg-zwrdk)" type="JavaScriptTestRunnerKarma">
       <config-file value="$PROJECT_DIR$/karma.conf.js" />
       <karma-package-dir value="$PROJECT_DIR$/dlrg-data/node_modules/@angular/cli" />
@@ -164,6 +165,16 @@
     <configuration name="Angular CLI Server" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/frontend/package.json" />
       <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
       <node-interpreter value="project" />
       <envs />
       <method v="2" />
@@ -232,14 +243,16 @@
       <item itemvalue="npm.db:migrate" />
       <item itemvalue="npm.start (1)" />
       <item itemvalue="npm.start" />
+      <item itemvalue="npm.build" />
       <item itemvalue="Protractor.E2E Tests (dlrg-zwrdk)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.start (1)" />
         <item itemvalue="npm.db:migrate" />
+        <item itemvalue="npm.build" />
         <item itemvalue="Docker.docker-compose.yml.web: Compose Deployment" />
+        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
@@ -474,7 +487,42 @@
       <option name="project" value="LOCAL" />
       <updated>1608145415679</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="* Fixed stats showing only 11 months">
+      <created>1608212495689</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1608212495689</updated>
+    </task>
+    <task id="LOCAL-00030" summary="* Cleanup orders component">
+      <created>1608294788048</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1608294788048</updated>
+    </task>
+    <task id="LOCAL-00031" summary="* Move usage counter to ui module">
+      <created>1608486385962</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1608486385962</updated>
+    </task>
+    <task id="LOCAL-00032" summary="* Implement success page">
+      <created>1608487270643</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1608487270643</updated>
+    </task>
+    <task id="LOCAL-00033" summary="* Implement register modal">
+      <created>1608487722491</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1608487722491</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,11 +545,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/server" />
     </ignored-roots>
-    <MESSAGE value="* Create Api Server" />
-    <MESSAGE value="* Add basic structure" />
-    <MESSAGE value="* Add api and filters" />
-    <MESSAGE value="* Create modules and components" />
-    <MESSAGE value="* Add map&#10;* Add nested route loading" />
     <MESSAGE value="* Add search" />
     <MESSAGE value="* Finally get docker-compose to work&#10;* Try to fix query builder" />
     <MESSAGE value="* Resolve conflict" />
@@ -522,6 +565,11 @@
     <MESSAGE value="* Implemented pie chart&#10;* Do not use input name &quot;title&quot; anymore because it was causing issues" />
     <MESSAGE value="* Do not use input name &quot;title&quot; anymore because it was causing issues" />
     <MESSAGE value="* Implement pie chart loading spinner" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Implement pie chart loading spinner" />
+    <MESSAGE value="* Fixed stats showing only 11 months" />
+    <MESSAGE value="* Cleanup orders component" />
+    <MESSAGE value="* Move usage counter to ui module" />
+    <MESSAGE value="* Implement success page" />
+    <MESSAGE value="* Implement register modal" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Implement register modal" />
   </component>
 </project>

@@ -26,7 +26,7 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
                 }
             }
         )
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return null;
             });
@@ -39,7 +39,7 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
     }
 
     const data = await Customer.create(mappedIncomingData)
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });

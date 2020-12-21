@@ -28,7 +28,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
                 email: mappedIncomingData.email
             }
         })
-        .catch((error) => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -39,7 +39,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
     if (user === null) {
 
         const createdData = await User.create(mappedIncomingData)
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return null;
             });
@@ -53,7 +53,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
                 id: createdData.id
             }
         })
-            .catch((error) => {
+            .catch(() => {
                 success = false;
                 return null;
             });
