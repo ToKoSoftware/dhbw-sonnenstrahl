@@ -26,7 +26,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
                 is_active: true
             }
         })
-        .catch((error) => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -45,7 +45,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
                 is_active: true
             }
         })
-        .catch((error) => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -62,7 +62,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
     }
 
     const data = await Order.create(incomingData)
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -96,7 +96,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
                 is_active: true
             }
         })
-        .catch((error) => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -125,7 +125,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
                 userId: mappedCustomerData.userId
             }
         })
-        .catch((error) => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -134,7 +134,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
     }
     if (customer === null) {
         // Customer not found. Create new!
-        customer = await Customer.create(mappedCustomerData).catch((error) => null);
+        customer = await Customer.create(mappedCustomerData).catch(() => null);
     }
     if (customer === null) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
@@ -144,7 +144,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
 
     // Create order
     const data = await Order.create(mappedIncomingData)
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });

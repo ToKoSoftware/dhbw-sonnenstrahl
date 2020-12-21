@@ -14,7 +14,7 @@ export async function terminateOrder(req: Request, res: Response): Promise<Respo
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -31,7 +31,7 @@ export async function terminateOrder(req: Request, res: Response): Promise<Respo
                 id: order.customerId
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -63,7 +63,7 @@ export async function terminateOrder(req: Request, res: Response): Promise<Respo
             },
             returning: true,
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });

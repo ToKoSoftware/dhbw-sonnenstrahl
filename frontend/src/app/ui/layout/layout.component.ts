@@ -8,7 +8,7 @@ import {SidebarPageGroup} from '../sidebar/sidebar.component';
 })
 export class LayoutComponent implements OnInit {
   @Input() sidebarPages: SidebarPageGroup[] = [];
-  @Input() title = 'Title';
+  @Input() heading = 'Title';
   @Input() buttons: UiButtonGroup | null = null;
   @Input() breadcrumbs: UiBreadcrumb[] | null = [
     {routerLink: '/', title: 'Home'},

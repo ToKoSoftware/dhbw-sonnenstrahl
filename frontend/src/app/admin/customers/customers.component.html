@@ -1,5 +1,6 @@
-<app-layout [sidebarPages]="sidebarPages" [buttons]="buttonGroup" [breadcrumbs]="breadcrumb" title="Benutzer verwalten">
-  <div class="bg-white rounded border-1 border-black p-4">
+<app-layout [sidebarPages]="sidebarPages" [buttons]="buttonGroup" [breadcrumbs]="breadcrumb"
+            heading="Benutzer verwalten">
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3">
     <app-loading *ngIf="loading"></app-loading>
     <table class="table-fixed w-full" *ngIf="!loading">
       <thead>

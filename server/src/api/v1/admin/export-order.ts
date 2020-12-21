@@ -12,7 +12,7 @@ export async function exportOrders(req: Request, res: Response): Promise<Respons
             },
             raw: true
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return [];
         });
