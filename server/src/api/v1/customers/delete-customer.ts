@@ -9,14 +9,21 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
     let success = true;
     // Can only set Customer to inactive, if none of his orders is active/not terminated
 
-    const count = await Order.count({
-        where: {
-            customerId: req.params.id,
-            terminatedAt: {
-                [Op.ne]: null
+    const count = await Order.count(
+        {
+            where: {
+                customerId: req.params.id,
+                terminatedAt: {
+                    [Op.ne]: null
+                }
             }
-        }
-    });
+        })
+        .catch(() => {
+            success = false;
+        });
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    }
     if (count > 0) {
         return res.status(400).send(wrapResponse(false, {error: 'You can not delete a customer with active orders'}));
     }
@@ -29,7 +36,7 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
         });
     if (!success) {
