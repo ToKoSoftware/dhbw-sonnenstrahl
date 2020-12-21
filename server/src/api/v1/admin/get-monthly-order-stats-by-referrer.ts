@@ -2,7 +2,6 @@ import {Request, Response} from 'express';
 import {Sequelize} from 'sequelize-typescript';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
-import { Vars } from '../../../vars';
 
 export async function getMonthlOrderStatsByReferrer(req: Request, res:Response): Promise<Response> {
     let success = true;
