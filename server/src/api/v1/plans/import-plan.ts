@@ -23,7 +23,7 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
         const targetData: InternalPlan[] = incomingData.map(mapPlan);
         await deactivatePlans();
         targetData.forEach(createPlanEntry);
-        return res.send(wrapResponse(true, targetData));
+        return res.status(201).send(wrapResponse(true, targetData));
     } catch (e) {
         return res.status(400).send(wrapResponse(false, { error: e }));
     }

@@ -44,5 +44,5 @@ export async function deletePlan(req: Request, res: Response): Promise<Response>
     if (updateResult === null || updateResult[0] == 0) {
         return res.status(404).send(wrapResponse(false, {error: 'No plan updated'}));
     }
-    return res.send(wrapResponse(true));
+    return res.status(204).send(wrapResponse(true));
 }

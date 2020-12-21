@@ -53,7 +53,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (customer === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'Given customerId does not match a customer'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Given customerId does not match a customer'}));
     }
 
     // Postcode of plan and customer must match
@@ -72,7 +72,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
     if (data === null) {
         return res.status(400).send(wrapResponse(false, {error: 'Could not create Order'}));
     }
-    return res.send(wrapResponse(true, data));
+    return res.status(201).send(wrapResponse(true, data));
 }
 
 export async function createExternalOrder(req: Request, res: Response): Promise<Response> {
@@ -104,7 +104,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (plan === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'Given rateId does not match a plan'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Given rateId does not match a plan'}));
     }
 
 
@@ -157,7 +157,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
 
     const calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
 
-    return res.send(wrapResponse(true, {costs: calculatedCosts + '€'}));
+    return res.status(201).send(wrapResponse(true, {costs: calculatedCosts + '€'}));
 }
 
 function requiredIncomingFields(): Array<keyof IncomingExternalOrder> {

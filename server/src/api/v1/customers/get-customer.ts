@@ -22,7 +22,7 @@ export async function getCustomer(req: Request, res: Response): Promise<Response
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (customer === null) {
-        return res.status(404).send(wrapResponse(false));
+        return res.status(404).send(wrapResponse(false, {error: 'No customer with given id found'}));
     }
     //authorisation check
     if (customer.userId !== undefined) {
@@ -63,7 +63,7 @@ export async function getCustomers(req: Request, res: Response): Promise<Respons
         allowedOrderFields: allowedSearchAndOrderFields
     };
     query = buildQuery(queryConfig, req);
-    const data: Customer[] = await Customer.findAll(query)
+    const customer: Customer[] = await Customer.findAll(query)
         .catch(() => {
             success = false;
             return [];
@@ -72,5 +72,5 @@ export async function getCustomers(req: Request, res: Response): Promise<Respons
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-    return res.send(wrapResponse(true, data));
+    return res.send(wrapResponse(true, customer));
 }
