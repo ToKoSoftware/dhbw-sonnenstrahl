@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 export function convertObjectArrayToCsv(objectArray: Object[], columnDelimiter = ';', lineDelimiter = '\n') {
     let result = '';
     const keys: string[] = Object.keys(objectArray[0]);

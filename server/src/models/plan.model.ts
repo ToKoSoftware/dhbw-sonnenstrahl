@@ -26,7 +26,7 @@ export class Plan extends Model<Plan> {
     }
 
     @BeforeCreate
-    static addUuid(instance: Plan) {
+    static addUuid(instance: Plan): string {
         return instance.id = uuidv4();
     }
 }

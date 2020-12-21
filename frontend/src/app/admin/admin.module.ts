@@ -8,11 +8,14 @@ import {UiModule} from '../ui/ui.module';
 import {UsersComponent} from './users/users.component';
 import {FormsModule} from '@angular/forms';
 import {IconsModule} from '../icons/icons.module';
-import { UploadCsvComponent } from './plans/upload-csv/upload-csv.component';
+import {UploadCsvComponent} from './plans/upload-csv/upload-csv.component';
 import {DragDropDirective} from './plans/upload-csv/drag-and-drop.directive';
 import {CustomersComponent} from './customers/customers.component';
-import { RelatedCustomersComponent } from './users/related-customers/related-customers.component';
-import { OrderRowComponent } from './orders/order-row/order-row.component';
+import {RelatedCustomersComponent} from './users/related-customers/related-customers.component';
+import {OrderRowComponent} from './orders/order-row/order-row.component';
+import {ChartsModule} from 'ng2-charts';
+import {AdminLineStatsComponent} from './overview/admin-line-stats/admin-line-stats.component';
+import { AdminPieStatsComponent } from './overview/admin-pie-stats/admin-pie-stats.component';
 
 @NgModule({
   declarations: [
@@ -24,15 +27,18 @@ import { OrderRowComponent } from './orders/order-row/order-row.component';
     UploadCsvComponent,
     DragDropDirective,
     RelatedCustomersComponent,
-    OrderRowComponent
+    OrderRowComponent,
+    AdminLineStatsComponent,
+    AdminPieStatsComponent
   ],
-    imports: [
-        adminRoutes,
-        CommonModule,
-        FormsModule,
-        UiModule,
-        IconsModule
-    ]
+  imports: [
+    adminRoutes,
+    CommonModule,
+    FormsModule,
+    UiModule,
+    IconsModule,
+    ChartsModule
+  ]
 })
 export class AdminModule {
 }

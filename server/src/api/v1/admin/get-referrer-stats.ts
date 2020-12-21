@@ -10,7 +10,7 @@ export async function getReferrerStats(req: Request, res: Response): Promise<Res
             attributes: ['referrer', [Sequelize.fn('COUNT', Sequelize.col('referrer')), 'count']],
             group: 'referrer',
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return [];
         });
