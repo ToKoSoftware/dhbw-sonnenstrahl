@@ -27,7 +27,7 @@ async function countMonthlyEntities(model: statEntityTypes) {
         {
             group: [Sequelize.fn('date_trunc', 'month', Sequelize.col('createdAt'))]
         })
-        .catch(error => {
+        .catch(() => {
             return 0;
         });
 

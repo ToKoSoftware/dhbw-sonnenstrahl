@@ -20,7 +20,7 @@ export class User extends Model<User> {
     }
 
     @BeforeCreate
-    static addUuid(instance: User) {
+    static addUuid(instance: User): string {
         return instance.id = uuidv4();
     }
 }

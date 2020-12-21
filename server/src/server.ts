@@ -33,7 +33,7 @@ import {getStats} from './api/v1/admin/get-stats';
 import {getMonthlyStats} from './api/v1/admin/get-monthly-stats';
 import {getReferrerStats} from './api/v1/admin/get-referrer-stats';
 
-export default function startServer() {
+export default function startServer(): void {
 
     /**
      * Setup
@@ -117,7 +117,7 @@ export default function startServer() {
     app.get('/api/v1/admin/export/users', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportUsers(req, res));
 
 
-    app.use((req, res, next) => {
+    app.use((req, res) => {
         res.status(404).send(wrapResponse(false, {
             error: 'Unable to find the requested resource!'
         }));

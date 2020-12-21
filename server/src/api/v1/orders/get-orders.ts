@@ -15,7 +15,7 @@ export async function getOrder(req: Request, res: Response): Promise<Response> {
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -33,7 +33,7 @@ export async function getOrder(req: Request, res: Response): Promise<Response> {
                 id: orderData.customerId
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -75,7 +75,7 @@ export async function getOrders(req: Request, res: Response): Promise<Response> 
                 },
                 raw: true
             })
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return [];
             });
@@ -99,7 +99,7 @@ export async function getOrders(req: Request, res: Response): Promise<Response> 
     query = buildQuery(queryConfig, req);
 
     const orderdata = await Order.findAll(query)
-        .catch(error => {
+        .catch(() => {
             success = false;
             return [];
         }

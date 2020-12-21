@@ -44,12 +44,12 @@ async function countTotalEntities(model: statEntityTypes, is_active = true): Pro
                     is_active: is_active
                 }
             })
-            .catch(error => {
+            .catch(() => {
                 return 0;
             });
     } else {
         count = await model.count()
-            .catch(error => {
+            .catch(() => {
                 return 0;
             });
 

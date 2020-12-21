@@ -34,7 +34,7 @@ export class Customer extends Model<Customer> {
     }
 
     @BeforeCreate
-    static addUuid(instance: Customer) {
+    static addUuid(instance: Customer): string {
         return instance.id = uuidv4();
     }
 }

@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import {wrapResponse} from '../functions/response-wrapper';
 import {verifyToken} from '../functions/verify-token.func';
 
-export async function userIsAuthorized(req: Request, res: Response, next: any): Promise<void> {
+export async function userIsAuthorized(req: Request, res: Response, next: unknown): Promise<void> {
     const header = req.headers.authorization;
     if (header !== undefined) {
         const [bearer, token] = header.split(' ');

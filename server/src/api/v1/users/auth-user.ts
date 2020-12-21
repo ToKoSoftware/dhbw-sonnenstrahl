@@ -22,7 +22,7 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
                 email: mappedIncomingData.email,
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -35,7 +35,7 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
     } else {
         const passwordMatches = await bcrypt.compare(incomingData.password, user.password)
-            .catch(error => {
+            .catch(() => {
                 return false;
             });
         if (passwordMatches) {

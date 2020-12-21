@@ -7,7 +7,6 @@ import {InternalUser} from '../../../interfaces/users.interface';
 import {User} from '../../../models/user.model';
 import * as EmailValidator from 'email-validator';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
-import { Vars } from '../../../vars';
 import {Op} from 'sequelize';
 
 export async function updateUser(req: Request, res: Response): Promise<Response> {
@@ -34,7 +33,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -61,7 +60,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
                     }
                 }
             })
-                .catch(error => {
+                .catch(() => {
                     success = false;
                     return 0;
                 });
@@ -85,7 +84,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
                 },
                 returning: true,
             })
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return null;
             });
@@ -123,7 +122,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });

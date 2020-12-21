@@ -13,7 +13,7 @@ export async function deletePlan(req: Request, res: Response): Promise<Response>
                 terminatedAt: null
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -34,7 +34,7 @@ export async function deletePlan(req: Request, res: Response): Promise<Response>
             },
             returning: true,
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });

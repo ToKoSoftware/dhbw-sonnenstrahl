@@ -10,7 +10,7 @@ export async function deleteUser(req: Request, res: Response): Promise<Response>
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
