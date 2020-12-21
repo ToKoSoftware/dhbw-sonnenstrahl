@@ -32,6 +32,7 @@ import {exportUsers} from './api/v1/admin/export-users';
 import {getStats} from './api/v1/admin/get-stats';
 import {getMonthlyStats} from './api/v1/admin/get-monthly-stats';
 import {getReferrerStats} from './api/v1/admin/get-referrer-stats';
+import {getMonthlOrderStatsByReferrer} from './api/v1/admin/get-monthly-order-stats-by-referrer';
 
 export default function startServer() {
 
@@ -112,6 +113,7 @@ export default function startServer() {
     app.get('/api/v1/admin/stats', userIsAuthorized, userIsAdmin, (req, res) => getStats(req, res));
     app.get('/api/v1/admin/stats/monthly', userIsAuthorized, userIsAdmin, (req, res) => getMonthlyStats(req, res));
     app.get('/api/v1/admin/stats/referrer', userIsAuthorized, userIsAdmin, (req, res) => getReferrerStats(req, res));
+    app.get('/api/v1/admin/stats/orders/monthly', userIsAuthorized, userIsAdmin, (req, res) => getMonthlOrderStatsByReferrer(req, res));
     //following two routes only via frontend/browser functionable with download
     app.get('/api/v1/admin/export/orders', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportOrders(req, res));
     app.get('/api/v1/admin/export/users', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportUsers(req, res));
