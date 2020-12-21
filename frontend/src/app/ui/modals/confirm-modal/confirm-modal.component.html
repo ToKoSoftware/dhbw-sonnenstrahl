@@ -1,4 +1,4 @@
-<app-modal *ngIf="showModal">
+<app-modal [blocking]="true" *ngIf="showModal">
   <h1>{{config.title}}</h1>
   <hr class="my-5">
   <p class="my-5">{{config.description}}</p>

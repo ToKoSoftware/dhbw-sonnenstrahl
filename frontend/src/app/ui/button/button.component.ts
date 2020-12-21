@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-button',
@@ -12,6 +13,14 @@ export class ButtonComponent {
   @Input() type: ButtonType = 'info';
   @Input() size: ButtonSize = 'normal';
 
+  @HostListener("click") onClick(){
+    if (this.route != null) {
+      this.router.navigate([this.route]);
+    }
+  }
+
+  constructor(private readonly router: Router) {
+  }
 }
 
 export type ButtonType = 'blank' | 'info' | 'danger';

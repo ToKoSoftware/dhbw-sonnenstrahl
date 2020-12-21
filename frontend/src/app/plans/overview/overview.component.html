@@ -12,7 +12,7 @@
       <ng-container *ngFor="let result of results">
         <app-plan-detail
           [estimatedUsage]="currentEstimatedUsage" [plan]="result">
-          <a [routerLink]="'/order/' + result.id  + '/' + currentEstimatedUsage">
+          <a [routerLink]="'/order/checkout/' + result.id  + '/' + currentEstimatedUsage">
             <app-button label="Jetzt bestellen"></app-button>
           </a>
         </app-plan-detail>

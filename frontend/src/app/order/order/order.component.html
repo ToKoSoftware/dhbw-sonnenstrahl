@@ -1,0 +1,167 @@
+<app-nav-spacer></app-nav-spacer>
+<app-header
+  heading="Tarif bestellen"
+  [breadcrumbs]="breadcrumbs"
+  [whiteBg]="true">
+</app-header>
+<app-container>
+  <div *ngIf="!loading">
+    <h3 class="text-2xl text-gray-600">Gewählter Tarif</h3>
+    <p class="text-gray-600 py-4">Bitte überprüfen Sie, ob Sie den richtigen Tarif gewählt haben.</p>
+    <app-plan-detail [plan]="plan" [estimatedUsage]="estimatedUsage"></app-plan-detail>
+    <ng-container *ngIf="currentStep === 1">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center">
+        <app-zero-data
+          class="flex-1"
+          image="wind"
+          description="Geben Sie hier Ihren geschätzen jährlichen Verbrauch an. Alternativ können Sie auch die Personenzahl angeben."
+          heading="Geschätzter Verbrauch"></app-zero-data>
+        <div class="flex-1">
+            <app-usage-people-counter [currentEstimatedUsage]="estimatedUsage"
+                                      (estimatedUsage)="estimatedUsage = $event"></app-usage-people-counter>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 2">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center">
+        <app-zero-data
+          class="flex-1"
+          image="login"
+          description="Sie können Tarife für Ihr eigenes zu Hause oder für das Ihrer Familie bestellen.
+          Mit Ihrem persönlichen Sonnenstrahl-Energie Account können Sie die Tarifbestellungen mehrerer Personen
+          verwalten." heading="Ihr Sonnenstrahl-Energie Account"></app-zero-data>
+        <div class="flex-1" *ngIf="!(loginService.isLoggedIn$ | async)">
+          <app-button (click)="showModal('login')" type="blank" label="Ich habe ein Konto"></app-button>
+          <app-button (click)="showModal('register')" label="Ich habe kein Konto"></app-button>
+        </div>
+        <div class="flex-1 text-center" *ngIf="loginService.isLoggedIn$ | async">
+          <div class="w-full my-5">
+            Angemeldet als
+            <span class="text-lg text-black font-bold">{{(loginService.decodedJwt$ | async)?.email}}</span>
+          </div>
+          <app-button size="small" class="mt-5" (click)="showModal('login')" type="blank"
+                      label="Anderes Konto verwenden"></app-button>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="currentStep === 3">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center">
+        <app-zero-data
+          class="flex-1"
+          image="people"
+          description="Sie können Tarife für Ihr eigenes Zuhause oder für das Ihrer Familie bestellen.
+      Wählen Sie einen bestehenden Kunden aus oder erstellen Sie einen neuen Kunden. Bestehende Kunden können unter Ihrem Profil bearbeitet werden."
+          heading="Kunde wählen"></app-zero-data>
+        <div class="flex-1 text-center" *ngIf="(orderService.selectedCustomer$ | async) === null">
+          <div class="w-full my-5" *ngIf="customersOfCurrentUserCount === 0">
+            Zu Ihrem Account wurde noch kein Kunde angelegt.
+          </div>
+          <app-button size="small"
+                      (click)="showModal('createCustomer')"
+                      label="Neuen Kunden anlegen"></app-button>
+          <div class="mt-3">
+            <app-button
+                        *ngIf="customersOfCurrentUserCount !== 0"
+                        size="small"
+                        type="blank"
+                        (click)="showModal('selectCustomer')"
+                        label="Bestehenden Kunden wählen"></app-button>
+          </div>
+        </div>
+        <div class="flex-1 text-center" *ngIf="!((orderService.selectedCustomer$ | async) === null)">
+          <div class="w-full my-5">
+              <span class="text-lg text-black font-bold">
+                {{(orderService.selectedCustomer$ | async)?.firstName}} {{(orderService.selectedCustomer$ | async)?.lastName}}
+              </span>
+            ausgewählt
+          </div>
+          <app-button size="small" class="mt-5" (click)="orderService.selectedCustomer$.next(null)" type="blank"
+                      label="Ändern"></app-button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 4">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center">
+        <app-zero-data
+          class="flex-1"
+          image="finish_line"
+          description="Bitte überprüfen Sie nochmals Ihre Angaben zu Ihrer Bestellung"
+          heading="Angaben überprüfen"></app-zero-data>
+        <div class="flex-1 text-center">
+          <div class="flex">
+            <app-labeled-value
+              label="Vorname"
+              class="flex-1"
+              [value]="(orderService.selectedCustomer$ | async)?.firstName">
+            </app-labeled-value>
+            <app-labeled-value
+              label="Nachname"
+              class="flex-1"
+              [value]="(orderService.selectedCustomer$ | async)?.lastName">
+            </app-labeled-value>
+          </div>
+          <div class="flex">
+            <app-labeled-value
+              label="Straße"
+              class="flex-1"
+              [value]="(orderService.selectedCustomer$ | async)?.street + ' ' + (orderService.selectedCustomer$ | async)?.streetNumber">
+            </app-labeled-value>
+            <app-labeled-value
+              label="PLZ, Ort"
+              class="flex-1"
+              [value]="(orderService.selectedCustomer$ | async)?.postcode + ' ' + (orderService.selectedCustomer$ | async)?.city">
+            </app-labeled-value>
+          </div>
+          <div class="flex">
+            <app-labeled-value
+              label="Verbrauch"
+              class="flex-1"
+              [value]="estimatedUsage + 'kWh'">
+            </app-labeled-value>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="flex justify-end w-full">
+      <div>
+        <app-button
+          type="blank"
+          label="Zurück"
+          *ngIf="currentStep !== 1"
+          (click)="showPreviousStep()">
+        </app-button>
+        <app-button
+          *ngIf="!(currentStep === 2 && !(loginService.isLoggedIn$ | async))
+          && !(currentStep === 3 && (orderService.selectedCustomer$ | async) == null)
+          && !(currentStep === 4)"
+          label="Weiter"
+          (click)="showNextStep()">
+        </app-button>
+        <app-button
+          *ngIf="currentStep === 4"
+          type="danger"
+          label="Kostenpflichitg buchen"
+          (click)="order()">
+        </app-button>
+      </div>
+    </div>
+  </div>
+</app-container>
+<ng-template #errorModal>
+  <h1>Ein Fehler ist aufgetreten!</h1>
+  Kehren Sie zur <a class="text-blue-600" routerLink="/">Startseite</a> zurück.
+</ng-template>
+<ng-template #loginModal>
+  <app-login-modal></app-login-modal>
+</ng-template>
+<ng-template #registerModal>
+  <app-register-modal></app-register-modal>
+</ng-template>
+<ng-template #selectCustomerModal>
+  <app-select-customer-modal></app-select-customer-modal>
+</ng-template>
+<ng-template #createCustomerModal>
+  <app-create-customer-modal></app-create-customer-modal>
+</ng-template>

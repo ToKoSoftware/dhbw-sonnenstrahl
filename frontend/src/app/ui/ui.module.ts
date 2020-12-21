@@ -25,6 +25,7 @@ import {InputComponent} from './input/input.component';
 import {LabeledValueComponent} from './labeled-value/labeled-value.component';
 import { ZeroDataComponent } from './zero-data/zero-data.component';
 import {PlanDetailComponent} from './detail/plan-detail.component';
+import {UsagePeopleCounterComponent} from './usage-people-counter/usage-people-counter.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {PlanDetailComponent} from './detail/plan-detail.component';
     InputComponent,
     LabeledValueComponent,
     ZeroDataComponent,
-    PlanDetailComponent
+    PlanDetailComponent,
+    UsagePeopleCounterComponent
   ],
   exports: [
     NavbarComponent,
@@ -72,7 +74,8 @@ import {PlanDetailComponent} from './detail/plan-detail.component';
     InputComponent,
     LabeledValueComponent,
     ZeroDataComponent,
-    PlanDetailComponent
+    PlanDetailComponent,
+    UsagePeopleCounterComponent
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ZeroDataComponent implements OnInit {
   @Input() image: AvailableZeroDataImages = 'empty';
-  @Input() title = 'Keine Daten vorhanden';
+  @Input() heading = 'Keine Daten vorhanden';
   @Input() description = '';
   constructor() { }
 
