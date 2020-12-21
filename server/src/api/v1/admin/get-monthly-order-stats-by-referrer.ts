@@ -11,14 +11,14 @@ export async function getMonthlOrderStatsByReferrer(req: Request, res:Response):
             attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('referrer')) ,'referrer']],
             raw: true
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return [];
         });
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-    let result: unknown[] = [];
+    const result: unknown[] = [];
     referrer.forEach(async el => {
         const count = await Order.count(
             {
@@ -27,7 +27,7 @@ export async function getMonthlOrderStatsByReferrer(req: Request, res:Response):
                 }, 
                 group: [Sequelize.fn('date_trunc', 'month', Sequelize.col('createdAt'))]
             })
-            .catch(error => {
+            .catch(() => {
                 success = false;
                 return 0;
             });
@@ -35,6 +35,6 @@ export async function getMonthlOrderStatsByReferrer(req: Request, res:Response):
             return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         result.push(el.referrer, count);
-    })
+    });
     return res.send(wrapResponse(true, result));
 }
