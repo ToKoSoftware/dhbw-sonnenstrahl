@@ -1,9 +1,9 @@
 import {Plan} from '../../../models/plan.model';
 import {Request, Response} from 'express';
-import {FindOptions, Sequelize, QueryTypes} from 'sequelize';
+import {FindOptions} from 'sequelize';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
-import { Vars } from '../../../vars';
+import {ExternalPlanData} from '../../../interfaces/plan.interface';
 
 export async function getPlans(req: Request, res: Response): Promise<Response> {
     let query: FindOptions = {
@@ -41,26 +41,40 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
     const incomingZipCode = req.query.zipCode as string;
     const zipCodeAsNumber = parseInt(incomingZipCode);
     const incomingConsumption = parseInt(req.query.consumption as string);
-    Vars.loggy.log(incomingConsumption);
     if( zipCodeAsNumber > 99999 || isNaN(zipCodeAsNumber) || incomingConsumption * zipCodeAsNumber <= 0 || isNaN(incomingConsumption)){
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields set or wrong data.'}));
     }
     // calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
-    const data: Plan[] = await Plan.findAll({
+    const plans = await Plan.findAll({
         attributes: [
             'id', 
-            ['plan', 'title'], 
-            ['postcode', 'zipCode'], 
-            ['cost_var', 'pricePerUnit'], 
-            ['cost_fix', 'basicPrice']
-        ], 
+            'plan', 
+            'postcode', 
+            'cost_var', 
+            'cost_fix'
+        ],
         where: {
             postcode: incomingZipCode
         },
         raw: true
     });
-    //TODO costs in array
-    return res.send(wrapResponse(true, data));
+    const outputData: ExternalPlanData[] = [];
+    plans.forEach(element => {
+        const calculatedCosts = Math.round((element.cost_var / 10000 * incomingConsumption + element.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
+        outputData.push({
+            id: element.id,
+            title: element.plan,
+            zipCode: element.postcode,
+            pricePerUnit: element.cost_var,
+            basicPrice: element.cost_fix,
+            consumption: incomingConsumption,
+            calculatedPricePerYear: calculatedCosts
+        });
+    });
+    outputData.sort(function(a, b){
+        return a.calculatedPricePerYear - b.calculatedPricePerYear;
+    });
+    return res.send(wrapResponse(true, outputData));
     
 }
 
