@@ -6,9 +6,6 @@
 </app-header>
 <app-container>
   <div *ngIf="!loading">
-    <h3 class="text-2xl text-gray-600">Gewählter Tarif</h3>
-    <p class="text-gray-600 py-4">Bitte überprüfen Sie, ob Sie den richtigen Tarif gewählt haben.</p>
-    <app-plan-detail [plan]="plan" [estimatedUsage]="estimatedUsage"></app-plan-detail>
     <!--
     ####################################################################################################################
 
@@ -48,8 +45,17 @@
                                       (estimatedUsage)="estimatedUsage = $event"></app-usage-people-counter>
           </div>
         </div>
-        <div class="px-4 py-3 bg-gray-50 text-right">
+        <div class="px-4 py-3 bg-gray-50 flex">
+          <div class="md:mr-5 flex-grow">
+            <span class="flex-shrink-0">
+              <span
+                class="w-10 h-10 flex items-center justify-center border-2 rounded-full border-yellow-300">
+                <span class="text-yellow-300">1</span>
+              </span>
+            </span>
+          </div>
           <app-button
+            class="right"
             label="Weiter"
             (click)="showNextStep()">
           </app-button>
@@ -68,11 +74,10 @@
         <span class="flex-shrink-0">
           <span
             [class.border-green-400]="currentStep > 2"
-            [class.border-yellow-300]="currentStep < 2"
             class="w-10 h-10 flex items-center justify-center border-2 rounded-full">
             <span
               [class.text-green-400]="currentStep > 2"
-              [class.text-yellow-300]="currentStep < 2">2</span>
+              [class.text-gray-400]="currentStep < 2">2</span>
           </span>
         </span>
       </div>
@@ -110,7 +115,15 @@
                         label="Anderes Konto verwenden"></app-button>
           </div>
         </div>
-        <div class="px-4 py-3 bg-gray-50 text-right">
+        <div class="px-4 py-3 bg-gray-50 flex">
+          <div class="md:mr-5 flex-grow">
+            <span class="flex-shrink-0">
+              <span
+                class="w-10 h-10 flex items-center justify-center border-2 rounded-full border-yellow-300">
+                <span class="text-yellow-300">2</span>
+              </span>
+            </span>
+          </div>
           <app-button
             type="blank"
             label="Zurück"
@@ -136,11 +149,10 @@
         <span class="flex-shrink-0">
           <span
             [class.border-green-400]="currentStep > 3"
-            [class.border-yellow-300]="currentStep < 3"
             class="w-10 h-10 flex items-center justify-center border-2 rounded-full">
             <span
               [class.text-green-400]="currentStep > 3"
-              [class.text-yellow-300]="currentStep < 3">3</span>
+              [class.text-gray-400]="currentStep < 3">3</span>
           </span>
         </span>
       </div>
@@ -148,7 +160,8 @@
         <h1 class="text-2xl font-bold">Kunde</h1>
         <div *ngIf="currentStep > 3">
           <span class="text-md text-blue-600">
-            {{(orderService.selectedCustomer$ | async)?.firstName}} {{(orderService.selectedCustomer$ | async)?.lastName}},
+            {{(orderService.selectedCustomer$ | async)?.firstName}} {{(orderService.selectedCustomer$ | async)?.lastName}}
+            ,
           </span>
           {{(orderService.selectedCustomer$ | async)?.postcode}} {{(orderService.selectedCustomer$ | async)?.city}}
         </div>
@@ -194,7 +207,15 @@
                         label="Anderen Kunden wählen"></app-button>
           </div>
         </div>
-        <div class="px-4 py-3 bg-gray-50 text-right">
+        <div class="px-4 py-3 bg-gray-50 flex">
+          <div class="md:mr-5 flex-grow">
+            <span class="flex-shrink-0">
+              <span
+                class="w-10 h-10 flex items-center justify-center border-2 rounded-full border-yellow-300">
+                <span class="text-yellow-300">3</span>
+              </span>
+            </span>
+          </div>
           <app-button
             type="blank"
             label="Zurück"
@@ -215,6 +236,21 @@
 
     ########################################################################################################################
     -->
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center" *ngIf="currentStep != 4">
+      <div class="md:mr-5">
+        <span class="flex-shrink-0">
+          <span
+            class="w-10 h-10 flex items-center justify-center border-2 rounded-full">
+            <span
+              [class.text-green-400]="currentStep > 3"
+              [class.text-gray-400]="currentStep < 3">4</span>
+          </span>
+        </span>
+      </div>
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold">Angaben überprüfen</h1>
+      </div>
+    </div>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center" *ngIf="currentStep > 4">
       <div class="md:mr-5">
         <span class="flex-shrink-0">
@@ -238,47 +274,60 @@
     </div>
     <ng-container *ngIf="currentStep == 4">
       <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10">
-        <div class="p-4 md:flex items-center">
-          <app-zero-data
-            class="flex-1"
-            image="finish_line"
-            description="Bitte überprüfen Sie nochmals Ihre Angaben zu Ihrer Bestellung"
-            heading="Angaben überprüfen"></app-zero-data>
-          <div class="flex-1 text-center">
-            <div class="flex">
-              <app-labeled-value
-                label="Vorname"
-                class="flex-1"
-                [value]="(orderService.selectedCustomer$ | async)?.firstName">
-              </app-labeled-value>
-              <app-labeled-value
-                label="Nachname"
-                class="flex-1"
-                [value]="(orderService.selectedCustomer$ | async)?.lastName">
-              </app-labeled-value>
-            </div>
-            <div class="flex">
-              <app-labeled-value
-                label="Straße"
-                class="flex-1"
-                [value]="(orderService.selectedCustomer$ | async)?.street + ' ' + (orderService.selectedCustomer$ | async)?.streetNumber">
-              </app-labeled-value>
-              <app-labeled-value
-                label="PLZ, Ort"
-                class="flex-1"
-                [value]="(orderService.selectedCustomer$ | async)?.postcode + ' ' + (orderService.selectedCustomer$ | async)?.city">
-              </app-labeled-value>
-            </div>
-            <div class="flex">
-              <app-labeled-value
-                label="Verbrauch"
-                class="flex-1"
-                [value]="estimatedUsage + 'kWh'">
-              </app-labeled-value>
+        <app-zero-data
+          class="flex-1"
+          image="finish_line"
+          description="Bitte überprüfen Sie nochmals Ihre Angaben zu Ihrer Bestellung"
+          heading="Angaben überprüfen"></app-zero-data>
+      </div>
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10">
+        <app-plan-detail
+          [cardStyle]="false"
+          [plan]="plan" [estimatedUsage]="estimatedUsage">
+          Verbrauch: <b>{{estimatedUsage}}kWh</b>
+        </app-plan-detail>
+      </div>
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10">
+        <div class="px-6 py-4">
+          <h1 class="font-bold text-2xl">Kundendaten</h1>
+          <div class="md:flex items-start">
+            <div class="flex-1">
+              <div class="flex">
+                <app-labeled-value
+                  label="Vorname"
+                  class="flex-1"
+                  [value]="(orderService.selectedCustomer$ | async)?.firstName">
+                </app-labeled-value>
+                <app-labeled-value
+                  label="Nachname"
+                  class="flex-1"
+                  [value]="(orderService.selectedCustomer$ | async)?.lastName">
+                </app-labeled-value>
+              </div>
+              <div class="flex">
+                <app-labeled-value
+                  label="Straße"
+                  class="flex-1"
+                  [value]="(orderService.selectedCustomer$ | async)?.street + ' ' + (orderService.selectedCustomer$ | async)?.streetNumber">
+                </app-labeled-value>
+                <app-labeled-value
+                  label="PLZ, Ort"
+                  class="flex-1"
+                  [value]="(orderService.selectedCustomer$ | async)?.postcode + ' ' + (orderService.selectedCustomer$ | async)?.city">
+                </app-labeled-value>
+              </div>
             </div>
           </div>
         </div>
-        <div class="px-4 py-3 bg-gray-50 text-right">
+        <div class="px-4 py-3 bg-gray-50 flex">
+          <div class="md:mr-5 flex-grow">
+            <span class="flex-shrink-0">
+              <span
+                class="w-10 h-10 flex items-center justify-center border-2 rounded-full border-yellow-300">
+                <span class="text-yellow-300">4</span>
+              </span>
+            </span>
+          </div>
           <app-button
             type="blank"
             label="Zurück"
@@ -286,7 +335,7 @@
           </app-button>
           <app-button
             type="danger"
-            label="Kostenpflichtig buchen"
+            label="Verbindlich buchen"
             (click)="order()">
           </app-button>
         </div>
