@@ -12,3 +12,13 @@ export interface FileUploadPlan {
     VariableKosten: number;
     Fixkosten: number;
 }
+
+export interface ExternalPlanData {
+    id: string,
+    title: string,
+    zipCode: string,
+    pricePerUnit: number,
+    basicPrice: number,
+    consumption: number,
+    calculatedPricePerYear: number
+}

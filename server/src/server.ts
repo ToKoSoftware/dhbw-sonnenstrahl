@@ -5,7 +5,7 @@ import {wrapResponse} from './functions/response-wrapper';
 import fileUpload from 'express-fileupload';
 import tempDirectory from 'temp-dir';
 import {importPlan} from './api/v1/plans/import-plan';
-import {getPlan, getPlans, getPlansInExternalFormat} from './api/v1/plans/get-plans';
+import {getPlan, getPlans} from './api/v1/plans/get-plans';
 import {getOrder, getOrders} from './api/v1/orders/get-orders';
 import bodyParser from 'body-parser';
 import {createExternalOrder, createInternalOrder} from './api/v1/orders/create-order';
@@ -32,6 +32,7 @@ import {exportUsers} from './api/v1/admin/export-users';
 import {getStats} from './api/v1/admin/get-stats';
 import {getMonthlyStats} from './api/v1/admin/get-monthly-stats';
 import {getReferrerStats} from './api/v1/admin/get-referrer-stats';
+import {getPlansInExternalFormat} from './api/v1/plans/get-external-plan';
 
 export default function startServer(): void {
 
