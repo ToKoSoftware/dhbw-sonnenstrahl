@@ -241,9 +241,7 @@
         <span class="flex-shrink-0">
           <span
             class="w-10 h-10 flex items-center justify-center border-2 rounded-full">
-            <span
-              [class.text-green-400]="currentStep > 3"
-              [class.text-gray-400]="currentStep < 3">4</span>
+            <span class="text-gray-400">4</span>
           </span>
         </span>
       </div>
@@ -255,22 +253,14 @@
       <div class="md:mr-5">
         <span class="flex-shrink-0">
           <span
-            [class.border-green-400]="currentStep > 3"
-            [class.border-yellow-300]="currentStep < 3"
-            class="w-10 h-10 flex items-center justify-center border-2 rounded-full">
-            <span
-              [class.text-green-400]="currentStep > 3"
-              [class.text-yellow-300]="currentStep < 3">4</span>
+            class="border-yellow-300 w-10 h-10 flex items-center justify-center border-2 rounded-full">
+            <span class="text-yellow-300">4</span>
           </span>
         </span>
       </div>
       <div class="flex-1">
         <h1 class="text-2xl font-bold">Auftrag bestätigen</h1>
       </div>
-      <app-button
-        (click)="setCurrentStep(3)"
-        *ngIf="currentStep > 3"
-        class="flex-1 text-right" type="blank" label="Ändern" size="small"></app-button>
     </div>
     <ng-container *ngIf="currentStep == 4">
       <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10">
@@ -280,10 +270,10 @@
           description="Bitte überprüfen Sie nochmals Ihre Angaben zu Ihrer Bestellung"
           heading="Angaben überprüfen"></app-zero-data>
       </div>
-        <app-plan-detail
-          [plan]="plan" [estimatedUsage]="estimatedUsage">
-          Verbrauch: <b>{{estimatedUsage}}kWh</b>
-        </app-plan-detail>
+      <app-plan-detail
+        [plan]="plan" [estimatedUsage]="estimatedUsage">
+        Verbrauch: <b>{{estimatedUsage}}kWh</b>
+      </app-plan-detail>
       <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10">
         <div class="px-6 py-4">
           <h1 class="font-bold text-2xl">Kundendaten</h1>
