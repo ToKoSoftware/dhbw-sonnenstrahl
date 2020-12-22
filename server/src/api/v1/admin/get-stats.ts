@@ -46,11 +46,7 @@ async function countTotalEntities(model: statEntityTypes, is_active = true): Pro
             })
             .catch(() => 0);
     } else {
-        count = await model.count()
-            .catch(() => {
-                return 0;
-            });
-
+        count = await model.count().catch(() => 0);
     }
     return count;
 }

@@ -42,5 +42,5 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Could not delete Order with id ' + req.params.id}));
     }
-    return res.send(wrapResponse(true));
+    return res.status(204).send(wrapResponse(true));
 }

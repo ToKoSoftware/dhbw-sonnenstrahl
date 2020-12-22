@@ -16,8 +16,7 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
     const requiredFields = Customer.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
-        return res.send(wrapResponse(false, {error: 'No body or valid param set.'}));
-
+        return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
     const customer: Customer | null = await Customer.findOne(
         {
@@ -43,7 +42,7 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
             }
         }
     } else {
-        return res.status(400).send(wrapResponse(false, {error: 'No customer with given id found!'}));
+        return res.status(404).send(wrapResponse(false, {error: 'No customer with given id found!'}));
     }
 
     if (incomingData.userId !== undefined && incomingData.userId !== null) {
@@ -90,7 +89,7 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
             return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         if (updateResult === [] || updateResult[0] == 0) {
-            return res.status(404).send(wrapResponse(false, {error: 'No order updated'}));
+            return res.status(400).send(wrapResponse(false, {error: 'No order updated'}));
         }
 
     } else if (checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) === false) {
