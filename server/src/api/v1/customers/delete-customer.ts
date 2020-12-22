@@ -25,7 +25,7 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (count > 0) {
-        return res.status(404).send(wrapResponse(false, {error: 'You can not delete a customer with active orders'}));
+        return res.status(400).send(wrapResponse(false, {error: 'You can not delete a customer with active orders'}));
     }
     await Customer.update(
         {
