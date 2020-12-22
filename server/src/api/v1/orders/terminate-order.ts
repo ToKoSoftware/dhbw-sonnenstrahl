@@ -22,7 +22,7 @@ export async function terminateOrder(req: Request, res: Response): Promise<Respo
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (order === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'Count not find Order with id: ' + req.params.id}));
+        return res.status(404).send(wrapResponse(false, {error: 'Count not find Order with id: ' + req.params.id}));
     }
 
     const customerData = await Customer.findOne(
@@ -71,7 +71,7 @@ export async function terminateOrder(req: Request, res: Response): Promise<Respo
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (updatedOrder === null || updatedOrder[0] == 0) {
-        return res.status(404).send(wrapResponse(false, {error: 'Could not terminate Order with id ' + req.params.id}));
+        return res.status(400).send(wrapResponse(false, {error: 'Could not terminate Order with id ' + req.params.id}));
     }
 
     return res.send(wrapResponse(true, updatedOrder[1]));

@@ -34,7 +34,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (plan === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'Given planId does not match a plan'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Given planId does not match a plan'}));
     }
 
     //Try to find Customer with given customerId
@@ -53,12 +53,12 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (customer === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'Given customerId does not match a customer'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Given customerId does not match a customer'}));
     }
 
     // Postcode of plan and customer must match
     if (plan.postcode != customer.postcode) {
-        return res.status(400).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
     }
 
     const data = await Order.create(incomingData)
@@ -72,7 +72,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
     if (data === null) {
         return res.status(400).send(wrapResponse(false, {error: 'Could not create Order'}));
     }
-    return res.send(wrapResponse(true, data));
+    return res.status(201).send(wrapResponse(true, data));
 }
 
 export async function createExternalOrder(req: Request, res: Response): Promise<Response> {
@@ -104,13 +104,13 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (plan === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'Given rateId does not match a plan'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Given rateId does not match a plan'}));
     }
 
 
     // Postcode of plan and order must match
     if (plan.postcode != mappedCustomerData.postcode) {
-        return res.status(400).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
     }
     let customer: Customer | null = await Customer.findOne(
         {
@@ -157,7 +157,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
 
     const calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
 
-    return res.send(wrapResponse(true, {costs: calculatedCosts + '€'}));
+    return res.status(201).send(wrapResponse(true, {costs: calculatedCosts + '€'}));
 }
 
 function requiredIncomingFields(): Array<keyof IncomingExternalOrder> {

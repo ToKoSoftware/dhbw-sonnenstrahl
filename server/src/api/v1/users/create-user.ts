@@ -47,7 +47,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
             return res.status(500).send(wrapResponse(false, { error: 'Could not create User' }));
         }
         //return everything beside password
-        const data = await User.findOne({
+        const user = await User.findOne({
             attributes: { exclude: ['password'] },
             where: {
                 id: createdData.id
@@ -60,7 +60,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
         if (!success) {
             return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
         }
-        return res.send(wrapResponse(true, data));
+        return res.status(201).send(wrapResponse(true, user));
     } else {
         return res.status(400).send(wrapResponse(false, { error: 'Email is already in use' }));
     }

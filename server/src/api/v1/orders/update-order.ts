@@ -17,7 +17,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
     const requiredFields = Order.requiredFields();
 
     if (isBlank(req.body) || req.params.id === null) {
-        return res.send(wrapResponse(false, {error: 'No body or valid param set.'}));
+        return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
 
     const order: Order | null = await Order.findOne(
@@ -35,7 +35,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (order === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'No order with given id found'}));
+        return res.status(404).send(wrapResponse(false, {error: 'No order with given id found'}));
     }
 
     const customerData = await Customer.findOne(
@@ -77,7 +77,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
                 return null;
             });
             if (plan === null) {
-                return res.status(400).send(wrapResponse(false, {error: 'Plan cannot be changed to given planId'}));
+                return res.status(404).send(wrapResponse(false, {error: 'Plan cannot be changed to given planId'}));
             }
         }
         updateResult = await Order.update(
@@ -96,7 +96,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
             return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         if (updateResult === null || updateResult[0] == 0) {
-            return res.status(404).send(wrapResponse(false, {error: 'No order updated'}));
+            return res.status(400).send(wrapResponse(false, {error: 'No order updated'}));
         }
 
     } else if (checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) === false) {
