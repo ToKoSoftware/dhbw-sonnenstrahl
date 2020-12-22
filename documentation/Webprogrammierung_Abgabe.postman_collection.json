@@ -456,7 +456,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Hausnummer\",\n    \"postcode\": \"01234\",\n    \"city\": \"Ort\"\n}",
+							"raw": "{\n    \"userId\": \"d47e1463-ba99-48d6-990f-4121d3e95915\",\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Hausnummer\",\n    \"postcode\": \"01234\",\n    \"city\": \"Ort\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
