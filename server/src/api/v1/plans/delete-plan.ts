@@ -42,7 +42,7 @@ export async function deletePlan(req: Request, res: Response): Promise<Response>
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (updateResult === null || updateResult[0] == 0) {
-        return res.status(404).send(wrapResponse(false, {error: 'No plan updated'}));
+        return res.status(400).send(wrapResponse(false, {error: 'No plan updated'}));
     }
     return res.status(204).send(wrapResponse(true));
 }

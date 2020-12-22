@@ -34,7 +34,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (plan === null) {
-        return res.status(400).send(wrapResponse(false, {error: 'Given planId does not match a plan'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Given planId does not match a plan'}));
     }
 
     //Try to find Customer with given customerId
@@ -58,7 +58,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
 
     // Postcode of plan and customer must match
     if (plan.postcode != customer.postcode) {
-        return res.status(400).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
     }
 
     const data = await Order.create(incomingData)
@@ -110,7 +110,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
 
     // Postcode of plan and order must match
     if (plan.postcode != mappedCustomerData.postcode) {
-        return res.status(400).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
+        return res.status(404).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
     }
     let customer: Customer | null = await Customer.findOne(
         {

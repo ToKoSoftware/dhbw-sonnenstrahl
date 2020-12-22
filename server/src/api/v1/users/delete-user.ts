@@ -18,7 +18,7 @@ export async function deleteUser(req: Request, res: Response): Promise<Response>
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (destroyedRows == 0) {
-        return res.status(400).send(wrapResponse(false, {error: 'There is no user to delete with this id'}));
+        return res.status(404).send(wrapResponse(false, {error: 'There is no user to delete with this id'}));
     }
     return res.status(204).send(wrapResponse(true));
 }

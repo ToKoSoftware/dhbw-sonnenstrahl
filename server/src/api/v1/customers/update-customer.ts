@@ -17,7 +17,6 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
 
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
-
     }
     const customer: Customer | null = await Customer.findOne(
         {
