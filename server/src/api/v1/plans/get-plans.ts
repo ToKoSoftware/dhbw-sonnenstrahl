@@ -44,7 +44,6 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
     if( zipCodeAsNumber > 99999 || isNaN(zipCodeAsNumber) || incomingConsumption * zipCodeAsNumber <= 0 || isNaN(incomingConsumption)){
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields set or wrong data.'}));
     }
-    // calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
     const plans = await Plan.findAll({
         attributes: [
             'id', 
