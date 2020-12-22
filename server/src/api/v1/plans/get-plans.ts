@@ -3,7 +3,6 @@ import {Request, Response} from 'express';
 import {FindOptions} from 'sequelize';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
-import {ExternalPlanData} from '../../../interfaces/plan.interface';
 
 export async function getPlans(req: Request, res: Response): Promise<Response> {
     let query: FindOptions = {
