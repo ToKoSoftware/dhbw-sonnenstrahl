@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import {Sequelize} from 'sequelize-typescript';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
+import { Vars } from '../../../vars';
 
 export async function getMonthlOrderStatsByReferrer(req: Request, res:Response): Promise<Response> {
     let success = true;
@@ -17,9 +18,9 @@ export async function getMonthlOrderStatsByReferrer(req: Request, res:Response):
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-    const result: unknown[] = [];
+    const result: monthlyOrderStats[] = [];
     referrer.forEach(async el => {
-        const count = await Order.count(
+        const countData = await Order.count(
             {
                 where: {
                     referrer: el.referrer
@@ -33,7 +34,15 @@ export async function getMonthlOrderStatsByReferrer(req: Request, res:Response):
         if (!success) {
             return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
-        result.push(el.referrer, count);
+        result.push({
+            referrer: el.referrer,
+            count: countData 
+        });
     });
+    
     return res.send(wrapResponse(true, result));
+}
+interface monthlyOrderStats{
+    referrer: string,
+    count: number | {[key: string]: number}
 }
