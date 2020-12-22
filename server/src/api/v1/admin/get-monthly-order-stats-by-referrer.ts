@@ -2,11 +2,10 @@ import {Request, Response} from 'express';
 import {Sequelize} from 'sequelize-typescript';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
-import { Vars } from '../../../vars';
 
 export async function getMonthlOrderStatsByReferrer(req: Request, res:Response): Promise<Response> {
     let success = true;
-    const referrer = await Order.findAll(
+    const referrer: Order[] | [] = await Order.findAll(
         {
             attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('referrer')) ,'referrer']],
             raw: true
@@ -18,8 +17,8 @@ export async function getMonthlOrderStatsByReferrer(req: Request, res:Response):
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-    const result: monthlyOrderStats[] = [];
-    referrer.forEach(async el => {
+    const result: MonthlyOrderStats[] = [];
+    for (const el of referrer) {
         const countData = await Order.count(
             {
                 where: {
@@ -38,11 +37,12 @@ export async function getMonthlOrderStatsByReferrer(req: Request, res:Response):
             referrer: el.referrer,
             count: countData 
         });
-    });
-    
+    }
     return res.send(wrapResponse(true, result));
 }
-interface monthlyOrderStats{
+interface MonthlyOrderStats{
     referrer: string,
-    count: number | {[key: string]: number}
-}
+    /** is never number but always string, 
+     * because of Sequelize.count() retuning count: '9' instead of count: 9
+     */
+    count: number | {[key: string]: string | number} }
