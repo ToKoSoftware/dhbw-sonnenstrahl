@@ -30,8 +30,11 @@ module.exports = {
         await queryInterface.bulkInsert('Users', users);
         
         let customers =[];
-        await queryInterface.sequelize.query('SELECT postcode FROM "Plans";', { type: queryInterface.sequelize.QueryTypes.SELECT })
-        .then(function(plans) {
+        let orders = [];
+        let referrers = ['VERIVOX', 'CHECK24', 'switchup', 'Stromvergleich', 'Wechselpiraten'];
+        
+        await queryInterface.sequelize.query('SELECT id, postcode FROM "Plans";', { type: queryInterface.sequelize.QueryTypes.SELECT })
+        .then(async function(plans) {
 
             //200 Customer, die zu User gehören
             for (let i = 0; i <= 199; i++) {
@@ -41,7 +44,7 @@ module.exports = {
                     lastName: faker.name.lastName(),
                     street: faker.address.streetName(),
                     streetNumber: faker.random.number(),
-                    postcode: plans[getRandomInt(384)].postcode,
+                    postcode: plans[i].postcode,
                     city: faker.address.city(),
                     createdAt: users[i].createdAt,
                     updatedAt: timeFunc.randomTime(users[i].createdAt, timeFunc.endTime),
@@ -59,7 +62,7 @@ module.exports = {
                     lastName: faker.name.lastName(),
                     street: faker.address.streetName(),
                     streetNumber: faker.random.number(),
-                    postcode: plans[getRandomInt(384)].postcode,
+                    postcode: plans[i+200].postcode,
                     city: faker.address.city(),
                     createdAt: c,
                     updatedAt: timeFunc.randomTime(c, timeFunc.endTime),
@@ -67,20 +70,19 @@ module.exports = {
                     is_active: true,
                 });
             }
-        }),
-        await queryInterface.bulkInsert('Customers', customers);
+
+            await queryInterface.bulkInsert('Customers', customers);
 
         //250 Customer (175 (70%) haben eine Order)
-        let orders = [];
-        let referrers = ['VERIVOX', 'CHECK24', 'switchup', 'Stromvergleich', 'Wechselpiraten'];
-        await queryInterface.sequelize.query('SELECT Id FROM "Plans";', { type: queryInterface.sequelize.QueryTypes.SELECT })
-        .then(function(plans) {
+            
+        /*await queryInterface.sequelize.query('SELECT Id FROM "Plans";', { type: queryInterface.sequelize.QueryTypes.SELECT })
+        .then(function(plans) { */
         
             for (let i = 0; i <= 249; i++) {
                 orders.push({
                     id: v4(),
                     customerId: customers[i].id,
-                    planId: plans[getRandomInt(384)].id, 
+                    planId: plans[i].id, 
                     referrer: referrers[getRandomInt(5)],
                     consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                     is_active: true,
@@ -97,7 +99,7 @@ module.exports = {
                 orders.push({
                     id: v4(),
                     customerId: customers[i].id,
-                    planId: plans[getRandomInt(384)].id, 
+                    planId: plans[i].id, 
                     referrer: referrers[getRandomInt(5)],
                     consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                     is_active: false,
@@ -113,7 +115,7 @@ module.exports = {
                 orders.push({
                     id: v4(),
                     customerId: customers[i].id,
-                    planId: plans[getRandomInt(384)].id, 
+                    planId: plans[i].id, 
                     referrer: referrers[getRandomInt(5)],
                     consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                     is_active: true,
