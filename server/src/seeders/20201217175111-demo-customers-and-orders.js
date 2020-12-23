@@ -115,8 +115,8 @@ module.exports = {
                         referrer: referrers[getRandomInt(5)],
                         consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                         is_active: true,
-                        createdAt: o,
-                        updatedAt: timeFunc.randomTime(o, timeFunc.endTime),
+                        createdAt: date,
+                        updatedAt: timeFunc.randomTime(date, timeFunc.endTime),
                         terminatedAt: null,
                     });
                 }
