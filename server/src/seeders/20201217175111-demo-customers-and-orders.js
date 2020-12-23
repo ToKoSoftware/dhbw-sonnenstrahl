@@ -89,7 +89,7 @@ module.exports = {
                 }
             
                 //65 (25%) Customer haben eine und eine gecancelte Order
-                for (let i = 0; i <= 64; i++) {
+                for (let i = 0; i < 65; i++) {
                     const o =  timeFunc.randomTime(customers[i].createdAt, timeFunc.endTime);
                     const ou = timeFunc.randomTime(o, timeFunc.endTime);
                     orders.push({
