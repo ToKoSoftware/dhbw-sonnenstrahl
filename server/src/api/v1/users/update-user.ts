@@ -8,8 +8,7 @@ import {User} from '../../../models/user.model';
 import * as EmailValidator from 'email-validator';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 import {Op} from 'sequelize';
-import {Vars} from '../../../vars';
-import jwt from 'jsonwebtoken';
+import { jwtSign } from '../../../functions/jwt-sign.func';
 
 export async function updateUser(req: Request, res: Response): Promise<Response> {
     let success = true;
@@ -133,18 +132,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
-    const calculatedExpiresIn = 60 * 60;
-    const token = jwt.sign(
-        {
-            id: returnedUser.id,
-            email: returnedUser.email,
-            is_admin: returnedUser.is_admin
-        },
-        Vars.config.database.jwtSalt,
-        {
-            expiresIn: calculatedExpiresIn
-        }
-    );
+    const token = jwtSign(returnedUser);
 
     return res.send(wrapResponse(true, {user: returnedUser, jwt: token}));
 
