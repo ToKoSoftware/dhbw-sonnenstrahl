@@ -4,7 +4,7 @@ import {InternalUser} from '../../../interfaces/users.interface';
 import {mapUser} from '../../../functions/map-users.func';
 import {User} from '../../../models/user.model';
 import * as bcrypt from 'bcryptjs';
-import { jwtSign } from '../../../functions/jwt-sign.func';
+import {jwtSign} from '../../../functions/jwt-sign.func';
 
 export async function loginUser(req: Request, res: Response): Promise<Response> {
 

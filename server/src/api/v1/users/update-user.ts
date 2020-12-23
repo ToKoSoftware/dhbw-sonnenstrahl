@@ -8,7 +8,7 @@ import {User} from '../../../models/user.model';
 import * as EmailValidator from 'email-validator';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 import {Op} from 'sequelize';
-import { jwtSign } from '../../../functions/jwt-sign.func';
+import {jwtSign} from '../../../functions/jwt-sign.func';
 
 export async function updateUser(req: Request, res: Response): Promise<Response> {
     let success = true;
