@@ -15,7 +15,7 @@ module.exports = {
         
         //200 User 
         let users = [];
-        for (let i = 0; i <= 199; i++) {
+        for (let i = 0; i < 200; i++) {
             const hashedPassword = await bcrypt.hash(faker.internet.password(), SALT_FACTOR);
             const u = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
             users.push({
