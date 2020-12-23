@@ -7,7 +7,7 @@ const timeFunc = require ('../functions/random-time.func');
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         let users = [];
-        for (let i = 0; i <= 199; i++) {
+        for (let i = 0; i < 200; i++) {
             const date = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
             const SALT_FACTOR = 10;
             const hashedPassword = await bcrypt.hash(faker.internet.password(), SALT_FACTOR);
