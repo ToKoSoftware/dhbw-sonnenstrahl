@@ -13,8 +13,8 @@ module.exports = {
             email: 'sabrina.wassertal@sonnenstrahl-energie.com',
             password:  hashedPassword,
             is_admin: true,
-            createdAt: a,
-            updatedAt: a
+            createdAt: date,
+            updatedAt: date
         }]);
     },
 
