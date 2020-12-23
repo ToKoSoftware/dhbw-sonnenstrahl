@@ -107,7 +107,7 @@ module.exports = {
 
                 //10 (5%) haben 2 Orders
                 for (let i = 65; i <= 74; i++) {
-                    const o =  timeFunc.randomTime(customers[i].createdAt, timeFunc.endTime);
+                    const date =  timeFunc.randomTime(customers[i].createdAt, timeFunc.endTime);
                     orders.push({
                         id: v4(),
                         customerId: customers[i].id,
