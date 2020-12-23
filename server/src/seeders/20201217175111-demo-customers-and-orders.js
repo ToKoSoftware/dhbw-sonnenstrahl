@@ -17,14 +17,14 @@ module.exports = {
         let users = [];
         for (let i = 0; i < 200; i++) {
             const hashedPassword = await bcrypt.hash(faker.internet.password(), SALT_FACTOR);
-            const u = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
+            const date = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
             users.push({
                 id: v4(),
                 email: faker.internet.email(),
                 password: hashedPassword,
                 is_admin: false,
-                createdAt: u,
-                updatedAt: timeFunc.randomTime(u, timeFunc.endTime)
+                createdAt: date,
+                updatedAt: timeFunc.randomTime(date, timeFunc.endTime)
             });
         }
         await queryInterface.bulkInsert('Users', users);
