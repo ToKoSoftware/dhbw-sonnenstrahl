@@ -1,6 +1,6 @@
 'use strict';
 const faker = require('faker');
-const v4 = require("uuid").v4;
+const v4 = require('uuid').v4;
 const bcrypt =  require('bcryptjs');
 const timeFunc = require ('../functions/random-time.func');
 
