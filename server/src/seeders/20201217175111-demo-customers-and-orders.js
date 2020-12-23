@@ -54,7 +54,7 @@ module.exports = {
                 }
 
                 //50 Customer, die zu User gehören, die schon einen Customer haben
-                for (let i = 0; i <= 49; i++) {
+                for (let i = 0; i < 50; i++) {
                     const c = timeFunc.randomTime(users[i].createdAt, timeFunc.endTime);
                     customers.push({
                         id: v4(),
