@@ -24,7 +24,7 @@ async function loadCSV() {
             VariableKosten: transformEuroToCents
         }
     }
-    ).fromFile(path.resolve(__dirname, './sample-data.csv'));
+    ).fromFile(path.resolve(__dirname, '../../../data/sample-data.csv'));
 };
 
 function mapPlan(incomingPlan) {

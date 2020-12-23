@@ -1,16 +1,11 @@
 'use strict';
 const v4 = require("uuid").v4;
 const bcrypt =  require('bcryptjs');
-
-function randomTime(start, end) {
-    var diff =  end.getTime() - start.getTime();
-    var new_diff = diff * Math.random();
-    var date = new Date(start.getTime() + new_diff);
-    return date;
-}
+const timeFunc = require ('../functions/random-time.func');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
+        const a = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
         const SALT_FACTOR = 10;
         const hashedPassword = await bcrypt.hash('qwertz123', SALT_FACTOR);
         return queryInterface.bulkInsert('Users', [{
@@ -18,8 +13,8 @@ module.exports = {
             email: 'sabrina.wassertal@sonnenstrahl-energie.com',
             password:  hashedPassword,
             is_admin: true,
-            createdAt: randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-            updatedAt: randomTime(new Date("06-30-2020 10:30"), new Date("12-31-2020 02:10"))
+            createdAt: a,
+            updatedAt: a
         }]);
     },
 
