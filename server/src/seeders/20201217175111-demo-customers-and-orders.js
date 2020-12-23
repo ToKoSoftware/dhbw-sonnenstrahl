@@ -90,8 +90,8 @@ module.exports = {
             
                 //65 (25%) Customer haben eine und eine gecancelte Order
                 for (let i = 0; i < 65; i++) {
-                    const o =  timeFunc.randomTime(customers[i].createdAt, timeFunc.endTime);
-                    const ou = timeFunc.randomTime(o, timeFunc.endTime);
+                    const dateCreatedAt = timeFunc.randomTime(customers[i].createdAt, timeFunc.endTime);
+                    const dateUpdatedAt = timeFunc.randomTime(dateCreatedAt, timeFunc.endTime);
                     orders.push({
                         id: v4(),
                         customerId: customers[i].id,
@@ -99,9 +99,9 @@ module.exports = {
                         referrer: referrers[getRandomInt(5)],
                         consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                         is_active: false,
-                        createdAt: o,
-                        updatedAt: ou,
-                        terminatedAt: ou,
+                        createdAt: dateCreatedAt,
+                        updatedAt: dateUpdatedAt,
+                        terminatedAt: dateUpdatedAt,
                     });
                 }
 
