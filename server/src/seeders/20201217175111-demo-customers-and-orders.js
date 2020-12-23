@@ -64,8 +64,8 @@ module.exports = {
                         streetNumber: faker.random.number(),
                         postcode: plans[i+200].postcode,
                         city: faker.address.city(),
-                        createdAt: c,
-                        updatedAt: timeFunc.randomTime(c, timeFunc.endTime),
+                        createdAt: date,
+                        updatedAt: timeFunc.randomTime(date, timeFunc.endTime),
                         userId: users[i].id,
                         is_active: true,
                     });
