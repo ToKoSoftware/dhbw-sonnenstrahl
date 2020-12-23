@@ -23,13 +23,14 @@ module.exports = {
         let users = [];
         for (let i = 0; i <= 199; i++) {
             const hashedPassword = await bcrypt.hash(faker.internet.password(), SALT_FACTOR);
+            const u = randomTime(new Date("01-01-2020 10:30"), new Date("12-31-2020 02:10"));
             users.push({
                 id: v4(),
                 email: faker.internet.email(),
                 password: hashedPassword,
                 is_admin: false,
-                createdAt: randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-                updatedAt: randomTime(new Date("07-01-2020 10:30"), new Date("12-31-2020 02:10"))
+                createdAt: u,
+                updatedAt: randomTime(new Date(u), new Date("12-31-2020 02:10"))
             });
         }
         await queryInterface.bulkInsert('Users', users);
@@ -49,14 +50,15 @@ module.exports = {
                     streetNumber: faker.random.number(),
                     postcode: plans[getRandomInt(384)].postcode,
                     city: faker.address.city(),
-                    createdAt:randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-                    updatedAt: randomTime(new Date("06-30-2020 10:30"), new Date("12-31-2020 02:10")),
+                    createdAt: users[i].createdAt,
+                    updatedAt: randomTime(new Date(users[i].createdAt), new Date("12-31-2020 02:10")),
                     userId: users[i].id,
                 });
             }
 
             //50 Customer, die zu User gehören, die schon einen Customer haben
             for (let i = 0; i <= 49; i++) {
+                const c = randomTime(new Date(users[i].createdAt), new Date("12-31-2020 02:10"));
                 customers.push({
                     id: v4(),
                     firstName: faker.name.firstName(),
@@ -65,8 +67,8 @@ module.exports = {
                     streetNumber: faker.random.number(),
                     postcode: plans[getRandomInt(384)].postcode,
                     city: faker.address.city(),
-                    createdAt: randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-                    updatedAt: randomTime(new Date("06-30-2020 10:30"), new Date("12-31-2020 02:10")),
+                    createdAt: c,
+                    updatedAt: randomTime(new Date(c), new Date("12-31-2020 02:10")),
                     userId: users[i].id,
                 });
             }
@@ -88,14 +90,16 @@ module.exports = {
                     referrer: referrers[getRandomInt(5)],
                     consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                     is_active: true,
-                    createdAt: randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-                    updatedAt: randomTime(new Date("06-30-2020 10:30"), new Date("12-31-2020 02:10")),
+                    createdAt: customers[i].createdAt,
+                    updatedAt: randomTime(new Date(customers[i].createdAt), new Date("12-31-2020 02:10")),
                     terminatedAt: null,
                 });
             }
         
             //65 (25%) Customer haben eine und eine gecancelte Order
             for (let i = 0; i <= 64; i++) {
+                const o =  randomTime(new Date(customers[i].createdAt), new Date("12-31-2020 02:10"));
+                const ou = randomTime(new Date(o), new Date("12-31-2020 02:10"));
                 orders.push({
                     id: v4(),
                     customerId: customers[i].id,
@@ -103,14 +107,15 @@ module.exports = {
                     referrer: referrers[getRandomInt(5)],
                     consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                     is_active: false,
-                    createdAt: randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-                    updatedAt: randomTime(new Date("06-30-2020 10:30"), new Date("12-31-2020 02:10")),
-                    terminatedAt: randomTime(new Date("06-30-2020 10:30"), new Date("12-31-2020 02:10")),
+                    createdAt: o,
+                    updatedAt: ou,
+                    terminatedAt: ou,
                 });
             }
 
             //10 (5%) haben 2 Orders
             for (let i = 65; i <= 74; i++) {
+                const o =  randomTime(new Date(customers[i].createdAt), new Date("12-31-2020 02:10"));
                 orders.push({
                     id: v4(),
                     customerId: customers[i].id,
@@ -118,8 +123,8 @@ module.exports = {
                     referrer: referrers[getRandomInt(5)],
                     consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                     is_active: true,
-                    createdAt: randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-                    updatedAt: randomTime(new Date("06-30-2020 10:30"), new Date("12-31-2020 02:10")),
+                    createdAt: o,
+                    updatedAt: randomTime(new Date(o), new Date("12-31-2020 02:10")),
                     terminatedAt: null,
                 });
             }

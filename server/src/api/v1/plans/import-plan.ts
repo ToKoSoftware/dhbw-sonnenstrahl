@@ -29,7 +29,7 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
     }
 }
 
-async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
+export async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
     return csv({
         delimiter: ';',
         colParser: {
@@ -53,7 +53,7 @@ function deactivatePlans(): Promise<[number, Plan[]]> {
     );
 }
 
-function createPlanEntry(data: InternalPlan) {
+export function createPlanEntry(data: InternalPlan) {
     Plan.create({
         plan: data.plan,
         postcode: data.postcode,

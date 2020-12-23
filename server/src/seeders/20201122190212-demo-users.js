@@ -14,6 +14,7 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         let users = [];
         for (let i = 0; i <= 199; i++) {
+            const u = randomTime(new Date("01-01-2020 10:30"), new Date("12-31-2020 02:10"));
             const SALT_FACTOR = 10;
             const hashedPassword = await bcrypt.hash(faker.internet.password(), SALT_FACTOR);
             users.push({
@@ -21,8 +22,8 @@ module.exports = {
                 email: faker.internet.email(),
                 password: hashedPassword,
                 is_admin: false,
-                createdAt:   randomTime(new Date("01-01-2020 10:30"), new Date("06-30-2020 02:10")),
-                updatedAt: randomTime(new Date("07-01-2020 10:30"), new Date("12-31-2020 02:10"))
+                createdAt: u,
+                updatedAt: randomTime(new Date(u), new Date("12-31-2020 02:10"))
             });
         }
         await queryInterface.bulkInsert('Users', users);
