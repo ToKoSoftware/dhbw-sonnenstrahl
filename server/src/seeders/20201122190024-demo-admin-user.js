@@ -5,7 +5,7 @@ const timeFunc = require ('../functions/random-time.func');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        const a = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
+        const date = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
         const SALT_FACTOR = 10;
         const hashedPassword = await bcrypt.hash('qwertz123', SALT_FACTOR);
         return queryInterface.bulkInsert('Users', [{
