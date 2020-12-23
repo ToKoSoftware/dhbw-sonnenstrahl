@@ -37,7 +37,7 @@ module.exports = {
             .then(async function(plans) {
 
                 //200 Customer, die zu User gehören
-                for (let i = 0; i <= 199; i++) {
+                for (let i = 0; i < 200; i++) {
                     customers.push({
                         id: v4(),
                         firstName: faker.name.firstName(),
