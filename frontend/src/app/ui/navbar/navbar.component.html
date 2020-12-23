@@ -55,7 +55,7 @@
           </div>
           <div class="flex truncate">
             <a *ngIf="login.isLoggedIn$ | async" routerLink="/profile" class="truncate px-3 py-2 rounded-md text-sm leading-5 font-medium text-gray-600 hover:text-white focus:outline-none focus:text-white focus:bg-indigo-600 transition duration-150 ease-in-out">
-              {{login.decodedJwt$.value.email}}
+              {{login.decodedJwt$.value?.email}}
             </a>
           </div>
           <!-- Profile dropdown -->
