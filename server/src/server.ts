@@ -34,6 +34,7 @@ import {getMonthlyStats} from './api/v1/admin/get-monthly-stats';
 import {getReferrerStats} from './api/v1/admin/get-referrer-stats';
 import {getMonthlOrderStatsByReferrer} from './api/v1/admin/get-monthly-order-stats-by-referrer';
 import {getPlansInExternalFormat} from './api/v1/plans/get-external-plan';
+import path from 'path';
 
 
 export default function startServer(): void {
@@ -47,7 +48,7 @@ export default function startServer(): void {
     const PORT: string | number = process.env.PORT || 5000;
     const router = express.Router();
     app.use(router);
-
+    app.use(express.static(path.join(__dirname, '../dist')));
     /**
      * File uploads
      */
@@ -121,20 +122,9 @@ export default function startServer(): void {
     app.get('/api/v1/admin/export/users', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportUsers(req, res));
 
 
-    app.use((req, res) => {
-        res.status(404).send(wrapResponse(false, {
-            error: 'Unable to find the requested resource!'
-        }));
-        Vars.loggy.error('[Router] Error 404: Request: ', {
-            url: req.url,
-            query: req.query,
-            statusCode: req.statusCode,
-            method: req.method,
-            protocol: req.protocol,
-            headers: {
-                userAgent: req.headers['user-agent']
-            }
-        });
+    // handle every other route with index.html, which loads Angular
+    app.get('*', function(request, response) {
+        response.sendFile(path.resolve(__dirname, '../dist/index.html'));
     });
 
 
