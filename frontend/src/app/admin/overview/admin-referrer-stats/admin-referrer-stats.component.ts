@@ -43,6 +43,7 @@ export class AdminReferrerStatsComponent implements OnInit {
     this.api.get<StatsResponse[]>('/admin/stats/referrer/monthly').subscribe(data => {
       this.loading = false;
       data.data.forEach((value: StatsResponse, index: number) => {
+        const color = this.lineChartColors[index < this.lineChartColors.length - 1 ? index : 0];
         this.lineChartData[index] = {
           data: AdminReferrerStatsComponent.getLast12Months().map(month => {
             let foundIndex = value.count.findIndex(el => {
@@ -54,7 +55,8 @@ export class AdminReferrerStatsComponent implements OnInit {
               return Number(value.count[foundIndex].count);
             }
           }),
-          backgroundColor: this.lineChartColors[index < this.lineChartColors.length - 1 ? index : 0],
+          backgroundColor: color,
+          hoverBackgroundColor: color,
           label: value.referrer
         };
       });
