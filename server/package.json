@@ -11,7 +11,8 @@
     ]
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "npm run build:frontend && ts-node src/index.ts",
+    "build:frontend": "cd ../frontend && npm install && npm run build && cp -R dist/sonnenstrahl ../server/dist",
     "dev": "nodemon -x ts-node src/index.ts",
     "lint": "eslint . --ext .ts",
     "fix-lint": "eslint . --ext .ts --fix",
