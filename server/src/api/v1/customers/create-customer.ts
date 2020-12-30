@@ -47,8 +47,8 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (data === null) {
-        return res.status(500).send(wrapResponse(false, {error: 'Could not create Customer'}));
+        return res.status(400).send(wrapResponse(false, {error: 'Could not create Customer'}));
     }
 
-    return res.send(wrapResponse(true, data));
+    return res.status(201).send(wrapResponse(true, data));
 }

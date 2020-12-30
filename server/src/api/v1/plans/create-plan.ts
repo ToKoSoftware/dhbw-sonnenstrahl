@@ -20,5 +20,5 @@ export async function createPlan(req: Request, res: Response): Promise<Response>
         return res.status(500).send(wrapResponse(false, {error: 'Could not create Plan'}));
     }
 
-    return res.send(wrapResponse(true, data));
+    return res.status(201).send(wrapResponse(true, data));
 }
