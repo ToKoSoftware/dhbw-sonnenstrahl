@@ -22,12 +22,12 @@ services:
       - db
     ports:
       - "80:5000"
-    user: "node"
+    user: "node" # for ubuntu, use root
     working_dir: /home/node/app
     volumes:
       - ./:/home/node/app
     command: >
-      sh -c "cd server && npm install && npm run db:migrate && npm start"
+      sh -c "cd server && npm install && npm run db:migrate && npm run db:seed && npm start"
     env_file:
       - .env
     environment:
