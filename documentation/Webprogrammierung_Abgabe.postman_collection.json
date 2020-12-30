@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "a6d6fc76-7be8-4e16-879e-eea8b31af22e",
 		"name": "Webprogrammierung Abgabe",
-		"description": "Diese Collection enthält alle möglichen API Routen mit passenden Bodies.\n\nDa wir bestimmte Permission-Level unserer User(Benutzer) gepflegt haben, muss für bestimmte Routen/Funktionalitäten ein Token generiert werden.\nDiesen erhält man mit der folgenden Route:\n\n/api/v1/login\nBody: username und password.\nAls Response daraus erhält man einen Token, der bei allen nötigen Abfragen im Header mitgeliefert werden muss. (Beispiel siehe Authorization-Tab).\n\nFolgende Routen sind ohne Permission möglich:\n- Alle Tarife abfragen: GET /api/v1/plans\n- Einen bestimmten Tarif abfragen: GET /api/v1/plans/:id\n- /orders ... externe Bestellung\n- Einen Benutzer (der Webanwendung) anlegen: POST /api/v1/users\n- Einen Kunden anlegen: POST /api/v1/customers\n\nFolgende Routen sind mit Permission für den entsprechenden User mit seinen (und nur seinen) zugehörigen Daten möglich:\n- Eine Bestellung abgeben: POST /api/v1/orders, oder POST /orders (entsprechend der Vorgaben)\n- Eine eigene Bestellung ausgeben: GET /api/v1/orders/:id\n- Eine eigene Bestellung abändern: PUT /api/v1/orders/:id\n- Eine eigene Bestellung beenden: PUT /api/v1/orders/:id/terminate\n- Den eigenen User ausgeben: GET /api/v1/users/:id\n- Den eigenen User abändern: PUT /api/v1/users/:id\n- Eigene Kunden(-daten) ausgeben: GET /api/v1/customers (hier werden nur die Kunden(-daten) ausgegeben, die dem Benutzer zugeordnet sind)\n- Daten eines eigenen Kunden ausgeben: GET /api/v1/customers/:id\n- Einen eigenen Kunden abändern: PUT /api/v1/customers/:id\n\nFolgende Routen sind nur als Admin möglich:\n- Tarife importieren: PUT /api/v1/plans\n- Einen einzelnen Tarif anlegen: POST /api/v1/plans\n- Einen Tarif abändern: PUT /api/v1/plans/:id\n- Einen Tarif löschen: DELETE /api/v1/plans/:id\n- Alle Bestellungen ausgeben: GET /api/v1/orders\n- Eine Bestellung löschen: DELETE /api/v1/orders/:id\n- Alle Benutzer ausgeben: GET /api/v1/users\n- Einen Benutzer löschen: DELETE /api/v1/users/:id\n- Alle Kunden ausgeben: GET /api/v1/customers\n- Einen Kunden löschen: GET /api/v1/customers/:id\n- Allgemeine Statistiken ausgeben: GET api/v1/admin/stats\n- Monatliche Statistiken ausgeben: GET api/v1/admin/stats/monthly\n- Alle Bestellungen per CSV exportieren: /api/v1/admin/export/orders (Datei-Download nur möglich im Browser und mit Token in der URL)\n- Alle Benutzer per CSV exportieren: /api/v1/admin/export/users (Datei-Download nur möglich im Browser und mit Token in der URL)",
+		"description": "Diese Collection enthält alle möglichen API Routen mit passenden Bodies.\n\nDa wir bestimmte Permission-Level unserer User(Benutzer) gepflegt haben, muss für bestimmte Routen/Funktionalitäten ein Token generiert werden.\nDiesen erhält man mit der folgenden Route:\n\n/api/v1/login\nBody: username und password.\nAls Response daraus erhält man einen Token, der bei allen nötigen Abfragen im Header mitgeliefert werden muss. (Beispiel siehe Authorization-Tab).\n\nFolgende Routen sind ohne Permission möglich:\n- Alle Tarife abfragen: GET /api/v1/plans\n- Einen bestimmten Tarif abfragen: GET /api/v1/plans/:id\n- /orders ... externe Bestellung\n- Einen Benutzer (der Webanwendung) anlegen: POST /api/v1/users\n- Einen Kunden anlegen: POST /api/v1/customers\n- Eine interne Bestellung anlegen: POST /api/v1/orders\n- Eine externe Bestellung anlesen: POST /orders\n- Tarife mit zipCode und consumption abfragen: GET /rates \n\nFolgende Routen sind mit Permission für den entsprechenden User mit seinen (und nur seinen) zugehörigen Daten möglich:\n- Eine Bestellung abgeben: POST /api/v1/orders\n- Eine eigene Bestellung ausgeben: GET /api/v1/orders/:id\n- Alle eigenen Bestellungen ausgeben: GET /api/v1/orders \n- Eine eigene Bestellung abändern: PUT /api/v1/orders/:id\n- Eine eigene Bestellung kündigen: PUT /api/v1/orders/:id/terminate\n- Den eigenen User ausgeben: GET /api/v1/users/:id\n- Den eigenen User abändern: PUT /api/v1/users/:id\n- Alle eigenen Kunden(-daten) ausgeben: GET /api/v1/customers\n- Daten eines eigenen Kunden ausgeben: GET /api/v1/customers/:id\n- Einen eigenen Kunden abändern: PUT /api/v1/customers/:id\n\nFolgende Routen sind nur als Admin möglich:\n- Tarife importieren: PUT /api/v1/plans\n- Einen einzelnen Tarif anlegen: POST /api/v1/plans\n- Einen Tarif abändern: PUT /api/v1/plans/:id\n- Einen Tarif löschen: DELETE /api/v1/plans/:id\n- Alle Bestellungen ausgeben: GET /api/v1/orders\n- Eine Bestellung löschen: DELETE /api/v1/orders/:id\n- Alle Benutzer ausgeben: GET /api/v1/users\n- Einen Benutzer löschen: DELETE /api/v1/users/:id\n- Alle Kunden ausgeben: GET /api/v1/customers\n- Einen Kunden löschen: GET /api/v1/customers/:id\n- Allgemeine Statistiken ausgeben: GET /api/v1/admin/stats\n- Monatliche Statistiken ausgeben: GET /api/v1/admin/stats/monthly\n- Referrer/Agent Statistiken ausgeben: GET /api/v1/admin/stats/referrer\n- Monatliche Bestell-Statistiken ausgeben (gruppiert nach Referrer/Agent): GET /api/v1/admin/stats/orders/monthly\n- Alle Bestellungen per CSV exportieren: /api/v1/admin/export/orders (Datei-Download nur möglich im Browser und mit Token in der URL)\n- Alle Benutzer per CSV exportieren: /api/v1/admin/export/users (Datei-Download nur möglich im Browser und mit Token in der URL)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -35,7 +35,8 @@
 								"users",
 								"d47e1463-ba99-48d6-990f-4121d3e95915"
 							]
-						}
+						},
+						"description": "Abfrage eines Benutzers"
 					},
 					"response": []
 				},
@@ -65,7 +66,8 @@
 								"users",
 								""
 							]
-						}
+						},
+						"description": "Abfrage alle Benutzer"
 					},
 					"response": []
 				},
@@ -94,7 +96,8 @@
 								"users",
 								""
 							]
-						}
+						},
+						"description": "Anlegen eines Benutzers"
 					},
 					"response": []
 				},
@@ -133,7 +136,8 @@
 								"users",
 								"d35c7e19-63f2-4bdf-b85f-620346d1e310"
 							]
-						}
+						},
+						"description": "Änderung eines Benutzers"
 					},
 					"response": []
 				},
@@ -172,12 +176,12 @@
 								"users",
 								"d35c7e19-63f2-4bdf-b85f-620346d1e310"
 							]
-						}
+						},
+						"description": "Löschen eines Benutzers (tatsächliche Löschung aus der Datenbank)"
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "plans",
@@ -197,7 +201,8 @@
 								"v1",
 								"plans"
 							]
-						}
+						},
+						"description": "Abfrage aller Tarife"
 					},
 					"response": []
 				},
@@ -217,7 +222,8 @@
 								"plans",
 								"f5b7db0e-62e1-4138-abf3-96fe20ab29d8"
 							]
-						}
+						},
+						"description": "Abfrage eines Tarifs"
 					},
 					"response": []
 				},
@@ -256,7 +262,8 @@
 								"plans",
 								""
 							]
-						}
+						},
+						"description": "Anlegen eines Tarifs"
 					},
 					"response": []
 				},
@@ -295,7 +302,8 @@
 								"plans",
 								"c8ef3180-0e52-44de-a1cb-3ef36da21075"
 							]
-						}
+						},
+						"description": "Änderung eines Tarifs"
 					},
 					"response": []
 				},
@@ -339,7 +347,8 @@
 								"v1",
 								"plans"
 							]
-						}
+						},
+						"description": "Import eines Tarif-Files im csv-Format."
 					},
 					"response": []
 				},
@@ -369,12 +378,12 @@
 								"plans",
 								"c47569a0-5cd9-4e5e-bb97-d5a2a5d0e716"
 							]
-						}
+						},
+						"description": "Löschung eines Tarifs (Setzen des is_active-Flags auf false)"
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "customers",
@@ -404,7 +413,8 @@
 								"v1",
 								"customers"
 							]
-						}
+						},
+						"description": "Abfrage aller Kunden(-daten).\nAdmin: alle Kunden\n(registrierter) User: Eigene Kunden(-daten)"
 					},
 					"response": []
 				},
@@ -434,7 +444,8 @@
 								"customers",
 								"273f97d7-5400-4e9a-bf23-fdfb9098a255"
 							]
-						}
+						},
+						"description": "Abfrage eines Kunden"
 					},
 					"response": []
 				},
@@ -462,7 +473,8 @@
 								"v1",
 								"customers"
 							]
-						}
+						},
+						"description": "Anlegen eines Kunden"
 					},
 					"response": []
 				},
@@ -501,7 +513,8 @@
 								"customers",
 								"e76daf7b-e886-455e-9a62-2a569ff5dc8d"
 							]
-						}
+						},
+						"description": "Änderung eines bestehenden Kunden"
 					},
 					"response": []
 				},
@@ -540,12 +553,12 @@
 								"customers",
 								"e76daf7b-e886-455e-9a62-2a569ff5dc8d"
 							]
-						}
+						},
+						"description": "Löschung eines Kunden (Setzen des is_active-Flags auf false)"
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "orders",
@@ -575,7 +588,8 @@
 								"v1",
 								"orders"
 							]
-						}
+						},
+						"description": "Abfrage einer Bestellung"
 					},
 					"response": []
 				},
@@ -605,7 +619,8 @@
 								"orders",
 								"d223c5a7-2a48-4430-b937-4c5adf71f636"
 							]
-						}
+						},
+						"description": "Abfrage aller Bestellungen.\nAdmin: alle Bestellungen\n(registrierter) User: Eigene Bestellungen"
 					},
 					"response": []
 				},
@@ -644,7 +659,8 @@
 								"orders",
 								""
 							]
-						}
+						},
+						"description": "Anlegen einer Bestellung"
 					},
 					"response": []
 				},
@@ -683,7 +699,8 @@
 								"orders",
 								"d223c5a7-2a48-4430-b937-4c5adf71f636"
 							]
-						}
+						},
+						"description": "Änderung einer Bestellung"
 					},
 					"response": []
 				},
@@ -714,7 +731,8 @@
 								"d223c5a7-2a48-4430-b937-4c5adf71f636",
 								"terminate"
 							]
-						}
+						},
+						"description": "Kündigung einer Bestellung"
 					},
 					"response": []
 				},
@@ -744,7 +762,8 @@
 								"orders",
 								"d223c5a7-2a48-4430-b937-4c5adf71f636"
 							]
-						}
+						},
+						"description": "Löschen einer Bestellung aus der Datenbank"
 					},
 					"response": []
 				},
@@ -770,12 +789,12 @@
 							"path": [
 								"orders"
 							]
-						}
+						},
+						"description": "Route für externe Bestellungen über beispielsweise Vergleichsportale."
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Login",
@@ -811,7 +830,36 @@
 						"v1",
 						"login"
 					]
-				}
+				},
+				"description": "Route zur Authentifizierung/Generierung eines Tokens für Routen mit persmission level."
+			},
+			"response": []
+		},
+		{
+			"name": "Rates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/rates?zipCode=TODO&consumption=TODO",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"rates"
+					],
+					"query": [
+						{
+							"key": "zipCode",
+							"value": "TODO"
+						},
+						{
+							"key": "consumption",
+							"value": "TODO"
+						}
+					]
+				},
+				"description": "Tarife abfragen mit zipCode und consumption"
 			},
 			"response": []
 		}
@@ -830,7 +878,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "0e0bec47-1bb2-4471-8f5f-6da968ecae8a",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -840,13 +887,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "c7772d53-3ca3-4c5c-bb45-98b28160d592",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
