@@ -11,7 +11,7 @@ import {ApiService} from '../../../services/api/api.service';
 export class AdminReferrerStatsComponent implements OnInit {
   @Input() private statData: StatsResponse;
   lineChartData: ChartDataSets[] = [];
-
+  public loading = true;
   public lineChartLabels: Label[] = [];
 
   public lineChartOptions = {
@@ -40,7 +40,8 @@ export class AdminReferrerStatsComponent implements OnInit {
       first.getMonth() === second.getMonth() &&
       first.getDate() === second.getDate();
 
-    this.api.get<StatsResponse[]>('/admin/stats/orders/monthly').subscribe(data => {
+    this.api.get<StatsResponse[]>('/admin/stats/referrer/monthly').subscribe(data => {
+      this.loading = false;
       data.data.forEach((value: StatsResponse, index: number) => {
         this.lineChartData[index] = {
           data: AdminReferrerStatsComponent.getLast12Months().map(month => {
