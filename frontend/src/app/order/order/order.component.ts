@@ -89,10 +89,12 @@ export class OrderComponent implements OnInit, OnDestroy {
           this.breadcrumbs[1].routerLink = `/plans/${this.plan.postcode}`;
           this.breadcrumbs[2].title = `Tarif: ${this.plan.plan}`;
           this.breadcrumbs[2].routerLink = '';
+          this.orderService.selectedPlan$.next(data.data);
           this.loading = false;
           this.loadingModalService.hideLoading();
         },
         error => {
+          this.orderService.selectedPlan$.next(null);
           this.loading = false;
           this.loadingModalService.hideLoading();
           this.showErrorModal();
