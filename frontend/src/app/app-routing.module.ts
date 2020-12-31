@@ -8,35 +8,36 @@ import {IsAdminGuard} from './guards/is-admin.guard';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full', loadChildren: './home/home.module#HomeModule'
+    pathMatch: 'full',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'search',
-    loadChildren: './search/search.module#SearchModule'
+    loadChildren: () => import('./search/search.module').then(m => m.SearchModule)
   },
   {
     path: 'plans',
-    loadChildren: './plans/plans.module#PlansModule'
+    loadChildren: () => import('./plans/plans.module').then(m => m.PlansModule)
   },
   {
     path: 'profile',
     canActivate: [IsLoggedInGuard],
     canActivateChild: [IsLoggedInGuard],
-    loadChildren: './my-profile/my-profile.module#MyProfileModule'
+    loadChildren: () => import('./my-profile/my-profile.module').then(m => m.MyProfileModule)
   },
   {
     path: 'order',
-    loadChildren: './order/order.module#OrderModule'
+    loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
   },
   {
     path: 'login',
-    loadChildren: './login-register/login-register.module#LoginRegisterModule'
+    loadChildren: () => import('./login-register/login-register.module').then(m => m.LoginRegisterModule)
   },
   {
     path: 'admin',
     canActivate: [IsLoggedInGuard, IsAdminGuard],
     canActivateChild: [IsLoggedInGuard, IsAdminGuard],
-    loadChildren: './admin/admin.module#AdminModule'
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: '**',

@@ -15,8 +15,8 @@ import {RelatedCustomersComponent} from './users/related-customers/related-custo
 import {OrderRowComponent} from './orders/order-row/order-row.component';
 import {ChartsModule} from 'ng2-charts';
 import {AdminLineStatsComponent} from './overview/admin-line-stats/admin-line-stats.component';
-import { AdminPieStatsComponent } from './overview/admin-pie-stats/admin-pie-stats.component';
-import { AdminReferrerStatsComponent } from './overview/admin-referrer-stats/admin-referrer-stats.component';
+import {AdminPieStatsComponent} from './overview/admin-pie-stats/admin-pie-stats.component';
+import {AdminReferrerStatsComponent} from './overview/admin-referrer-stats/admin-referrer-stats.component';
 
 @NgModule({
   declarations: [

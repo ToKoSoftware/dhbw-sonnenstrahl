@@ -22,10 +22,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7db4e6fb-2636-4f1d-b7e3-53d9167b6db6" name="Default Changelist" comment="">
+    <list default="true" id="7db4e6fb-2636-4f1d-b7e3-53d9167b6db6" name="Default Changelist" comment="* Fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-profile/credentials/my-credentials.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-profile/credentials/my-credentials.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/ui/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/ui/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/login-register/login-register.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/login-register/login-register.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/my-profile/my-orders/my-orders.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/my-profile/my-orders/my-orders.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
     </list>
     <list id="210c0ac5-cddc-4f02-bcbb-6f728c1409fc" name="t" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,11 +41,13 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="frontend/admin-stats" />
+        <entry key="$PROJECT_DIR$" value="backend/output-angular-with-api" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="1hb3hNUnOOOA8NlZ7fR3NkZ6DHP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -515,47 +522,47 @@
       <option name="project" value="LOCAL" />
       <updated>1608487722491</updated>
     </task>
-    <task id="LOCAL-00034" summary="* Support enter in register and login components">
-      <created>1608567368140</created>
+    <task id="LOCAL-00034" summary="* Fix probabilities of referrers in seeder">
+      <created>1609340324145</created>
       <option name="number" value="00034" />
       <option name="presentableId" value="LOCAL-00034" />
       <option name="project" value="LOCAL" />
-      <updated>1608567368140</updated>
+      <updated>1609340324145</updated>
     </task>
-    <task id="LOCAL-00035" summary="* Implemented new order ui">
-      <created>1608583758561</created>
+    <task id="LOCAL-00035" summary="* Fix typo&#10;* Rename referrer admin stats route">
+      <created>1609343829173</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
-      <updated>1608583758561</updated>
+      <updated>1609343829174</updated>
     </task>
-    <task id="LOCAL-00036" summary="* Implemented new order ui">
-      <created>1608636811727</created>
+    <task id="LOCAL-00036" summary="* Implemented admin referrer stats">
+      <created>1609343897412</created>
       <option name="number" value="00036" />
       <option name="presentableId" value="LOCAL-00036" />
       <option name="project" value="LOCAL" />
-      <updated>1608636811727</updated>
+      <updated>1609343897412</updated>
     </task>
-    <task id="LOCAL-00037" summary="* Implemented new order ui">
-      <created>1608636821291</created>
+    <task id="LOCAL-00037" summary="* Add loading spinner to referrer stats">
+      <created>1609344150769</created>
       <option name="number" value="00037" />
       <option name="presentableId" value="LOCAL-00037" />
       <option name="project" value="LOCAL" />
-      <updated>1608636821291</updated>
+      <updated>1609344150769</updated>
     </task>
-    <task id="LOCAL-00038" summary="* Implemented new order ui">
-      <created>1608636917283</created>
+    <task id="LOCAL-00038" summary="* Fix hover colors&#10;* Add to provision modal">
+      <created>1609344648956</created>
       <option name="number" value="00038" />
       <option name="presentableId" value="LOCAL-00038" />
       <option name="project" value="LOCAL" />
-      <updated>1608636917283</updated>
+      <updated>1609344648956</updated>
     </task>
-    <task id="LOCAL-00039" summary="* Show email in navbar">
-      <created>1608637856915</created>
+    <task id="LOCAL-00039" summary="* Fix docker build not being a production build of the frontend">
+      <created>1609418297351</created>
       <option name="number" value="00039" />
       <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1608637856915</updated>
+      <updated>1609418297351</updated>
     </task>
     <option name="localTasksCounter" value="40" />
     <servers />
@@ -580,9 +587,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/server" />
     </ignored-roots>
-    <MESSAGE value="* Fix breadcrumbs" />
-    <MESSAGE value="* Implement login and logout" />
-    <MESSAGE value="* Show admin option only when user is admin" />
     <MESSAGE value="* Make admin layout app layout" />
     <MESSAGE value="* Add is-admin guard &#10;* Add is-logged-in guard" />
     <MESSAGE value="* Change isLoggedin and isAdmin ReplaySubject to BehaviorSubject" />
@@ -602,9 +606,12 @@
     <MESSAGE value="* Move usage counter to ui module" />
     <MESSAGE value="* Implement success page" />
     <MESSAGE value="* Implement register modal" />
-    <MESSAGE value="* Support enter in register and login components" />
-    <MESSAGE value="* Implemented new order ui" />
-    <MESSAGE value="* Show email in navbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Show email in navbar" />
+    <MESSAGE value="* Fix probabilities of referrers in seeder" />
+    <MESSAGE value="* Fix typo&#10;* Rename referrer admin stats route" />
+    <MESSAGE value="* Implemented admin referrer stats" />
+    <MESSAGE value="* Add loading spinner to referrer stats" />
+    <MESSAGE value="* Fix hover colors&#10;* Add to provision modal" />
+    <MESSAGE value="* Fix docker build not being a production build of the frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Fix docker build not being a production build of the frontend" />
   </component>
 </project>
