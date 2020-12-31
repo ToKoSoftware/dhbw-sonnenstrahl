@@ -35,14 +35,14 @@ export class MyOrdersComponent implements OnInit {
       userId: id
     }).subscribe(
       data => {
-        data.data.map(data => data.id);
+        const ids = data.data.map(data => data.id);
         this.api.get<OrderData[]>(`/orders`, {
           sort: 'terminatedAt',
-          userId: id // fix admin being able to see all customers
         }).subscribe(
           (data) => {
             this.loading = false;
-            this.orders = data.data;
+            // fix admin being able to see all customers
+            this.orders = data.data.filter(el => ids.includes(el.id));
           }
         );
       }
@@ -50,6 +50,4 @@ export class MyOrdersComponent implements OnInit {
 
   }
 
-  public cancelOrder(): void {
-  }
 }
