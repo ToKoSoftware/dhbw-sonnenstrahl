@@ -41,7 +41,7 @@ export class MyOrdersComponent implements OnInit {
         }).subscribe(
           (data) => {
             this.loading = false;
-            // fix admin being able to see all customers
+            // fix admin being able to see all orders
             this.orders = data.data.filter(el => ids.includes(el.id));
           }
         );
