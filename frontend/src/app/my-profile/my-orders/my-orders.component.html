@@ -5,10 +5,12 @@
   <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3" *ngIf="loading">
     <app-loading></app-loading>
   </div>
-  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3" *ngIf="orders.length === 0">
-    <app-zero-data image="empty"></app-zero-data>
-  </div>
-  <ng-container *ngFor="let order of orders">
-    <app-order-detail [order]="order"></app-order-detail>
+  <ng-container *ngIf="!loading">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3" *ngIf="orders.length === 0">
+      <app-zero-data image="empty"></app-zero-data>
+    </div>
+    <ng-container *ngFor="let order of orders">
+      <app-order-detail [order]="order"></app-order-detail>
+    </ng-container>
   </ng-container>
 </app-layout>

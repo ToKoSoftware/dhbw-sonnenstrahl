@@ -33,7 +33,7 @@
     <app-input label="Postleitzahl"
                class="flex-1 md:pr-2"
                placeholder="12345"
-               [disabled]="orderService.selectedPlan$.value.postcode != null"
+               [disabled]="orderService.selectedPlan$.value?.postcode != null"
                formControlName="postcode">
     </app-input>
     <app-input label="Stadt"
