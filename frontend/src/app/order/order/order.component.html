@@ -13,9 +13,9 @@
 
     ####################################################################################################################
     -->
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center"
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 flex items-center"
          *ngIf="currentStep != 1">
-      <div class="md:mr-5">
+      <div class="mr-5">
         <span class="flex-shrink-0">
           <span
             class="w-10 h-10 flex items-center justify-center border-2 rounded-full border-green-400">
@@ -69,8 +69,8 @@
 
     ########################################################################################################################
     -->
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center" *ngIf="currentStep != 2">
-      <div class="md:mr-5">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 flex items-center" *ngIf="currentStep != 2">
+      <div class="mr-5 flex-none">
         <span class="flex-shrink-0">
           <span
             [class.border-green-400]="currentStep > 2"
@@ -81,7 +81,7 @@
           </span>
         </span>
       </div>
-      <div class="flex-1">
+      <div class="flex-grow">
         <h1 class="text-2xl font-bold">Sonnenstrahl-Energie Account</h1>
         <div *ngIf="currentStep > 2">
           Angemeldet als
@@ -91,7 +91,7 @@
       <app-button
         (click)="setCurrentStep(2)"
         *ngIf="currentStep > 2"
-        class="flex-1 text-right" type="blank" label="Ändern" size="small"></app-button>
+        class="flex-none text-right" type="blank" label="Ändern" size="small"></app-button>
     </div>
     <ng-container *ngIf="currentStep == 2">
       <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10">
@@ -144,8 +144,8 @@
 
     ########################################################################################################################
     -->
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center" *ngIf="currentStep != 3">
-      <div class="md:mr-5">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 flex items-center" *ngIf="currentStep != 3">
+      <div class="mr-5">
         <span class="flex-shrink-0">
           <span
             [class.border-green-400]="currentStep > 3"
@@ -236,8 +236,8 @@
 
     ########################################################################################################################
     -->
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 md:flex items-center" *ngIf="currentStep != 4">
-      <div class="md:mr-5">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 p-4 flex items-center" *ngIf="currentStep != 4">
+      <div class="mr-5">
         <span class="flex-shrink-0">
           <span
             class="w-10 h-10 flex items-center justify-center border-2 rounded-full">

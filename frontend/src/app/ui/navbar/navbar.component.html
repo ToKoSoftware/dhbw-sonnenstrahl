@@ -34,6 +34,12 @@
           </a>
         </div>
         <div class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
+             *ngIf="login.isAdmin$ | async">
+          <a routerLink="/admin">
+            <feather-icon name="bar-chart-2"></feather-icon>
+          </a>
+        </div>
+        <div class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
              *ngIf="login.isLoggedIn$ | async">
           <a routerLink="/login/logout">
             <feather-icon name="log-out"></feather-icon>
