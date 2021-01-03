@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "a6d6fc76-7be8-4e16-879e-eea8b31af22e",
 		"name": "Webprogrammierung Abgabe",
-		"description": "Diese Collection enthält alle möglichen API Routen mit passenden Bodies.\n\nDa wir bestimmte Permission-Level unserer User(Benutzer) gepflegt haben, muss für bestimmte Routen/Funktionalitäten ein Token generiert werden.\nDiesen erhält man mit der folgenden Route:\n\n/api/v1/login\nBody: username und password.\nAls Response daraus erhält man einen Token, der bei allen nötigen Abfragen im Header mitgeliefert werden muss. (Beispiel siehe Authorization-Tab).\n\nFolgende Routen sind ohne Permission möglich:\n- Alle Tarife abfragen: GET /api/v1/plans\n- Einen bestimmten Tarif abfragen: GET /api/v1/plans/:id\n- /orders ... externe Bestellung\n- Einen Benutzer (der Webanwendung) anlegen: POST /api/v1/users\n- Einen Kunden anlegen: POST /api/v1/customers\n- Eine interne Bestellung anlegen: POST /api/v1/orders\n- Eine externe Bestellung anlesen: POST /orders\n- Tarife mit zipCode und consumption abfragen: GET /rates \n\nFolgende Routen sind mit Permission für den entsprechenden User mit seinen (und nur seinen) zugehörigen Daten möglich:\n- Eine Bestellung abgeben: POST /api/v1/orders\n- Eine eigene Bestellung ausgeben: GET /api/v1/orders/:id\n- Alle eigenen Bestellungen ausgeben: GET /api/v1/orders \n- Eine eigene Bestellung abändern: PUT /api/v1/orders/:id\n- Eine eigene Bestellung kündigen: PUT /api/v1/orders/:id/terminate\n- Den eigenen User ausgeben: GET /api/v1/users/:id\n- Den eigenen User abändern: PUT /api/v1/users/:id\n- Alle eigenen Kunden(-daten) ausgeben: GET /api/v1/customers\n- Daten eines eigenen Kunden ausgeben: GET /api/v1/customers/:id\n- Einen eigenen Kunden abändern: PUT /api/v1/customers/:id\n\nFolgende Routen sind nur als Admin möglich:\n- Tarife importieren: PUT /api/v1/plans\n- Einen einzelnen Tarif anlegen: POST /api/v1/plans\n- Einen Tarif abändern: PUT /api/v1/plans/:id\n- Einen Tarif löschen: DELETE /api/v1/plans/:id\n- Alle Bestellungen ausgeben: GET /api/v1/orders\n- Eine Bestellung löschen: DELETE /api/v1/orders/:id\n- Alle Benutzer ausgeben: GET /api/v1/users\n- Einen Benutzer löschen: DELETE /api/v1/users/:id\n- Alle Kunden ausgeben: GET /api/v1/customers\n- Einen Kunden löschen: GET /api/v1/customers/:id\n- Allgemeine Statistiken ausgeben: GET /api/v1/admin/stats\n- Monatliche Statistiken ausgeben: GET /api/v1/admin/stats/monthly\n- Referrer/Agent Statistiken ausgeben: GET /api/v1/admin/stats/referrer\n- Monatliche Bestell-Statistiken ausgeben (gruppiert nach Referrer/Agent): GET /api/v1/admin/stats/orders/monthly\n- Alle Bestellungen per CSV exportieren: /api/v1/admin/export/orders (Datei-Download nur möglich im Browser und mit Token in der URL)\n- Alle Benutzer per CSV exportieren: /api/v1/admin/export/users (Datei-Download nur möglich im Browser und mit Token in der URL)",
+		"description": "Diese Collection enthält alle möglichen API Routen mit passenden Bodies.\n\nDa wir bestimmte Permission-Level unserer User(Benutzer) gepflegt haben, muss für bestimmte Routen/Funktionalitäten ein Token generiert werden.\nDiesen erhält man mit der folgenden Route:\n\n/api/v1/login\nBody: username und password.\nAls Response daraus erhält man einen Token, der unter \"Variables\" -> \"TOKEN\" gespeichert werden kann und dann für alle anderen Requests automatisch gesetzt wird.\n\nFolgende Routen sind ohne Permission möglich:\n- Alle Tarife abfragen: GET /api/v1/plans\n- Einen bestimmten Tarif abfragen: GET /api/v1/plans/:id\n- Externe Bestellung: POST /orders\n- Einen Benutzer (der Webanwendung) anlegen: POST /api/v1/users\n- Einen Kunden anlegen: POST /api/v1/customers\n- Eine interne Bestellung anlegen: POST /api/v1/orders\n- Eine externe Bestellung anlesen: POST /orders\n- Tarife mit zipCode und consumption abfragen: GET /rates \n\nFolgende Routen sind mit Permission für den entsprechenden User mit seinen (und nur seinen) zugehörigen Daten möglich:\n- Eine Bestellung abgeben: POST /api/v1/orders\n- Eine eigene Bestellung ausgeben: GET /api/v1/orders/:id\n- Alle eigenen Bestellungen ausgeben: GET /api/v1/orders \n- Eine eigene Bestellung abändern: PUT /api/v1/orders/:id\n- Eine eigene Bestellung kündigen: PUT /api/v1/orders/:id/terminate\n- Den eigenen User ausgeben: GET /api/v1/users/:id\n- Den eigenen User abändern: PUT /api/v1/users/:id\n- Alle eigenen Kunden(-daten) ausgeben: GET /api/v1/customers\n- Daten eines eigenen Kunden ausgeben: GET /api/v1/customers/:id\n- Einen eigenen Kunden abändern: PUT /api/v1/customers/:id\n\nFolgende Routen sind nur als Admin möglich:\n- Tarife importieren: PUT /api/v1/plans\n- Einen einzelnen Tarif anlegen: POST /api/v1/plans\n- Einen Tarif abändern: PUT /api/v1/plans/:id\n- Einen Tarif löschen: DELETE /api/v1/plans/:id\n- Alle Bestellungen ausgeben: GET /api/v1/orders\n- Eine Bestellung löschen: DELETE /api/v1/orders/:id\n- Alle Benutzer ausgeben: GET /api/v1/users\n- Einen Benutzer löschen: DELETE /api/v1/users/:id\n- Alle Kunden ausgeben: GET /api/v1/customers\n- Einen Kunden löschen: GET /api/v1/customers/:id\n- Allgemeine Statistiken ausgeben: GET /api/v1/admin/stats\n- Monatliche Statistiken ausgeben: GET /api/v1/admin/stats/monthly\n- Referrer/Agent Statistiken ausgeben: GET /api/v1/admin/stats/referrer\n- Monatliche Bestell-Statistiken ausgeben (gruppiert nach Referrer/Agent): GET /api/v1/admin/stats/orders/monthly\n- Alle Bestellungen per CSV exportieren: /api/v1/admin/export/orders (Datei-Download nur möglich im Browser und mit Token in der URL)\n- Alle Benutzer per CSV exportieren: /api/v1/admin/export/users (Datei-Download nur möglich im Browser und mit Token in der URL)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,28 +12,16 @@
 				{
 					"name": "GetUser",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/users/d47e1463-ba99-48d6-990f-4121d3e95915",
+							"raw": "{{base_url}}{{api_version}}/users/deedd0c1-2367-4aed-9c9a-8024ac4d4ab4",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users",
-								"d47e1463-ba99-48d6-990f-4121d3e95915"
+								"deedd0c1-2367-4aed-9c9a-8024ac4d4ab4"
 							]
 						},
 						"description": "Abfrage eines Benutzers"
@@ -43,28 +31,15 @@
 				{
 					"name": "GetUsers",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/users/",
+							"raw": "{{base_url}}{{api_version}}/users",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
-								"users",
-								""
+								"users"
 							]
 						},
 						"description": "Abfrage alle Benutzer"
@@ -74,11 +49,14 @@
 				{
 					"name": "PostUser",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"test@test.de\",\n    \"password\": \"test\"\n}",
+							"raw": "{\n    \"email\": \"new@mail.de\",\n    \"password\": \"newPassword\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -86,15 +64,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/users/",
+							"raw": "{{base_url}}{{api_version}}/users",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
-								"users",
-								""
+								"users"
 							]
 						},
 						"description": "Anlegen eines Benutzers"
@@ -104,21 +79,11 @@
 				{
 					"name": "PutUser",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\": \"neuerTest\"\n}",
+							"raw": "{\n    \"email\": \"neueMail@mail.de\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -126,15 +91,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/users/d35c7e19-63f2-4bdf-b85f-620346d1e310",
+							"raw": "{{base_url}}{{api_version}}/users/deedd0c1-2367-4aed-9c9a-8024ac4d4ab4",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users",
-								"d35c7e19-63f2-4bdf-b85f-620346d1e310"
+								"deedd0c1-2367-4aed-9c9a-8024ac4d4ab4"
 							]
 						},
 						"description": "Änderung eines Benutzers"
@@ -144,16 +107,6 @@
 				{
 					"name": "DeleteUser",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI1MjMyLCJleHAiOjE2MDgwMjg4MzJ9.gm8lRycX0W0Sn-bfQptroOABtdTq6xG3deLtcrzoDXE",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -166,15 +119,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/users/d35c7e19-63f2-4bdf-b85f-620346d1e310",
+							"raw": "{{base_url}}{{api_version}}/users/deedd0c1-2367-4aed-9c9a-8024ac4d4ab4",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"users",
-								"d35c7e19-63f2-4bdf-b85f-620346d1e310"
+								"deedd0c1-2367-4aed-9c9a-8024ac4d4ab4"
 							]
 						},
 						"description": "Löschen eines Benutzers (tatsächliche Löschung aus der Datenbank)"
@@ -189,16 +140,17 @@
 				{
 					"name": "GetPlans",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/plans",
+							"raw": "{{base_url}}{{api_version}}/plans",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"plans"
 							]
 						},
@@ -209,18 +161,19 @@
 				{
 					"name": "GetPlan",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/plans/f5b7db0e-62e1-4138-abf3-96fe20ab29d8",
+							"raw": "{{base_url}}{{api_version}}/plans/3e0a920b-7f9c-4d15-b9a2-ad6ea3aed478",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"plans",
-								"f5b7db0e-62e1-4138-abf3-96fe20ab29d8"
+								"3e0a920b-7f9c-4d15-b9a2-ad6ea3aed478"
 							]
 						},
 						"description": "Abfrage eines Tarifs"
@@ -230,16 +183,6 @@
 				{
 					"name": "PostPlan",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -252,15 +195,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/plans/",
+							"raw": "{{base_url}}{{api_version}}/plans",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
-								"plans",
-								""
+								"plans"
 							]
 						},
 						"description": "Anlegen eines Tarifs"
@@ -270,16 +210,6 @@
 				{
 					"name": "PutPlan",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -292,15 +222,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/plans/c8ef3180-0e52-44de-a1cb-3ef36da21075",
+							"raw": "{{base_url}}{{api_version}}/plans/3e0a920b-7f9c-4d15-b9a2-ad6ea3aed478",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"plans",
-								"c8ef3180-0e52-44de-a1cb-3ef36da21075"
+								"3e0a920b-7f9c-4d15-b9a2-ad6ea3aed478"
 							]
 						},
 						"description": "Änderung eines Tarifs"
@@ -310,16 +238,6 @@
 				{
 					"name": "ImportPlans",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -338,13 +256,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/plans",
+							"raw": "{{base_url}}{{api_version}}/plans",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"plans"
 							]
 						},
@@ -355,28 +271,16 @@
 				{
 					"name": "DeletePlan",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI2NDI1LCJleHAiOjE2MDgwMzAwMjV9.xlgOqmARZrfe9CX2AL8Ymy1MKSzCABGXN1p-3lTG61M",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/plans/c47569a0-5cd9-4e5e-bb97-d5a2a5d0e716",
+							"raw": "{{base_url}}{{api_version}}/plans/3e0a920b-7f9c-4d15-b9a2-ad6ea3aed478",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"plans",
-								"c47569a0-5cd9-4e5e-bb97-d5a2a5d0e716"
+								"3e0a920b-7f9c-4d15-b9a2-ad6ea3aed478"
 							]
 						},
 						"description": "Löschung eines Tarifs (Setzen des is_active-Flags auf false)"
@@ -391,26 +295,14 @@
 				{
 					"name": "GetCustomers",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/customers",
+							"raw": "{{base_url}}{{api_version}}/customers",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"customers"
 							]
 						},
@@ -421,28 +313,16 @@
 				{
 					"name": "GetCustomer",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/customers/273f97d7-5400-4e9a-bf23-fdfb9098a255",
+							"raw": "{{base_url}}{{api_version}}/customers/9c74c0ab-3f4c-4944-af38-aa85e629377c",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"customers",
-								"273f97d7-5400-4e9a-bf23-fdfb9098a255"
+								"9c74c0ab-3f4c-4944-af38-aa85e629377c"
 							]
 						},
 						"description": "Abfrage eines Kunden"
@@ -452,11 +332,14 @@
 				{
 					"name": "PostCustomer",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": \"d47e1463-ba99-48d6-990f-4121d3e95915\",\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Hausnummer\",\n    \"postcode\": \"01234\",\n    \"city\": \"Ort\"\n}",
+							"raw": "{\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Hausnummer\",\n    \"postcode\": \"01234\",\n    \"city\": \"Ort\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -464,13 +347,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/customers",
+							"raw": "{{base_url}}{{api_version}}/customers",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"customers"
 							]
 						},
@@ -481,16 +362,6 @@
 				{
 					"name": "PutCustomer",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -503,15 +374,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/customers/e76daf7b-e886-455e-9a62-2a569ff5dc8d",
+							"raw": "{{base_url}}{{api_version}}/customers/9c74c0ab-3f4c-4944-af38-aa85e629377c",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"customers",
-								"e76daf7b-e886-455e-9a62-2a569ff5dc8d"
+								"9c74c0ab-3f4c-4944-af38-aa85e629377c"
 							]
 						},
 						"description": "Änderung eines bestehenden Kunden"
@@ -521,16 +390,6 @@
 				{
 					"name": "DeleteCustomer",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -543,15 +402,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/customers/e76daf7b-e886-455e-9a62-2a569ff5dc8d",
+							"raw": "{{base_url}}{{api_version}}/customers/9c74c0ab-3f4c-4944-af38-aa85e629377c",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"customers",
-								"e76daf7b-e886-455e-9a62-2a569ff5dc8d"
+								"9c74c0ab-3f4c-4944-af38-aa85e629377c"
 							]
 						},
 						"description": "Löschung eines Kunden (Setzen des is_active-Flags auf false)"
@@ -566,26 +423,14 @@
 				{
 					"name": "GetOrders",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/orders",
+							"raw": "{{base_url}}{{api_version}}/orders",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"orders"
 							]
 						},
@@ -596,28 +441,16 @@
 				{
 					"name": "GetOrder",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636",
+							"raw": "{{base_url}}{{api_version}}/orders/571d5ce8-2238-4a83-975b-ac2321a606d9",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"orders",
-								"d223c5a7-2a48-4430-b937-4c5adf71f636"
+								"571d5ce8-2238-4a83-975b-ac2321a606d9"
 							]
 						},
 						"description": "Abfrage aller Bestellungen.\nAdmin: alle Bestellungen\n(registrierter) User: Eigene Bestellungen"
@@ -627,16 +460,6 @@
 				{
 					"name": "PostOrder",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -649,15 +472,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/orders/",
+							"raw": "{{base_url}}{{api_version}}/orders",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
-								"orders",
-								""
+								"orders"
 							]
 						},
 						"description": "Anlegen einer Bestellung"
@@ -667,16 +487,6 @@
 				{
 					"name": "PutOrder",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -689,15 +499,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636",
+							"raw": "{{base_url}}{{api_version}}/orders/571d5ce8-2238-4a83-975b-ac2321a606d9",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"orders",
-								"d223c5a7-2a48-4430-b937-4c5adf71f636"
+								"571d5ce8-2238-4a83-975b-ac2321a606d9"
 							]
 						},
 						"description": "Änderung einer Bestellung"
@@ -707,28 +515,16 @@
 				{
 					"name": "TerminateOrder",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636/terminate",
+							"raw": "{{base_url}}{{api_version}}/orders/571d5ce8-2238-4a83-975b-ac2321a606d9/terminate",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"orders",
-								"d223c5a7-2a48-4430-b937-4c5adf71f636",
+								"571d5ce8-2238-4a83-975b-ac2321a606d9",
 								"terminate"
 							]
 						},
@@ -739,28 +535,16 @@
 				{
 					"name": "DeleteOrder",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZlZmEyNTg2LWFlYTctNDAxYi1hZjk1LWQ2YTliZDQxMzEyMCIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA4MDI3NDUzLCJleHAiOjE2MDgwMzEwNTN9.xCrKh9e_cPwv3ROHXTSKtb4i3pBPmAUKIpHQT0fLaMo",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost/api/v1/orders/d223c5a7-2a48-4430-b937-4c5adf71f636",
+							"raw": "{{base_url}}{{api_version}}/orders/571d5ce8-2238-4a83-975b-ac2321a606d9",
 							"host": [
-								"localhost"
+								"{{base_url}}{{api_version}}"
 							],
 							"path": [
-								"api",
-								"v1",
 								"orders",
-								"d223c5a7-2a48-4430-b937-4c5adf71f636"
+								"571d5ce8-2238-4a83-975b-ac2321a606d9"
 							]
 						},
 						"description": "Löschen einer Bestellung aus der Datenbank"
@@ -770,11 +554,14 @@
 				{
 					"name": "PostExternalOrder",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Nummer\",\n    \"zipCode\": \"73431\",\n    \"city\": \"Ort\",\n    \"rateId\": \"812c2d61-683a-4240-8463-6d9de4b8364f\",\n    \"consumption\": 1000,\n    \"agent\": \"CHECK27/7\"\n}",
+							"raw": "{\n    \"firstName\": \"Vorname\",\n    \"lastName\": \"Nachname\",\n    \"street\": \"Straße\",\n    \"streetNumber\": \"Nummer\",\n    \"zipCode\": \"73431\",\n    \"city\": \"Ort\",\n    \"rateId\": \"812c2d61-683a-4240-8463-6d9de4b8364f\",\n    \"consumption\": 1000,\n    \"agent\": \"Check24\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -782,9 +569,9 @@
 							}
 						},
 						"url": {
-							"raw": "localhost/orders",
+							"raw": "{{base_url}}/orders",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
 							"path": [
 								"orders"
@@ -797,23 +584,170 @@
 			]
 		},
 		{
+			"name": "stats",
+			"item": [
+				{
+					"name": "Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats"
+							]
+						},
+						"description": "Generelle Stats"
+					},
+					"response": []
+				},
+				{
+					"name": "MonthlyStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats/monthly",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats",
+								"monthly"
+							]
+						},
+						"description": "Monatliche Statistiken"
+					},
+					"response": []
+				},
+				{
+					"name": "ReferrerStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats/referrer",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats",
+								"referrer"
+							]
+						},
+						"description": "Referrer Statistiken"
+					},
+					"response": []
+				},
+				{
+					"name": "MonthlyOrderStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats/orders/monthly",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats",
+								"orders",
+								"monthly"
+							]
+						},
+						"description": "Monatliche Bestell-Statistiken"
+					},
+					"response": []
+				},
+				{
+					"name": "ExportOrders",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/export/orders?token={{TOKEN}}",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"export",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}"
+								}
+							]
+						},
+						"description": "Export aller Bestellungen"
+					},
+					"response": []
+				},
+				{
+					"name": "ExportUsers",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/export/users?token={{TOKEN}}",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"export",
+								"users"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}"
+								}
+							]
+						},
+						"description": "Export aller Benutzer"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3ZDU5NjIxLWUyMDQtNDVjZS04OTFjLWYwMzEyZmY5NjcxYyIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA3NjEwNjk0LCJleHAiOjE2MDc2MTQyOTR9.wCRNyBWF7VHrz_tYw24GXCtePtXkwalUhYgPk7esPIk",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"admin@admin.de\",\n    \"password\": \"admin\"\n}",
+					"raw": "{\n    \"email\": \"sabrina.wassertal@sonnenstrahl-energie.com\",\n    \"password\": \"qwertz123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -821,13 +755,11 @@
 					}
 				},
 				"url": {
-					"raw": "localhost/api/v1/login",
+					"raw": "{{base_url}}{{api_version}}/login",
 					"host": [
-						"localhost"
+						"{{base_url}}{{api_version}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"login"
 					]
 				},
@@ -838,12 +770,15 @@
 		{
 			"name": "Rates",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost/rates?zipCode=TODO&consumption=TODO",
+					"raw": "{{base_url}}/rates?zipCode=TODO&consumption=TODO",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
 					"path": [
 						"rates"
@@ -869,7 +804,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg3ZDU5NjIxLWUyMDQtNDVjZS04OTFjLWYwMzEyZmY5NjcxYyIsImVtYWlsIjoiYWRtaW5AYWRtaW4uZGUiLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNjA3MjUzMjYwLCJleHAiOjE2MDcyNTY4NjB9.r7eP2ZqppU0Y2wEHQZiGZQ6IgS5LkpSL1Ws7FNsCtJQ",
+				"value": "{{TOKEN}}",
 				"type": "string"
 			}
 		]
@@ -892,6 +827,20 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJiOGIyNGJlLTg2OWEtNDhjNi05OGRjLTIxZjljNzQ1YTMyOCIsImVtYWlsIjoic2FicmluYS53YXNzZXJ0YWxAc29ubmVuc3RyYWhsLWVuZXJnaWUuY29tIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTYwOTY2ODg5MCwiZXhwIjoxNjA5NjcyNDkwfQ._gB5jF0EQQ23YAU-94Oa6S9XYC6dtDnap1WDgN2NsZY"
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost"
+		},
+		{
+			"key": "api_version",
+			"value": "/api/v1"
 		}
 	]
 }
