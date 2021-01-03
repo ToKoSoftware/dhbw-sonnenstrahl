@@ -47,10 +47,13 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
         allowedOrderFields: allowedSearchFilterAndOrderFields
     };
     query = buildQuery(queryConfig, req);
+    // hide password from api calls
+    query.attributes = {
+        exclude: [ 'password' ]
+    };
 
     let success = true;
     const data = await User.findAll(query)
-        .then(d => d.map(el => el.password = ''))
         .catch(() => {
             success = false;
             return null;
