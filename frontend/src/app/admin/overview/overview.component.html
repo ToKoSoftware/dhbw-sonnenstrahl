@@ -22,6 +22,10 @@
       </app-admin-pie-stats>
     </div>
     <div class="bg-white shadow sm:rounded-lg mb-10 px-4 py-6 rounded-lg bg-white p-4">
+      <app-admin-referrer-stats>
+      </app-admin-referrer-stats>
+    </div>
+    <div class="bg-white shadow sm:rounded-lg mb-10 px-4 py-6 rounded-lg bg-white p-4">
       <app-order-stats chartFor="customers" *ngIf="monthlyData !== null" [statData]="monthlyData">
       </app-order-stats>
     </div>

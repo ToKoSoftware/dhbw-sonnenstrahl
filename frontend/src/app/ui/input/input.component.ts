@@ -8,6 +8,7 @@ import {ControlValueAccessor, NgControl} from '@angular/forms';
 })
 export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean;
+  @Input() required: boolean;
   @Input() label: string;
   @Input() name: string;
   @Input() placeholder = '';

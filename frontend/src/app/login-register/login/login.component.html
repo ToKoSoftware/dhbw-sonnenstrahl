@@ -1,4 +1,5 @@
-<div class="sm:text-center lg:text-left h-screen" style="background: url('/assets/wallpaper/sun.jpg') center center / cover">
+<div class="sm:text-center lg:text-left h-screen"
+     style="background: url('/assets/wallpaper/sun.jpg') center center / cover">
   <app-nav-spacer></app-nav-spacer>
   <app-container>
     <div style="background: rgba(255, 255, 255, 0.8)"
@@ -20,15 +21,17 @@
               class="mt-1 rounded-md shadow-sm">
               <div>
                 <input
-                       type="email"
-                       [(ngModel)]="email"
-                       class="h-16 text-1xl text-center form-input relative block w-full rounded-none rounded-t-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:leading-5"
-                       placeholder="E-Mail"/>
+                  type="email"
+                  [(ngModel)]="email"
+                  (keyup.enter)="login()"
+                  class="h-16 text-1xl text-center form-input relative block w-full rounded-none rounded-t-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:leading-5"
+                  placeholder="E-Mail"/>
                 <input
-                       type="password"
-                       [(ngModel)]="password"
-                       class="h-16 text-1xl text-center form-input relative block w-full rounded-none rounded-b-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:leading-5"
-                       placeholder="Passwort"/>
+                  type="password"
+                  [(ngModel)]="password"
+                  (keyup.enter)="login()"
+                  class="h-16 text-1xl text-center form-input relative block w-full rounded-none rounded-b-md bg-transparent focus:z-10 transition ease-in-out duration-150 sm:leading-5"
+                  placeholder="Passwort"/>
               </div>
             </div>
             <app-button size="full" (click)="login()" label="Login"></app-button>

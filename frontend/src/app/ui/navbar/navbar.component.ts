@@ -36,6 +36,6 @@ export class NavbarComponent implements OnInit {
   }
 
   public search(): void {
-    this.router.navigate(['/search', this.searchQuery]);
+    this.router.navigate(['/plans', this.searchQuery]);
   }
 }

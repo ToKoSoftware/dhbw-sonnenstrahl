@@ -27,6 +27,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   public loading = false;
   private routeSubscription: Subscription;
   private loginSubscription: Subscription;
+  private customerSubscription: Subscription;
   public estimatedUsage: number;
   public breadcrumbs: UiBreadcrumb[] = [
     {routerLink: '/', title: 'Home'},
@@ -55,9 +56,17 @@ export class OrderComponent implements OnInit, OnDestroy {
         this.customersOfCurrentUserCount = 0;
         return;
       }
+      if (this.currentStep != 1) {
+        this.currentStep++;
+      }
       this.api.get<CustomerData[]>('/customers', {
         userId: jwt.id // fix admin being able to see all customers
       }).subscribe(d => this.customersOfCurrentUserCount = d.data.length);
+    });
+    this.customerSubscription = this.orderService.selectedCustomer$.subscribe(customer => {
+      if (this.currentStep != 1) {
+        this.currentStep++;
+      }
     });
     this.routeSubscription = this.route.paramMap.subscribe(params => {
       this.loadingModalService.showLoading();
@@ -80,15 +89,21 @@ export class OrderComponent implements OnInit, OnDestroy {
           this.breadcrumbs[1].routerLink = `/plans/${this.plan.postcode}`;
           this.breadcrumbs[2].title = `Tarif: ${this.plan.plan}`;
           this.breadcrumbs[2].routerLink = '';
+          this.orderService.selectedPlan$.next(data.data);
           this.loading = false;
           this.loadingModalService.hideLoading();
         },
         error => {
+          this.orderService.selectedPlan$.next(null);
           this.loading = false;
           this.loadingModalService.hideLoading();
           this.showErrorModal();
         }
       );
+  }
+
+  public setCurrentStep(value: number) {
+    this.currentStep = value;
   }
 
   public showNextStep(): void {
@@ -104,6 +119,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
     this.loginSubscription.unsubscribe();
+    this.customerSubscription.unsubscribe();
   }
 
   public showErrorModal(): void {

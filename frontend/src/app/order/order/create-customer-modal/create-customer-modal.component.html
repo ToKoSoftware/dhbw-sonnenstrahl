@@ -1,15 +1,16 @@
-<app-nav-spacer></app-nav-spacer>
-<p *ngIf="error" class="text-red-700">E-Ein Fehler ist aufgetreten</p>
+<p *ngIf="error" class="my-5 text-red-700">Ein Fehler ist aufgetreten. Bitte füllen Sie alle Felder aus.</p>
 <form [formGroup]="customerForm">
   <div class="md:flex">
     <app-input label="Vorname"
                class="flex-1 md:pr-2"
                placeholder="Max"
+               required="true"
                formControlName="firstName">
     </app-input>
     <app-input label="Nachname"
                class="flex-1 md:pl-2"
                placeholder="Mustermann"
+               required="true"
                formControlName="lastName">
     </app-input>
   </div>
@@ -18,11 +19,13 @@
     <app-input label="Straße"
                class="flex-1 md:pr-2"
                placeholder="Bahnhofsstraße"
+               required="true"
                formControlName="street">
     </app-input>
     <app-input label="Hausnummer"
                class="flex-1 md:pl-2"
                placeholder="42"
+               required="true"
                formControlName="streetNumber">
     </app-input>
   </div>
@@ -30,11 +33,13 @@
     <app-input label="Postleitzahl"
                class="flex-1 md:pr-2"
                placeholder="12345"
+               [disabled]="orderService.selectedPlan$.value?.postcode != null"
                formControlName="postcode">
     </app-input>
     <app-input label="Stadt"
                class="flex-1 md:pl-2"
                placeholder="Musterstadt"
+               required="true"
                formControlName="city">
     </app-input>
   </div>

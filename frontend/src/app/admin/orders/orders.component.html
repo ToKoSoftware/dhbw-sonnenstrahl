@@ -11,14 +11,19 @@
       </tr>
       </thead>
       <tbody>
-        <tr orderTr [order]="order" *ngFor="let order of results"></tr>
+      <tr orderTr [order]="order" *ngFor="let order of results"></tr>
       </tbody>
     </table>
   </div>
 </app-layout>
 
 <ng-template #provisionModal>
-  <app-admin-pie-stats></app-admin-pie-stats>
+  <div class="mt-5">
+    <app-admin-pie-stats></app-admin-pie-stats>
+  </div>
+  <div class="mt-5">
+    <app-admin-referrer-stats></app-admin-referrer-stats>
+  </div>
   <div class="flex justify-end w-full mt-7">
     <div>
       <app-button

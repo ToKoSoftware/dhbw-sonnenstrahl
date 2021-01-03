@@ -22,7 +22,7 @@ export class CustomersComponent implements OnInit {
   public buttonGroup: UiButtonGroup = {
     buttons: [
       {
-        title: 'Benutzerdaten exportieren',
+        title: 'Kundendaten exportieren',
         function: () => {
         },
         icon: 'download-cloud'

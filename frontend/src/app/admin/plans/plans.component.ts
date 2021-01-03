@@ -91,10 +91,10 @@ export class PlansComponent implements OnInit {
     this.modalService.close();
     this.loadingService.showLoading();
     this.api.put(`/plans/${this.currentEditPlan.id}`, {
-      Tarifname: this.currentEditPlan.plan,
-      Fixkosten: this.currentEditPlan.cost_fix.toString(),
-      PLZ: this.currentEditPlan.postcode,
-      VariableKosten: this.currentEditPlan.cost_var.toString(),
+      plan: this.currentEditPlan.plan,
+      cost_fix: this.currentEditPlan.cost_fix.toString(),
+      postcode: this.currentEditPlan.postcode,
+      cost_var: this.currentEditPlan.cost_var.toString(),
     }).subscribe(
       data => {
         this.loadingService.hideLoading();

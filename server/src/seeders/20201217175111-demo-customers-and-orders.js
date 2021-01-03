@@ -31,7 +31,7 @@ module.exports = {
         
         let customers =[];
         let orders = [];
-        let referrers = ['VERIVOX', 'CHECK24', 'switchup', 'Stromvergleich', 'Wechselpiraten'];
+        let referrers = ['VERIVOX', 'CHECK24', 'VERIVOX', 'CHECK24', 'VERIVOX', 'CHECK24', 'Sonnenstrahl-Website', 'Sonnenstrahl-Website', 'Sonnenstrahl-Website', 'Sonnenstrahl-Website', 'Wechselpiraten'];
 
         await queryInterface.sequelize.query('SELECT id, postcode FROM "Plans";', { type: queryInterface.sequelize.QueryTypes.SELECT })
             .then(async function(plans) {
@@ -79,7 +79,7 @@ module.exports = {
                         id: v4(),
                         customerId: customers[i].id,
                         planId: plans[i].id, 
-                        referrer: referrers[getRandomInt(5)],
+                        referrer: referrers[getRandomInt(referrers.length - 1)],
                         consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                         is_active: true,
                         createdAt: customers[i].createdAt,
@@ -96,7 +96,7 @@ module.exports = {
                         id: v4(),
                         customerId: customers[i].id,
                         planId: plans[i].id, 
-                        referrer: referrers[getRandomInt(5)],
+                        referrer: referrers[getRandomInt(referrers.length - 1)],
                         consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                         is_active: false,
                         createdAt: dateCreatedAt,
@@ -112,7 +112,7 @@ module.exports = {
                         id: v4(),
                         customerId: customers[i].id,
                         planId: plans[i].id, 
-                        referrer: referrers[getRandomInt(5)],
+                        referrer: referrers[getRandomInt(referrers.length - 1)],
                         consumption: [1600, 1600, 1600, 1600, 2400, 2400, 2400, 3200, 4000, 4500].reduce((a, c, i, o) => { return o[Math.floor(Math.random() * Math.floor(o.length))]; }),
                         is_active: true,
                         createdAt: date,

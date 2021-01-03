@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {myProfileBreadcrumb, myProfilePages} from '../my-profile.pages';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {ApiService} from '../../services/api/api.service';
 import {LoginService} from '../../services/login/login.service';
 import {OrderData} from '../../interfaces/order.interface';
-import {PlanData} from '../../interfaces/plan.interface';
+import {CustomerData} from '../../interfaces/customer.interface';
 
 @Component({
   selector: 'app-edit',
@@ -29,18 +29,25 @@ export class MyOrdersComponent implements OnInit {
 
   private loadOrders(): void {
     this.loading = true;
+
     const id = this.login.decodedJwt$.value?.id || '';
-    this.api.get<OrderData[]>(`/orders`, {
-      sort: "terminatedAt",
+    this.api.get<CustomerData[]>('/customers', {
+      userId: id
     }).subscribe(
-      (data) => {
-        this.loading = false;
-        this.orders = data.data;
+      data => {
+        const ids = data.data.map(data => data.id);
+        this.api.get<OrderData[]>(`/orders`, {
+          sort: 'terminatedAt',
+        }).subscribe(
+          (data) => {
+            this.loading = false;
+            // fix admin being able to see all orders
+            this.orders = data.data.filter((item) => ids.includes(item.customerId));
+          }
+        );
       }
     );
-    this.api.get<PlanData>('/').subscribe();
+
   }
 
-  public cancelOrder(): void {
-  }
 }

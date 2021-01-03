@@ -22,7 +22,12 @@ export class AdminPieStatsComponent implements OnInit {
   public pieChartPlugins = [];
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(250, 202, 21, 0.9)', 'rgba(0,0,0,0.9)', 'rgba(120,120,120,0.9)'],
+      backgroundColor: [
+        'rgba(250, 202, 21, 0.9)',
+        'rgba(0,0,0,0.9)',
+        'rgba(120,120,120,0.9)',
+        'rgb(154,204,233)',
+      ],
     },
   ];
 

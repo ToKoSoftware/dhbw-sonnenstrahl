@@ -1,9 +1,22 @@
-<app-nav-spacer></app-nav-spacer>
-<app-zero-data heading="Bestellung abgeschlossen"
-               description="Vielen Dank für Ihre Bestellung. Sie erhalten in Kürze weitere Informationen."
-               image="welcome">
-  <div class="mt-10">
-    <app-button route="/profile/" label="Bestellungen ansehen"></app-button>
-    <app-button route="/" label="Zur Startseite"></app-button>
-  </div>
-</app-zero-data>
+<div class="sm:text-center lg:text-left h-screen"
+     style="background: url('/assets/wallpaper/sun.jpg') center center / cover">
+  <app-nav-spacer></app-nav-spacer>
+  <app-container>
+    <div style="background: rgba(255, 255, 255, 0.95)"
+         class="bg-white shadow overflow-hidden rounded-lg mt-48 sm:px-6">
+      <div class="py-5 border-b border-gray-200 sm:px-6 px-3">
+        <div class="mt-10">
+          <app-zero-data heading="Bestellung abgeschlossen"
+                         description="Vielen Dank für Ihre Bestellung. Sie erhalten in Kürze weitere Informationen."
+                         image="welcome">
+            <div class="mt-10">
+              <app-button route="/profile/" label="Bestellungen ansehen"></app-button>
+              <app-button route="/" label="Zur Startseite"></app-button>
+            </div>
+          </app-zero-data>
+        </div>
+      </div>
+    </div>
+  </app-container>
+</div>
+

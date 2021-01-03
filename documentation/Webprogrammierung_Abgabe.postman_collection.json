@@ -836,7 +836,7 @@
 		},
 		{
 			"key": "base_url",
-			"value": "http://dh.kostadinov.it"
+			"value": "http://localhost"
 		},
 		{
 			"key": "api_version",

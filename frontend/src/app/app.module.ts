@@ -9,14 +9,7 @@ import {ApiService} from './services/api/api.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {ErrorModule} from './error/error.module';
-import {HomeModule} from './home/home.module';
-import {SearchModule} from './search/search.module';
-import {PlansModule} from './plans/plans.module';
-import {LoginRegisterModule} from './login-register/login-register.module';
 import {EstimatedUsageService} from './services/estimated-usage/estimated-usage.service';
-import {AdminModule} from './admin/admin.module';
-import {MyProfileModule} from './my-profile/my-profile.module';
-import {OrderModule} from './order/order.module';
 import {MomentModule} from 'ngx-moment';
 import 'moment/locale/de';
 import {ChartsModule} from 'ng2-charts';
@@ -32,14 +25,7 @@ import {ChartsModule} from 'ng2-charts';
     HttpClientModule,
     IconsModule,
     UiModule,
-    HomeModule,
-    OrderModule,
-    PlansModule,
-    SearchModule,
     ErrorModule,
-    MyProfileModule,
-    LoginRegisterModule,
-    AdminModule,
     MomentModule.forRoot({
       relativeTimeThresholdOptions: {
         m: 59

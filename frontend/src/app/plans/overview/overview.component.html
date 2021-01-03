@@ -19,5 +19,12 @@
       </ng-container>
     </ng-container>
     <app-loading *ngIf="loading"></app-loading>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3" *ngIf="results.length === 0">
+    <app-zero-data
+      image="empty"
+      heading="Leider haben wir keine Tarife für Ihre Region gefunden!"
+      description="Versuchen Sie es zu einem späteren Zeitpunkt erneut, oder probieren Sie eine andere Postleitzahl."
+      *ngIf="results.length === 0"></app-zero-data>
+  </div>
   </app-container>
 </ng-container>

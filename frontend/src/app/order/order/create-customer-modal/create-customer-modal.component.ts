@@ -23,18 +23,19 @@ export class CreateCustomerModalComponent implements OnInit {
     private readonly api: ApiService,
     private readonly login: LoginService,
     private readonly modalService: ModalService,
-    private readonly orderService: OrderService,
+    public readonly orderService: OrderService,
     private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    const postcode = this.orderService.selectedPlan$.value?.postcode || '';
     this.customerForm = this.formBuilder.group(
       {
         firstName: [''],
         lastName: [''],
         street: [''],
         streetNumber: [''],
-        postcode: [''],
+        postcode: [postcode],
         city: [''],
         userId: [''],
       }

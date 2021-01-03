@@ -68,13 +68,14 @@ export class MyCredentialsComponent implements OnInit {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';
     const email = this.editUserForm.value.email;
-    this.api.put<UserData>(
+    this.api.put<{ user: UserData, jwt: string }>(
       `/users/${id}`,
       {email})
       .subscribe(
         data => {
           this.loading = false;
-          this.currentUser = data.data;
+          this.currentUser = data.data.user;
+          this.login.login(data.data.jwt);
         },
         error => {
           this.loading = false;
