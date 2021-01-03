@@ -35,6 +35,7 @@ import {getReferrerStats} from './api/v1/admin/get-referrer-stats';
 import {getMonthlyOrderStatsByReferrer} from './api/v1/admin/get-monthly-order-stats-by-referrer';
 import {getPlansInExternalFormat} from './api/v1/plans/get-external-plan';
 import path from 'path';
+import {exportCustomers} from './api/v1/admin/export-customers';
 
 
 export default function startServer(): void {
@@ -120,6 +121,7 @@ export default function startServer(): void {
     //following two routes only via frontend/browser functionable with download
     app.get('/api/v1/admin/export/orders', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportOrders(req, res));
     app.get('/api/v1/admin/export/users', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportUsers(req, res));
+    app.get('/api/v1/admin/export/customers', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportCustomers(req, res));
 
 
     // handle every other route with index.html, which loads Angular
