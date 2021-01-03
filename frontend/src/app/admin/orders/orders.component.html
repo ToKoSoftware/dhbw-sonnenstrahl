@@ -5,7 +5,8 @@
     <table class="table-fixed w-full" *ngIf="!loading">
       <thead>
       <tr class="border-gray-200 border-b-2">
-        <th class="pl-2 truncate text-left">Kunde</th>
+        <th class="pl-2 truncate text-left">Datum</th>
+        <th class="truncate text-left">Kunde</th>
         <th class="truncate text-left">Tarif</th>
         <th class="w-1/3 truncate text-left"></th>
       </tr>
@@ -14,7 +15,11 @@
       <tr orderTr [order]="order" *ngFor="let order of results"></tr>
       </tbody>
     </table>
+    <app-zero-data *ngIf="!loading && results.length === 0"></app-zero-data>
   </div>
+  <app-pagination *ngIf="!loading &&  results.length >= currentLimitAndOffset.limit"
+                  [limitAndOffset]="currentLimitAndOffset" (limitAndOffsetEvent)="currentLimitAndOffset = $event; loadData()">
+  </app-pagination>
 </app-layout>
 
 <ng-template #provisionModal>

@@ -34,7 +34,7 @@ export async function getUser(req: Request, res: Response): Promise<Response> {
 }
 
 export async function getUsers(req: Request, res: Response): Promise<Response> {
-    /*let query: FindOptions = {
+    let query: FindOptions = {
         raw: true,
     };
     const allowedSearchFilterAndOrderFields = ['email'];
@@ -47,17 +47,13 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
         allowedOrderFields: allowedSearchFilterAndOrderFields
     };
     query = buildQuery(queryConfig, req);
-    */
+    // hide password from api calls
+    query.attributes = {
+        exclude: [ 'password' ]
+    };
 
     let success = true;
-
-    //TODO keine Query berücksichtigung!!!
-    //return everything beside password
-    const data = await User.findAll({
-        attributes: {
-            exclude: [ 'password' ]
-        }
-    })
+    const data = await User.findAll(query)
         .catch(() => {
             success = false;
             return null;

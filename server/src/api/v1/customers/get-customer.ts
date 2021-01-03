@@ -43,7 +43,7 @@ export async function getCustomers(req: Request, res: Response): Promise<Respons
     };
     // todo move this to the model
     const allowedSearchAndOrderFields = ['firstName', 'lastName', 'postcode'];
-    const allowedFilterFields = ['userId'];
+    const allowedFilterFields = ['id', 'userId', 'city', 'lastName', 'postcode'];
     const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;

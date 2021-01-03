@@ -4,6 +4,7 @@ import {ApiService} from '../../services/api/api.service';
 import {OrderData} from '../../interfaces/order.interface';
 import {adminBreadcrumb, adminPages} from '../admin.pages';
 import {ModalService} from '../../services/modal/modal.service';
+import {LoginService} from '../../services/login/login.service';
 
 @Component({
   selector: 'app-orders',
@@ -11,6 +12,7 @@ import {ModalService} from '../../services/modal/modal.service';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  public currentLimitAndOffset = {limit: 25, offset: 0};
   @ViewChild('provisionModal', {static: true}) provisionModal: TemplateRef<unknown>;
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
@@ -28,6 +30,8 @@ export class OrdersComponent implements OnInit {
       {
         title: 'Bestellungen Exportieren',
         function: () => {
+          const jwt = this.login.jwt$.value;
+          window.open(`/api/v1/admin/export/orders?token=${jwt}`, '_blank');
         },
         icon: 'download-cloud'
       }
@@ -36,15 +40,24 @@ export class OrdersComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private login: LoginService,
     private modal: ModalService
     ) {
   }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  public loadData(filter: { [k: string]: string | number } = {
+    sort: 'createdAt',
+  }): void {
     this.loading = true;
-    this.api.get<OrderData[]>('/orders', {
-      order: '-consumption'
-    }).subscribe(
+    filter = {
+      ...filter,
+      ...this.currentLimitAndOffset
+    };
+    this.api.get<OrderData[]>('/orders', filter).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;

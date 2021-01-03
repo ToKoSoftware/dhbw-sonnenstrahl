@@ -24,7 +24,7 @@ export class ApiService {
 
   public get<Data>(
     path: string,
-    queryParams?: { [key: string]: string | string[] | undefined },
+    queryParams?: { [key: string]: string | string[] | number | undefined },
   ): Observable<ApiResponse<Data>> {
     const params = queryParams == null ?
       undefined : new HttpParams({
@@ -91,7 +91,7 @@ export class ApiService {
 }
 
 function removeBlank(
-  input: { [key: string]: string | string[] | undefined }
+  input: { [key: string]: string | string[] | number | undefined }
 ): { [key: string]: string | string[] } {
   const result: { [key: string]: string | string[] } = {};
   for (const key in input) {

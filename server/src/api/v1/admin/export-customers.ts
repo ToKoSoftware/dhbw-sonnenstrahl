@@ -1,12 +1,15 @@
 import {Request, Response} from 'express';
 import {convertObjectArrayToCsv} from '../../../functions/convert-object-array-to-csv.func';
 import {wrapResponse} from '../../../functions/response-wrapper';
-import {User} from '../../../models/user.model';
+import {Customer} from '../../../models/customer.models';
 
-export async function exportUsers(req: Request, res: Response): Promise<Response>  {
+export async function exportCustomers(req: Request, res: Response): Promise<Response>  {
     let success = true;
-    const users: User[] = await User.findAll(
+    const users: Customer[] = await Customer.findAll(
         {
+            where: {
+                is_active: true
+            },
             raw: true
         })
         .catch(() => {
@@ -22,7 +25,7 @@ export async function exportUsers(req: Request, res: Response): Promise<Response
 
     const csvData = convertObjectArrayToCsv(users);
     const date = new Date().toISOString();
-    res.set({'Content-Disposition': `attachment; filename="${date}_Users.csv"`});
+    res.set({'Content-Disposition': `attachment; filename="${date}_Customers.csv"`});
 
     return res.send(csvData);
 }

@@ -6,6 +6,8 @@ import {adminBreadcrumb, adminPages} from '../admin.pages';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
+import {AvailableFilter, FilterValue} from '../../ui/filter/filter.component';
+import {LoginService} from '../../services/login/login.service';
 
 @Component({
   selector: 'app-users',
@@ -25,16 +27,23 @@ export class UsersComponent implements OnInit {
       {
         title: 'Benutzerdaten exportieren',
         function: () => {
+          const jwt = this.login.jwt$.value;
+          window.open(`/api/v1/admin/export/customers?token=${jwt}`, '_blank');
         },
         icon: 'download-cloud'
       }
     ]
   };
+  public filters: AvailableFilter[] = [{
+    title: "E-Mail",
+    name: "email",
+  }]
 
   constructor(
     private confirmService: ConfirmModalService,
     private loadingService: LoadingModalService,
     private modalService: ModalService,
+    private login: LoginService,
     private api: ApiService) {
   }
 
@@ -42,14 +51,22 @@ export class UsersComponent implements OnInit {
     this.loadData();
   }
 
-  private loadData(): void {
+  private loadData(filter = {}): void {
     this.loading = true;
-    this.api.get<UserData[]>('/users', {}).subscribe(
+    this.api.get<UserData[]>('/users', filter).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;
       }
     );
+  }
+
+  public applyFilter(filterValue: FilterValue[]): void {
+    let f: { [k: string]: string } = {};
+    filterValue.forEach(val => {
+      f[val.name] = val.value;
+    })
+    this.loadData(f);
   }
 
   public async showDeleteModalForUser(user: UserData): Promise<void> {

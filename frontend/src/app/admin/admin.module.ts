@@ -17,6 +17,7 @@ import {ChartsModule} from 'ng2-charts';
 import {AdminLineStatsComponent} from './overview/admin-line-stats/admin-line-stats.component';
 import {AdminPieStatsComponent} from './overview/admin-pie-stats/admin-pie-stats.component';
 import {AdminReferrerStatsComponent} from './overview/admin-referrer-stats/admin-referrer-stats.component';
+import {MomentModule} from 'ngx-moment';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {AdminReferrerStatsComponent} from './overview/admin-referrer-stats/admin
     FormsModule,
     UiModule,
     IconsModule,
-    ChartsModule
+    ChartsModule,
+    MomentModule
   ]
 })
 export class AdminModule {

@@ -1,6 +1,9 @@
 <app-layout [sidebarPages]="sidebarPages" [buttons]="buttonGroup" [breadcrumbs]="breadcrumb"
             heading="Benutzer verwalten">
   <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3">
+    <app-filter [filters]="filters" (filterValue)="applyFilter($event)"></app-filter>
+  </div>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-10 px-3 py-3">
     <app-loading *ngIf="loading"></app-loading>
     <table class="table-fixed w-full" *ngIf="!loading">
       <thead>
@@ -16,37 +19,50 @@
         <td class="hidden md:table-cell truncate">{{ customer.firstName }}</td>
         <td class="grid">
           <div class="justify-self-end my-3">
-            <app-button (click)="showEditModalForCustomer(customer)" class="pr-2" size="small" label="Bearbeiten"></app-button>
-            <app-button (click)="showDeleteModalForCustomer(customer)" class="" size="small" label="Löschen" type="danger"></app-button>
+            <app-button (click)="showEditModalForCustomer(customer)" class="pr-2" size="small"
+                        label="Bearbeiten"></app-button>
+            <app-button (click)="showDeleteModalForCustomer(customer)" class="" size="small" label="Löschen"
+                        type="danger"></app-button>
           </div>
         </td>
       </tr>
       </tbody>
     </table>
+    <app-zero-data *ngIf="!loading && results.length === 0"></app-zero-data>
   </div>
+  <app-pagination *ngIf="!loading &&  results.length >= currentLimitAndOffset.limit && filterCount == 0"
+                  [limitAndOffset]="currentLimitAndOffset" (limitAndOffsetEvent)="currentLimitAndOffset = $event; loadData()">
+  </app-pagination>
 </app-layout>
 
 <ng-template #editModal>
   <label class="block mt-6 leading-3 text-lg">Identifier</label>
-  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text" [(ngModel)]="currentEditCustomer.id"
+  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text"
+         [(ngModel)]="currentEditCustomer.id"
          readonly>
   <label class="block mt-6 leading-3 text-lg">Vorname</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Vorname" [(ngModel)]="currentEditCustomer.firstName">
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Vorname"
+         [(ngModel)]="currentEditCustomer.firstName">
 
   <label class="block mt-6 leading-3 text-lg">Nachname</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Nachname" [(ngModel)]="currentEditCustomer.lastName">
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Nachname"
+         [(ngModel)]="currentEditCustomer.lastName">
 
-  <label class="block mt-6 leading-3 text-lg">Adresse</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Adresse" [(ngModel)]="currentEditCustomer.street">
+  <label class="block mt-6 leading-3 text-lg">Straße</label>
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Adresse"
+         [(ngModel)]="currentEditCustomer.street">
 
   <label class="block mt-6 leading-3 text-lg">Hausnummer</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Hausnummer" [(ngModel)]="currentEditCustomer.streetNumber">
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Hausnummer"
+         [(ngModel)]="currentEditCustomer.streetNumber">
 
   <label class="block mt-6 leading-3 text-lg">Postleitzahl</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Postleitzahl" [(ngModel)]="currentEditCustomer.postcode">
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Postleitzahl"
+         [(ngModel)]="currentEditCustomer.postcode">
 
   <label class="block mt-6 leading-3 text-lg">Stadt</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Stadt" [(ngModel)]="currentEditCustomer.city">
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Stadt"
+         [(ngModel)]="currentEditCustomer.city">
 
   <div class="flex justify-end w-full mt-7">
     <div>

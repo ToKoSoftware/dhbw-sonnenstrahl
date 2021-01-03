@@ -6,6 +6,7 @@ import {CustomerData} from '../../interfaces/customer.interface';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
+import {AvailableFilter, FilterValue} from '../../ui/filter/filter.component';
 
 @Component({
   selector: 'app-users',
@@ -13,8 +14,10 @@ import {ModalService} from '../../services/modal/modal.service';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
+  public currentLimitAndOffset = {limit: 25, offset: 0};
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
+  public filterCount = 0;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
   public results: CustomerData[] = [];
   public loading = false;
@@ -29,6 +32,19 @@ export class CustomersComponent implements OnInit {
       }
     ]
   };
+  public filters: AvailableFilter[] = [{
+    title: 'Nachname',
+    name: 'lastName',
+  }, {
+    title: 'Stadt',
+    name: 'city',
+  }, {
+    title: 'Postleitzahl',
+    name: 'postcode',
+  }, {
+    title: 'ID',
+    name: 'id',
+  }];
 
   constructor(
     private confirmService: ConfirmModalService,
@@ -50,11 +66,27 @@ export class CustomersComponent implements OnInit {
     this.modalService.close();
   }
 
-  private loadData(): void {
-    this.loading = true;
-    this.api.get<CustomerData[]>('/customers', {
+  public applyFilter(filterValue: FilterValue[]): void {
+    let f: { [k: string]: string | number } = {
       sort: '-lastName',
-    }).subscribe(
+    };
+    this.currentLimitAndOffset.offset = 0;
+    filterValue.forEach(val => {
+      f[val.name] = val.value;
+    });
+    this.filterCount = filterValue.length;
+    this.loadData(f);
+  }
+
+  public loadData(filter: { [k: string]: string | number } = {
+    sort: '-lastName',
+  }): void {
+    filter = {
+      ...filter,
+      ...this.currentLimitAndOffset
+    };
+    this.loading = true;
+    this.api.get<CustomerData[]>('/customers', filter).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;
