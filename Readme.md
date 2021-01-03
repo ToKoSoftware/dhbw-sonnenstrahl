@@ -54,7 +54,19 @@ JWT_HASH=randomstr
 
 ## Migrations
 
-To run a database migration run `cd server && npm run db:migrate`. The Docker container will do this automatically on restart.
+To run a database migration execute `cd server && npm run db:migrate`. The Docker container will do this automatically on restart.
 
-To undo a database migration run `cd server && npm run db:migrate:undo`.
+To undo a database migration execute `cd server && npm run db:migrate:undo`.
 
+Note: Remember to add your database configuration as ENV variables (`DATABASE_NAME=sonnenstrahl DATABASE_PASSWORD=postgres DATABASE_USER=postgres DATABASE_URL=localhost npm run db:migrate`) 
+
+## Seeders
+
+A random sample data set is provided by seeders.
+
+To run all seeders execute `cd server && npm run db:seed`. The Docker container will do this automatically on restart.
+**This is not recommended behaviour on production systems.**
+
+To undo all seeders run `cd server && npm run db:seed:undo`. **This may lead to a data loss.**
+
+Note: Remember to add your database configuration as ENV variables (`DATABASE_NAME=sonnenstrahl DATABASE_PASSWORD=postgres DATABASE_USER=postgres DATABASE_URL=localhost npm run db:seed`) 

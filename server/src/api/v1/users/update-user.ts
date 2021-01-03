@@ -8,6 +8,7 @@ import {User} from '../../../models/user.model';
 import * as EmailValidator from 'email-validator';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 import {Op} from 'sequelize';
+import {jwtSign} from '../../../functions/jwt-sign.func';
 
 export async function updateUser(req: Request, res: Response): Promise<Response> {
     let success = true;
@@ -127,10 +128,12 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
             return null;
         });
  
-    if (!success) {
+    if (!success || returnedUser === null) {
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
-    return res.send(wrapResponse(true, returnedUser));
+    const token = jwtSign(returnedUser);
+
+    return res.send(wrapResponse(true, {user: returnedUser, jwt: token}));
 
 }

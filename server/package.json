@@ -11,13 +11,16 @@
     ]
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "npm run build:frontend && ts-node src/index.ts",
+    "build:frontend": "cd ../frontend && npm install && npm run build && cp -R dist/sonnenstrahl ../server/dist",
     "dev": "nodemon -x ts-node src/index.ts",
     "lint": "eslint . --ext .ts",
     "fix-lint": "eslint . --ext .ts --fix",
     "build": "npm run lint && tsc -p tsconfig.build.json",
     "db:migrate": "npx sequelize-cli db:migrate",
-    "db:migrate:undo": "npx sequelize-cli db:migrate:undo"
+    "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:seed:undo": "npx sequelize-cli db:seed:undo"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -50,6 +53,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "faker": "^5.1.0",
     "form-data": "^3.0.0",
     "is-blank": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
