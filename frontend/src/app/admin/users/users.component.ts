@@ -28,7 +28,7 @@ export class UsersComponent implements OnInit {
         title: 'Benutzerdaten exportieren',
         function: () => {
           const jwt = this.login.jwt$.value;
-          window.open(`/api/v1/admin/export/customers?token=${jwt}`, '_blank');
+          window.location.assign(`/api/v1/admin/export/users?token=${jwt}`);
         },
         icon: 'download-cloud'
       }
