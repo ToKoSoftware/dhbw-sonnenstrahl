@@ -6,6 +6,7 @@ import {CustomerData} from '../../interfaces/customer.interface';
 import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {ModalService} from '../../services/modal/modal.service';
+import {AvailableFilter, FilterValue} from '../../ui/filter/filter.component';
 
 @Component({
   selector: 'app-users',
@@ -29,6 +30,19 @@ export class CustomersComponent implements OnInit {
       }
     ]
   };
+  public filters: AvailableFilter[] = [{
+    title: 'Nachname',
+    name: 'lastName',
+  },{
+    title: 'Stadt',
+    name: 'city',
+  },{
+    title: 'Postleitzahl',
+    name: 'postcode',
+  },{
+    title: 'ID',
+    name: 'id',
+  }];
 
   constructor(
     private confirmService: ConfirmModalService,
@@ -50,11 +64,21 @@ export class CustomersComponent implements OnInit {
     this.modalService.close();
   }
 
-  private loadData(): void {
-    this.loading = true;
-    this.api.get<CustomerData[]>('/customers', {
+  public applyFilter(filterValue: FilterValue[]): void {
+    let f: { [k: string]: string } = {
       sort: '-lastName',
-    }).subscribe(
+    };
+    filterValue.forEach(val => {
+      f[val.name] = val.value;
+    })
+    this.loadData(f);
+  }
+
+  private loadData(filter: {[k: string]: string} = {
+    sort: '-lastName',
+  }): void {
+    this.loading = true;
+    this.api.get<CustomerData[]>('/customers', filter).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;
