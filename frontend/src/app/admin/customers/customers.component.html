@@ -28,6 +28,7 @@
       </tr>
       </tbody>
     </table>
+    <app-zero-data *ngIf="!loading && results.length === 0"></app-zero-data>
   </div>
   <app-pagination *ngIf="!loading &&  results.length >= currentLimitAndOffset.limit && filterCount == 0"
                   [limitAndOffset]="currentLimitAndOffset" (limitAndOffsetEvent)="currentLimitAndOffset = $event; loadData()">
