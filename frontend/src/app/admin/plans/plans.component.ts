@@ -7,6 +7,7 @@ import {LoadingModalService} from '../../services/loading-modal/loading-modal.se
 import {ModalService} from '../../services/modal/modal.service';
 import {adminBreadcrumb, adminPages} from '../admin.pages';
 import {LoginService} from '../../services/login/login.service';
+import {AvailableFilter, FilterValue} from '../../ui/filter/filter.component';
 
 @Component({
   selector: 'app-plans',
@@ -14,6 +15,8 @@ import {LoginService} from '../../services/login/login.service';
   styleUrls: ['./plans.component.scss']
 })
 export class PlansComponent implements OnInit {
+  public currentLimitAndOffset = {limit: 50, offset: 0};
+  public filterCount = 0;
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
@@ -40,6 +43,16 @@ export class PlansComponent implements OnInit {
     ]
   };
   public currentEditPlan: PlanData;
+  public filters: AvailableFilter[] = [{
+    title: 'Titel',
+    name: 'plan',
+  }, {
+    title: 'Postleitzahl',
+    name: 'postcode',
+  }, {
+    title: 'ID',
+    name: 'id',
+  }];
 
   constructor(private api: ApiService,
               private login: LoginService,
@@ -78,6 +91,19 @@ export class PlansComponent implements OnInit {
     }
   }
 
+  public applyFilter(filterValue: FilterValue[]): void {
+    let f: { [k: string]: string | number } = {
+      order: '-postcode',
+      is_active: 'true',
+    };
+    this.currentLimitAndOffset.offset = 0;
+    filterValue.forEach(val => {
+      f[val.name] = val.value;
+    });
+    this.filterCount = filterValue.length;
+    this.loadData(f);
+  }
+
   public showEditModalForPlan(plan: PlanData): void {
     this.currentEditPlan = {...plan};
     this.modalService.showModal(`"${plan.plan} (${plan.postcode})" bearbeiten`, this.editModal);
@@ -112,12 +138,18 @@ export class PlansComponent implements OnInit {
     );
   }
 
-  private loadData(): void {
+  public loadData(filter: { [k: string]: string | number } = {
+    order: '-postcode',
+    is_active: 'true',
+  }): void {
     this.loading = true;
-    this.api.get<PlanData[]>('/plans', {
+    filter = {
+      ...filter,
       order: '-postcode',
       is_active: 'true',
-    }).subscribe(
+      ...this.currentLimitAndOffset
+    };
+    this.api.get<PlanData[]>('/plans', filter).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;

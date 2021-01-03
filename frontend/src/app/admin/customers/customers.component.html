@@ -29,6 +29,9 @@
       </tbody>
     </table>
   </div>
+  <app-pagination *ngIf="!loading &&  results.length >= currentLimitAndOffset.limit && filterCount == 0"
+                  [limitAndOffset]="currentLimitAndOffset" (limitAndOffsetEvent)="currentLimitAndOffset = $event; loadData()">
+  </app-pagination>
 </app-layout>
 
 <ng-template #editModal>
