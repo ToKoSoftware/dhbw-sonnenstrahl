@@ -50,7 +50,7 @@ export class OrdersComponent implements OnInit {
   }
 
   public loadData(filter: { [k: string]: string | number } = {
-    sort: '-consumption',
+    sort: 'createdAt',
   }): void {
     this.loading = true;
     filter = {

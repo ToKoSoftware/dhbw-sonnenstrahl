@@ -1,4 +1,7 @@
 <td class="pl-2 truncate">
+  {{ order.createdAt | amFromUtc | amDateFormat: 'DD.MM.YYYY' }}
+</td>
+<td class="truncate">
   <app-loading *ngIf="loadingCustomer"></app-loading>
   <ng-container *ngIf="!loadingCustomer">{{ customerData.lastName }}</ng-container>
 </td>
@@ -15,13 +18,35 @@
 
 <ng-template #editModal>
   <label class="block mt-6 leading-3 text-lg">Identifier</label>
-  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text" [(ngModel)]="currentEditOrder.id"
+  <input class="mt-4 bg-gray-300 form-input block w-full rounded-md sm:leading-5" type="text"
+         [(ngModel)]="currentEditOrder.id"
          readonly>
   <label class="block mt-6 leading-3 text-lg">Verbrauch</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Verbrauch" [(ngModel)]="currentEditOrder.consumption">
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Verbrauch"
+         [(ngModel)]="currentEditOrder.consumption">
 
   <label class="block mt-6 leading-3 text-lg">Referrer</label>
-  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Referrer" [(ngModel)]="currentEditOrder.referrer">
+  <input class="mt-4 form-input block w-full rounded-md sm:leading-5" type="text" placeholder="Referrer"
+         [(ngModel)]="currentEditOrder.referrer">
+
+  <div class="py-4 border-b border-gray-300">
+    <p *ngIf="!loadingCustomer">
+      <b>Kunde:</b><br>
+      {{customerData.firstName}} {{customerData.lastName}}, {{customerData.street}} {{customerData.streetNumber}},
+      {{customerData.postcode}} {{customerData.city}}
+    </p>
+  </div>
+  <div class="py-4 border-b border-gray-300">
+    <p *ngIf="!loadingPlan">
+      <b>Tarif:</b><br>
+      {{planData.plan}}
+    </p>
+  </div>
+  <div class="py-4">
+    <p *ngIf="!loadingPlan">
+      <b>Gebucht am:</b> {{ order.createdAt | amFromUtc | amDateFormat: 'DD.MM.YYYY H:mm' }}
+    </p>
+  </div>
 
   <div class="flex justify-end w-full mt-7">
     <div>
