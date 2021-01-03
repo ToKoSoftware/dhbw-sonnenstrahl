@@ -37,6 +37,7 @@
   <div class="px-3 pt-1">ist</div>
   <div class="md:flex-auto flex-1">
     <input
+      (keyup.enter)="filter()"
       [(ngModel)]="selectedFilterValue[filterIndex]"
       class="rounded border w-full
       border-gray-300 focus:border-indigo-500

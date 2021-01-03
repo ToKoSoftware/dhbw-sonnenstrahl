@@ -5,12 +5,12 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent {
   @Input() filters: AvailableFilter[] = [];
   @Output() filterValue = new EventEmitter<FilterValue[]>();
   public usedFilters: Array<AvailableFilter[]> = [];
   public selectedFilter: string[] = [];
-  public selectedFilterValue: string[]= [];
+  public selectedFilterValue: string[] = [];
 
   public filter(): void {
     this.filterValue.emit(this.selectedFilterValue.map((f, i) => {
@@ -23,17 +23,16 @@ export class FilterComponent implements OnInit {
 
   public addFilter(): void {
     this.selectedFilter.push(this.filters[0].name);
-    this.selectedFilterValue.push("");
+    this.selectedFilterValue.push('');
     this.usedFilters.push(this.filters);
+    this.filter();
   }
 
   public removeFilter(index: number): void {
-    this.selectedFilter.splice(index);
-    this.selectedFilterValue.splice(index);
-    this.usedFilters.splice(index);
-  }
-
-  ngOnInit(): void {
+    this.selectedFilter.splice(index, 1);
+    this.selectedFilterValue.splice(index, 1);
+    this.usedFilters.splice(index, 1);
+    this.filter();
   }
 
 }
