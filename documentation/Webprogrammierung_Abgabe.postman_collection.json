@@ -584,6 +584,149 @@
 			]
 		},
 		{
+			"name": "stats",
+			"item": [
+				{
+					"name": "Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats"
+							]
+						},
+						"description": "Generelle Stats"
+					},
+					"response": []
+				},
+				{
+					"name": "MonthlyStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats/monthly",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats",
+								"monthly"
+							]
+						},
+						"description": "Monatliche Statistiken"
+					},
+					"response": []
+				},
+				{
+					"name": "ReferrerStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats/referrer",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats",
+								"referrer"
+							]
+						},
+						"description": "Referrer Statistiken"
+					},
+					"response": []
+				},
+				{
+					"name": "MonthlyOrderStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/stats/orders/monthly",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"stats",
+								"orders",
+								"monthly"
+							]
+						},
+						"description": "Monatliche Bestell-Statistiken"
+					},
+					"response": []
+				},
+				{
+					"name": "ExportOrders",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/export/orders?token={{TOKEN}}",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"export",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}"
+								}
+							]
+						},
+						"description": "Export aller Bestellungen"
+					},
+					"response": []
+				},
+				{
+					"name": "ExportUsers",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{api_version}}/admin/export/users?token={{TOKEN}}",
+							"host": [
+								"{{base_url}}{{api_version}}"
+							],
+							"path": [
+								"admin",
+								"export",
+								"users"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}"
+								}
+							]
+						},
+						"description": "Export aller Benutzer"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Login",
 			"event": [
 				{
