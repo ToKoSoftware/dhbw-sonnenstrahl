@@ -14,8 +14,10 @@ import {AvailableFilter, FilterValue} from '../../ui/filter/filter.component';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
+  public currentLimitAndOffset = {limit: 25, offset: 0};
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
+  public filterCount = 0;
   @ViewChild('editModal', {static: true}) editModal: TemplateRef<unknown>;
   public results: CustomerData[] = [];
   public loading = false;
@@ -33,13 +35,13 @@ export class CustomersComponent implements OnInit {
   public filters: AvailableFilter[] = [{
     title: 'Nachname',
     name: 'lastName',
-  },{
+  }, {
     title: 'Stadt',
     name: 'city',
-  },{
+  }, {
     title: 'Postleitzahl',
     name: 'postcode',
-  },{
+  }, {
     title: 'ID',
     name: 'id',
   }];
@@ -65,18 +67,24 @@ export class CustomersComponent implements OnInit {
   }
 
   public applyFilter(filterValue: FilterValue[]): void {
-    let f: { [k: string]: string } = {
+    let f: { [k: string]: string | number } = {
       sort: '-lastName',
     };
+    this.currentLimitAndOffset.offset = 0;
     filterValue.forEach(val => {
       f[val.name] = val.value;
-    })
+    });
+    this.filterCount = filterValue.length;
     this.loadData(f);
   }
 
-  private loadData(filter: {[k: string]: string} = {
+  public loadData(filter: { [k: string]: string | number } = {
     sort: '-lastName',
   }): void {
+    filter = {
+      ...filter,
+      ...this.currentLimitAndOffset
+    };
     this.loading = true;
     this.api.get<CustomerData[]>('/customers', filter).subscribe(
       data => {

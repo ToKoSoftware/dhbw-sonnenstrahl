@@ -15,6 +15,9 @@
       </tbody>
     </table>
   </div>
+  <app-pagination *ngIf="!loading &&  results.length >= currentLimitAndOffset.limit"
+                  [limitAndOffset]="currentLimitAndOffset" (limitAndOffsetEvent)="currentLimitAndOffset = $event; loadData()">
+  </app-pagination>
 </app-layout>
 
 <ng-template #provisionModal>

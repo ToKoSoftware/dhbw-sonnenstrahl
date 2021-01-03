@@ -11,6 +11,7 @@ import {ModalService} from '../../services/modal/modal.service';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  public currentLimitAndOffset = {limit: 25, offset: 0};
   @ViewChild('provisionModal', {static: true}) provisionModal: TemplateRef<unknown>;
   public sidebarPages = adminPages;
   public breadcrumb = adminBreadcrumb;
@@ -41,10 +42,18 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  public loadData(filter: { [k: string]: string | number } = {
+    sort: '-consumption',
+  }): void {
     this.loading = true;
-    this.api.get<OrderData[]>('/orders', {
-      order: '-consumption'
-    }).subscribe(
+    filter = {
+      ...filter,
+      ...this.currentLimitAndOffset
+    };
+    this.api.get<OrderData[]>('/orders', filter).subscribe(
       data => {
         this.loading = false;
         this.results = data.data;

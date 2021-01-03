@@ -26,6 +26,8 @@ import {LabeledValueComponent} from './labeled-value/labeled-value.component';
 import { ZeroDataComponent } from './zero-data/zero-data.component';
 import {PlanDetailComponent} from './detail/plan-detail.component';
 import {UsagePeopleCounterComponent} from './usage-people-counter/usage-people-counter.component';
+import { FilterComponent } from './filter/filter.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import {UsagePeopleCounterComponent} from './usage-people-counter/usage-people-c
     LabeledValueComponent,
     ZeroDataComponent,
     PlanDetailComponent,
-    UsagePeopleCounterComponent
+    UsagePeopleCounterComponent,
+    FilterComponent,
+    PaginationComponent
   ],
   exports: [
     NavbarComponent,
@@ -75,7 +79,9 @@ import {UsagePeopleCounterComponent} from './usage-people-counter/usage-people-c
     LabeledValueComponent,
     ZeroDataComponent,
     PlanDetailComponent,
-    UsagePeopleCounterComponent
+    UsagePeopleCounterComponent,
+    FilterComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
