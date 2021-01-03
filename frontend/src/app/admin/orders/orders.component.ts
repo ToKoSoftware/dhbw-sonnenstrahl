@@ -31,7 +31,7 @@ export class OrdersComponent implements OnInit {
         title: 'Bestellungen Exportieren',
         function: () => {
           const jwt = this.login.jwt$.value;
-          window.open(`/api/v1/admin/export/orders?token=${jwt}`, '_blank');
+          window.location.assign(`/api/v1/admin/export/orders?token=${jwt}`);
         },
         icon: 'download-cloud'
       }

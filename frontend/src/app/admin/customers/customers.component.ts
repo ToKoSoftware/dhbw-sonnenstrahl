@@ -29,7 +29,7 @@ export class CustomersComponent implements OnInit {
         title: 'Kundendaten exportieren',
         function: () => {
           const jwt = this.login.jwt$.value;
-          window.open(`/api/v1/admin/export/customers?token=${jwt}`, '_blank');
+          window.location.assign(`/api/v1/admin/export/customers?token=${jwt}`);
         },
         icon: 'download-cloud'
       }
