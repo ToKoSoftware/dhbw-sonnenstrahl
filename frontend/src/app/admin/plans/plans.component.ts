@@ -31,14 +31,6 @@ export class PlansComponent implements OnInit {
           this.showImportPlansModal();
         },
         icon: 'upload-cloud'
-      },
-      {
-        title: 'Tarife exportieren',
-        function: () => {
-          const jwt = this.login.jwt$.value;
-          window.open(`/api/v1/export/orders?token=${jwt}`, '_blank');
-        },
-        icon: 'download-cloud'
       }
     ]
   };

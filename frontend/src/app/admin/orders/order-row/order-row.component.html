@@ -1,6 +1,6 @@
 <td class="pl-2 truncate">
   <app-loading *ngIf="loadingCustomer"></app-loading>
-  <ng-container *ngIf="!loadingCustomer">{{ customerData.firstName }}</ng-container>
+  <ng-container *ngIf="!loadingCustomer">{{ customerData.lastName }}</ng-container>
 </td>
 <td class="truncate">
   <app-loading *ngIf="loadingPlan"></app-loading>
