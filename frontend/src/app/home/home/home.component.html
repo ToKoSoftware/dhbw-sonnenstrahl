@@ -24,8 +24,11 @@
                       rounded-none rounded-md border-none bg-transparent
                       focus:z-10 transition ease-in-out duration-150 sm:leading-5"
                      placeholder="Postleitzahl">
-              <div class="cursor-pointer text-yellow-300 flex-shrink-0 px-5 h-full flex items-center">
-                <i-feather name="search" (click)="search()"></i-feather>
+              <div class="cursor-pointer flex-shrink-0 px-5 h-full flex items-center"
+                   [class.text-yellow-300]="searchQuery.length >= 5"
+                   [class.text-black]="searchQuery == ''"
+                   (click)="search()">
+                <i-feather name="search"></i-feather>
               </div>
             </div>
           </fieldset>
