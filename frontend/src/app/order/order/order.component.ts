@@ -56,7 +56,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         this.customersOfCurrentUserCount = 0;
         return;
       }
-      if (this.currentStep != 1) {
+      if (this.currentStep === 2) {
         this.currentStep++;
       }
       this.api.get<CustomerData[]>('/customers', {
@@ -65,7 +65,9 @@ export class OrderComponent implements OnInit, OnDestroy {
     });
     this.customerSubscription = this.orderService.selectedCustomer$.subscribe(customer => {
       if (this.currentStep != 1) {
-        this.currentStep++;
+        if (customer !== null) {
+          this.currentStep++;
+        }
       }
     });
     this.routeSubscription = this.route.paramMap.subscribe(params => {
