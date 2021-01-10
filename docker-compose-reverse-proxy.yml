@@ -24,7 +24,7 @@ services:
       - db
     expose:
       - "80"
-    user: "root" # for ubuntu, use root
+    user: "root"
     working_dir: /home/node/app
     volumes:
       - ./:/home/node/app
@@ -33,7 +33,7 @@ services:
     env_file:
       - .env
     environment:
-      VIRTUAL_HOST: sun.dh.kostadinov.it
+      VIRTUAL_HOST: $VIRTUAL_HOST
       #NODE_ENV: production
       DATABASE_URL: "db"
       DATABASE_PASSWORD: $POSTGRES_PASSWORD
