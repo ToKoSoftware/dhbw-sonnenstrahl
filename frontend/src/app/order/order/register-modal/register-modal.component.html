@@ -1,12 +1,14 @@
 <p *ngIf="error" class="text-red-700">Ein Fehler ist aufgetreten.</p>
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" (ngSubmit)="register()">
   <app-input label="E-Mail"
              type="email"
+             required="true"
              placeholder="max@mustermann.de"
              formControlName="email">
   </app-input>
   <app-input label="Passwort"
              type="password"
+             required="true"
              placeholder="*****"
              formControlName="password">
   </app-input>
@@ -18,8 +20,8 @@
         label="Abbrechen"
         [icon]="null"></app-button>
       <app-button
-        (click)="register()"
         type="info"
+        formButtonType="submit"
         label="Account anlegen"></app-button>
     </div>
   </div>

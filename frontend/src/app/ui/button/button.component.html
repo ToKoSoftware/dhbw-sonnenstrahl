@@ -19,6 +19,7 @@
   [class.mt-4]="size === 'full'"
   [class.py-3]="size === 'full'"
   [class.mx-2]="size !== 'full'"
+  [type]="formButtonType"
 >
   <i class="-ml-1 -mt-3 mr-6 h-1 w-1 text-sm" *ngIf="icon !== null">
     <i-feather [name]="icon"></i-feather>

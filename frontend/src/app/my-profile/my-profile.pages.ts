@@ -38,6 +38,6 @@ export const myProfileBreadcrumb: UiBreadcrumb[] = [
     routerLink: '/'
   }, {
     title: 'Profil',
-    routerLink: '/my-profile'
+    routerLink: '/profile'
   }
 ];

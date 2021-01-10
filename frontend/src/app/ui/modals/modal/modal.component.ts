@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ModalService} from '../../../services/modal/modal.service';
 
 @Component({
@@ -10,11 +10,12 @@ export class ModalComponent {
   @Input() title = '';
   @Input() blocking = false; // modal cannot be closed (e.g. loading)
 
-  constructor(private modalService: ModalService) {
+  constructor(public modalService: ModalService) {
   }
 
   public closeModal(): void {
-    this.modalService.close();
+    if (!this.blocking)
+      this.modalService.close();
   }
 
 }

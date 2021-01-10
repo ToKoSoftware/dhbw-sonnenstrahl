@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   public search(): void {
+    if (!this.searchQuery) return;
     this.router.navigate(['/plans', this.searchQuery]);
   }
 }
