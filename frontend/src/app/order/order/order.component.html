@@ -103,8 +103,8 @@
           Mit Ihrem persönlichen Sonnenstrahl-Energie Account können Sie die Tarifbestellungen mehrerer Personen
           verwalten." heading="Ihr Sonnenstrahl-Energie Account"></app-zero-data>
           <div class="flex-1" *ngIf="!(loginService.isLoggedIn$ | async)">
-            <app-button (click)="showModal('login')" type="blank" label="Ich habe ein Konto"></app-button>
-            <app-button (click)="showModal('register')" label="Ich habe kein Konto"></app-button>
+            <app-button (click)="showModal('login')" type="blank" label="Mit Account anmelden"></app-button>
+            <app-button (click)="showModal('register')" label="Neuen Account erstellen"></app-button>
           </div>
           <div class="flex-1 text-center" *ngIf="loginService.isLoggedIn$ | async">
             <div class="w-full my-5">
