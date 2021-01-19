@@ -3,6 +3,10 @@ export default class Loggy {
     constructor(public loggingEnabled: boolean = false) {
     }
 
+    /**
+     * decorators for logs, infos, warnings and errors in console
+     */
+
     public log(...data: unknown[]): void {
         if (!this.loggingEnabled) return;
         console.log('📗', ...data);

@@ -3,6 +3,10 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {ExternalPlanData} from '../../../interfaces/plan.interface';
 import {Plan} from '../../../models/plan.model';
 
+/**
+ * function for external plan data to match assignment requirements
+ */
+
 export async function getPlansInExternalFormat(req: Request, res: Response): Promise<Response> {
     const incomingZipCode = req.query.zipCode as string;
     const zipCodeAsNumber = parseInt(incomingZipCode);

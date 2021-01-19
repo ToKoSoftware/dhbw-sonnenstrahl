@@ -36,7 +36,7 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
     if (plan === null) {
         return res.status(404).send(wrapResponse(false, {error: 'No plan with given id found'}));
     } else {
-        // check if the postcode should be changed. If it should, ther must not be an active order with the given planId
+        // check if the postcode should be changed. If it should, there must not be an active order with the given planId
         if (!(plan.postcode === incomingData.postcode || incomingData.postcode === undefined)) {
             const activeOrders: Order | null = await Order.findOne(
                 {

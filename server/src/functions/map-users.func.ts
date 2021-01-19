@@ -6,6 +6,7 @@ export async function mapUser(incomingData: InternalUser): Promise<InternalUser>
     const SALT_FACTOR = 10;
     const hashedPassword =  incomingData.password !== undefined ? await bcrypt.hash(incomingData.password, SALT_FACTOR) : incomingData.password;
 
+    //mapping of password on hashed password and is_admin on false: Admin-Accounts can only be added via database!
     return {
         email: incomingData.email,
         password: hashedPassword,

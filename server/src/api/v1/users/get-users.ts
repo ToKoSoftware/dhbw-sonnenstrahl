@@ -8,6 +8,7 @@ import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-i
 export async function getUser(req: Request, res: Response): Promise<Response> {
     let success = true;
 
+    //user can only view his own user data. Admin can view all users
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
     }

@@ -2,6 +2,9 @@ import {Request} from 'express';
 import isBlank from 'is-blank';
 import {Vars} from '../vars';
 
+/**
+ * logic for building query out of configurations comming from URL, etc.
+ */
 
 export function buildQuery(config: QueryBuilderConfig, req: Request): QueryBuilderData {
     if (config.allowLimitAndOffset) {

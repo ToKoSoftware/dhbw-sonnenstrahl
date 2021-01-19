@@ -18,6 +18,7 @@ export class Order extends Model<Order> {
     @Column
     terminatedAt: Date;
 
+    //required fields for creations and updates
     public static requiredFields(): Array<keyof InternalOrder> {
         return [
             'customerId',

@@ -2,6 +2,10 @@ import {NextFunction, Request, Response} from 'express';
 import {wrapResponse} from '../functions/response-wrapper';
 import {verifyToken} from '../functions/verify-token.func';
 
+/**
+ * Middleware for protected (only for registered users) routes. NextFunction will only be executed if user is authed
+ * Token in URL.
+ */
 export async function userIsAuthorizedByParam(req: Request, res: Response, next: NextFunction): Promise<void> {
     const token = req.query.token?.toString();
     if (token !== '' && token !== undefined) {

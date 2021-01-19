@@ -21,7 +21,9 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
         }
         const incomingData = await loadCSV(file);
         const targetData: InternalPlan[] = incomingData.map(mapPlan);
+        // set all current plans to is_active = false.
         await deactivatePlans();
+        // create new plan data in database
         targetData.forEach(createPlanEntry);
         return res.status(201).send(wrapResponse(true, targetData));
     } catch (e) {

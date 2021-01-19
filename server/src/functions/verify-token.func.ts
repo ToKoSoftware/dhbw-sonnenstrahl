@@ -4,6 +4,9 @@ import {User} from '../models/user.model';
 import {Vars} from '../vars';
 import {wrapResponse} from './response-wrapper';
 
+/**
+ * Verification of given token
+ */
 export function verifyToken(res: Response, token: string, next: NextFunction): void {
     jwt.verify(token, Vars.config.database.jwtSalt, async (err: unknown) => {
         if (err) {

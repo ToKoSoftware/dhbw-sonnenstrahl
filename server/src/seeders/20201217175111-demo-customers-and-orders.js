@@ -13,7 +13,7 @@ function getRandomInt(max) {
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         
-        //200 User 
+        //200 user 
         let users = [];
         for (let i = 0; i < 200; i++) {
             const hashedPassword = await bcrypt.hash(faker.internet.password(), SALT_FACTOR);
@@ -36,7 +36,7 @@ module.exports = {
         await queryInterface.sequelize.query('SELECT id, postcode FROM "Plans";', { type: queryInterface.sequelize.QueryTypes.SELECT })
             .then(async function(plans) {
 
-                //200 Customer, die zu User gehören
+                //200 customer with belonging User
                 for (let i = 0; i < 200; i++) {
                     customers.push({
                         id: v4(),
@@ -53,7 +53,7 @@ module.exports = {
                     });
                 }
 
-                //50 Customer, die zu User gehören, die schon einen Customer haben
+                //50 customer added to a User with already a customer
                 for (let i = 0; i < 50; i++) {
                     const date = timeFunc.randomTime(users[i].createdAt, timeFunc.endTime);
                     customers.push({
@@ -73,7 +73,7 @@ module.exports = {
 
                 await queryInterface.bulkInsert('Customers', customers);
 
-                //250 Customer (175 (70%) haben eine Order)
+                //250 orders added
                 for (let i = 0; i <= 249; i++) {
                     orders.push({
                         id: v4(),
@@ -88,7 +88,7 @@ module.exports = {
                     });
                 }
             
-                //65 (25%) Customer haben eine und eine gecancelte Order
+                //65 orders added to customers with already an order
                 for (let i = 0; i < 65; i++) {
                     const dateCreatedAt = timeFunc.randomTime(customers[i].createdAt, timeFunc.endTime);
                     const dateUpdatedAt = timeFunc.randomTime(dateCreatedAt, timeFunc.endTime);
@@ -105,7 +105,7 @@ module.exports = {
                     });
                 }
 
-                //10 (5%) haben 2 Orders
+                //10 orders added to customer with already an order
                 for (let i = 65; i <= 74; i++) {
                     const date =  timeFunc.randomTime(customers[i].createdAt, timeFunc.endTime);
                     orders.push({

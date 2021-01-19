@@ -31,6 +31,7 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
     if (user === null) {
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
     } else {
+        //check if given password matches the (hashed) password in the database.
         const passwordMatches = await bcrypt.compare(incomingData.password, user.password)
             .catch(() => false);
         if (passwordMatches) {

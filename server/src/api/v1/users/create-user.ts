@@ -11,7 +11,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
     const incomingData: InternalUser = req.body;
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
-
+    //All required fields defined in the model have to be set
     const requiredFields = User.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
         return res.status(400).send(wrapResponse(false, { error: 'Not all required fields have been set' }));
@@ -36,6 +36,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
         return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
     }
 
+    // if no user with given email is found, create new.
     if (user === null) {
 
         const createdData = await User.create(mappedIncomingData)

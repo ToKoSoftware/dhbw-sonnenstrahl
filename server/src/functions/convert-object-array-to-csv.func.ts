@@ -1,3 +1,7 @@
+/**
+ * Converter for export-data
+ */
+
 // eslint-disable-next-line
 export function convertObjectArrayToCsv(objectArray: Object[], columnDelimiter = ';', lineDelimiter = '\n') {
     let result = '';

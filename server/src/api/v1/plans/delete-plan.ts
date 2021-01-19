@@ -6,6 +6,7 @@ import {Plan} from '../../../models/plan.model';
 export async function deletePlan(req: Request, res: Response): Promise<Response> {
     let success = true;
 
+    //check if unterminated orders exist with given planId
     const activeOrders: Order | null = await Order.findOne(
         {
             where: {

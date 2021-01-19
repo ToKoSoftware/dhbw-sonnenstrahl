@@ -8,7 +8,6 @@ export async function getPlans(req: Request, res: Response): Promise<Response> {
     let query: FindOptions = {
         raw: true,
     };
-    // todo move this to the model
     const allowedSearchFields = ['plan', 'postcode'];
     const allowedOrderFields = ['postcode', 'plan', 'cost_var', 'cost_fix'];
     const allowedFilterFields = ['id', 'postcode', 'plan', 'is_active'];
@@ -18,7 +17,6 @@ export async function getPlans(req: Request, res: Response): Promise<Response> {
         if (req.query.is_active == null) {
             return true;
         } else {
-            // todo check if user is admin -> if not, return true
             return req.query.is_active === 'all' ? '' : (req.query.is_active === 'true');
         }
     });

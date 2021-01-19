@@ -3,6 +3,7 @@ const v4 = require('uuid').v4;
 const csv = require('csvtojson');
 const path = require("path");
 
+//Initial insert of plan/rate data into database
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {

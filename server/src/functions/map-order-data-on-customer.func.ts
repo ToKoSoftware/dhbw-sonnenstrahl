@@ -1,6 +1,7 @@
 import {InternalCustomer} from '../interfaces/customers.interface';
 import {IncomingExternalOrder} from '../interfaces/orders.interface';
 
+//mappign for external orders. Necessary to create an customer from external order data
 export function mapOrderDataOnCustomer(incomingData: IncomingExternalOrder): InternalCustomer {
     return {
         userId: null,

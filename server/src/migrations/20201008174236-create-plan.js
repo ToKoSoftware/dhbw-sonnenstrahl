@@ -1,4 +1,7 @@
 'use strict';
+
+//Create table Plans
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('Plans', {

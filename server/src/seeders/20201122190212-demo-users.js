@@ -4,6 +4,8 @@ const v4 = require('uuid').v4;
 const bcrypt =  require('bcryptjs');
 const timeFunc = require ('../functions/random-time.func');
 
+//Initial insert of 200 demo users into database
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         let users = [];

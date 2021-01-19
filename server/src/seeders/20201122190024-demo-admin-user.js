@@ -3,6 +3,8 @@ const v4 = require('uuid').v4;
 const bcrypt =  require('bcryptjs');
 const timeFunc = require ('../functions/random-time.func');
 
+//Initial insert of an admin user into database
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         const date = timeFunc.randomTime(timeFunc.startTime, timeFunc.endTime);
