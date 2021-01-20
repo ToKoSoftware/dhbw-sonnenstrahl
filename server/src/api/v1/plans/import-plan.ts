@@ -7,6 +7,11 @@ import {UploadedFile} from 'express-fileupload';
 import {Plan} from '../../../models/plan.model';
 import csv from 'csvtojson';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function importPlan(req: Request, res: Response): Promise<Response> {
     try {
         if (isBlank(req.files) || req.files === undefined || req.files.file == null) {

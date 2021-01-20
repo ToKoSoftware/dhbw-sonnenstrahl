@@ -67,13 +67,13 @@ export function buildOrLikeSearchQuery(query: QueryBuilderData, needle: string, 
     let length = 0;
     const search = {
         [Vars.op.or]: allowedFields.map(field => {
-            const a: { [name: string]: unknown } = {};
-            a[field] = {
-                [Vars.op.iLike]: '%' + needle + '%'
-            };
-            length++;
-            return a;
-        }
+                const a: { [name: string]: unknown } = {};
+                a[field] = {
+                    [Vars.op.iLike]: '%' + needle + '%'
+                };
+                length++;
+                return a;
+            }
         )
     };
     query = mergeQueryBuilders(query, search);

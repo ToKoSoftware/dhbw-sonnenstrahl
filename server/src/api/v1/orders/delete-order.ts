@@ -2,6 +2,11 @@ import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function deleteOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
     const destroyedRows = await Order.destroy(

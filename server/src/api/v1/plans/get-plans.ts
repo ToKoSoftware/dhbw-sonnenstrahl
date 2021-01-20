@@ -4,6 +4,11 @@ import {FindOptions} from 'sequelize';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function getPlans(req: Request, res: Response): Promise<Response> {
     let query: FindOptions = {
         raw: true,

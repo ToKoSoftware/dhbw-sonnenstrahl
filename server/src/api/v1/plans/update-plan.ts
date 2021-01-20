@@ -6,6 +6,11 @@ import {InternalPlan} from '../../../interfaces/plan.interface';
 import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function updatePlan(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult;

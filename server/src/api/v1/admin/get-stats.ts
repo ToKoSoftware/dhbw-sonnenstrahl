@@ -6,6 +6,11 @@ import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 import {User} from '../../../models/user.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function getStats(req: Request, res: Response): Promise<Response> {
     const usersCount = await countTotalEntities(User);
 
@@ -35,6 +40,11 @@ export async function getStats(req: Request, res: Response): Promise<Response> {
     return res.send(wrapResponse(true, data));
 }
 
+/**
+ *
+ * @param model
+ * @param is_active
+ */
 async function countTotalEntities(model: statEntityTypes, is_active = true): Promise<number> {
     let count;
     if (model !== User) {

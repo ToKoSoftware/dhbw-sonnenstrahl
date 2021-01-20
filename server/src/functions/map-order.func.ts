@@ -1,5 +1,10 @@
 import {IncomingExternalOrder, IncomingInternalOrder, InternalOrder} from '../interfaces/orders.interface';
 
+/**
+ * Map incoming order data into internal format for external api requests
+ * @param incomingData
+ * @param custId
+ */
 export function mapOrder(incomingData: IncomingExternalOrder, custId: string): InternalOrder {
     return {
         customerId: custId,
@@ -11,6 +16,10 @@ export function mapOrder(incomingData: IncomingExternalOrder, custId: string): I
     };
 }
 
+/**
+ * Map incoming order data into internal format
+ * @param incomingData
+ */
 export function mapInternalOrder(incomingData: IncomingInternalOrder): InternalOrder {
     return {
         customerId: incomingData.customerId,

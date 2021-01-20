@@ -3,8 +3,10 @@ import {wrapResponse} from '../functions/response-wrapper';
 import {verifyToken} from '../functions/verify-token.func';
 
 /**
- * Middleware for protected (only for registered users) routes. NextFunction will only be executed if user is authed
- * Token in URL.
+ * Middleware for protected (only for registered users) routes. NextFunction will only be executed if user is authenticated via Token in URL.
+ * @param req
+ * @param res
+ * @param next
  */
 export async function userIsAuthorizedByParam(req: Request, res: Response, next: NextFunction): Promise<void> {
     const token = req.query.token?.toString();

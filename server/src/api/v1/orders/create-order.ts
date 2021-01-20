@@ -8,6 +8,11 @@ import {Plan} from '../../../models/plan.model';
 import {Customer} from '../../../models/customer.models';
 import {mapOrderDataOnCustomer} from '../../../functions/map-order-data-on-customer.func';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function createInternalOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: InternalOrder = req.body;
@@ -75,6 +80,11 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
     return res.status(201).send(wrapResponse(true, data));
 }
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function createExternalOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: IncomingExternalOrder = req.body;
@@ -160,6 +170,9 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
     return res.status(201).send(wrapResponse(true, {costs: calculatedCosts + '€'}));
 }
 
+/**
+ *
+ */
 function requiredIncomingFields(): Array<keyof IncomingExternalOrder> {
     return [
         'firstName',

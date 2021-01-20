@@ -1,5 +1,9 @@
 import {InternalCustomer} from '../interfaces/customers.interface';
 
+/**
+ * Map incoming customer data into internal format
+ * @param incomingData
+ */
 export function mapCustomer(incomingData: InternalCustomer): InternalCustomer {
     return {
         userId: incomingData.userId || null,

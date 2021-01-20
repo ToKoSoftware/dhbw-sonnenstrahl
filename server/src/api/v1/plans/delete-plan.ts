@@ -3,6 +3,11 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function deletePlan(req: Request, res: Response): Promise<Response> {
     let success = true;
 

@@ -5,7 +5,10 @@ import {Vars} from '../vars';
 import {wrapResponse} from './response-wrapper';
 
 /**
- * Verification of given token
+ * Verify JSON Web Tokens and call next middleware function if valid
+ * @param res
+ * @param token
+ * @param next
  */
 export function verifyToken(res: Response, token: string, next: NextFunction): void {
     jwt.verify(token, Vars.config.database.jwtSalt, async (err: unknown) => {

@@ -6,6 +6,11 @@ import { mapUser } from '../../../functions/map-users.func';
 import { objectHasRequiredAndNotEmptyKeys } from '../../../functions/check-inputs.func';
 import * as EmailValidator from 'email-validator';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function createUser(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: InternalUser = req.body;

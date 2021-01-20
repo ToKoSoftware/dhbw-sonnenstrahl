@@ -6,6 +6,9 @@ import {Op} from 'sequelize';
 import {Order} from '../models/order.model';
 import {Customer} from '../models/customer.models';
 
+/**
+ * Setup Database connetions, setup models
+ */
 export function connectToDatabase(): void {
     const sequelize = new Sequelize(
         `postgres://${Vars.config.database.username}:${Vars.config.database.password}@${Vars.config.database.url}:${Vars.config.database.port}/${Vars.config.database.dbname}`
@@ -14,7 +17,6 @@ export function connectToDatabase(): void {
         sequelize.authenticate().then(
             () => Vars.loggy.info('Connection has been established successfully.')
         );
-        // todo
         sequelize.addModels([User, Plan, Order, Customer]);
         Vars.db = sequelize;
         Vars.op = Op;

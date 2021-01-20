@@ -5,6 +5,11 @@ import { FindOptions } from 'sequelize';
 import { buildQuery, QueryBuilderConfig } from '../../../functions/query-builder.func';
 import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function getUser(req: Request, res: Response): Promise<Response> {
     let success = true;
 

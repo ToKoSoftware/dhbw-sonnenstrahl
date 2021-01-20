@@ -5,6 +5,11 @@ import {Customer} from '../../../models/customer.models';
 import {Order} from '../../../models/order.model';
 import {Vars} from '../../../vars';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function terminateOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
 

@@ -3,7 +3,6 @@ import {Configuration} from './interfaces/configutation.interface';
 import {Op, Sequelize} from 'sequelize';
 import {User} from './models/user.model';
 
-
 export abstract class Vars {
     public static loggy: Loggy;
     public static config: Configuration;

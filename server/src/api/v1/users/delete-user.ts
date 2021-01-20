@@ -2,6 +2,11 @@ import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {User} from '../../../models/user.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function deleteUser(req: Request, res: Response): Promise<Response> {
     let success = true;
     const destroyedRows = await User.destroy(

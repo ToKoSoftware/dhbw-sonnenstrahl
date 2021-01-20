@@ -1,12 +1,11 @@
-function randomTime (start, end) {
-    var diff =  end.getTime() - start.getTime();
-    var new_diff = diff * Math.random();
-    var date = new Date(start.getTime() + new_diff);
-    return date;
-};
+function randomTime(start, end) {
+    let diff = end.getTime() - start.getTime();
+    let new_diff = diff * Math.random();
+    return new Date(start.getTime() + new_diff);
+}
 
-var endTime = new Date();
-var startTime = new Date();
+let endTime = new Date();
+let startTime = new Date();
 startTime.setFullYear(endTime.getFullYear() - 1);
 
 module.exports = {

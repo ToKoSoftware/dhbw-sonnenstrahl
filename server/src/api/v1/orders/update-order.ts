@@ -9,6 +9,11 @@ import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 import {Vars} from '../../../vars';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function updateOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult;

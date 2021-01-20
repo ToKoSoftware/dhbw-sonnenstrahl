@@ -3,6 +3,11 @@ import {Sequelize} from 'sequelize-typescript';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function getMonthlyOrderStatsByReferrer(req: Request, res:Response): Promise<Response> {
     let success = true;
     const referrer: Order[] | [] = await Order.findAll(
@@ -45,4 +50,5 @@ interface MonthlyOrderStats{
     /** is never number but always string, 
      * because of Sequelize.count() retuning count: '9' instead of count: 9
      */
-    count: number | {[key: string]: string | number} }
+    count: number | {[key: string]: string | number}
+}

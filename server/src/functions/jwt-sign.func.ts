@@ -2,8 +2,12 @@ import {User} from '../models/user.model';
 import {Vars} from '../vars';
 import jwt from 'jsonwebtoken';
 
-//Generate JSON Web Token
-export function jwtSign(user: User, expiration = 604800): string{
+/**
+ * Generate JSON Web Tokens (http://jwt.io)
+ * @param user
+ * @param expiration
+ */
+export function jwtSign(user: User, expiration = 604800): string {
     const token = jwt.sign(
         {
             id: user.id,

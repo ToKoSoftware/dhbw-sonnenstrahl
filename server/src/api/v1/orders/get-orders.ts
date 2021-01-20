@@ -7,6 +7,11 @@ import {Customer} from '../../../models/customer.models';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 import {Vars} from '../../../vars';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function getOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
     const orderData: Order | null = await Order.findOne(
@@ -54,6 +59,11 @@ export async function getOrder(req: Request, res: Response): Promise<Response> {
     return res.send(wrapResponse(true, orderData));
 }
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function getOrders(req: Request, res: Response): Promise<Response> {
     let success = true;
     let query: FindOptions = {

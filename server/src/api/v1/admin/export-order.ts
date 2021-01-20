@@ -3,6 +3,11 @@ import {convertObjectArrayToCsv} from '../../../functions/convert-object-array-t
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function exportOrders(req: Request, res: Response): Promise<Response> {
     let success = true;
     const orders: Order[] = await Order.findAll(

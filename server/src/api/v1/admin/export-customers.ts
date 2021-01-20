@@ -3,7 +3,12 @@ import {convertObjectArrayToCsv} from '../../../functions/convert-object-array-t
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Customer} from '../../../models/customer.models';
 
-export async function exportCustomers(req: Request, res: Response): Promise<Response>  {
+/**
+ *
+ * @param req
+ * @param res
+ */
+export async function exportCustomers(req: Request, res: Response): Promise<Response> {
     let success = true;
     const users: Customer[] = await Customer.findAll(
         {

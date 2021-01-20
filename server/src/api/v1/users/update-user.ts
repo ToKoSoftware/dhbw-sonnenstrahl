@@ -10,6 +10,11 @@ import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-
 import {Op} from 'sequelize';
 import {jwtSign} from '../../../functions/jwt-sign.func';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function updateUser(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult: [number, User[]] | null;

@@ -8,6 +8,11 @@ import {Customer} from '../../../models/customer.models';
 import {User} from '../../../models/user.model';
 import {Vars} from '../../../vars';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function updateCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult: [number, Customer[]] | [];

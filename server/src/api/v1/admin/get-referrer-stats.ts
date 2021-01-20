@@ -3,6 +3,11 @@ import {Sequelize} from 'sequelize-typescript';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function getReferrerStats(req: Request, res: Response): Promise<Response> {
     let success = true;
     const result = await Order.findAll(

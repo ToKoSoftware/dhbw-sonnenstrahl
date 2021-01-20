@@ -2,6 +2,9 @@ import {Configuration, DatabaseCredentials} from '../interfaces/configutation.in
 import {Vars} from '../vars';
 import isBlank from 'is-blank';
 
+/**
+ * Load configuration from Process environment
+ */
 export function loadConfig(): Configuration {
     const loggingEnabled = process.env.LOGGING === 'true';
     Vars.loggy.loggingEnabled = loggingEnabled;

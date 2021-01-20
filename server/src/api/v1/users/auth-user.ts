@@ -6,6 +6,11 @@ import {User} from '../../../models/user.model';
 import * as bcrypt from 'bcryptjs';
 import {jwtSign} from '../../../functions/jwt-sign.func';
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 export async function loginUser(req: Request, res: Response): Promise<Response> {
 
     const incomingData: InternalUser = req.body;

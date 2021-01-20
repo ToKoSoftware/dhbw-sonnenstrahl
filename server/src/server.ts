@@ -37,7 +37,9 @@ import {getPlansInExternalFormat} from './api/v1/plans/get-external-plan';
 import path from 'path';
 import {exportCustomers} from './api/v1/admin/export-customers';
 
-
+/**
+ * Start the express server
+ */
 export default function startServer(): void {
 
     /**
@@ -64,7 +66,7 @@ export default function startServer(): void {
     app.get('/api/v1', (req, res) => res.send(wrapResponse(true)));
 
     /**
-     * Authing
+     * Authentication
      */
     app.post('/api/v1/login', (req, res) => loginUser(req, res));
 
@@ -81,7 +83,7 @@ export default function startServer(): void {
     app.delete('/api/v1/plans/:id', userIsAuthorized, userIsAdmin, (req, res) => deletePlan(req, res));
 
     /**
-     * Order
+     * Orders
      */
     app.get('/api/v1/orders', userIsAuthorized, (req, res) => getOrders(req, res));
     app.get('/api/v1/orders/:id', userIsAuthorized, (req, res) => getOrder(req, res));
@@ -94,7 +96,7 @@ export default function startServer(): void {
     app.delete('/api/v1/orders/:id', userIsAuthorized, userIsAdmin, (req, res) => deleteOrder(req, res));
 
     /**
-     * User
+     * Users
      */
     app.get('/api/v1/users', userIsAuthorized, userIsAdmin, (req, res) => getUsers(req, res));
     app.get('/api/v1/users/:id', userIsAuthorized, (req, res) => getUser(req, res));
@@ -103,7 +105,7 @@ export default function startServer(): void {
     app.delete('/api/v1/users/:id', userIsAuthorized, userIsAdmin, (req, res) => deleteUser(req, res));
 
     /**
-     * Customer
+     * Customers
      */
     app.get('/api/v1/customers', userIsAuthorized, (req, res) => getCustomers(req, res));
     app.get('/api/v1/customers/:id', userIsAuthorized, (req, res) => getCustomer(req, res));
@@ -124,14 +126,16 @@ export default function startServer(): void {
     app.get('/api/v1/admin/export/customers', userIsAuthorizedByParam, userIsAdmin, (req, res) => exportCustomers(req, res));
 
 
-    // handle every other route with index.html, which loads Angular
+    /**
+     * Handle every other route with index.html, which loads Angular
+     */
     app.get('*', function(request, response) {
         response.sendFile(path.resolve(__dirname, '../dist/index.html'));
     });
 
 
     /**
-     * Server
+     * Finally, start the server
      */
     app.listen(PORT, () => Vars.loggy.log(`[Server] Starting on http://localhost:${PORT}`));
 }
