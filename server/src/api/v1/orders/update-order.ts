@@ -70,7 +70,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
 
     //id must not be changed and all set keys mut not be empty.
     if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
-        if(incomingData.planId !== undefined){
+        if (incomingData.planId !== undefined) {
             const plan: Plan | null = await Plan.findOne(
                 {
                     where: {

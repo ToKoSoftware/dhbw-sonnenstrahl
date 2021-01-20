@@ -14,15 +14,15 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
     const incomingZipCode = req.query.zipCode as string;
     const zipCodeAsNumber = parseInt(incomingZipCode);
     const incomingConsumption = parseInt(req.query.consumption as string);
-    if( zipCodeAsNumber > 99999 || isNaN(zipCodeAsNumber) || incomingConsumption * zipCodeAsNumber <= 0 || isNaN(incomingConsumption)){
+    if (zipCodeAsNumber > 99999 || isNaN(zipCodeAsNumber) || incomingConsumption * zipCodeAsNumber <= 0 || isNaN(incomingConsumption)) {
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields set or wrong data.'}));
     }
     const plans = await Plan.findAll({
         attributes: [
-            'id', 
-            'plan', 
-            'postcode', 
-            'cost_var', 
+            'id',
+            'plan',
+            'postcode',
+            'cost_var',
             'cost_fix'
         ],
         where: {
@@ -43,7 +43,7 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
             calculatedPricePerYear: calculatedCosts
         });
     });
-    outputData.sort(function(a, b){
+    outputData.sort(function(a, b) {
         return a.calculatedPricePerYear - b.calculatedPricePerYear;
     });
     return res.send(wrapResponse(true, outputData));

@@ -8,11 +8,11 @@ import {Order} from '../../../models/order.model';
  * @param req
  * @param res
  */
-export async function getMonthlyOrderStatsByReferrer(req: Request, res:Response): Promise<Response> {
+export async function getMonthlyOrderStatsByReferrer(req: Request, res: Response): Promise<Response> {
     let success = true;
     const referrer: Order[] | [] = await Order.findAll(
         {
-            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('referrer')) ,'referrer']],
+            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('referrer')), 'referrer']],
             raw: true
         })
         .catch(() => {
@@ -28,7 +28,7 @@ export async function getMonthlyOrderStatsByReferrer(req: Request, res:Response)
             {
                 where: {
                     referrer: el.referrer
-                }, 
+                },
                 group: [Sequelize.fn('date_trunc', 'month', Sequelize.col('createdAt'))]
             })
             .catch(() => {
@@ -40,15 +40,16 @@ export async function getMonthlyOrderStatsByReferrer(req: Request, res:Response)
         }
         result.push({
             referrer: el.referrer,
-            count: countData 
+            count: countData
         });
     }
     return res.send(wrapResponse(true, result));
 }
-interface MonthlyOrderStats{
+
+interface MonthlyOrderStats {
     referrer: string,
-    /** is never number but always string, 
+    /** is never number but always string,
      * because of Sequelize.count() retuning count: '9' instead of count: 9
      */
-    count: number | {[key: string]: string | number}
+    count: number | { [key: string]: string | number }
 }

@@ -8,7 +8,7 @@ import {User} from '../../../models/user.model';
  * @param req
  * @param res
  */
-export async function exportUsers(req: Request, res: Response): Promise<Response>  {
+export async function exportUsers(req: Request, res: Response): Promise<Response> {
     let success = true;
     const users: User[] = await User.findAll(
         {

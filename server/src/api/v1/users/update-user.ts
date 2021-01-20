@@ -30,7 +30,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
     }
 
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
 
     const user: User | null = await User.findOne(
@@ -57,7 +57,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
     ) {
         let updateQuery;
         //If mail of found user does not match incoming mail check, if email already in use.
-        if(user.email !== mappedIncomingData.email && mappedIncomingData.email !== undefined){
+        if (user.email !== mappedIncomingData.email && mappedIncomingData.email !== undefined) {
             const emailInUseCount = await User.count({
                 where: {
                     email: mappedIncomingData.email,
@@ -73,18 +73,18 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
             if (!success) {
                 return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
             }
-            if(emailInUseCount > 0){
+            if (emailInUseCount > 0) {
                 return res.status(400).send(wrapResponse(false, {error: 'E-Mail already in use'}));
             }
             // mail can be changed, so change complete user.
             updateQuery = mappedIncomingData.password === undefined ? {email: mappedIncomingData.email} : mappedIncomingData;
         } else {
             // mail should not be changed, so change only password (only changable field)
-            updateQuery = { password: mappedIncomingData.password };
-            
+            updateQuery = {password: mappedIncomingData.password};
+
         }
         updateResult = await User.update(updateQuery,
-            { 
+            {
                 where: {
                     id: req.params.id
                 },
@@ -118,12 +118,12 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
 
     } else {
         return res.status(400).send(wrapResponse(false));
-    } 
-    
+    }
+
     //return everything beside password
     const returnedUser = await User.findOne(
         {
-            attributes: { exclude: ['password'] },
+            attributes: {exclude: ['password']},
             where: {
                 id: req.params.id
             }
@@ -132,9 +132,9 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
             success = false;
             return null;
         });
- 
+
     if (!success || returnedUser === null) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     const token = jwtSign(returnedUser);

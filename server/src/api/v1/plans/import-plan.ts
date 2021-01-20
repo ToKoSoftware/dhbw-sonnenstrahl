@@ -1,4 +1,4 @@
-import {InternalPlan, FileUploadPlan} from '../../../interfaces/plan.interface';
+import {FileUploadPlan, InternalPlan} from '../../../interfaces/plan.interface';
 import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import isBlank from 'is-blank';
@@ -32,18 +32,18 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
         targetData.forEach(createPlanEntry);
         return res.status(201).send(wrapResponse(true, targetData));
     } catch (e) {
-        return res.status(400).send(wrapResponse(false, { error: e }));
+        return res.status(400).send(wrapResponse(false, {error: e}));
     }
 }
 
 async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
     return csv({
-        delimiter: ';',
-        colParser: {
-            Fixkosten: transformEuroToCents,
-            VariableKosten: transformEuroToCents
+            delimiter: ';',
+            colParser: {
+                Fixkosten: transformEuroToCents,
+                VariableKosten: transformEuroToCents
+            }
         }
-    }
     ).fromFile(file.tempFilePath);
 }
 

@@ -1,10 +1,10 @@
 import {Request, Response} from 'express';
 import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
-import { mapCustomer } from '../../../functions/map-customer.func';
+import {mapCustomer} from '../../../functions/map-customer.func';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {InternalCustomer} from '../../../interfaces/customers.interface';
 import {Customer} from '../../../models/customer.models';
-import { User } from '../../../models/user.model';
+import {User} from '../../../models/user.model';
 
 /**
  *
@@ -23,7 +23,7 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
         }));
     }
 
-    if(mappedIncomingData.userId !== null){
+    if (mappedIncomingData.userId !== null) {
         const user = await User.findOne(
             {
                 where: {

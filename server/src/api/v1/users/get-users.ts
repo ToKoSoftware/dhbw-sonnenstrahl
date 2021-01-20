@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { User } from '../../../models/user.model';
-import { wrapResponse } from '../../../functions/response-wrapper';
-import { FindOptions } from 'sequelize';
-import { buildQuery, QueryBuilderConfig } from '../../../functions/query-builder.func';
-import { currentUserIsAdminOrMatchesId } from '../../../functions/current-user-is-admin-or-matches-id.func';
+import {Request, Response} from 'express';
+import {User} from '../../../models/user.model';
+import {wrapResponse} from '../../../functions/response-wrapper';
+import {FindOptions} from 'sequelize';
+import {buildQuery, QueryBuilderConfig} from '../../../functions/query-builder.func';
+import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 
 /**
  *
@@ -15,13 +15,13 @@ export async function getUser(req: Request, res: Response): Promise<Response> {
 
     //user can only view his own user data. Admin can view all users
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
-        return res.status(403).send(wrapResponse(false, { error: 'Unauthorized!' }));
+        return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
 
     //return everything beside password
     const data = await User.findOne(
         {
-            attributes: { exclude: ['password'] },
+            attributes: {exclude: ['password']},
             where: {
                 id: req.params.id
             }
@@ -31,7 +31,7 @@ export async function getUser(req: Request, res: Response): Promise<Response> {
             return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     if (data === null) {
         return res.status(404).send(wrapResponse(false));
@@ -55,7 +55,7 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
     query = buildQuery(queryConfig, req);
     // hide password from api calls
     query.attributes = {
-        exclude: [ 'password' ]
+        exclude: ['password']
     };
 
     let success = true;
@@ -65,7 +65,7 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
             return null;
         });
     if (!success) {
-        return res.status(500).send(wrapResponse(false, { error: 'Database error' }));
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
     return res.send(wrapResponse(true, data));

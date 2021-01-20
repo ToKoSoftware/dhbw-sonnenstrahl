@@ -1,8 +1,8 @@
 'use strict';
 const faker = require('faker');
 const v4 = require('uuid').v4;
-const bcrypt =  require('bcryptjs');
-const timeFunc = require ('../functions/random-time.func');
+const bcrypt = require('bcryptjs');
+const timeFunc = require('../functions/random-time.func');
 
 //Initial insert of 200 demo users into database
 

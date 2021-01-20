@@ -12,7 +12,7 @@ import {User} from '../../../models/user.model';
  * @param req
  * @param res
  */
-export async function getMonthlyStats(req: Request, res: Response): Promise<Response>  {
+export async function getMonthlyStats(req: Request, res: Response): Promise<Response> {
     const customerCount = await countMonthlyEntities(Customer);
     const userCount = await countMonthlyEntities(User);
     const planCount = await countMonthlyEntities(Plan);
