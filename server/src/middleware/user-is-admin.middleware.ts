@@ -4,9 +4,9 @@ import {Vars} from '../vars';
 
 /**
  * Middleware for admin-routes. NextFunction will only be executed if authorized user is admin
- * @param req
- * @param res
- * @param next
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
  */
 export function userIsAdmin(req: Request, res: Response, next: NextFunction): void {
     if (Vars.currentUser.is_admin) {
