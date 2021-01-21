@@ -7,9 +7,11 @@ import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 
 /**
- *
- * @param req
- * @param res
+ * Update a plan with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function updatePlan(req: Request, res: Response): Promise<Response> {
     let success = true;
@@ -18,6 +20,7 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
 
     const requiredFields = Plan.requiredFields();
 
+    // Check if request is not empty
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
 
@@ -61,9 +64,9 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
                 return res.status(400).send(wrapResponse(false, {error: 'The given planId has active Orders. You can not change the field postcode/zipCode'}));
             }
         }
-
+        // Id must not be changed and all set keys mut not be empty.
         if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
-
+            // Update plan with given params
             updateResult = await Plan.update(
                 incomingData,
                 {

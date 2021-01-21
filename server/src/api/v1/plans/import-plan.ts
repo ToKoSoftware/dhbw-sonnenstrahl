@@ -8,9 +8,11 @@ import {Plan} from '../../../models/plan.model';
 import csv from 'csvtojson';
 
 /**
- *
- * @param req
- * @param res
+ * Import plans from csv data
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function importPlan(req: Request, res: Response): Promise<Response> {
     try {
@@ -27,7 +29,7 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
         const incomingData = await loadCSV(file);
         const targetData: InternalPlan[] = incomingData.map(mapPlan);
         // set all current plans to is_active = false.
-        await deactivatePlans();
+        deactivatePlans();
         // create new plan data in database
         targetData.forEach(createPlanEntry);
         return res.status(201).send(wrapResponse(true, targetData));
@@ -36,6 +38,12 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
     }
 }
 
+/**
+ * load csv from file
+ * 
+ * @param {UploadedFile} file 
+ * @returns {Promise<FileUploadPlan[]>}
+ */
 async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
     return csv(
         {
@@ -48,8 +56,11 @@ async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
     ).fromFile(file.tempFilePath);
 }
 
-function deactivatePlans(): Promise<[number, Plan[]]> {
-    return Plan.update(
+/**
+ * Set all active plans to inactive
+ */
+function deactivatePlans() {
+    Plan.update(
         {
             is_active: false
         },
@@ -61,6 +72,11 @@ function deactivatePlans(): Promise<[number, Plan[]]> {
     );
 }
 
+/**
+ * Create single plan from data
+ * 
+ * @param {InternalPlan} data
+ */
 function createPlanEntry(data: InternalPlan) {
     Plan.create({
         plan: data.plan,
@@ -70,6 +86,12 @@ function createPlanEntry(data: InternalPlan) {
     });
 }
 
+/**
+ * Converts Euro string to cent in int
+ * 
+ * @param {string} eur
+ * @returns {number}
+ */
 function transformEuroToCents(eur: string): number {
     return Math.floor(Number(eur.replace(',', '.')) * 10000);
 }

@@ -4,19 +4,27 @@ import {ExternalPlanData} from '../../../interfaces/plan.interface';
 import {Plan} from '../../../models/plan.model';
 
 /**
- *
- * Get Plans in required format
- *
- * @param req
- * @param res
+ * Get plans in required format
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function getPlansInExternalFormat(req: Request, res: Response): Promise<Response> {
     const incomingZipCode = req.query.zipCode as string;
+    // Parse incoming zipCode to int for later checks
     const zipCodeAsNumber = parseInt(incomingZipCode);
+    // Parse consumtion to int
     const incomingConsumption = parseInt(req.query.consumption as string);
-    if (zipCodeAsNumber > 99999 || isNaN(zipCodeAsNumber) || incomingConsumption * zipCodeAsNumber <= 0 || isNaN(incomingConsumption)) {
+    if (
+        zipCodeAsNumber > 99999 || 
+        isNaN(zipCodeAsNumber) || 
+        incomingConsumption * zipCodeAsNumber <= 0 || 
+        isNaN(incomingConsumption)
+    ) {
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields set or wrong data.'}));
     }
+    // Find plans with given postcode/zipCode
     const plans = await Plan.findAll({
         attributes: [
             'id',
@@ -31,6 +39,7 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
         raw: true
     });
     const outputData: ExternalPlanData[] = [];
+    // Reformat plan data on required format and calculate costs from data
     plans.forEach(element => {
         const calculatedCosts = Math.round((element.cost_var / 10000 * incomingConsumption + element.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
         outputData.push({
@@ -43,6 +52,7 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
             calculatedPricePerYear: calculatedCosts
         });
     });
+    // Order plans by calculatedPricePerYear
     outputData.sort(function(a, b) {
         return a.calculatedPricePerYear - b.calculatedPricePerYear;
     });
