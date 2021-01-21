@@ -7,15 +7,19 @@ import {Customer} from '../../../models/customer.models';
 import {User} from '../../../models/user.model';
 
 /**
- *
- * @param req
- * @param res
+ * Creates a customer
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function createCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: InternalCustomer = req.body;
+    //Mapping of incomming format/data on internal format/data
     const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);
 
+    //Check if all required fields for this model are set
     const requiredFields = Customer.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
         return res.status(400).send(wrapResponse(false, {
@@ -23,6 +27,7 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
         }));
     }
 
+    //If the new customer should belong to a existing user, check if the user exists
     if (mappedIncomingData.userId !== null) {
         const user = await User.findOne(
             {
@@ -43,6 +48,7 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
         }
     }
 
+    //Create customer from given mapped data
     const data = await Customer.create(mappedIncomingData)
         .catch(() => {
             success = false;

@@ -4,12 +4,15 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 
 /**
- *
- * @param req
- * @param res
+ * Calculate monthly order stats grouped by referrer
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function getMonthlyOrderStatsByReferrer(req: Request, res: Response): Promise<Response> {
     let success = true;
+    //Get all distinct referrers
     const referrer: Order[] | [] = await Order.findAll(
         {
             attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('referrer')), 'referrer']],
@@ -23,6 +26,7 @@ export async function getMonthlyOrderStatsByReferrer(req: Request, res: Response
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     const result: MonthlyOrderStats[] = [];
+    //Go through all referrers and count summed orders grouped by month
     for (const el of referrer) {
         const countData = await Order.count(
             {

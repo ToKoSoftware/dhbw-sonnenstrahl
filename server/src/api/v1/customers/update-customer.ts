@@ -9,9 +9,11 @@ import {User} from '../../../models/user.model';
 import {Vars} from '../../../vars';
 
 /**
- *
- * @param req
- * @param res
+ * Update a customer with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function updateCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
@@ -20,9 +22,11 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
 
     const requiredFields = Customer.requiredFields();
 
+    //Check if request is not empty
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
+    //Find customer with given id
     const customer: Customer | null = await Customer.findOne(
         {
             where: {
@@ -50,6 +54,7 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
         return res.status(404).send(wrapResponse(false, {error: 'No customer with given id found!'}));
     }
 
+    //Check if there is a user belonging to the userId, if it is set in the request
     if (incomingData.userId !== undefined && incomingData.userId !== null) {
         const user: User | null = await User.findOne(
             {
@@ -69,15 +74,13 @@ export async function updateCustomer(req: Request, res: Response): Promise<Respo
         if (user === null) {
             return res.status(404).send(wrapResponse(false, {error: 'No user with given id found'}));
         }
-
-
     }
 
-    //id must not be changed and all set keys mut not be empty.
+    //Id must not be changed and all set keys mut not be empty.
     if ((req.body.id === undefined || req.params.id === req.body.id)
         && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false
     ) {
-
+        //Update customer with given params
         updateResult = await Customer.update(
             incomingData,
             {

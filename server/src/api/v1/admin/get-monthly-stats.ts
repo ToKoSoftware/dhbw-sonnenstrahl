@@ -8,9 +8,11 @@ import {Plan} from '../../../models/plan.model';
 import {User} from '../../../models/user.model';
 
 /**
- *
- * @param req
- * @param res
+ * Get stats of all models grouped by month
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function getMonthlyStats(req: Request, res: Response): Promise<Response> {
     const customerCount = await countMonthlyEntities(Customer);
@@ -28,10 +30,12 @@ export async function getMonthlyStats(req: Request, res: Response): Promise<Resp
 }
 
 /**
+ * Count given entity grouped by month
  *
- * @param model
+ * @param {statEntityTypes} model
+ * @returns {Promise<number | {[key: string]: number}>}
  */
-async function countMonthlyEntities(model: statEntityTypes) {
+async function countMonthlyEntities(model: statEntityTypes): Promise<number | {[key: string]: number}> {
     const count = await model.count(
         {
             group: [Sequelize.fn('date_trunc', 'month', Sequelize.col('createdAt'))]

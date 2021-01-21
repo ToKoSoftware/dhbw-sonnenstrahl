@@ -7,19 +7,22 @@ import {Customer} from '../../../models/customer.models';
 import {Vars} from '../../../vars';
 
 /**
- *
- * @param req
- * @param res
+ * Returns a single customer with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function getCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
+    //Find customer with given id
     const customer: Customer | null = await Customer.findOne(
         {
             where: {
                 id: req.params.id
             }
         })
-        .catch(error => {
+        .catch(() => {
             success = false;
             return null;
         });
@@ -29,7 +32,7 @@ export async function getCustomer(req: Request, res: Response): Promise<Response
     if (customer === null) {
         return res.status(404).send(wrapResponse(false, {error: 'No customer with given id found'}));
     }
-    //authorisation check
+    //authorisation check.
     if (customer.userId !== undefined) {
         if (!currentUserIsAdminOrMatchesId(customer.userId)) {
             if (!Vars.currentUser.is_admin) {
@@ -40,19 +43,28 @@ export async function getCustomer(req: Request, res: Response): Promise<Response
     return res.send(wrapResponse(true, customer));
 }
 
-
+/**
+ * Returns all customers
+ *  - for admin: every customer
+ *  - for non-admin: every customer belonging to the user (with matching userId)
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function getCustomers(req: Request, res: Response): Promise<Response> {
     let success = true;
+    //Build query with own QueryBuilder
     let query: FindOptions = {
         raw: true,
     };
-    // todo move this to the model
     const allowedSearchAndOrderFields = ['firstName', 'lastName', 'postcode'];
     const allowedFilterFields = ['id', 'userId', 'city', 'lastName', 'postcode'];
     const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
+    //Add userId to query, if user.is_admin is false
     if (!Vars.currentUser.is_admin) {
         customResolver.set('userId', (field: string, req: Request, value: string) => {
             return Vars.currentUser.id;
@@ -68,6 +80,8 @@ export async function getCustomers(req: Request, res: Response): Promise<Respons
         allowedOrderFields: allowedSearchAndOrderFields
     };
     query = buildQuery(queryConfig, req);
+
+    //Find all Customers with built query
     const customer: Customer[] = await Customer.findAll(query)
         .catch(() => {
             success = false;
