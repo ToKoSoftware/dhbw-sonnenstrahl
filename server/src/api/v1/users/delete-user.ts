@@ -3,12 +3,15 @@ import {wrapResponse} from '../../../functions/response-wrapper';
 import {User} from '../../../models/user.model';
 
 /**
- *
- * @param req
- * @param res
+ * Deletes an user with a given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function deleteUser(req: Request, res: Response): Promise<Response> {
     let success = true;
+    // .detroy() returns the number of deleted rows
     const destroyedRows = await User.destroy(
         {
             where: {

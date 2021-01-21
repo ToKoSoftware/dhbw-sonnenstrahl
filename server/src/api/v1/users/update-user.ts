@@ -11,28 +11,33 @@ import {Op} from 'sequelize';
 import {jwtSign} from '../../../functions/jwt-sign.func';
 
 /**
- *
- * @param req
- * @param res
+ * Update an user with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function updateUser(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult: [number, User[]] | null;
     const incomingData: InternalUser = req.body;
+    // Mapping of user data including hashing password
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     const requiredFields = User.requiredFields();
 
     const validEmail = EmailValidator.validate(mappedIncomingData.email) || isBlank(mappedIncomingData.email);
-
+    // Check if request is not empty
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
 
+    // Authorization check
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
 
+    // Find User with given id
     const user: User | null = await User.findOne(
         {
             where: {
@@ -83,6 +88,8 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
             updateQuery = {password: mappedIncomingData.password};
 
         }
+
+        // Update user with given id
         updateResult = await User.update(updateQuery,
             {
                 where: {
@@ -120,7 +127,7 @@ export async function updateUser(req: Request, res: Response): Promise<Response>
         return res.status(400).send(wrapResponse(false));
     }
 
-    //return everything beside password
+    // Return everything beside password
     const returnedUser = await User.findOne(
         {
             attributes: {exclude: ['password']},

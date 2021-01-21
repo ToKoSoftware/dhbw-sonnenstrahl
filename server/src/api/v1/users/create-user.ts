@@ -7,13 +7,16 @@ import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.
 import * as EmailValidator from 'email-validator';
 
 /**
- *
- * @param req
- * @param res
+ * Creates an user
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function createUser(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: InternalUser = req.body;
+    // Mapping of user data including hashing password
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     //All required fields defined in the model have to be set
@@ -27,6 +30,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
         return res.status(400).send(wrapResponse(false, {error: 'E-mail is not valid'}));
     }
 
+    // Check if there exists already an user with the email
     const user = await User.findOne(
         {
             where: {
@@ -41,7 +45,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
-    // if no user with given email is found, create new.
+    // If no user with given email is found, create new.
     if (user === null) {
 
         const createdData = await User.create(mappedIncomingData)
@@ -52,7 +56,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
         if (!success || createdData === null) {
             return res.status(500).send(wrapResponse(false, {error: 'Could not create User'}));
         }
-        //return everything beside password
+        // Return everything beside password
         const user = await User.findOne({
             attributes: {exclude: ['password']},
             where: {

@@ -6,19 +6,21 @@ import {buildQuery, QueryBuilderConfig} from '../../../functions/query-builder.f
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 
 /**
- *
- * @param req
- * @param res
+ * Returns a single user with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function getUser(req: Request, res: Response): Promise<Response> {
     let success = true;
 
-    //user can only view his own user data. Admin can view all users
+    // User can only view his own user data. Admin can view all users
     if (!currentUserIsAdminOrMatchesId(req.params.id)) {
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
     }
 
-    //return everything beside password
+    // Return everything beside password
     const data = await User.findOne(
         {
             attributes: {exclude: ['password']},
@@ -39,7 +41,15 @@ export async function getUser(req: Request, res: Response): Promise<Response> {
     return res.send(wrapResponse(data != null, data));
 }
 
+/**
+ * Returns all users
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function getUsers(req: Request, res: Response): Promise<Response> {
+    // Build query with own QueryBuilder
     let query: FindOptions = {
         raw: true,
     };
@@ -53,12 +63,13 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
         allowedOrderFields: allowedSearchFilterAndOrderFields
     };
     query = buildQuery(queryConfig, req);
-    // hide password from api calls
+    // Hide password from api calls
     query.attributes = {
         exclude: ['password']
     };
 
     let success = true;
+    // Find all users with built query
     const data = await User.findAll(query)
         .catch(() => {
             success = false;
