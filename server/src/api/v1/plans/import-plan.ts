@@ -49,8 +49,8 @@ async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
         {
             delimiter: ';',
             colParser: {
-                Fixkosten: transformEuroToCents,
-                VariableKosten: transformEuroToCents
+                Fixkosten: transformFloatStringToInteger,
+                VariableKosten: transformFloatStringToInteger
             }
         }
     ).fromFile(file.tempFilePath);
@@ -87,11 +87,11 @@ function createPlanEntry(data: InternalPlan) {
 }
 
 /**
- * Converts Euro string to cent in int
+ * Converts float string to integers
  * 
- * @param {string} eur
+ * @param {string} floatString
  * @returns {number}
  */
-function transformEuroToCents(eur: string): number {
-    return Math.floor(Number(eur.replace(',', '.')) * 10000);
+function transformFloatStringToInteger(floatString: string): number {
+    return Math.floor(Number(floatString.replace(',', '.')) * 10000);
 }
