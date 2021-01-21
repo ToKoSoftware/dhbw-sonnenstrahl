@@ -1,6 +1,8 @@
 import {Request} from 'express';
 import isBlank from 'is-blank';
 import {Vars} from '../vars';
+import {FindOptions} from 'sequelize';
+import {Includeable} from 'sequelize/types/lib/model';
 
 /**
  * logic for building query out of configurations comming from URL, etc.
@@ -13,7 +15,7 @@ export function buildQuery(config: QueryBuilderConfig, req: Request): QueryBuild
     if (config.allowedSearchFields && config.searchString) {
         config.query = buildOrLikeSearchQuery(config.query, config.searchString, config.allowedSearchFields);
     }
-    if (config.allowedFilterFields && config.customFilterResolver) {
+    if (config.allowedFilterFields) {
         config.query = buildFilter(config.query, req, config.allowedFilterFields, config.customFilterResolver);
     }
     if (config.allowedOrderFields) {
@@ -22,7 +24,7 @@ export function buildQuery(config: QueryBuilderConfig, req: Request): QueryBuild
     return config.query;
 }
 
-export function buildLimitAndOffset(query: QueryBuilderData, req: Request) {
+export function buildLimitAndOffset(query: QueryBuilderData, req: Request): QueryBuilderData {
     if (req.query.limit && !isBlank(req.query.limit)) {
         if (req.query.offset && !isBlank(req.query.offset)) {
             return {
@@ -43,7 +45,7 @@ export function buildLimitAndOffset(query: QueryBuilderData, req: Request) {
     return query;
 }
 
-export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders: string[] = []) {
+export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders: string[] = []): QueryBuilderData {
     if (req.query.order && !isBlank(req.query.order) || req.query.sort && !isBlank(req.query.sort)) {
         let o = req.query.order as string || req.query.sort as string;
         let direction = 'DESC';
@@ -63,59 +65,64 @@ export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders:
     return query;
 }
 
-export function buildOrLikeSearchQuery(query: QueryBuilderData, needle: string, allowedFields: string[] = []) {
-    let length = 0;
+export function buildOrLikeSearchQuery(query: QueryBuilderData, needle: string, allowedFields: string[] = []): QueryBuilderData {
     const search = {
-        [Vars.op.or]: allowedFields.map(field => {
+        [Vars.op.or]: allowedFields.map(
+            field => {
                 const a: { [name: string]: unknown } = {};
                 a[field] = {
                     [Vars.op.iLike]: '%' + needle + '%'
                 };
-                length++;
                 return a;
             }
         )
     };
-    query = mergeQueryBuilders(query, search);
+    query = mergeQueryBuilderField(query, search);
     return query;
 }
 
-
-export function buildFilter(query: QueryBuilderData, req: Request, allowedFields: string[] = [], customResolver: customFilterResolverMap) {
+export function buildFilter(query: QueryBuilderData, req: Request, allowedFields: string[] = [], customResolver: customFilterResolverMap | undefined): QueryBuilderData {
     const filter: { [name: string]: string } = {};
     allowedFields.forEach(field => {
         let value = '';
         if (req.query[field] != undefined && !isBlank(req.query[field])) {
             value = req.query[field] as string;
         }
-        if (customResolver.has(field) && customResolver.get(field) != undefined) {
-            const fun = customResolver.get(field);
-            if (fun != undefined) {
-                value = fun.call(0, field, req, value);
+        if (customResolver != undefined) {
+            if (customResolver.has(field) && customResolver.get(field) != undefined) {
+                const fun = customResolver.get(field);
+                if (fun != undefined) {
+                    value = fun.call(0, field, req, value);
+                }
             }
         }
         if (value !== '') {
             filter[field] = value;
         }
     });
-    query = mergeQueryBuilders(query, filter);
+    query = mergeQueryBuilderField(query, filter);
     return query;
 }
 
-function mergeQueryBuilders(query: QueryBuilderData, newQuery: any): QueryBuilderData {
-    if (Object.prototype.hasOwnProperty.call(query, 'where')) {
-        query.where = {
-            ...query.where,
+function mergeQueryBuilderField(query: QueryBuilderData, newQuery: { [s: string]: unknown }, fieldName: keyof QueryBuilderData = 'where'): QueryBuilderData {
+    if (Object.prototype.hasOwnProperty.call(query, fieldName)) {
+        query[fieldName] = {
+            ...query[fieldName],
             ...newQuery
         };
     } else {
         // !Object.keys(search).length is not working here, don't know why
-        query.where = newQuery;
+        query[fieldName] = newQuery;
     }
     return query;
 }
 
-export interface QueryBuilderData {
+export function addRelations(query: QueryBuilderData, models: Includeable): QueryBuilderData {
+    const include = {include: models};
+    return mergeQueryBuilderField(query, include);
+}
+
+export interface QueryBuilderData extends FindOptions {
     where?: any;
     offset?: number;
     limit?: number;
