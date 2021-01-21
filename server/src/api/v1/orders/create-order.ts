@@ -7,7 +7,7 @@ import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.
 import {Plan} from '../../../models/plan.model';
 import {Customer} from '../../../models/customer.models';
 import {mapOrderDataOnCustomer} from '../../../functions/map-order-data-on-customer.func';
-import { InternalCustomer } from '../../../interfaces/customers.interface';
+import {InternalCustomer} from '../../../interfaces/customers.interface';
 
 /**
  * Create an order from internal request data
