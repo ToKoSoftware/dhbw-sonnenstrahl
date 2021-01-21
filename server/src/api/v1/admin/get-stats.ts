@@ -51,7 +51,7 @@ export async function getStats(req: Request, res: Response): Promise<Response> {
  */
 async function countTotalEntities(model: statEntityTypes, is_active = true): Promise<number> {
     let count;
-    //User model has no attribute is_active
+    // User model has no attribute is_active
     if (model !== User) {
         count = await model.count(
             {

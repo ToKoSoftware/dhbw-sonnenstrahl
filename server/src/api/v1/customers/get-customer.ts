@@ -15,7 +15,7 @@ import {Vars} from '../../../vars';
  */
 export async function getCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
-    //Find customer with given id
+    // Find customer with given id
     const customer: Customer | null = await Customer.findOne(
         {
             where: {
@@ -32,7 +32,7 @@ export async function getCustomer(req: Request, res: Response): Promise<Response
     if (customer === null) {
         return res.status(404).send(wrapResponse(false, {error: 'No customer with given id found'}));
     }
-    //authorisation check.
+    // Authorisation check
     if (customer.userId !== undefined) {
         if (!currentUserIsAdminOrMatchesId(customer.userId)) {
             if (!Vars.currentUser.is_admin) {
@@ -54,7 +54,7 @@ export async function getCustomer(req: Request, res: Response): Promise<Response
  */
 export async function getCustomers(req: Request, res: Response): Promise<Response> {
     let success = true;
-    //Build query with own QueryBuilder
+    // Build query with own QueryBuilder
     let query: FindOptions = {
         raw: true,
     };
@@ -64,7 +64,7 @@ export async function getCustomers(req: Request, res: Response): Promise<Respons
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
         return true;
     });
-    //Add userId to query, if user.is_admin is false
+    // Add userId to query, if user.is_admin is false
     if (!Vars.currentUser.is_admin) {
         customResolver.set('userId', (field: string, req: Request, value: string) => {
             return Vars.currentUser.id;
@@ -81,7 +81,7 @@ export async function getCustomers(req: Request, res: Response): Promise<Respons
     };
     query = buildQuery(queryConfig, req);
 
-    //Find all Customers with built query
+    // Find all Customers with built query
     const customer: Customer[] = await Customer.findAll(query)
         .catch(() => {
             success = false;

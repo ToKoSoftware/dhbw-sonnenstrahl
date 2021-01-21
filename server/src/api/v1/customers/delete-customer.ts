@@ -5,7 +5,7 @@ import {Order} from '../../../models/order.model';
 import {Op} from 'sequelize';
 
 /**
- * Deletes a customer with a given id from request
+ * (Soft) deletes a customer with a given id from request
  * 
  * @param {Request} req
  * @param {Reponse} res
@@ -33,7 +33,7 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
     if (count > 0) {
         return res.status(400).send(wrapResponse(false, {error: 'You can not delete a customer with active orders'}));
     }
-    //Set customer to inactive. Only soft deletion!
+    // Set customer to inactive. Only soft deletion!
     await Customer.update(
         {
             is_active: false,

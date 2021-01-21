@@ -12,7 +12,7 @@ import {Order} from '../../../models/order.model';
  */
 export async function getReferrerStats(req: Request, res: Response): Promise<Response> {
     let success = true;
-    //Select and count all Orders grouped by referrer
+    // Select and count all Orders grouped by referrer
     const result = await Order.findAll(
         {
             attributes: ['referrer', [Sequelize.fn('COUNT', Sequelize.col('referrer')), 'count']],

@@ -12,7 +12,7 @@ import {User} from '../../../models/user.model';
  */
 export async function exportUsers(req: Request, res: Response): Promise<Response> {
     let success = true;
-    //Select all Users
+    // Select all Users
     const users: User[] = await User.findAll(
         {
             raw: true
@@ -24,17 +24,17 @@ export async function exportUsers(req: Request, res: Response): Promise<Response
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-    //No customer was found! Return error message
+    // No customer was found! Return error message
     if (users === []) {
         return res.status(404).send(wrapResponse(false, {error: 'No user found'}));
     }
 
-    //Customer data was found. Create CSV from array of objects
+    // Customer data was found. Create CSV from array of objects
     const csvData = convertObjectArrayToCsv(users);
     const date = new Date().toISOString();
-    //Set attachment to response
+    // Set attachment to response
     res.set({'Content-Disposition': `attachment; filename="${date}_Users.csv"`});
 
-    //Send response
+    // Send response
     return res.send(csvData);
 }

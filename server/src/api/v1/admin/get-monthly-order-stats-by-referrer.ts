@@ -12,7 +12,7 @@ import {Order} from '../../../models/order.model';
  */
 export async function getMonthlyOrderStatsByReferrer(req: Request, res: Response): Promise<Response> {
     let success = true;
-    //Get all distinct referrers
+    // Get all distinct referrers
     const referrer: Order[] | [] = await Order.findAll(
         {
             attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('referrer')), 'referrer']],
@@ -26,7 +26,7 @@ export async function getMonthlyOrderStatsByReferrer(req: Request, res: Response
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
     const result: MonthlyOrderStats[] = [];
-    //Go through all referrers and count summed orders grouped by month
+    // Go through all referrers and count summed orders grouped by month
     for (const el of referrer) {
         const countData = await Order.count(
             {
