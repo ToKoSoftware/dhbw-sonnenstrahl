@@ -37,7 +37,8 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
 }
 
 async function loadCSV(file: UploadedFile): Promise<FileUploadPlan[]> {
-    return csv({
+    return csv(
+        {
             delimiter: ';',
             colParser: {
                 Fixkosten: transformEuroToCents,

@@ -110,9 +110,9 @@ export async function getOrders(req: Request, res: Response): Promise<Response> 
 
     const orderdata = await Order.findAll(query)
         .catch(() => {
-                success = false;
-                return [];
-            }
+            success = false;
+            return [];
+        }
         );
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
