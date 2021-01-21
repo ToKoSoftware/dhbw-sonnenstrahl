@@ -1,3 +1,9 @@
+/**
+ * Get a random time between two dates
+ * 
+ * @param {Date} start 
+ * @param {Date} end 
+ */
 function randomTime(start, end) {
     let diff = end.getTime() - start.getTime();
     let new_diff = diff * Math.random();

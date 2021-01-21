@@ -2,7 +2,8 @@ import {FileUploadPlan, InternalPlan} from '../interfaces/plan.interface';
 
 /**
  * Map incoming plan data into internal format
- * @param incomingPlan
+ * @param {FileUploadPlan} incomingPlan
+ * @returns {InternalPlan}
  */
 export function mapPlan(incomingPlan: FileUploadPlan): InternalPlan {
     return {

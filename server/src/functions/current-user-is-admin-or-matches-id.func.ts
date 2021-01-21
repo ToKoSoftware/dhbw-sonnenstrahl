@@ -2,7 +2,8 @@ import {Vars} from '../vars';
 
 /**
  * Check if user is allowed to view/edit data.
- * @param allowedUserId
+ * @param {string} allowedUserId
+ * @returns {boolean}
  */
 export function currentUserIsAdminOrMatchesId(allowedUserId: string): boolean {
     if (Vars.currentUser.is_admin) {

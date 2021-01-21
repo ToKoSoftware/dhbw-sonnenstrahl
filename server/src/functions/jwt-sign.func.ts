@@ -4,8 +4,9 @@ import jwt from 'jsonwebtoken';
 
 /**
  * Generate JSON Web Tokens (http://jwt.io)
- * @param user
- * @param expiration
+ * @param {User} user
+ * @param {number} expiration
+ * @returns {string}
  */
 export function jwtSign(user: User, expiration = 604800): string {
     const token = jwt.sign(

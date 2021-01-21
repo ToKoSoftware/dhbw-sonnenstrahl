@@ -4,7 +4,7 @@ import isBlank from 'is-blank';
  * Given an object and a key, check if the key is set and not empty
  * @param obj
  * @param key
- * @return boolean
+ * @returns {boolean}
  */
 // eslint-disable-next-line
 export function keyIsSetAndNotEmpty<T extends object, U extends keyof T>(obj: T, key: U): boolean {
@@ -20,6 +20,7 @@ export function keyIsSetAndNotEmpty<T extends object, U extends keyof T>(obj: T,
  * Given an an object and an array of keys, check if all required keys are set
  * @param obj
  * @param keys the required keys
+ * @returns {boolean}
  */
 // eslint-disable-next-line
 export function objectHasRequiredAndNotEmptyKeys<T extends object, U extends keyof T>(obj: T, keys: U[]): boolean {
@@ -32,6 +33,7 @@ export function objectHasRequiredAndNotEmptyKeys<T extends object, U extends key
  * Given an object, check if keys are either not set or not empty
  * @param obj
  * @param allowedKeys
+ * @returns {boolean}
  */
 // eslint-disable-next-line
 export function checkKeysAreNotEmptyOrNotSet<T extends object>(obj: T, allowedKeys: string[]): boolean {

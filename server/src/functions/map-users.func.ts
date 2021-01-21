@@ -3,7 +3,8 @@ import * as bcrypt from 'bcryptjs';
 
 /**
  * Map incoming user data into internal format and hash new password
- * @param incomingData
+ * @param {InternalUser} incomingData
+ * @returns {Promise<InternalUser>}
  */
 export async function mapUser(incomingData: InternalUser): Promise<InternalUser> {
 

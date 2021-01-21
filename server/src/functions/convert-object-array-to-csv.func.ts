@@ -1,8 +1,8 @@
 /**
  * Given an array of objects, this function generates an CSV file
- * @param objectArray
- * @param columnDelimiter
- * @param lineDelimiter
+ * @param {Object[]} objectArray
+ * @param {string} columnDelimiter
+ * @param {string} lineDelimiter
  */
 // eslint-disable-next-line
 export function convertObjectArrayToCsv(objectArray: Object[], columnDelimiter = ';', lineDelimiter = '\n') {

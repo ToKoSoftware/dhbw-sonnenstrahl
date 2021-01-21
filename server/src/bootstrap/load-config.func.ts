@@ -4,6 +4,8 @@ import isBlank from 'is-blank';
 
 /**
  * Load configuration from Process environment
+ * 
+ * @returns {Configuration}
  */
 export function loadConfig(): Configuration {
     const loggingEnabled = process.env.LOGGING === 'true';
