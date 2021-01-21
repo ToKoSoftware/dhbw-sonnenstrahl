@@ -6,13 +6,16 @@ import {Order} from '../../../models/order.model';
 import {Vars} from '../../../vars';
 
 /**
- *
- * @param req
- * @param res
+ * (Soft) deletes/cancels/terminates an order with a given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function terminateOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
 
+    // Try to find an order with the given id
     const order: Order | null = await Order.findOne(
         {
             where: {
@@ -30,6 +33,7 @@ export async function terminateOrder(req: Request, res: Response): Promise<Respo
         return res.status(404).send(wrapResponse(false, {error: 'Count not find Order with id: ' + req.params.id}));
     }
 
+    // Get the customer belonging to this order
     const customerData = await Customer.findOne(
         {
             where: {
@@ -54,9 +58,11 @@ export async function terminateOrder(req: Request, res: Response): Promise<Respo
             return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
         }
     }
+    // Check if order was already terminated
     if (order.terminatedAt !== null) {
         return res.status(400).send(wrapResponse(false, {error: 'Order already terminated'}));
     }
+    //Update order. Set terminatedAt to current time and set is_active to false
     const updatedOrder = await Order.update(
         {
             terminatedAt: Date.now(),

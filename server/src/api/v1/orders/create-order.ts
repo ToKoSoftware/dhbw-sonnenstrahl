@@ -7,11 +7,14 @@ import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.
 import {Plan} from '../../../models/plan.model';
 import {Customer} from '../../../models/customer.models';
 import {mapOrderDataOnCustomer} from '../../../functions/map-order-data-on-customer.func';
+import { InternalCustomer } from '../../../interfaces/customers.interface';
 
 /**
- *
- * @param req
- * @param res
+ * Create an order from internal request data
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function createInternalOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
@@ -42,7 +45,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(404).send(wrapResponse(false, {error: 'Given planId does not match a plan'}));
     }
 
-    //Try to find Customer with given customerId
+    // Try to find Customer with given customerId
     const customer: Customer | null = await Customer.findOne(
         {
             where: {
@@ -66,6 +69,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(404).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
     }
 
+    // Create order
     const data = await Order.create(incomingData)
         .catch(() => {
             success = false;
@@ -81,14 +85,17 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
 }
 
 /**
- *
- * @param req
- * @param res
+ * Create an order from external request data
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function createExternalOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: IncomingExternalOrder = req.body;
-    const mappedCustomerData = mapOrderDataOnCustomer(incomingData);
+    // Mapping external order data on internal customer data
+    const mappedCustomerData: InternalCustomer = mapOrderDataOnCustomer(incomingData);
 
 
     // Check, if all required fields have been set
@@ -122,6 +129,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
     if (plan.postcode != mappedCustomerData.postcode) {
         return res.status(404).send(wrapResponse(false, {error: 'Postcode of plan and order do not match!'}));
     }
+    // Try to find a customer with the information from external order data
     let customer: Customer | null = await Customer.findOne(
         {
             where: {
@@ -150,7 +158,8 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
 
-    const mappedIncomingData = mapOrder(incomingData, customer.id);
+    // Map incoming data and customerId on internal order data
+    const mappedIncomingData: InternalOrder = mapOrder(incomingData, customer.id);
 
     // Create order
     const data = await Order.create(mappedIncomingData)
@@ -165,13 +174,14 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
         return res.status(400).send(wrapResponse(false, {error: 'Could not create Order'}));
     }
 
+    // Calculate estimated costs from belonging plan with given consumption to add it to response
     const calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
 
     return res.status(201).send(wrapResponse(true, {costs: calculatedCosts + '€'}));
 }
 
 /**
- *
+ * Special required fields for external orders with also customer information
  */
 function requiredIncomingFields(): Array<keyof IncomingExternalOrder> {
     return [

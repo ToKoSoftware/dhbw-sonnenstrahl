@@ -10,9 +10,11 @@ import {Plan} from '../../../models/plan.model';
 import {Vars} from '../../../vars';
 
 /**
- *
- * @param req
- * @param res
+ * Update an order with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
  */
 export async function updateOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
@@ -21,10 +23,12 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
 
     const requiredFields = Order.requiredFields();
 
+    // Check if request is not empty
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
     }
 
+    // Find order with given id
     const order: Order | null = await Order.findOne(
         {
             where: {
@@ -42,7 +46,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
     if (order === null) {
         return res.status(404).send(wrapResponse(false, {error: 'No order with given id found'}));
     }
-
+    // Find customer belonging to the order to have the userId
     const customerData = await Customer.findOne(
         {
             where: {
@@ -57,7 +61,7 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-    //authorisation check
+    // Authorisation check
     if (customerData !== null) {
         if (customerData.userId !== undefined) {
             if (!currentUserIsAdminOrMatchesId(customerData.userId)) {
@@ -65,12 +69,16 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
             }
         } else if (!Vars.currentUser.is_admin) {
             return res.status(403).send(wrapResponse(false, {error: 'Unauthorized!'}));
-        }
+        } 
+    } else {
+        return res.status(404).send(wrapResponse(false, {error: 'No customer belonging to order found'}));
     }
 
-    //id must not be changed and all set keys mut not be empty.
+    // Id must not be changed and all set keys mut not be empty.
     if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
+        // Check if plan should be changed
         if (incomingData.planId !== undefined) {
+            // Find plan with given planId
             const plan: Plan | null = await Plan.findOne(
                 {
                     where: {
@@ -84,7 +92,12 @@ export async function updateOrder(req: Request, res: Response): Promise<Response
             if (plan === null) {
                 return res.status(404).send(wrapResponse(false, {error: 'Plan cannot be changed to given planId'}));
             }
+            // Postcode of new plan and customer must match
+            if (plan.postcode != customerData.postcode) {
+                return res.status(404).send(wrapResponse(false, {error: 'Postcode of new plan and customer do not match!'}));
+            }
         }
+        // Update order with the given params
         updateResult = await Order.update(
             incomingData,
             {
