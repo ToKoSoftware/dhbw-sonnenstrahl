@@ -6,7 +6,11 @@
     <div class="flex items-stretch">
       <div class="mt-1 flex-1 relative rounded-md shadow-sm">
         <input id="usage" class="form-input block w-full pr-10 sm:text-sm sm:leading-5" placeholder="1600"
-               value="1600" (change)="updateUsageCount()" (ngModelChange)="updateUsageCount()" [(ngModel)]="currentEstimatedUsage">
+               value="1600"
+               (input)="updateUsageCount()"
+               (change)="updateUsageCount()"
+               (ngModelChange)="updateUsageCount()"
+               [(ngModel)]="currentEstimatedUsage">
         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
           kWh
         </div>

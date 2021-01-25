@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {CustomerData} from '../../interfaces/customer.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstimatedUsageService {
+  public estimatedUsage$: BehaviorSubject<number | null> = new BehaviorSubject(1600);
+  public estimatedPeople$: BehaviorSubject<number | null> = new BehaviorSubject(1);
 
   constructor() {
   }

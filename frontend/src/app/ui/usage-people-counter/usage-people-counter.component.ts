@@ -6,14 +6,13 @@ import {EstimatedUsageService} from '../../services/estimated-usage/estimated-us
   selector: 'app-usage-people-counter',
   templateUrl: './usage-people-counter.component.html',
   styleUrls: ['./usage-people-counter.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class UsagePeopleCounterComponent implements OnInit, OnChanges {
   get currentEstimatedCount(): number {
     return this.estimatedUsageService.getEstimatedPeopleCount(this.currentEstimatedUsage)
   }
 
-  @Output() estimatedUsage = new EventEmitter<number>();
   @Input() public currentEstimatedUsage = 1600;
   public plusMinusButtons: UiButtonGroup;
 
@@ -26,8 +25,6 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
   }
 
   private reloadButtons() {
-    console.warn(this.currentEstimatedCount);
-    console.log(this.currentEstimatedCount <= 1)
     this.plusMinusButtons = {
       buttons: [
         {
@@ -49,11 +46,11 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
         }
       ]
     };
-    console.log(this.plusMinusButtons)
   }
 
   public updateUsageCount(): void {
-    this.estimatedUsage.emit(this.currentEstimatedUsage);
+    this.estimatedUsageService.estimatedUsage$.next(this.currentEstimatedUsage);
+    this.estimatedUsageService.estimatedPeople$.next(this.currentEstimatedCount);
   }
 
   private changeEstimatedUsagePersonCount(count: number): void {
@@ -66,6 +63,7 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.reloadButtons();
+    this.updateUsageCount();
   }
 
 }

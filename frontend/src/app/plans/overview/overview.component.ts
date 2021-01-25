@@ -4,6 +4,7 @@ import {PlanData} from '../../interfaces/plan.interface';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
 import {UiBreadcrumb} from '../../ui/ui.interface';
+import {EstimatedUsageService} from '../../services/estimated-usage/estimated-usage.service';
 
 @Component({
   selector: 'app-overview',
@@ -13,6 +14,7 @@ import {UiBreadcrumb} from '../../ui/ui.interface';
 })
 export class OverviewComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
+  private usageSubscription: Subscription;
   public results: PlanDataWithCost[] = [];
   public loading = true;
   public breadcrumbs: UiBreadcrumb[] = [
@@ -24,6 +26,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   public currentEstimatedUsageCount = 1;
 
   constructor(
+    private estimatedUsageService: EstimatedUsageService,
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService) {
@@ -35,6 +38,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
       this.breadcrumbs[1].title = `Postleitzahl: ${postcode}`;
       this.breadcrumbs[1].routerLink = `/plans/${postcode}`;
       this.queryApi(postcode);
+    });
+
+    this.usageSubscription = this.estimatedUsageService.estimatedUsage$.subscribe(u => {
+      this.currentEstimatedUsage = u || 1;
+      this.reorder();
     });
   }
 
@@ -63,6 +71,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
+    this.usageSubscription.unsubscribe();
   }
 
 }
