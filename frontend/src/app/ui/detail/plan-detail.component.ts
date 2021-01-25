@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {PlanData} from '../../interfaces/plan.interface';
 
 @Component({
@@ -9,11 +9,25 @@ import {PlanData} from '../../interfaces/plan.interface';
 export class PlanDetailComponent {
   @Input() plan: PlanData;
   @Input() estimatedUsage: number;
-  constructor() { }
+
+  constructor() {
+  }
 
   public calculateCostExample(costVar: number, costFix: number): string {
-    const cost = Math.floor(costVar / 10000 * this.estimatedUsage) + (costFix / 10000);
-    return this.roundToTwoDigits(cost);
+    const cost = (costVar * this.estimatedUsage) + costFix;
+    return PlanDetailComponent.convertToRealValue(cost);
+  }
+
+  private static convertToRealValue(number: number): string {
+    // 5156200 -> 515.62
+    // remove 00 at the end -> 51562
+    let converted = number.toString().slice(0, -2);
+    // get last 2 characters and add comma -> ,62
+    let decimal = ',' + converted.slice(-2);
+    // remove 62 at the end of original -> 515
+    converted = converted.slice(0, -2);
+    // return 515,62
+    return converted + decimal;
   }
 
   public roundToTwoDigits(n: number): string {
