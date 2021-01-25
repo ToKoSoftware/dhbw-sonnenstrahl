@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ChartDataSets} from 'chart.js';
 import {Color, Label} from 'ng2-charts';
-import {ApiService} from '../../../services/api/api.service';
 
 @Component({
   selector: 'app-order-stats',
@@ -39,11 +38,17 @@ export class AdminLineStatsComponent implements OnInit {
   public lineChartPlugins = [];
   public lineChartType = 'line';
 
-  constructor(private api: ApiService) {
+  /**
+   * Initialize label data
+   */
+  constructor() {
     // + 1 because js returns months index-off-by-one (0-11, not 1-12)
     this.lineChartLabels = AdminLineStatsComponent.getLast12Months().map(date => `${date.getMonth() + 1}-${date.getFullYear()}`);
   }
 
+  /**
+   * Map data to needed types
+   */
   ngOnInit(): void {
     const datesAreOnSameDay = (first: Date, second: Date) =>
       first.getFullYear() === second.getFullYear() &&
@@ -66,6 +71,10 @@ export class AdminLineStatsComponent implements OnInit {
 
   }
 
+  /**
+   * Get last 12 Months as array
+   * @private
+   */
   private static getLast12Months(): Date[] {
     const date = new Date();
     let last12MonthsArray = [];

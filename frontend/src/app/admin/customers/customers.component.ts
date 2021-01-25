@@ -57,19 +57,33 @@ export class CustomersComponent implements OnInit {
     private api: ApiService) {
   }
 
+  /**
+   * initial data loading
+   */
   ngOnInit(): void {
     this.loadData();
   }
 
+  /**
+   * Show a single customer's edit modal
+   * @param {CustomerData} customer
+   */
   showEditModalForCustomer(customer: CustomerData): void {
     this.currentEditCustomer = {...customer};
     this.modalService.showModal(`"${customer.lastName}, ${customer.firstName}" bearbeiten`, this.editModal);
   }
 
+  /**
+   * Closes modal
+   */
   public closeEditModal(): void {
     this.modalService.close();
   }
 
+  /**
+   * Apply new filters to query
+   * @param {FilterValue[]} filterValue
+   */
   public applyFilter(filterValue: FilterValue[]): void {
     let f: { [k: string]: string | number } = {
       sort: '-lastName',
@@ -82,6 +96,10 @@ export class CustomersComponent implements OnInit {
     this.loadData(f);
   }
 
+  /**
+   * Load customer data from server
+   * @param {object} filter
+   */
   public loadData(filter: { [k: string]: string | number } = {
     sort: '-lastName',
   }): void {
@@ -98,6 +116,10 @@ export class CustomersComponent implements OnInit {
     );
   }
 
+  /**
+   * Show a delete modal for a single customer
+   * @param {CustomerData} customer
+   */
   public async showDeleteModalForCustomer(customer: CustomerData): Promise<void> {
     const confirmed = await this.confirmService.confirm({
       title: `Sicher, dass Sie den Kunden ${customer.lastName}, ${customer.firstName} entfernen möchten?`,
@@ -124,6 +146,9 @@ export class CustomersComponent implements OnInit {
     }
   }
 
+  /**
+   * Save changed customer data
+   */
   public saveEditedCustomer(): void {
     this.modalService.close();
     this.loadingService.showLoading();

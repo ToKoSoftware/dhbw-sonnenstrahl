@@ -33,10 +33,14 @@ export class AdminPieStatsComponent implements OnInit {
 
 
   constructor(private api: ApiService) {
+    // hot-fix broken legend and tooltips
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
 
+  /**
+   * Get stats data from server
+   */
   ngOnInit(): void {
     this.api.get<ReferrerStatItem[]>('/admin/stats/referrer').subscribe(
       data => {
