@@ -6,6 +6,13 @@ import {InternalPlan} from '../../../interfaces/plan.interface';
 import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 
+/**
+ * Update a plan with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function updatePlan(req: Request, res: Response): Promise<Response> {
     let success = true;
     let updateResult;
@@ -13,6 +20,7 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
 
     const requiredFields = Plan.requiredFields();
 
+    // Check if request is not empty
     if (isBlank(req.body) || req.params.id === null) {
         return res.status(400).send(wrapResponse(false, {error: 'No body or valid param set.'}));
 
@@ -36,7 +44,7 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
     if (plan === null) {
         return res.status(404).send(wrapResponse(false, {error: 'No plan with given id found'}));
     } else {
-        // check if the postcode should be changed. If it should, ther must not be an active order with the given planId
+        // check if the postcode should be changed. If it should, there must not be an active order with the given planId
         if (!(plan.postcode === incomingData.postcode || incomingData.postcode === undefined)) {
             const activeOrders: Order | null = await Order.findOne(
                 {
@@ -56,9 +64,9 @@ export async function updatePlan(req: Request, res: Response): Promise<Response>
                 return res.status(400).send(wrapResponse(false, {error: 'The given planId has active Orders. You can not change the field postcode/zipCode'}));
             }
         }
-
+        // Id must not be changed and all set keys mut not be empty.
         if ((req.body.id === undefined || req.params.id === req.body.id) && checkKeysAreNotEmptyOrNotSet(incomingData, requiredFields) !== false) {
-
+            // Update plan with given params
             updateResult = await Plan.update(
                 incomingData,
                 {

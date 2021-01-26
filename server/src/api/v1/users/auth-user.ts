@@ -6,13 +6,22 @@ import {User} from '../../../models/user.model';
 import * as bcrypt from 'bcryptjs';
 import {jwtSign} from '../../../functions/jwt-sign.func';
 
+/**
+ * Login user
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>} contains JSON Web Token
+ */
 export async function loginUser(req: Request, res: Response): Promise<Response> {
 
     const incomingData: InternalUser = req.body;
+    // Map incoming user data
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
     let success = true;
 
+    // Find user with given email
     const user = await User.findOne(
         {
             where: {
@@ -31,6 +40,7 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
     if (user === null) {
         return res.status(403).send(wrapResponse(false, {error: 'Unauthorized'}));
     } else {
+        // Check if given password matches the (hashed) password in the database.
         const passwordMatches = await bcrypt.compare(incomingData.password, user.password)
             .catch(() => false);
         if (passwordMatches) {

@@ -1,8 +1,9 @@
 'use strict';
 const v4 = require('uuid').v4;
 const csv = require('csvtojson');
-const path = require("path");
+const path = require('path');
 
+//Initial insert of plan/rate data into database
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
@@ -10,7 +11,7 @@ module.exports = {
         const targetData = incomingData.map(mapPlan);
         await queryInterface.bulkInsert('Plans', targetData);
     },
-    
+
     down: async (queryInterface, Sequelize) => {
         return queryInterface.bulkDelete('Plans', null, {});
     }
@@ -18,12 +19,12 @@ module.exports = {
 
 async function loadCSV() {
     return csv({
-        delimiter: ';',
-        colParser: {
-            Fixkosten: transformEuroToCents,
-            VariableKosten: transformEuroToCents
+            delimiter: ';',
+            colParser: {
+                Fixkosten: transformEuroToCents,
+                VariableKosten: transformEuroToCents
+            }
         }
-    }
     ).fromFile(path.resolve(__dirname, '../../../data/sample-data.csv'));
 };
 

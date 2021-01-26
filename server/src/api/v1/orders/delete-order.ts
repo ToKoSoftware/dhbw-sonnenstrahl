@@ -2,9 +2,17 @@ import {Request, Response} from 'express';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Order} from '../../../models/order.model';
 
+/**
+ * Deletes an order with a given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function deleteOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
-    const destroyedRows = await Order.destroy(
+    // .detroy() returns the number of deleted rows
+    const destroyedRows: number | null = await Order.destroy(
         {
             where: {
                 id: req.params.id

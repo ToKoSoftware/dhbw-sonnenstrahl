@@ -16,6 +16,7 @@ export class Plan extends Model<Plan> {
     @Column
     is_active: boolean;
 
+    //required fields for creations and updates
     public static requiredFields(): Array<keyof InternalPlan> {
         return [
             'postcode',
