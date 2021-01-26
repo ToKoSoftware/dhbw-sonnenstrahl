@@ -8,13 +8,13 @@ import {ModalService} from '../../../services/modal/modal.service';
 })
 export class ModalComponent {
   @Input() title = '';
-  @Input() blocking = false; // modal cannot be closed (e.g. loading)
+  @Input() blocking = false; // Modal cannot be closed (e.g. loading)
 
   constructor(public modalService: ModalService) {
   }
 
   /**
-   * closes modal, if not blocked
+   * Closes modal, if user is allowed to
    */
   public closeModal(): void {
     if (!this.blocking)

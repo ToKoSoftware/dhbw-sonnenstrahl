@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
-   * toggle navigation bar
+   * Toggle navigation bar status
    */
   public toggleUserMenu(): void {
     if (this.profileMenu.nativeElement.classList.contains('opacity-0')) {
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
-   * search plan
+   * Redirect to search overview page
    */
   public search(): void {
     this.router.navigate(['/plans', this.searchQuery]);

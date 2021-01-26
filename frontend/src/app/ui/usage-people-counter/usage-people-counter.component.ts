@@ -25,7 +25,7 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
   }
 
   /**
-   * reload buttons and shown data
+   * Reload buttons and shown data
    */
   private reloadButtons() {
     this.plusMinusButtons = {
@@ -52,7 +52,7 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
   }
 
   /**
-   * update estimated consumption and people
+   * Update estimated consumption and people
    */
   public updateUsageCount(): void {
     this.estimatedUsageService.estimatedUsage$.next(this.currentEstimatedUsage);
@@ -60,7 +60,7 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
   }
 
   /**
-   * calculate consumption from new people count
+   * Calculate consumption from new people count
    * 
    * @param {number} count
    */

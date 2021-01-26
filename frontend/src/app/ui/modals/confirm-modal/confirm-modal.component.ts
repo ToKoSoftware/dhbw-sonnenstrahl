@@ -33,7 +33,7 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * run confirmation
+   * Emit confirm action event
    */
   public runConfirmAction(): void {
     this.confirmService.showModal$.next(false);
@@ -42,7 +42,7 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * run cancelation
+   * Emit cancel action event
    */
   public runCancelAction(): void {
     this.confirmService.showModal$.next(false);
@@ -51,7 +51,7 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * set default values of modal configuration
+   * Set default values of modal configuration
    */
   private setDefaultValues(): void {
     this.config = {

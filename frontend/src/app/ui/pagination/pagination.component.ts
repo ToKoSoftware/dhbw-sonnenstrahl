@@ -13,7 +13,7 @@ export class PaginationComponent {
   @Output() limitAndOffsetEvent = new EventEmitter<LimitAndOffset>();
 
   /**
-   * change page from given offset count
+   * Change page from given offset count
    * 
    * @param {number} offset
    */
@@ -23,7 +23,7 @@ export class PaginationComponent {
   }
 
   /**
-   * change the limitation of a page
+   * Change the limitation of a page
    * 
    * @param {number} count
    */
