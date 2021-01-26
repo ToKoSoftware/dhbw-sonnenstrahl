@@ -8,11 +8,10 @@ import {jwtSign} from '../../../functions/jwt-sign.func';
 
 /**
  * Login user
- * return contains JWT
  * 
  * @param {Request} req
  * @param {Reponse} res
- * @returns {Promise<Response>}
+ * @returns {Promise<Response>} contains JSON Web Token
  */
 export async function loginUser(req: Request, res: Response): Promise<Response> {
 
