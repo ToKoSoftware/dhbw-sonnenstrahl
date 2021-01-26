@@ -32,18 +32,27 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
     this.showModalSubscription.unsubscribe();
   }
 
+  /**
+   * run confirmation
+   */
   public runConfirmAction(): void {
     this.confirmService.showModal$.next(false);
     this.confirmService.clickEvent$.next(true);
     this.setDefaultValues();
   }
 
+  /**
+   * run cancelation
+   */
   public runCancelAction(): void {
     this.confirmService.showModal$.next(false);
     this.confirmService.clickEvent$.next(false);
     this.setDefaultValues();
   }
 
+  /**
+   * set default values of modal configuration
+   */
   private setDefaultValues(): void {
     this.config = {
       title: 'Aktion bestätigen',

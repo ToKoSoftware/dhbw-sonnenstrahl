@@ -13,6 +13,9 @@ export class ModalComponent {
   constructor(public modalService: ModalService) {
   }
 
+  /**
+   * closes modal, if not blocked
+   */
   public closeModal(): void {
     if (!this.blocking)
       this.modalService.close();

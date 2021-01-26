@@ -19,6 +19,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * toggle navigation bar
+   */
   public toggleUserMenu(): void {
     if (this.profileMenu.nativeElement.classList.contains('opacity-0')) {
       this.profileMenu.nativeElement.classList.remove(['hidden']);
@@ -35,6 +38,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * search plan
+   */
   public search(): void {
     this.router.navigate(['/plans', this.searchQuery]);
   }
