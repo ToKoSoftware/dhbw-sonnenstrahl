@@ -3,7 +3,7 @@ import {Vars} from '../vars';
 import isBlank from 'is-blank';
 
 /**
- * Load configuration from Process environment
+ * Load configuration from process environment
  * 
  * @returns {Configuration}
  */

@@ -39,7 +39,7 @@ export async function importPlan(req: Request, res: Response): Promise<Response>
 }
 
 /**
- * load csv from file
+ * Parse csv data from file
  * 
  * @param {UploadedFile} file 
  * @returns {Promise<FileUploadPlan[]>}

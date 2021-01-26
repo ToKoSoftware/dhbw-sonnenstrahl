@@ -35,7 +35,7 @@ export async function exportCustomers(req: Request, res: Response): Promise<Resp
     // Customer data was found. Create CSV from array of objects
     const csvData = convertObjectArrayToCsv(customers);
     const date = new Date().toISOString();
-    // Set attachment to response
+    // Add attachment header to response
     res.set({'Content-Disposition': `attachment; filename="${date}_Customers.csv"`});
 
     // Send response

@@ -19,7 +19,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
     // Mapping of user data including hashing password
     const mappedIncomingData: InternalUser = await mapUser(incomingData);
 
-    //All required fields defined in the model have to be set
+    // All required fields defined in the model have to be set
     const requiredFields = User.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(mappedIncomingData, requiredFields)) {
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
