@@ -32,6 +32,7 @@ JWT_HASH=randomstr
 
 2. run `docker-compose up`. Docker will pull all images for you and automatically set everting up. This may take 10-15 minutes depending on your maschine's hardware configuration - so be patient and get yourself a coffee!
 3. postgresql should now be running on port `5432`, the express server should be running at `localhost:80`
+4. See "Sample Data" for admin login credentials 
 
 ## Installation - Without Docker
 0. You need to have a local working postgresql installation running
