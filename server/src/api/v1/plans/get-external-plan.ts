@@ -31,7 +31,7 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
             id: element.id,
             title: element.plan,
             zipCode: element.postcode,
-            pricePerUnit: element.cost_var/100,
+            pricePerUnit: element.cost_var/10000,
             basicPrice: element.cost_fix/10000,
             consumption: incomingConsumption,
             calculatedPricePerYear: calculatedCosts
