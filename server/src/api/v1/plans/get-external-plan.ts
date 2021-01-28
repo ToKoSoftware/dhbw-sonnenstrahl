@@ -34,7 +34,8 @@ export async function getPlansInExternalFormat(req: Request, res: Response): Pro
             'cost_fix'
         ],
         where: {
-            postcode: incomingZipCode
+            postcode: incomingZipCode,
+            is_active: true
         },
         raw: true
     });
