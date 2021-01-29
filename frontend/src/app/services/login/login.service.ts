@@ -17,16 +17,29 @@ export class LoginService {
     this.reloadJWT();
   }
 
+  /**
+   * Set JWT to local storage and reload JWT
+   * @param {string} jwt
+   */
   public login(jwt: string): void {
     localStorage.setItem('jwt', jwt);
     this.reloadJWT();
   }
 
+  /**
+   * Remove JWT from loacl storage and reload JWT
+   */
   public logout(): void {
     localStorage.removeItem('jwt');
     this.reloadJWT();
   }
 
+  /**
+   * Reload JWT
+   *  - decode existing JWT
+   *  - set new expiration date
+   *  - create new JWT
+   */
   private reloadJWT(): void {
     const jwt: string | null = localStorage.getItem('jwt');
     try {
