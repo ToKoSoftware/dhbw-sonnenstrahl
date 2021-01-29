@@ -11,7 +11,7 @@ import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.se
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   public email: string;
   public password: string;
 
@@ -23,9 +23,9 @@ export class RegisterComponent implements OnInit {
     private readonly loading: LoadingModalService) {
   }
 
-  ngOnInit(): void {
-  }
-
+  /**
+   * Create a user and generate a jwt with the same credentials
+   */
   public createUser(): void {
     this.api.post<UserData>('/users',
       {
@@ -48,6 +48,10 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /**
+   * Login
+   * @private
+   */
   private login(): void {
     this.loading.showLoading();
     this.api.post<string>('/login', {

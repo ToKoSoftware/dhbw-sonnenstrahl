@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public email: string;
   public password: string;
   public error: boolean;
@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
     private api: ApiService) {
   }
 
-  ngOnInit(): void {
-  }
-
+  /**
+   * Send user login data to server
+   */
   public login(): void {
     this.error = false;
     this.loading.showLoading();

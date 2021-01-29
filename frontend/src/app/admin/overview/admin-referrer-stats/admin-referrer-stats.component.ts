@@ -30,8 +30,13 @@ export class AdminReferrerStatsComponent implements OnInit {
   public lineChartType = 'line';
 
   constructor(private api: ApiService) {
-    // + 1 because js returns months index-off-by-one (0-11, not 1-12)
-    this.lineChartLabels = AdminReferrerStatsComponent.getLast12Months().map(date => `${date.getMonth() + 1}-${date.getFullYear()}`);
+    this.lineChartLabels =
+      AdminReferrerStatsComponent
+        .getLast12Months()
+        .map(
+          // + 1 because js returns months index-off-by-one (0-11, not 1-12)
+          date => `${date.getMonth() + 1}-${date.getFullYear()}`
+        );
   }
 
   ngOnInit(): void {
@@ -46,7 +51,7 @@ export class AdminReferrerStatsComponent implements OnInit {
         const color = this.lineChartColors[index < this.lineChartColors.length - 1 ? index : 0];
         this.lineChartData[index] = {
           data: AdminReferrerStatsComponent.getLast12Months().map(month => {
-            let foundIndex = value.count.findIndex(el => {
+            const foundIndex = value.count.findIndex(el => {
               return datesAreOnSameDay(new Date(el.date_trunc), month);
             });
             if (foundIndex === -1) {
@@ -63,6 +68,10 @@ export class AdminReferrerStatsComponent implements OnInit {
     });
   }
 
+  /**
+   * Get last 12 Months as array
+   * @private
+   */
   private static getLast12Months(): Date[] {
     const date = new Date();
     let last12MonthsArray = [];

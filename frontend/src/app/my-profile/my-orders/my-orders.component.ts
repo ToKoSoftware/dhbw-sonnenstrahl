@@ -27,6 +27,10 @@ export class MyOrdersComponent implements OnInit {
     this.loadOrders();
   }
 
+  /**
+   * Load data from server
+   * @private
+   */
   private loadOrders(): void {
     this.loading = true;
 

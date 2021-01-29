@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -6,18 +6,19 @@ import {Router} from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   public searchQuery = '';
   public image = '';
-  private availableImages = ['sun.jpg', 'nature.jpg', 'sun2.jpg', 'water.jpg', 'solar.jpg']
+  private availableImages = ['sun.jpg', 'nature.jpg', 'sun2.jpg', 'water.jpg', 'solar.jpg'];
 
   constructor(private router: Router) {
+    // add random background image
     this.image = this.availableImages[Math.floor(Math.random() * this.availableImages.length)];
   }
 
-  ngOnInit(): void {
-  }
-
+  /**
+   * Change route to search page
+   */
   public search(): void {
     if (!this.searchQuery) return;
     this.router.navigate(['/plans', this.searchQuery]);

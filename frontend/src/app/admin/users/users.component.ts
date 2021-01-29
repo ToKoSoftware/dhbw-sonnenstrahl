@@ -35,9 +35,9 @@ export class UsersComponent implements OnInit {
     ]
   };
   public filters: AvailableFilter[] = [{
-    title: "E-Mail",
-    name: "email",
-  }]
+    title: 'E-Mail',
+    name: 'email',
+  }];
 
   constructor(
     private confirmService: ConfirmModalService,
@@ -51,6 +51,11 @@ export class UsersComponent implements OnInit {
     this.loadData();
   }
 
+  /**
+   * Load data from server
+   * @param filter
+   * @private
+   */
   private loadData(filter = {}): void {
     this.loading = true;
     this.api.get<UserData[]>('/users', filter).subscribe(
@@ -61,14 +66,22 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  /**
+   * Apply filters
+   * @param filterValue
+   */
   public applyFilter(filterValue: FilterValue[]): void {
     let f: { [k: string]: string } = {};
     filterValue.forEach(val => {
       f[val.name] = val.value;
-    })
+    });
     this.loadData(f);
   }
 
+  /**
+   * Show delete modal for user deletion
+   * @param user
+   */
   public async showDeleteModalForUser(user: UserData): Promise<void> {
     const confirmed = await this.confirmService.confirm({
       title: `Sicher, dass Sie den User mit der E-Mail "${user.email}" entfernen möchten?`,
@@ -109,7 +122,9 @@ export class UsersComponent implements OnInit {
     this.modalService.close();
   }
 
-
+  /**
+   * Save an edited user
+   */
   public saveEditedUser(): void {
     this.modalService.close();
     this.loadingService.showLoading();

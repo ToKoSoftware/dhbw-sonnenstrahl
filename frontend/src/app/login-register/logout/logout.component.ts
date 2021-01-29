@@ -15,6 +15,9 @@ export class LogoutComponent implements OnInit {
   ) {
   }
 
+  /**
+   * Logout and redirect to homepage page
+   */
   ngOnInit(): void {
     this.login.logout();
     setTimeout(() => {

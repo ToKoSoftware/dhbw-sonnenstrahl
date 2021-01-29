@@ -93,15 +93,15 @@ export class AdminLineStatsComponent implements OnInit {
 }
 
 export interface StatsResponse {
-  customers: MonthlyStat[],
-  users: MonthlyStat[],
-  plans: MonthlyStat[],
-  orders: MonthlyStat[],
+  customers: MonthlyStat[];
+  users: MonthlyStat[];
+  plans: MonthlyStat[];
+  orders: MonthlyStat[];
 }
 
 export interface MonthlyStat {
-  date_trunc: string,
-  count: string
+  date_trunc: string;
+  count: string;
 }
 
 type statsCategory = keyof StatsResponse;
