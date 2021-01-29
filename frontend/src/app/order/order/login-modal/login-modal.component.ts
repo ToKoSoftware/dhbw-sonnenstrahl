@@ -32,6 +32,9 @@ export class LoginModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Login user
+   */
   public login(): void {
     this.error = false;
     this.loading = true;

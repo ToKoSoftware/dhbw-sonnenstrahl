@@ -46,6 +46,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Send GET request to api
+   * @param {string} query
+   */
   private queryApi(query: string): void {
     this.loading = true;
     this.api.get<PlanDataWithCost[]>('/plans', {
@@ -60,6 +64,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Sort plans by estimated costs
+   */
   public reorder() {
     let items = this.results.map((res: PlanDataWithCost) => {
       res.costs = Math.floor(res.cost_var / 10000 * this.currentEstimatedUsage) + (res.cost_fix / 10000).toString();

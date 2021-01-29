@@ -42,6 +42,9 @@ export class CreateCustomerModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Create customer
+   */
   public createCustomer(): void {
     this.api.post<CustomerData>('/customers',
       {

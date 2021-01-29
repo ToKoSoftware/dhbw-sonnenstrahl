@@ -34,6 +34,9 @@ export class RegisterModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Register user
+   */
   public register(): void {
     this.api.post<UserData>('/users',
       {
@@ -50,6 +53,9 @@ export class RegisterModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Login user after successful registration
+   */
   private login(): void {
     this.loading = true;
     this.api.post<string>('/login', {

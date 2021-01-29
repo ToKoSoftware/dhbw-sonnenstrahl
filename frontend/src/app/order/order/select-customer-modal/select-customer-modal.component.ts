@@ -32,6 +32,10 @@ export class SelectCustomerModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Select customer
+   * @param {CustomerData | null} customer
+   */
   public selectCustomer(customer: CustomerData | null): void {
     this.orderService.selectedCustomer$.next(customer);
     this.modal.close();

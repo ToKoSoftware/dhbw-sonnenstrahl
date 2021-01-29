@@ -36,6 +36,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Send GET request to api
+   * @param {string} query
+   */
   private queryApi(query: string): void {
     this.loading = true;
     this.api.get<PlanData[]>('/plans', {
@@ -52,6 +56,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
+  /**
+   * Parse string from JSON of plans
+   * @param {PlanData} plan 
+   */
   public replaceText(plan: PlanData): string {
     return JSON.stringify(plan);
   }
