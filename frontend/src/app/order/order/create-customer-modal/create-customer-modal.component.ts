@@ -9,8 +9,7 @@ import {LoginService} from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-create-customer-modal',
-  templateUrl: './create-customer-modal.component.html',
-  styleUrls: ['./create-customer-modal.component.scss']
+  templateUrl: './create-customer-modal.component.html'
 })
 export class CreateCustomerModalComponent implements OnInit {
 
@@ -42,6 +41,9 @@ export class CreateCustomerModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Create customer
+   */
   public createCustomer(): void {
     this.api.post<CustomerData>('/customers',
       {

@@ -5,7 +5,6 @@ import {EstimatedUsageService} from '../../services/estimated-usage/estimated-us
 @Component({
   selector: 'app-usage-people-counter',
   templateUrl: './usage-people-counter.component.html',
-  styleUrls: ['./usage-people-counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class UsagePeopleCounterComponent implements OnInit, OnChanges {

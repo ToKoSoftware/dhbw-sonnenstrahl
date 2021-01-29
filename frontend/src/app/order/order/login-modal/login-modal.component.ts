@@ -7,8 +7,7 @@ import {ModalService} from '../../../services/modal/modal.service';
 
 @Component({
   selector: 'app-login-modal',
-  templateUrl: './login-modal.component.html',
-  styleUrls: ['./login-modal.component.scss']
+  templateUrl: './login-modal.component.html'
 })
 export class LoginModalComponent implements OnInit {
   public error: boolean;
@@ -32,6 +31,9 @@ export class LoginModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Login user
+   */
   public login(): void {
     this.error = false;
     this.loading = true;
