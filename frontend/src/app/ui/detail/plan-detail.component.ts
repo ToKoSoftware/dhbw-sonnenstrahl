@@ -13,6 +13,12 @@ export class PlanDetailComponent {
   constructor() {
   }
 
+  /**
+   * Calculates estimated costs from variable and fix costs
+   * @param {number} costVar 
+   * @param {number} costFix 
+   * @returns {string}
+   */
   public calculateCostExample(costVar: number, costFix: number): string {
     const cost = (costVar * this.estimatedUsage) + costFix;
     return PlanDetailComponent.convertToRealValue(cost);
@@ -30,6 +36,10 @@ export class PlanDetailComponent {
     return converted + decimal;
   }
 
+  /**
+   * Round number to two digits
+   * @param {number} n
+   */
   public roundToTwoDigits(n: number): string {
     return (Math.round((n + Number.EPSILON) * 100) / 100).toString().replace('.', ',');
   }

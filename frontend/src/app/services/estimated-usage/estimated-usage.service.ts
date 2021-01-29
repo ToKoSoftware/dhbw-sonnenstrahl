@@ -11,6 +11,11 @@ export class EstimatedUsageService {
   constructor() {
   }
 
+  /**
+   * Calculate estimated consumption from count of people
+   * @param {number} peopleCount
+   * @returns {number | null}
+   */
   public getEstimatedUsage(peopleCount: number): number | null {
     if (peopleCount <= 0) {
       return null;
@@ -34,6 +39,11 @@ export class EstimatedUsageService {
     }
   }
 
+  /**
+   * Calculate extimated count of people from consumption
+   * @param usage
+   * @returns {number}
+   */
   public getEstimatedPeopleCount(usage: number): number {
     if (usage <= 1800) {
       return 1;
