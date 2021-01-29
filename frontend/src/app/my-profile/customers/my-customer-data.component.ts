@@ -11,8 +11,7 @@ import {CustomerData} from '../../interfaces/customer.interface';
 
 @Component({
   selector: 'app-customers',
-  templateUrl: './my-customer-data.component.html',
-  styleUrls: ['./my-customer-data.component.scss']
+  templateUrl: './my-customer-data.component.html'
 })
 export class MyCustomerDataComponent implements OnInit {
   public profilePages = myProfilePages;

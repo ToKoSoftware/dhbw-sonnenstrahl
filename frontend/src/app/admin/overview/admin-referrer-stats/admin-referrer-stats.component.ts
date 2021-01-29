@@ -5,8 +5,7 @@ import {ApiService} from '../../../services/api/api.service';
 
 @Component({
   selector: 'app-admin-referrer-stats',
-  templateUrl: './admin-referrer-stats.component.html',
-  styleUrls: ['./admin-referrer-stats.component.scss']
+  templateUrl: './admin-referrer-stats.component.html'
 })
 export class AdminReferrerStatsComponent implements OnInit {
   @Input() private statData: StatsResponse;

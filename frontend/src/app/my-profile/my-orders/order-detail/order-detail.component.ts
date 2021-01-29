@@ -8,8 +8,7 @@ import {CustomerData} from '../../../interfaces/customer.interface';
 
 @Component({
   selector: 'app-order-detail',
-  templateUrl: './order-detail.component.html',
-  styleUrls: ['./order-detail.component.scss']
+  templateUrl: './order-detail.component.html'
 })
 export class OrderDetailComponent implements OnInit {
   @Input() order: OrderData;

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ApiService} from '../../services/api/api.service';
 import {UserData} from '../../interfaces/user.interface';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
@@ -8,8 +8,7 @@ import {ConfirmModalService} from '../../services/confirm-modal/confirm-modal.se
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent {
   public email: string;

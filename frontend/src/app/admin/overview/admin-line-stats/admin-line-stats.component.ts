@@ -4,8 +4,7 @@ import {Color, Label} from 'ng2-charts';
 
 @Component({
   selector: 'app-order-stats',
-  templateUrl: './admin-line-stats.component.html',
-  styleUrls: ['./admin-line-stats.component.scss']
+  templateUrl: './admin-line-stats.component.html'
 })
 export class AdminLineStatsComponent implements OnInit {
   @Input() private chartFor: keyof StatsResponse = 'plans';
