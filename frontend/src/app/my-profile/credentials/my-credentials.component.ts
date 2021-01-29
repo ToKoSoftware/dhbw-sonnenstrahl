@@ -47,6 +47,9 @@ export class MyCredentialsComponent implements OnInit {
     );
   }
 
+  /**
+   * Change password
+   */
   public updateUserPassword(): void {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';
@@ -64,6 +67,9 @@ export class MyCredentialsComponent implements OnInit {
     );
   }
 
+  /**
+   * Change email and update jwt
+   */
   public updateEmail(): void {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';

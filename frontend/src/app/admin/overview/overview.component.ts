@@ -38,6 +38,9 @@ export class OverviewComponent implements OnInit {
   constructor(private api: ApiService) {
   }
 
+  /**
+   * Get data from server
+   */
   ngOnInit(): void {
     this.api.get<AdminCountStats>('/admin/stats').subscribe(
       data => {

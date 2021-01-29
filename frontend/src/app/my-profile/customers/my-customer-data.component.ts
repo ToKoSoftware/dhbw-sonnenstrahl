@@ -1,5 +1,5 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {UserData} from '../../interfaces/user.interface';
 import {ApiService} from '../../services/api/api.service';
 import {LoginService} from '../../services/login/login.service';
@@ -36,9 +36,8 @@ export class MyCustomerDataComponent implements OnInit {
     this.loadData();
   }
 
-
   public showEditModalForCustomer(customer: CustomerData): void {
-    this.currentEditCustomer = {...customer};
+    this.currentEditCustomer = {...customer}; // copy data
     this.modalService.showModal(`"${customer.lastName}, ${customer.firstName}" bearbeiten`, this.editModal);
   }
 
@@ -59,6 +58,9 @@ export class MyCustomerDataComponent implements OnInit {
     );
   }
 
+  /**
+   * Update customer with new data
+   */
   public saveEditedCustomer(): void {
     this.modalService.close();
     this.loadingService.showLoading();
