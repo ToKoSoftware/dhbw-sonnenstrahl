@@ -3,8 +3,7 @@ import {PlanData} from '../../interfaces/plan.interface';
 
 @Component({
   selector: 'app-plan-detail',
-  templateUrl: './plan-detail.component.html',
-  styleUrls: ['./plan-detail.component.scss']
+  templateUrl: './plan-detail.component.html'
 })
 export class PlanDetailComponent {
   @Input() plan: PlanData;

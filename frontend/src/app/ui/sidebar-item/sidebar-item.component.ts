@@ -5,8 +5,7 @@ import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-sidebar-item',
-  templateUrl: './sidebar-item.component.html',
-  styleUrls: ['./sidebar-item.component.scss']
+  templateUrl: './sidebar-item.component.html'
 })
 export class SidebarItemComponent implements OnInit, OnDestroy {
   @Input() item: SidebarPage;
