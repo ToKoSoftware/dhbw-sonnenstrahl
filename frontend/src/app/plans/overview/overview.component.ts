@@ -9,7 +9,6 @@ import {EstimatedUsageService} from '../../services/estimated-usage/estimated-us
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class OverviewComponent implements OnInit, OnDestroy {
