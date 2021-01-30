@@ -7,7 +7,7 @@
   >
   </app-header>
   <app-container>
-    <app-usage-people-counter (estimatedUsage)="currentEstimatedUsage = $event"></app-usage-people-counter>
+    <app-usage-people-counter [currentEstimatedUsage]="currentEstimatedUsage"></app-usage-people-counter>
     <ng-container *ngIf="!loading">
       <ng-container *ngFor="let result of results">
         <app-plan-detail

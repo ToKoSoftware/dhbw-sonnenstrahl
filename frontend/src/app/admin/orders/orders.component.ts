@@ -45,10 +45,17 @@ export class OrdersComponent implements OnInit {
     ) {
   }
 
+  /**
+   * Load initial data
+   */
   ngOnInit(): void {
     this.loadData();
   }
 
+  /**
+   * get data from server
+   * @param {object} filter
+   */
   public loadData(filter: { [k: string]: string | number } = {
     sort: 'createdAt',
   }): void {
@@ -65,6 +72,9 @@ export class OrdersComponent implements OnInit {
     );
   }
 
+  /**
+   * Closes modal
+   */
   public closeModal(): void {
     this.modal.close();
   }

@@ -3,8 +3,7 @@ import {ControlValueAccessor, NgControl} from '@angular/forms';
 
 @Component({
   selector: 'app-labeled-value',
-  templateUrl: './labeled-value.component.html',
-  styleUrls: ['./labeled-value.component.scss']
+  templateUrl: './labeled-value.component.html'
 })
 export class LabeledValueComponent {
   @Input() label: string;

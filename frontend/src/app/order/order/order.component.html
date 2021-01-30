@@ -41,8 +41,7 @@
             description="Geben Sie hier Ihren geschätzen jährlichen Verbrauch an. Alternativ können Sie auch die Personenzahl angeben."
             heading="Geschätzter Verbrauch"></app-zero-data>
           <div class="flex-1">
-            <app-usage-people-counter [currentEstimatedUsage]="estimatedUsage"
-                                      (estimatedUsage)="estimatedUsage = $event"></app-usage-people-counter>
+            <app-usage-people-counter [currentEstimatedUsage]="estimatedUsage"></app-usage-people-counter>
           </div>
         </div>
         <div class="px-4 py-3 bg-gray-50 flex">
@@ -103,8 +102,9 @@
           Mit Ihrem persönlichen Sonnenstrahl-Energie Account können Sie die Tarifbestellungen mehrerer Personen
           verwalten." heading="Ihr Sonnenstrahl-Energie Account"></app-zero-data>
           <div class="flex-1" *ngIf="!(loginService.isLoggedIn$ | async)">
-            <app-button (click)="showModal('login')" type="blank" label="Mit Account anmelden"></app-button>
-            <app-button (click)="showModal('register')" label="Neuen Account erstellen"></app-button>
+              <app-button (click)="showModal('login')" type="blank" label="Mit Account anmelden"></app-button>
+              <app-button (click)="showModal('register')" label="Neuen Account erstellen"
+                          class="block mt-3"></app-button>
           </div>
           <div class="flex-1 text-center" *ngIf="loginService.isLoggedIn$ | async">
             <div class="w-full my-5">

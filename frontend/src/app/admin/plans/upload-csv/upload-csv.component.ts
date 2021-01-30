@@ -9,7 +9,7 @@ import {ConfirmModalService} from '../../../services/confirm-modal/confirm-modal
   templateUrl: './upload-csv.component.html',
   styleUrls: ['./upload-csv.component.scss']
 })
-export class UploadCsvComponent implements OnInit {
+export class UploadCsvComponent {
   private fileToUpload: File | null = null;
   public files: FileList | null = null;
   public uploading = false;
@@ -20,18 +20,24 @@ export class UploadCsvComponent implements OnInit {
     private fileUploadService: FileUploadService) {
   }
 
+  /**
+   * Callback for file change event
+   * @param files
+   */
   public handleFileChange(files: FileList): void {
-    console.log("File Change", files);
     this.files = files;
     this.fileToUpload = files.item(0);
   }
 
+  /**
+   * Send file to server
+   */
   public saveFile(): void {
     if (this.fileToUpload === null) {
       console.log('File Upload failed');
       return;
     }
-    this.uploading = true
+    this.uploading = true;
     this.fileUploadService.upload<PlanDataPreview[]>('/plans', this.fileToUpload, 'put')
       .subscribe(
         async data => {
@@ -60,9 +66,6 @@ export class UploadCsvComponent implements OnInit {
 
   deleteAttachment(index: any): void {
     this.files = null;
-  }
-
-  ngOnInit(): void {
   }
 
   public closeModal(): void {

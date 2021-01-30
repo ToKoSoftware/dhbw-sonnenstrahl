@@ -7,8 +7,7 @@ import {ModalService} from '../../../services/modal/modal.service';
 
 @Component({
   selector: 'app-select-customer-modal',
-  templateUrl: './select-customer-modal.component.html',
-  styleUrls: ['./select-customer-modal.component.scss']
+  templateUrl: './select-customer-modal.component.html'
 })
 export class SelectCustomerModalComponent implements OnInit {
   public loading = true;
@@ -32,6 +31,10 @@ export class SelectCustomerModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Select customer
+   * @param {CustomerData | null} customer
+   */
   public selectCustomer(customer: CustomerData | null): void {
     this.orderService.selectedCustomer$.next(customer);
     this.modal.close();

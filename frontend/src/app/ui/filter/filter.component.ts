@@ -2,8 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  templateUrl: './filter.component.html'
 })
 export class FilterComponent {
   @Input() filters: AvailableFilter[] = [];
@@ -12,6 +11,9 @@ export class FilterComponent {
   public selectedFilter: string[] = [];
   public selectedFilterValue: string[] = [];
 
+  /**
+   * Emit user specified filters
+   */
   public filter(): void {
     this.filterValue.emit(this.selectedFilterValue.map((f, i) => {
       return {
@@ -21,6 +23,9 @@ export class FilterComponent {
     }));
   }
 
+  /**
+   * Add filter
+   */
   public addFilter(): void {
     this.selectedFilter.push(this.filters[0].name);
     this.selectedFilterValue.push('');
@@ -28,6 +33,10 @@ export class FilterComponent {
     this.filter();
   }
 
+  /**
+   * Delete existing filter
+   * @param {number} index 
+   */
   public removeFilter(index: number): void {
     this.selectedFilter.splice(index, 1);
     this.selectedFilterValue.splice(index, 1);

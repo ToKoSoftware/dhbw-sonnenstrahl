@@ -3,8 +3,7 @@ import {UiButton, UiButtonType} from '../ui.interface';
 
 @Component({
   selector: 'app-button-group-button',
-  templateUrl: './button-group-button.component.html',
-  styleUrls: ['./button-group-button.component.scss']
+  templateUrl: './button-group-button.component.html'
 })
 export class ButtonGroupButtonComponent implements OnInit {
   @Input('button') button: UiButton;
@@ -20,6 +19,9 @@ export class ButtonGroupButtonComponent implements OnInit {
   }
 
 
+  /**
+   * Set class styles
+   */
   public calculateClass(): string {
     const classList = [
       'relative inline-flex items-center px-4 py-2 ' +
@@ -50,7 +52,10 @@ export class ButtonGroupButtonComponent implements OnInit {
     return classList.join(' ');
   }
 
-
+  /**
+   * Handle button click
+   * @param {UiButton} button 
+   */
   public handleButtonClick(button: UiButton): void {
     if (button.type === UiButtonType.disabled) {
       return;

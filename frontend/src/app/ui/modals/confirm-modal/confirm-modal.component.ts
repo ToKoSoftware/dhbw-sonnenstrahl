@@ -6,8 +6,7 @@ import {ButtonType} from '../../button/button.component';
 
 @Component({
   selector: 'app-confirm-modal',
-  templateUrl: './confirm-modal.component.html',
-  styleUrls: ['./confirm-modal.component.scss']
+  templateUrl: './confirm-modal.component.html'
 })
 export class ConfirmModalComponent implements OnInit, OnDestroy {
   public showModal = false;
@@ -32,18 +31,27 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
     this.showModalSubscription.unsubscribe();
   }
 
+  /**
+   * Emit confirm action event
+   */
   public runConfirmAction(): void {
     this.confirmService.showModal$.next(false);
     this.confirmService.clickEvent$.next(true);
     this.setDefaultValues();
   }
 
+  /**
+   * Emit cancel action event
+   */
   public runCancelAction(): void {
     this.confirmService.showModal$.next(false);
     this.confirmService.clickEvent$.next(false);
     this.setDefaultValues();
   }
 
+  /**
+   * Set default values of modal configuration
+   */
   private setDefaultValues(): void {
     this.config = {
       title: 'Aktion bestätigen',

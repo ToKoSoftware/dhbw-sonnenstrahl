@@ -5,8 +5,7 @@ import {ChartOptions, ChartType} from 'chart.js';
 
 @Component({
   selector: 'app-admin-pie-stats',
-  templateUrl: './admin-pie-stats.component.html',
-  styleUrls: ['./admin-pie-stats.component.scss']
+  templateUrl: './admin-pie-stats.component.html'
 })
 export class AdminPieStatsComponent implements OnInit {
   public loading = true;
@@ -33,10 +32,14 @@ export class AdminPieStatsComponent implements OnInit {
 
 
   constructor(private api: ApiService) {
+    // hot-fix broken legend and tooltips
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
 
+  /**
+   * Get stats data from server
+   */
   ngOnInit(): void {
     this.api.get<ReferrerStatItem[]>('/admin/stats/referrer').subscribe(
       data => {

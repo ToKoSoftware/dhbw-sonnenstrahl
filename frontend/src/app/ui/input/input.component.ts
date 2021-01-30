@@ -3,8 +3,7 @@ import {ControlValueAccessor, NgControl} from '@angular/forms';
 
 @Component({
   selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss']
+  templateUrl: './input.component.html'
 })
 export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean;
@@ -35,6 +34,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Write form value to the DOM element (model => view)
+   * @param value
    */
   writeValue(value: any): void {
     this.value = value;
@@ -42,6 +42,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Write form disabled state to the DOM element (model => view)
+   * @param {boolean} isDisabled
    */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
@@ -49,6 +50,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Update form when DOM element value changes (view => model)
+   * @param fn
    */
   registerOnChange(fn: any): void {
     // Store the provided function as an internal method.
@@ -57,6 +59,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Update form when DOM element is blurred (view => model)
+   * @param fn
    */
   registerOnTouched(fn: any): void {
     // Store the provided function as an internal method.

@@ -14,8 +14,7 @@ import {CustomerData} from '../../interfaces/customer.interface';
 
 @Component({
   selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss']
+  templateUrl: './order.component.html'
 })
 export class OrderComponent implements OnInit, OnDestroy {
   @ViewChild('errorModal') errorModal: TemplateRef<unknown>;
@@ -64,7 +63,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       }).subscribe(d => this.customersOfCurrentUserCount = d.data.length);
     });
     this.customerSubscription = this.orderService.selectedCustomer$.subscribe(customer => {
-      if (this.currentStep != 1) {
+      if (this.currentStep !== 1) {
         if (customer !== null) {
           this.currentStep++;
         }
@@ -83,6 +82,10 @@ export class OrderComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Send GET request to api get plan with given id
+   * @param {string} id
+   */
   private getPlan(id: string): void {
     this.api.get<PlanData>('/plans/' + id)
       .subscribe(data => {
@@ -104,15 +107,25 @@ export class OrderComponent implements OnInit, OnDestroy {
       );
   }
 
+  /**
+   * Set current Step to given value
+   * @param {number} value
+   */
   public setCurrentStep(value: number) {
     this.currentStep = value;
   }
 
+  /**
+   * Increase currentStep by one, if not final (4th) step
+   */
   public showNextStep(): void {
     if (this.currentStep === 4) return;
     this.currentStep = this.currentStep + 1;
   }
 
+  /**
+   * Decrease currentStep by one, if not first step
+   */
   public showPreviousStep(): void {
     if (this.currentStep === 1) return;
     this.currentStep = this.currentStep - 1;
@@ -128,12 +141,15 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.modalService.showModal('Fehler', this.errorModal);
   }
 
+  /**
+   * Execute order via POST request on api
+   */
   public order(): void {
     const planId = this.plan.id;
     const customerId = this.orderService.selectedCustomer$.value?.id || '';
     if (isBlank(planId) || isBlank(customerId)) {
       this.confirmService.confirm({
-        title: `Es ist ein Fehler beim Kündigen aufgetreten.`,
+        title: `Es ist ein Fehler beim Bestellen aufgetreten.`,
         confirmButtonType: 'info',
         confirmText: 'Ok',
         showCancelButton: false
@@ -160,6 +176,10 @@ export class OrderComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Show modal from option
+   * @param {'login' | 'register' | 'selectCustomer' | 'createCustomer'} name
+   */
   public showModal(name: 'login' | 'register' | 'selectCustomer' | 'createCustomer'): void {
     switch (name) {
     case 'login':
