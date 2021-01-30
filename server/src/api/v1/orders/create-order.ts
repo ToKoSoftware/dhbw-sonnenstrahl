@@ -26,6 +26,7 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
     }
 
+    //Check, if consumption is positive
     if (incomingData.consumption <= 0) {
         return res.send(400).send(wrapResponse(false, { error: 'Please enter a positive consumption!' }));
     }
@@ -107,6 +108,11 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
 
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredIncomingOrderFields)) {
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
+    }
+
+    //Check, if consumption is positive
+    if (incomingData.consumption <= 0) {
+        return res.send(400).send(wrapResponse(false, { error: 'Please enter a positive consumption!' }));
     }
 
     // Try to find Plan with given planId

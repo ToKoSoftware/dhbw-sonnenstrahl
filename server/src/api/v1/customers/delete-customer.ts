@@ -34,7 +34,7 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
         return res.status(400).send(wrapResponse(false, {error: 'You can not delete a customer with active orders'}));
     }
     // Set customer to inactive. Only soft deletion!
-    const query = { is_active: true };
+    const query = { is_active: false };
     const updateResult = await Customer.update(
         query,
         {
@@ -53,5 +53,5 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
     if (updateResult === [] || updateResult[0] == 0) {
         return res.status(400).send(wrapResponse(false, {error: 'No customer updated'}));
     }
-    return res.status(204).send(wrapResponse(true));
+    return res.status(200).send(wrapResponse(true, updateResult));
 }
