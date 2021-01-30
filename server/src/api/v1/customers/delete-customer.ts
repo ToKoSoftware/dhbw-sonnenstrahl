@@ -53,5 +53,5 @@ export async function deleteCustomer(req: Request, res: Response): Promise<Respo
     if (updateResult === [] || updateResult[0] == 0) {
         return res.status(400).send(wrapResponse(false, {error: 'No customer updated'}));
     }
-    return res.status(200).send(wrapResponse(true, updateResult));
+    return res.status(204).send();
 }
