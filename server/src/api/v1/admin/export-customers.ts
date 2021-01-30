@@ -3,9 +3,17 @@ import {convertObjectArrayToCsv} from '../../../functions/convert-object-array-t
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {Customer} from '../../../models/customer.models';
 
-export async function exportCustomers(req: Request, res: Response): Promise<Response>  {
+/**
+ * Create a CSV export for all Customer data (of active customers)
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
+export async function exportCustomers(req: Request, res: Response): Promise<Response> {
     let success = true;
-    const users: Customer[] = await Customer.findAll(
+    // Select all active Customers
+    const customers: Customer[] = await Customer.findAll(
         {
             where: {
                 is_active: true
@@ -19,13 +27,17 @@ export async function exportCustomers(req: Request, res: Response): Promise<Resp
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
-    if (users === []) {
-        return res.status(404).send(wrapResponse(false, {error: 'No user found'}));
+    // No customer was found! Return error message
+    if (customers === []) {
+        return res.status(404).send(wrapResponse(false, {error: 'No customer found'}));
     }
 
-    const csvData = convertObjectArrayToCsv(users);
+    // Customer data was found. Create CSV from array of objects
+    const csvData = convertObjectArrayToCsv(customers);
     const date = new Date().toISOString();
+    // Add attachment header to response
     res.set({'Content-Disposition': `attachment; filename="${date}_Customers.csv"`});
 
+    // Send response
     return res.send(csvData);
 }

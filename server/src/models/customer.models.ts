@@ -22,6 +22,7 @@ export class Customer extends Model<Customer> {
     @Column
     is_active: boolean;
 
+    //required fields for creations and updates
     public static requiredFields(): Array<keyof InternalCustomer> {
         return [
             'firstName',

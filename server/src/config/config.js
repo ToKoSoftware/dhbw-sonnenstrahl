@@ -1,3 +1,7 @@
+/**
+ * Load environment configurations
+ * @type {{development: {password: *, database: *, dialect: string, port: *, seederStorage: string, host: *, username: *}, test: {password: *, database: *, dialect: string, port: *, host: *, username: *}, production: {password: *, database: *, dialect: string, port: *, host: *, username: *}}}
+ */
 module.exports = {
     development: {
         username: process.env.DATABASE_USER,

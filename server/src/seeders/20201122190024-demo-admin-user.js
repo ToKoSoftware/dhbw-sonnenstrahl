@@ -1,7 +1,9 @@
 'use strict';
 const v4 = require('uuid').v4;
-const bcrypt =  require('bcryptjs');
-const timeFunc = require ('../functions/random-time.func');
+const bcrypt = require('bcryptjs');
+const timeFunc = require('../functions/random-time.func');
+
+//Initial insert of an admin user into database
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
@@ -11,7 +13,7 @@ module.exports = {
         return queryInterface.bulkInsert('Users', [{
             id: v4(),
             email: 'sabrina.wassertal@sonnenstrahl-energie.com',
-            password:  hashedPassword,
+            password: hashedPassword,
             is_admin: true,
             createdAt: date,
             updatedAt: date

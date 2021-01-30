@@ -4,6 +4,9 @@ import {Vars} from '../vars';
 import {FindOptions} from 'sequelize';
 import {Includeable} from 'sequelize/types/lib/model';
 
+/**
+ * logic for building query out of configurations comming from URL, etc.
+ */
 
 export function buildQuery(config: QueryBuilderConfig, req: Request): QueryBuilderData {
     if (config.allowLimitAndOffset) {

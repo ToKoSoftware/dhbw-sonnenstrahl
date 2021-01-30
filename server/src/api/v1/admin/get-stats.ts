@@ -6,6 +6,13 @@ import {Order} from '../../../models/order.model';
 import {Plan} from '../../../models/plan.model';
 import {User} from '../../../models/user.model';
 
+/**
+ * Get general admin stats about users, plans, customers and orders
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function getStats(req: Request, res: Response): Promise<Response> {
     const usersCount = await countTotalEntities(User);
 
@@ -35,8 +42,16 @@ export async function getStats(req: Request, res: Response): Promise<Response> {
     return res.send(wrapResponse(true, data));
 }
 
+/**
+ * Counts all rows of a given entities with given is_active param 
+ * 
+ * @param {statEntityTypes} model
+ * @param {boolean} is_active
+ * @returns {Promise<number>}
+ */
 async function countTotalEntities(model: statEntityTypes, is_active = true): Promise<number> {
     let count;
+    // User model has no attribute is_active
     if (model !== User) {
         count = await model.count(
             {

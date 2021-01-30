@@ -12,6 +12,7 @@ export class User extends Model<User> {
     @Column
     is_admin: boolean;
 
+    //required fields for creations and updates
     public static requiredFields(): Array<keyof InternalUser> {
         return [
             'email',

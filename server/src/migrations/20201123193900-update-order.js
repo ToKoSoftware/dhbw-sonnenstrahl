@@ -1,4 +1,7 @@
 'use strict';
+
+//Update tables Orders, Users and Customers
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable('Orders');

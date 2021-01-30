@@ -4,11 +4,19 @@ import {FindOptions} from 'sequelize';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {buildQuery, customFilterValueResolver, QueryBuilderConfig} from '../../../functions/query-builder.func';
 
+/**
+ * Returns all plans
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function getPlans(req: Request, res: Response): Promise<Response> {
+    let success = true;
+    // Build query with own QueryBuilder
     let query: FindOptions = {
         raw: true,
     };
-    // todo move this to the model
     const allowedSearchFields = ['plan', 'postcode'];
     const allowedOrderFields = ['postcode', 'plan', 'cost_var', 'cost_fix'];
     const allowedFilterFields = ['id', 'postcode', 'plan', 'is_active'];
@@ -18,7 +26,6 @@ export async function getPlans(req: Request, res: Response): Promise<Response> {
         if (req.query.is_active == null) {
             return true;
         } else {
-            // todo check if user is admin -> if not, return true
             return req.query.is_active === 'all' ? '' : (req.query.is_active === 'true');
         }
     });
@@ -32,12 +39,27 @@ export async function getPlans(req: Request, res: Response): Promise<Response> {
         allowedOrderFields: allowedOrderFields
     };
     query = buildQuery(queryConfig, req);
-    const data: Plan[] = await Plan.findAll(query);
+    const data: Plan[] = await Plan.findAll(query).catch(() => {
+        success = false;
+        return [];
+    });
+
+    if (!success) {
+        return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
+    }
     return res.send(wrapResponse(true, data));
 }
 
+/**
+ * Returns a single plan with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function getPlan(req: Request, res: Response): Promise<Response> {
     let success = true;
+    // Find plan with given id
     const data = await Plan.findOne(
         {
             where: {

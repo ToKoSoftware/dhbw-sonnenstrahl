@@ -1,16 +1,25 @@
 import {Request, Response} from 'express';
 import {objectHasRequiredAndNotEmptyKeys} from '../../../functions/check-inputs.func';
-import { mapCustomer } from '../../../functions/map-customer.func';
+import {mapCustomer} from '../../../functions/map-customer.func';
 import {wrapResponse} from '../../../functions/response-wrapper';
 import {InternalCustomer} from '../../../interfaces/customers.interface';
 import {Customer} from '../../../models/customer.models';
-import { User } from '../../../models/user.model';
+import {User} from '../../../models/user.model';
 
+/**
+ * Creates a customer
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function createCustomer(req: Request, res: Response): Promise<Response> {
     let success = true;
     const incomingData: InternalCustomer = req.body;
+    // Mapping of incomming format/data on internal format/data
     const mappedIncomingData: InternalCustomer = mapCustomer(incomingData);
 
+    // Check if all required fields for this model are set
     const requiredFields = Customer.requiredFields();
     if (!objectHasRequiredAndNotEmptyKeys(incomingData, requiredFields)) {
         return res.status(400).send(wrapResponse(false, {
@@ -18,7 +27,8 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
         }));
     }
 
-    if(mappedIncomingData.userId !== null){
+    // If the new customer should belong to a existing user, check if the user exists
+    if (mappedIncomingData.userId !== null) {
         const user = await User.findOne(
             {
                 where: {
@@ -38,6 +48,7 @@ export async function createCustomer(req: Request, res: Response): Promise<Respo
         }
     }
 
+    // Create customer from given mapped data
     const data = await Customer.create(mappedIncomingData)
         .catch(() => {
             success = false;

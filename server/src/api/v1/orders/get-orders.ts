@@ -7,8 +7,16 @@ import {Customer} from '../../../models/customer.models';
 import {currentUserIsAdminOrMatchesId} from '../../../functions/current-user-is-admin-or-matches-id.func';
 import {Vars} from '../../../vars';
 
+/**
+ * Returns a single order with given id from request
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function getOrder(req: Request, res: Response): Promise<Response> {
     let success = true;
+    // Find order with given id
     const orderData: Order | null = await Order.findOne(
         {
             where: {
@@ -27,6 +35,7 @@ export async function getOrder(req: Request, res: Response): Promise<Response> {
         return res.status(404).send(wrapResponse(false));
     }
 
+    // Find the customer belonging to this order to have the userId
     const customerData = await Customer.findOne(
         {
             where: {
@@ -41,6 +50,8 @@ export async function getOrder(req: Request, res: Response): Promise<Response> {
     if (!success) {
         return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
     }
+
+    // Authorisation check
     if (customerData !== null) {
         if (customerData.userId !== undefined) {
             if (!currentUserIsAdminOrMatchesId(customerData.userId)) {
@@ -54,8 +65,18 @@ export async function getOrder(req: Request, res: Response): Promise<Response> {
     return res.send(wrapResponse(true, orderData));
 }
 
+/**
+ * Returns all orders
+ *  - for admin: every order
+ *  - for non-admin: every order belonging to the user (with matching userId)
+ * 
+ * @param {Request} req
+ * @param {Reponse} res
+ * @returns {Promise<Response>}
+ */
 export async function getOrders(req: Request, res: Response): Promise<Response> {
     let success = true;
+    // Build query with own QueryBuilder
     let query: FindOptions = {
         raw: true,
     };
@@ -67,6 +88,7 @@ export async function getOrders(req: Request, res: Response): Promise<Response> 
         return true;
     });
     if (!Vars.currentUser.is_admin) {
+        // Find customers from current logged in user
         const result: Customer[] = await Customer.findAll(
             {
                 attributes: ['id'],
@@ -83,6 +105,7 @@ export async function getOrders(req: Request, res: Response): Promise<Response> 
             return res.status(500).send(wrapResponse(false, {error: 'Database error'}));
         }
         const customerIds = result.map(el => el.id);
+        // Add customerIds to query
         customResolver.set('customerId', (field: string, req: Request, value: string) => {
             return customerIds;
         });
@@ -98,6 +121,7 @@ export async function getOrders(req: Request, res: Response): Promise<Response> 
     };
     query = buildQuery(queryConfig, req);
 
+    // Find all oders with built query
     const orderdata = await Order.findAll(query)
         .catch(() => {
             success = false;

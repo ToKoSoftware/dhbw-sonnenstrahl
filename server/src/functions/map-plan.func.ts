@@ -1,5 +1,10 @@
-import {InternalPlan, FileUploadPlan} from '../interfaces/plan.interface';
+import {FileUploadPlan, InternalPlan} from '../interfaces/plan.interface';
 
+/**
+ * Map incoming plan data into internal format
+ * @param {FileUploadPlan} incomingPlan
+ * @returns {InternalPlan}
+ */
 export function mapPlan(incomingPlan: FileUploadPlan): InternalPlan {
     return {
         plan: incomingPlan.Tarifname,
