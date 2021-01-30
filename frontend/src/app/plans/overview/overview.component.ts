@@ -66,12 +66,14 @@ export class OverviewComponent implements OnInit, OnDestroy {
   /**
    * Sort plans by estimated costs
    */
-  public reorder() {
-    let items = this.results.map((res: PlanDataWithCost) => {
-      res.costs = Math.floor(res.cost_var / 10000 * this.currentEstimatedUsage) + (res.cost_fix / 10000).toString();
+  public reorder(): void {
+    const items = this.results.map((res: PlanDataWithCost) => {
+      res.costs = (res.cost_var * this.currentEstimatedUsage) + res.cost_fix;
       return res;
     });
-    items.sort((a, b) => { return a.costs < b.costs? -1 : 1; });
+    items.sort((a, b) => {
+      return a.costs < b.costs ? -1 : 1;
+    });
     this.results = items;
   }
 
@@ -82,4 +84,4 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
 }
 
-export type PlanDataWithCost = PlanData & { costs: string }
+export type PlanDataWithCost = PlanData & { costs: number };

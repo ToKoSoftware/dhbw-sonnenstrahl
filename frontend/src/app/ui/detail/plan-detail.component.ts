@@ -12,18 +12,7 @@ export class PlanDetailComponent {
   constructor() {
   }
 
-  /**
-   * Calculates estimated costs from variable and fix costs
-   * @param {number} costVar 
-   * @param {number} costFix 
-   * @returns {string}
-   */
-  public calculateCostExample(costVar: number, costFix: number): string {
-    const cost = (costVar * this.estimatedUsage) + costFix;
-    return PlanDetailComponent.convertToRealValue(cost);
-  }
-
-  private static convertToRealValue(number: number): string {
+  public static convertToRealValue(number: number): string {
     // 5156200 -> 515.62
     // remove 00 at the end -> 51562
     let converted = number.toString().slice(0, -2);
@@ -33,6 +22,17 @@ export class PlanDetailComponent {
     converted = converted.slice(0, -2);
     // return 515,62
     return converted + decimal;
+  }
+
+  /**
+   * Calculates estimated costs from variable and fix costs
+   * @param {number} costVar
+   * @param {number} costFix
+   * @returns {string}
+   */
+  public calculateCostExample(costVar: number, costFix: number): string {
+    const cost = (costVar * this.estimatedUsage) + costFix;
+    return PlanDetailComponent.convertToRealValue(cost);
   }
 
   /**

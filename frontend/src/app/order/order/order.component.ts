@@ -63,7 +63,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       }).subscribe(d => this.customersOfCurrentUserCount = d.data.length);
     });
     this.customerSubscription = this.orderService.selectedCustomer$.subscribe(customer => {
-      if (this.currentStep != 1) {
+      if (this.currentStep !== 1) {
         if (customer !== null) {
           this.currentStep++;
         }
@@ -142,7 +142,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Execute order via POST reqest on api
+   * Execute order via POST request on api
    */
   public order(): void {
     const planId = this.plan.id;
