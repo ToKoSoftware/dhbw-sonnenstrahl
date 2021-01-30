@@ -1,7 +1,7 @@
 <nav class="flex-shrink-0 bg-yellow-300 fixed top-0 left-0 right-0 z-40">
   <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
-      <div class="flex items-center px-2 lg:px-0 xl:w-64">
+      <div class="flex items-center px-2 lg:px-0 xl:w-1/4">
         <div class="flex-shrink-0">
           <a routerLink="/">
             <img class="h-8 w-auto" src="/assets/logo.svg">
@@ -24,23 +24,23 @@
           </div>
         </div>
       </div>
-      <div class="flex">
-        <a routerLink="/profile" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
+      <div class="flex md:w-1/4 justify-end">
+        <a title="Mein Profil" routerLink="/profile" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
            *ngIf="login.isLoggedIn$ | async"
            [routerLinkActive]="'text-white'">
           <feather-icon name="user"></feather-icon>
         </a>
-        <a routerLink="/admin" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
+        <a title="Administration" routerLink="/admin" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
            *ngIf="(login.isLoggedIn$ | async) && (login.isAdmin$ | async)"
            [routerLinkActive]="'text-white'">
             <feather-icon name="bar-chart-2"></feather-icon>
         </a>
-        <a routerLink="/login/logout" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
+        <a  title="Logout" routerLink="/login/logout" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
            *ngIf="login.isLoggedIn$ | async"
            [routerLinkActive]="'text-white'">
           <feather-icon name="log-out"></feather-icon>
         </a>
-        <a routerLink="/login" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
+        <a title="Login" routerLink="/login" class="px-3 pt-2 hover:text-white cursor-pointer transition duration-150 ease-in-out"
            *ngIf="!(login.isLoggedIn$ | async)"
            [routerLinkActive]="'text-white'">
           <feather-icon name="log-in"></feather-icon>

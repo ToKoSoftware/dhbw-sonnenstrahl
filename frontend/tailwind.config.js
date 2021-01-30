@@ -4,7 +4,7 @@ module.exports = {
     require('@tailwindcss/ui'),
   ],
   purge: {
-    enabled: false,
+    enabled: true,
     content: ['./src/**/*.html', './src/**/*.ts'],
   },
   // ...

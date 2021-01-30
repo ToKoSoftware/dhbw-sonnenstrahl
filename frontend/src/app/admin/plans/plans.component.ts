@@ -57,6 +57,10 @@ export class PlansComponent implements OnInit {
     this.loadData();
   }
 
+  /**
+   * Show a delete modal
+   * @param plan the plan that should be deleted
+   */
   public async showDeleteModalForPlan(plan: PlanData): Promise<void> {
     const confirmed = await this.confirmService.confirm({
       title: `Sicher, dass Sie den Tarif "${plan.plan} (${plan.postcode})" entfernen möchten?`,
@@ -83,8 +87,12 @@ export class PlansComponent implements OnInit {
     }
   }
 
+  /**
+   * Apply a filter
+   * @param filterValue
+   */
   public applyFilter(filterValue: FilterValue[]): void {
-    let f: { [k: string]: string | number } = {
+    const f: { [k: string]: string | number } = {
       order: '-postcode',
       is_active: 'true',
     };
@@ -96,8 +104,12 @@ export class PlansComponent implements OnInit {
     this.loadData(f);
   }
 
+  /**
+   * Show an modal
+   * @param plan the plan that should be added
+   */
   public showEditModalForPlan(plan: PlanData): void {
-    this.currentEditPlan = {...plan};
+    this.currentEditPlan = {...plan}; // copy the arrays data
     this.modalService.showModal(`"${plan.plan} (${plan.postcode})" bearbeiten`, this.editModal);
   }
 
@@ -105,6 +117,9 @@ export class PlansComponent implements OnInit {
     this.modalService.close();
   }
 
+  /**
+   * Save the current plan
+   */
   public saveEditedPlan(): void {
     this.modalService.close();
     this.loadingService.showLoading();
@@ -130,6 +145,9 @@ export class PlansComponent implements OnInit {
     );
   }
 
+  /**
+   * Get data from server
+   */
   public loadData(filter: { [k: string]: string | number } = {
     order: '-postcode',
     is_active: 'true',

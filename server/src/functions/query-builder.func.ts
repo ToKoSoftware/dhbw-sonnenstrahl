@@ -2,12 +2,13 @@ import {Request} from 'express';
 import isBlank from 'is-blank';
 import {Vars} from '../vars';
 import {FindOptions} from 'sequelize';
-import {Includeable} from 'sequelize/types/lib/model';
 
 /**
- * logic for building query out of configurations comming from URL, etc.
+ * Given an request and builder configuration, this the query builder will generate a sequelize query using get parameters
+ * Currently supported are: Filters, Limit, Offset, (Like-) Search, Order
+ * @param {QueryBuilderConfig} config
+ * @param {Request} req
  */
-
 export function buildQuery(config: QueryBuilderConfig, req: Request): QueryBuilderData {
     if (config.allowLimitAndOffset) {
         config.query = buildLimitAndOffset(config.query, req);
@@ -24,6 +25,11 @@ export function buildQuery(config: QueryBuilderConfig, req: Request): QueryBuild
     return config.query;
 }
 
+/**
+ * Build Limit and Offset limitations
+ * @param {QueryBuilderData} query
+ * @param {Request} req
+ */
 export function buildLimitAndOffset(query: QueryBuilderData, req: Request): QueryBuilderData {
     if (req.query.limit && !isBlank(req.query.limit)) {
         if (req.query.offset && !isBlank(req.query.offset)) {
@@ -45,6 +51,12 @@ export function buildLimitAndOffset(query: QueryBuilderData, req: Request): Quer
     return query;
 }
 
+/**
+ * Build sorting query
+ * @param {QueryBuilderData} query
+ * @param {Request} req
+ * @param {string[]} allowedOrders
+ */
 export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders: string[] = []): QueryBuilderData {
     if (req.query.order && !isBlank(req.query.order) || req.query.sort && !isBlank(req.query.sort)) {
         let o = req.query.order as string || req.query.sort as string;
@@ -65,6 +77,12 @@ export function buildOrder(query: QueryBuilderData, req: Request, allowedOrders:
     return query;
 }
 
+/**
+ * Allow multiple fields to be searched with Like
+ * @param query
+ * @param needle
+ * @param allowedFields
+ */
 export function buildOrLikeSearchQuery(query: QueryBuilderData, needle: string, allowedFields: string[] = []): QueryBuilderData {
     const search = {
         [Vars.op.or]: allowedFields.map(
@@ -81,6 +99,13 @@ export function buildOrLikeSearchQuery(query: QueryBuilderData, needle: string, 
     return query;
 }
 
+/**
+ * Allow elements to be filtered by exact field values
+ * @param {QueryBuilderData} query
+ * @param {Request} req
+ * @param {string[]} allowedFields
+ * @param {customFilterResolverMap | undefined} customResolver
+ */
 export function buildFilter(query: QueryBuilderData, req: Request, allowedFields: string[] = [], customResolver: customFilterResolverMap | undefined): QueryBuilderData {
     const filter: { [name: string]: string } = {};
     allowedFields.forEach(field => {
@@ -104,6 +129,12 @@ export function buildFilter(query: QueryBuilderData, req: Request, allowedFields
     return query;
 }
 
+/**
+ * Given an existing query this function will merge fields or append values to the query
+ * @param {QueryBuilderData} query
+ * @param {object} newQuery
+ * @param {string} fieldName
+ */
 function mergeQueryBuilderField(query: QueryBuilderData, newQuery: { [s: string]: unknown }, fieldName: keyof QueryBuilderData = 'where'): QueryBuilderData {
     if (Object.prototype.hasOwnProperty.call(query, fieldName)) {
         query[fieldName] = {
@@ -115,11 +146,6 @@ function mergeQueryBuilderField(query: QueryBuilderData, newQuery: { [s: string]
         query[fieldName] = newQuery;
     }
     return query;
-}
-
-export function addRelations(query: QueryBuilderData, models: Includeable): QueryBuilderData {
-    const include = {include: models};
-    return mergeQueryBuilderField(query, include);
 }
 
 export interface QueryBuilderData extends FindOptions {

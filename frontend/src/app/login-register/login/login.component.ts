@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ApiService} from '../../services/api/api.service';
 import {LoadingModalService} from '../../services/loading-modal/loading-modal.service';
 import {LoginService} from '../../services/login/login.service';
@@ -6,10 +6,9 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public email: string;
   public password: string;
   public error: boolean;
@@ -21,9 +20,9 @@ export class LoginComponent implements OnInit {
     private api: ApiService) {
   }
 
-  ngOnInit(): void {
-  }
-
+  /**
+   * Send user login data to server
+   */
   public login(): void {
     this.error = false;
     this.loading.showLoading();

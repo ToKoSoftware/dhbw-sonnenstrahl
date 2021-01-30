@@ -8,8 +8,7 @@ import {LoadingModalService} from '../../services/loading-modal/loading-modal.se
 
 @Component({
   selector: 'app-credentials',
-  templateUrl: './my-credentials.component.html',
-  styleUrls: ['./my-credentials.component.scss']
+  templateUrl: './my-credentials.component.html'
 })
 export class MyCredentialsComponent implements OnInit {
   public profilePages = myProfilePages;
@@ -47,6 +46,9 @@ export class MyCredentialsComponent implements OnInit {
     );
   }
 
+  /**
+   * Change password
+   */
   public updateUserPassword(): void {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';
@@ -64,6 +66,9 @@ export class MyCredentialsComponent implements OnInit {
     );
   }
 
+  /**
+   * Change email and update jwt
+   */
   public updateEmail(): void {
     this.loading = true;
     const id = this.login.decodedJwt$.value?.id || '';

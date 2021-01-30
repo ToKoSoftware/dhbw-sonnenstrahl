@@ -1,5 +1,12 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivateChild, Router} from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  Router,
+  RouterStateSnapshot,
+  UrlTree
+} from '@angular/router';
 import {Observable} from 'rxjs';
 import {LoginService} from '../services/login/login.service';
 
@@ -12,12 +19,18 @@ export class IsAdminGuard implements CanActivate, CanActivateChild {
               private readonly router: Router) {
   }
 
+  /**
+   * Prevent non admin users from opening admin pages
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.login.isAdmin$.getValue() ? this.login.isAdmin$.getValue() : this.get404Tree();
   }
 
+  /**
+   * Prevent non admin users from opening admin pages
+   */
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

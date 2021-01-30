@@ -6,8 +6,7 @@ import {UserData} from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-related-customers',
-  templateUrl: './related-customers.component.html',
-  styleUrls: ['./related-customers.component.scss']
+  templateUrl: './related-customers.component.html'
 })
 export class RelatedCustomersComponent implements OnInit {
   @Input() user: UserData;

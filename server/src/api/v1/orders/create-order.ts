@@ -177,7 +177,7 @@ export async function createExternalOrder(req: Request, res: Response): Promise<
     // Calculate estimated costs from belonging plan with given consumption to add it to response
     const calculatedCosts = Math.round((plan.cost_var / 10000 * incomingData.consumption + plan.cost_fix / 10000 + Number.EPSILON) * 100) / 100;
 
-    return res.status(201).send(wrapResponse(true, {costs: calculatedCosts + '€'}));
+    return res.status(201).send(wrapResponse(true, {order: data, calculatedPricePerYear: calculatedCosts}));
 }
 
 /**

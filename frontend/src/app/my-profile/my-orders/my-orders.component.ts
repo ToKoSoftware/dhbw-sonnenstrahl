@@ -8,8 +8,7 @@ import {CustomerData} from '../../interfaces/customer.interface';
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './my-orders.component.html',
-  styleUrls: ['./my-orders.component.scss']
+  templateUrl: './my-orders.component.html'
 })
 export class MyOrdersComponent implements OnInit {
   public profilePages = myProfilePages;
@@ -27,6 +26,10 @@ export class MyOrdersComponent implements OnInit {
     this.loadOrders();
   }
 
+  /**
+   * Load data from server
+   * @private
+   */
   private loadOrders(): void {
     this.loading = true;
 

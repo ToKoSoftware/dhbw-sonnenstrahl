@@ -12,18 +12,25 @@ export class IsLoggedInGuard implements CanActivateChild, CanActivate {
               private readonly router: Router) {
   }
 
+  /**
+   * Check if user is signed in
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.login.isLoggedIn$.value ? this.login.isLoggedIn$.value : this.getLoginUrlTree();
   }
 
+  /**
+   * Check if user is signed in
+   */
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.canActivate(route, state);
   }
 
+  // get login page
   protected getLoginUrlTree(): UrlTree {
     return this.router.parseUrl('login');
   }

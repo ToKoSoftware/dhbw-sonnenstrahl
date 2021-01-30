@@ -30,6 +30,9 @@ export class OrderRowComponent implements OnInit {
     private api: ApiService) {
   }
 
+  /**
+   * Load initial data
+   */
   ngOnInit(): void {
     this.api.get<CustomerData>(`/customers/${this.order.customerId}`).subscribe(
       (data) => {
@@ -46,6 +49,10 @@ export class OrderRowComponent implements OnInit {
   }
 
 
+  /**
+   * Show a delete modal for a single order
+   * @param {OrderData} order
+   */
   public async showDeleteModalForOrder(order: OrderData): Promise<void> {
     const confirmed = await this.confirmService.confirm({
       title: `Sicher, dass Sie diese Bestellung entfernen möchten?`,
@@ -71,16 +78,25 @@ export class OrderRowComponent implements OnInit {
     }
   }
 
+  /**
+   * Show a single customer's edit modal
+   * @param {OrderData} orderData
+   */
   public showEditModalForOrder(orderData: OrderData): void {
     this.currentEditOrder = {...orderData};
     this.modalService.showModal(`Bestellung bearbeiten`, this.editModal);
   }
 
+  /**
+   * Closes modal
+   */
   public closeEditModal(): void {
     this.modalService.close();
   }
 
-
+  /**
+   * Save changed data
+   */
   public saveEditedOrder(): void {
     this.modalService.close();
     this.loadingService.showLoading();

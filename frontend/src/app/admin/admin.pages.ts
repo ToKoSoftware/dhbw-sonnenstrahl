@@ -1,6 +1,7 @@
 import {SidebarPageGroup} from '../ui/sidebar/sidebar.component';
 import {UiBreadcrumb} from '../ui/ui.interface';
 
+// definition of admin sidebar
 export const adminPages: SidebarPageGroup[] = [
   {
     title: 'Systemverwaltung',
@@ -46,6 +47,7 @@ export const adminPages: SidebarPageGroup[] = [
   }
 ];
 
+// links for breadcrumb
 export const adminBreadcrumb: UiBreadcrumb[] = [
   {
     title: 'Home',

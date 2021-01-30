@@ -2,16 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {OrderData} from '../../../interfaces/order.interface';
 import {ConfirmModalService} from '../../../services/confirm-modal/confirm-modal.service';
 import {LoadingModalService} from '../../../services/loading-modal/loading-modal.service';
-import {ModalService} from '../../../services/modal/modal.service';
 import {ApiService} from '../../../services/api/api.service';
 import {PlanData} from '../../../interfaces/plan.interface';
 import {CustomerData} from '../../../interfaces/customer.interface';
-import {UserData} from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-order-detail',
-  templateUrl: './order-detail.component.html',
-  styleUrls: ['./order-detail.component.scss']
+  templateUrl: './order-detail.component.html'
 })
 export class OrderDetailComponent implements OnInit {
   @Input() order: OrderData;
@@ -23,14 +20,16 @@ export class OrderDetailComponent implements OnInit {
   constructor(
     private api: ApiService,
     private confirmService: ConfirmModalService,
-    private loadingService: LoadingModalService,
-    private modalService: ModalService) {
+    private loadingService: LoadingModalService) {
   }
 
   ngOnInit(): void {
     this.loadData();
   }
 
+  /**
+   * Terminate an order
+   */
   public async cancelOrder(): Promise<void> {
     const confirmed = await this.confirmService.confirm({
       title: `Sicher, dass Sie den diesen Tarif kündigen möchten?`,
@@ -57,7 +56,9 @@ export class OrderDetailComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Load data from server
+   **/
   private loadData(): void {
     this.loadingCustomer = true;
     this.loadingPlan = true;

@@ -8,8 +8,7 @@ import {UserData} from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-register-modal',
-  templateUrl: './register-modal.component.html',
-  styleUrls: ['./register-modal.component.scss']
+  templateUrl: './register-modal.component.html'
 })
 export class RegisterModalComponent implements OnInit {
 
@@ -34,6 +33,9 @@ export class RegisterModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Register user
+   */
   public register(): void {
     this.api.post<UserData>('/users',
       {
@@ -50,6 +52,9 @@ export class RegisterModalComponent implements OnInit {
     );
   }
 
+  /**
+   * Login user after successful registration
+   */
   private login(): void {
     this.loading = true;
     this.api.post<string>('/login', {
