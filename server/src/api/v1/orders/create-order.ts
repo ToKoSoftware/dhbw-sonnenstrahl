@@ -26,6 +26,10 @@ export async function createInternalOrder(req: Request, res: Response): Promise<
         return res.status(400).send(wrapResponse(false, {error: 'Not all required fields have been set'}));
     }
 
+    if (incomingData.consumption <= 0) {
+        return res.send(400).send(wrapResponse(false, { error: 'Please enter a positive consumption!' }));
+    }
+
     // Try to find Plan with given planId
     const plan: Plan | null = await Plan.findOne(
         {
