@@ -12,8 +12,8 @@ Home             |  Find Plans
 ![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot1.png)  |  ![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot2.png)
 My Orders             |  Edit Customers associated to own Profile
 ![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot3.png)  |  ![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot4.png)
-Change credentials             |  Admin - Edit Plans
-![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot5.png)  |  ![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot6.png)
+Change credentials             |  Admin - Overiew Page
+![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot5.png)  |  ![](https://raw.githubusercontent.com/ToKoSoftware/dhbw-sonnenstrahl/main/screenshots/Screenshot7.png)
 
 
 ## Installation - Docker
