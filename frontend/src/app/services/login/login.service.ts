@@ -27,7 +27,7 @@ export class LoginService {
   }
 
   /**
-   * Remove JWT from loacl storage and reload JWT
+   * Remove JWT from local storage and reload JWT
    */
   public logout(): void {
     localStorage.removeItem('jwt');
