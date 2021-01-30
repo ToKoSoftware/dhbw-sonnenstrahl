@@ -59,7 +59,7 @@ export class PlansComponent implements OnInit {
 
   /**
    * Show a delete modal
-   * @param plan the plan that should be delted
+   * @param plan the plan that should be deleted
    */
   public async showDeleteModalForPlan(plan: PlanData): Promise<void> {
     const confirmed = await this.confirmService.confirm({

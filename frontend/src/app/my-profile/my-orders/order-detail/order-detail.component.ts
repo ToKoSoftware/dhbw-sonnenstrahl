@@ -28,7 +28,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   /**
-   * Terminate a order
+   * Terminate an order
    */
   public async cancelOrder(): Promise<void> {
     const confirmed = await this.confirmService.confirm({
