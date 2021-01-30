@@ -23,7 +23,7 @@ export class RegisterComponent {
   }
 
   /**
-   * Create a user and generate a jwt with the same credentials
+   * Create an user and generate a jwt with the same credentials
    */
   public createUser(): void {
     this.api.post<UserData>('/users',
