@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {UiButtonGroup, UiButtonType} from '../ui.interface';
 import {EstimatedUsageService} from '../../services/estimated-usage/estimated-usage.service';
 
@@ -24,9 +24,24 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
   }
 
   /**
+   * Update estimated consumption and people
+   */
+  public updateUsageCount(): void {
+    // don't let the user enter negative values
+    if (this.currentEstimatedUsage < 0 || isNaN(this.currentEstimatedUsage)) {
+      this.currentEstimatedUsage = 1600;
+    } else if (this.currentEstimatedUsage > 20160) {
+      // don't let the user enter a value that causes an overflow
+      this.currentEstimatedUsage = 20160;
+    }
+    this.estimatedUsageService.estimatedUsage$.next(this.currentEstimatedUsage);
+    this.estimatedUsageService.estimatedPeople$.next(this.currentEstimatedCount);
+  }
+
+  /**
    * Reload buttons and shown data
    */
-  private reloadButtons() {
+  private reloadButtons(): void {
     this.plusMinusButtons = {
       buttons: [
         {
@@ -51,16 +66,8 @@ export class UsagePeopleCounterComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Update estimated consumption and people
-   */
-  public updateUsageCount(): void {
-    this.estimatedUsageService.estimatedUsage$.next(this.currentEstimatedUsage);
-    this.estimatedUsageService.estimatedPeople$.next(this.currentEstimatedCount);
-  }
-
-  /**
    * Calculate consumption from new people count
-   * 
+   *
    * @param {number} count
    */
   private changeEstimatedUsagePersonCount(count: number): void {
