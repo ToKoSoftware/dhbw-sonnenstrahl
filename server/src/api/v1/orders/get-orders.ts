@@ -81,7 +81,7 @@ export async function getOrders(req: Request, res: Response): Promise<Response> 
         raw: true,
     };
     const allowedSearchFields = ['referrer'];
-    const allowedFilterFields = ['customerId', 'planId', 'referrer', 'consumption'];
+    const allowedFilterFields = ['customerId', 'planId', 'referrer', 'consumption', 'is_active'];
     const allowedOrderFields = ['customerId', 'planId', 'referrer', 'consumption', 'createdAt', 'terminatedAt'];
     const customResolver = new Map<string, customFilterValueResolver>();
     customResolver.set('is_active', (field: string, req: Request, value: string) => {
