@@ -1,4 +1,4 @@
-import {Configuration, DatabaseCredentials} from '../interfaces/configutation.interface';
+import {Configuration, DatabaseCredentials} from '../interfaces/configuration.interface';
 import {Vars} from '../vars';
 import isBlank from 'is-blank';
 
